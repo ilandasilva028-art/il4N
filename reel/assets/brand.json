@@ -1,0 +1,160 @@
+{
+ "url": "https://il4nstudio.netlify.app",
+ "title": "il4n Studio — Graphiste à Sarrians, Vaucluse",
+ "description": "il4n Studio, graphiste à Sarrians (Vaucluse) : flyers, menus, cartes de visite, visuels pour les réseaux sociaux et identités graphiques sur mesure. Tarifs affichés, devis gratuit.",
+ "themeColor": [
+  "#111018"
+ ],
+ "text_colors": [
+  [
+   "#17131d",
+   161
+  ],
+  [
+   "#6d6870",
+   54
+  ],
+  [
+   "#2a2020",
+   24
+  ],
+  [
+   "#9a663e",
+   16
+  ],
+  [
+   "#fffdf8",
+   12
+  ],
+  [
+   "#d6a96a",
+   10
+  ],
+  [
+   "#111018",
+   9
+  ],
+  [
+   "#674acc",
+   9
+  ],
+  [
+   "#4a4450",
+   8
+  ],
+  [
+   "#3f8a62",
+   8
+  ]
+ ],
+ "background_colors": [
+  [
+   "#fffdf8",
+   213
+  ],
+  [
+   "#111018",
+   47
+  ],
+  [
+   "#1b1825",
+   20
+  ],
+  [
+   "#5e49c8",
+   16
+  ],
+  [
+   "#fbf9f4",
+   14
+  ],
+  [
+   "#f4f0e8",
+   12
+  ],
+  [
+   "#e2a263",
+   12
+  ],
+  [
+   "#d6a96a",
+   12
+  ],
+  [
+   "#fbf3e7",
+   10
+  ],
+  [
+   "#222d40",
+   9
+  ]
+ ],
+ "font_families": [
+  [
+   "Inter",
+   357
+  ],
+  [
+   "Georgia",
+   12
+  ]
+ ],
+ "font_weights": [
+  [
+   "Inter 400",
+   105
+  ],
+  [
+   "Inter 700",
+   94
+  ],
+  [
+   "Inter 850",
+   63
+  ],
+  [
+   "Inter 800",
+   52
+  ],
+  [
+   "Inter 900",
+   17
+  ],
+  [
+   "Georgia 400",
+   12
+  ],
+  [
+   "Inter 600",
+   10
+  ],
+  [
+   "Inter 500",
+   6
+  ],
+  [
+   "Inter 650",
+   5
+  ],
+  [
+   "Inter 950",
+   4
+  ],
+  [
+   "Inter 750",
+   1
+  ]
+ ],
+ "css_vars": {
+  "--ink": "#17131d",
+  "--night": "#111018",
+  "--paper": "#f4f0e8",
+  "--white": "#fffdf8",
+  "--line": "#d9d2c7",
+  "--muted": "#6d6870",
+  "--accent": "#d6a96a",
+  "--violet": "#7a5fe9",
+  "--radius": "18px"
+ },
+ "wordmark": null
+}
