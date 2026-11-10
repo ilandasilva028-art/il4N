@@ -14,8 +14,8 @@ const HITS = [
   [0, 'Votre', 'impact'],
   [0.5, 'site', 'pop', { pitch: 'A5' }],
   [1, 'web', 'pop', { pitch: 'C6' }],
-  [2.55, 'de A', 'boing', { pitch: 'E5', to: 'A5' }],
-  [3.3, 'à Z', 'boing', { pitch: 'A5', to: 'E6' }],
+  [2.15, 'de A', 'boing', { pitch: 'E5', to: 'A5' }],
+  [3.45, 'à Z', 'boing', { pitch: 'A5', to: 'E6' }],
   [4.45, 'whip vers le téléphone', 'whoosh', { len: 0.45, from: 500, to: 2600 }],
   [5, 'téléphone posé', 'thud'],
   [6.5, 'défilement', 'riser', { len: 0.8 }],
@@ -170,7 +170,7 @@ function sHook(ctx, u) {
   const base2 = 1010;
   L2.glyphs.forEach((gl, j) => {
     const big = gl.ch === 'A' || gl.ch === 'Z';
-    const start = j < 4 ? 2.55 + j * 0.04 : 3.3 + (j - 5) * 0.04;
+    const start = j < 4 ? 1.75 + j * 0.13 : 3.0 + (j - 5) * 0.15;
     const k = springU(u, start, big ? SPRING.wobbly : SPRING.bouncy);
     if (k <= 0.001) return;
     const sq = big ? 0.12 * wobble(u - start - 0.35, 2.4, 4) : 0;
