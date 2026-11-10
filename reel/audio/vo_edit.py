@@ -14,15 +14,16 @@ dur = json.load(open(f"{FILM}/film.json"))["duration"]
 
 # (prise, beat où la parole démarre)
 PLAN = json.loads(sys.argv[1]) if len(sys.argv) > 1 else [
-    ["p1_t1", 0.1], ["p2_t1", 8.5], ["p3_t1", 12.4], ["p4_t1", 20.5],
-    ["p5_t1", 22.9], ["p6_t1", 24.4], ["p7_t1", 28.6],
+    ["p1_t1", 0.0, 2.05], ["p2_t1", 8.5, 0.95], ["p3_t1", 12.5, 0.85], ["p4_t1", 20.5, 1.05],
+    ["p5_t1", 23.0, 2.05], ["p6_t1", 27.4, 1.15], ["p7_t1", 29.8, 1.35],
 ]
 
 def load(name):
     raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", f"{TAKES}/{name}.wav", "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout
     return np.frombuffer(raw, np.float32).copy()
 
-def trim(x, thr_db=-38):
+def trim(x, maxlen, thr_db=-38):
+    x = x[: int(maxlen * SR)]
     win = int(0.01 * SR)
     env = np.sqrt(np.convolve(x ** 2, np.ones(win) / win, "same"))
     on = np.where(20 * np.log10(env + 1e-9) > thr_db)[0]
@@ -33,8 +34,8 @@ def trim(x, thr_db=-38):
 
 out = np.zeros(int(dur * SR) + SR, np.float32)
 prev_end = -1
-for name, beat in PLAN:
-    y = trim(load(name))
+for name, beat, maxlen in PLAN:
+    y = trim(load(name), maxlen)
     t0 = O + beat * P
     i = int(t0 * SR)
     end = t0 + len(y) / SR

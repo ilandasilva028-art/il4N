@@ -14,10 +14,10 @@ const HITS = [
   [0, 'Votre', 'impact'],
   [0.5, 'site', 'pop', { pitch: 'A5' }],
   [1, 'web', 'pop', { pitch: 'C6' }],
-  [2, 'de A', 'boing', { pitch: 'E5', to: 'A5' }],
-  [3, 'à Z', 'boing', { pitch: 'A5', to: 'E6' }],
-  [3.75, 'whip vers le téléphone', 'whoosh', { len: 0.45, from: 500, to: 2600 }],
-  [4.25, 'téléphone posé', 'thud'],
+  [2.55, 'de A', 'boing', { pitch: 'E5', to: 'A5' }],
+  [3.3, 'à Z', 'boing', { pitch: 'A5', to: 'E6' }],
+  [4.45, 'whip vers le téléphone', 'whoosh', { len: 0.45, from: 500, to: 2600 }],
+  [5, 'téléphone posé', 'thud'],
   [6.5, 'défilement', 'riser', { len: 0.8 }],
   [8, 'DROP : desktop', 'impact'],
   [8.75, 'puce A', 'blip', { pitch: 'A5' }],
@@ -40,8 +40,8 @@ const HITS = [
   [25.75, 'coche 2', 'tick'],
   [26.5, 'coche 3', 'tick'],
   [27.25, 'coche 4', 'tick'],
-  [28, 'carte de fin', 'impact'],
-  [28.5, 'logo', 'bell', { pitch: 'A5' }],
+  [29, 'carte de fin', 'impact'],
+  [29.5, 'logo', 'bell', { pitch: 'A5' }],
 ];
 
 // ---------------------------------------------------------------- helpers
@@ -170,7 +170,7 @@ function sHook(ctx, u) {
   const base2 = 1010;
   L2.glyphs.forEach((gl, j) => {
     const big = gl.ch === 'A' || gl.ch === 'Z';
-    const start = j < 4 ? 2 + j * 0.04 : 3 + (j - 5) * 0.04;
+    const start = j < 4 ? 2.55 + j * 0.04 : 3.3 + (j - 5) * 0.04;
     const k = springU(u, start, big ? SPRING.wobbly : SPRING.bouncy);
     if (k <= 0.001) return;
     const sq = big ? 0.12 * wobble(u - start - 0.35, 2.4, 4) : 0;
@@ -178,7 +178,7 @@ function sHook(ctx, u) {
   });
   // trait A -> Z sous la ligne, tracé en 1 beat
   const a = L2.glyphs.find((q) => q.ch === 'A'), z = L2.glyphs.find((q) => q.ch === 'Z');
-  const tp = E.inOutCubic(prog(u, 3.1, 3.7));
+  const tp = E.inOutCubic(prog(u, 3.5, 4.1));
   if (tp > 0 && a && z) {
     const x1 = X0 + a.cx, x2 = X0 + z.cx, yy = base2 + 54;
     ctx.save(); ctx.strokeStyle = C.gold; ctx.lineWidth = 6; ctx.lineCap = 'round';
@@ -197,20 +197,20 @@ function sPhone(ctx, u, IMG, rise) {
   fill(ctx, C.night);
   const x = (W - PH.w) / 2, y = 345 + (1 - rise) * 1500;
   // légende honnête au-dessus
-  const lk = springU(u, 4.5, SPRING.gentle);
+  const lk = springU(u, 5, SPRING.gentle);
   ctx.save(); ctx.globalAlpha = clamp(lk);
   ctx.fillStyle = C.gold; ctx.fillRect(X0, 280, 56, 3);
   text(ctx, 'EXEMPLE : MON PROPRE SITE', X0 + 76, 293, font(30, 700, D), C.gold, 'left', 5);
   ctx.restore();
   // un léger roulis à la pose
-  const q = 0.035 * wobble(u - 4.25, 2.2, 5);
+  const q = 0.035 * wobble(u - 5, 2.2, 5);
   ctx.save(); ctx.translate(W / 2, y + PH.h); ctx.scale(1 + q, 1 - q); ctx.translate(-W / 2, -(y + PH.h));
   phone(ctx, x, y, PH.w, PH.h, (c, sx, sy, sw, sh) => {
     const img = IMG.mscroll; if (!img) return;
     const sc = sw / img.width, visH = sh / sc;
     // lecture, puis défilement qui accélère jusqu'au drop
     const p = E.inCubic(prog(u, 5.6, 8));
-    const yy = Math.min(img.height - visH, p * 5600 + E.outCubic(prog(u, 4.6, 5.6)) * 260);
+    const yy = Math.min(img.height - visH, p * 5600 + E.outCubic(prog(u, 5, 5.8)) * 260);
     crop(c, img, [0, yy, img.width, visH], sx, sy, sw, sh);
   });
   ctx.restore();
@@ -303,7 +303,7 @@ function sOnline(ctx, u, IMG) {
   browser(ctx, R6.x, R6.y, R6.w, R6.h, url, chars, (c, x, y, w, h) => {
     if (u >= 22 && IMG.reals) {
       const sc = E.outCubic(prog(u, 22, 23.8));
-      cover(c, IMG.reals, x, y, w, h, { fx: 0.5, fy: 0.08 + sc * 0.1, zoom: 1.02 });
+      cover(c, IMG.reals, x, y, w, h, { fx: 0, fy: 0.08 + sc * 0.1, zoom: 1.02 });
     }
     if (u < 22) {                         // l'adresse tapée en grand pendant le chargement
       const shown = url.slice(0, chars), f = font(66, 900, D);
@@ -354,24 +354,24 @@ function sEnd(ctx, u) {
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   // logo « il4n. » comme sur le site (point doré)
   const f = font(230, 900, D);
-  const L = springLine(ctx, 'il4n', X0 - 8, 760, f, C.white, u, 28.1, { stagger: 0.06, drop: 140, track: -10 });
-  const kd = springU(u, 28.5, SPRING.wobbly);
+  const L = springLine(ctx, 'il4n', X0 - 8, 760, f, C.white, u, 29.1, { stagger: 0.06, drop: 140, track: -10 });
+  const kd = springU(u, 29.5, SPRING.wobbly);
   if (kd > 0) { ctx.beginPath(); ctx.arc(X0 - 8 + L.width + 34, 742, 22 * kd, 0, M.TAU); ctx.fillStyle = C.gold; ctx.fill(); }
-  const t1 = springU(u, 28.75, SPRING.gentle);
+  const t1 = springU(u, 29.75, SPRING.gentle);
   ctx.save(); ctx.globalAlpha = clamp(t1 * 1.4);
   text(ctx, 'Votre site, de A à Z.', X0, 900 - (1 - t1) * 40, font(96, 400, A), C.gold);
   text(ctx, 'Création · mise en ligne · gestion', X0, 975 - (1 - t1) * 30, font(40, 500, D), C.muted);
   ctx.restore();
   // pastille CTA (arrive du volet papier de S7)
-  const br = 1 + 0.035 * bump(u, 30.5, 0.6);
+  const br = 1 + 0.035 * bump(u, 30.6, 0.6);
   ctx.save(); ctx.translate(PILL.x + PILL.w / 2, PILL.y + PILL.h / 2); ctx.scale(br, br); ctx.translate(-(PILL.x + PILL.w / 2), -(PILL.y + PILL.h / 2));
   loopRect(ctx, PILL.x, PILL.y, PILL.w, PILL.h, PILL.h / 2, C.gold);
-  const tp = springU(u, 28.3, SPRING.gentle);
+  const tp = springU(u, 29.3, SPRING.gentle);
   ctx.globalAlpha = clamp(tp * 1.5);
   text(ctx, 'Écrivez-moi en privé', PILL.x + 56, PILL.y + PILL.h / 2 + 19, font(54, 800, D), C.ink);
   arrowNE(ctx, PILL.x + PILL.w - 92, PILL.y + PILL.h / 2 - 20, 38, C.ink, 7);
   ctx.restore();
-  const t3 = springU(u, 29.25, SPRING.gentle);
+  const t3 = springU(u, 30.25, SPRING.gentle);
   ctx.save(); ctx.globalAlpha = clamp(t3);
   text(ctx, 'il4nstudio.netlify.app', X0 + 4, 1340, font(36, 600, D), C.muted, 'left', 1);
   ctx.restore();
@@ -389,10 +389,10 @@ M.film({
   },
   hits: HITS,
   draw(ctx, u, t, IMG) {
-    if (u < 3.6) { sHook(ctx, u); return; }
+    if (u < 4.35) { sHook(ctx, u); return; }
     if (u < 8) {
       // whip vertical : l'accroche sort par le haut pendant que le téléphone monte
-      const k = springU(u, 3.6, SPRING.snappy);
+      const k = springU(u, 4.35, SPRING.snappy);
       if (k < 0.995) { ctx.save(); ctx.translate(0, -k * 1500); sHook(ctx, u); ctx.restore(); }
       ctx.save(); ctx.translate(0, (1 - Math.min(1, k)) * 1500); sPhone(ctx, u, IMG, 1); ctx.restore();
       return;
@@ -407,7 +407,7 @@ M.film({
     }
     if (u < 20) { sResponsive(ctx, u, IMG); return; }
     if (u < 23.6) { sOnline(ctx, u, IMG); return; }
-    if (u < 27.7) {
+    if (u < 28.7) {
       // volet papier qui monte : S6 dessous, S7 révélé de bas en haut
       const k = E.inOutCubic(prog(u, 23.6, 24));
       if (k < 1) sOnline(ctx, u, IMG);
@@ -415,7 +415,7 @@ M.film({
       return;
     }
     // le papier se rétracte dans la pastille CTA
-    const m = E.inOutCubic(prog(u, 27.7, 28.15));
+    const m = E.inOutCubic(prog(u, 28.7, 29.15));
     sEnd(ctx, u);
     if (m < 1) {
       const lg = (a, b) => a * (b / a) ** m;
