@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#06070d; --ink:#f4f6ff; --mute:#9aa3c7;
+    --v:#7c5cff; --c:#22d3ee; --p:#ff4ecd;
+    --line:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:var(--h);background:var(--bg);overflow:hidden}
+  body{font-family:"Sora","Inter Display",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .c{position:relative;width:1080px;height:var(--h);overflow:hidden;padding:var(--pad) 84px;display:flex;flex-direction:column}
+
+  /* ---------- fond ---------- */
+  .grid{position:absolute;inset:0;background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 45%,#000 30%,transparent 80%)}
+  .orb{position:absolute;border-radius:50%;filter:blur(110px);opacity:.55}
+  .o1{width:720px;height:720px;background:var(--v);top:-260px;right:-240px}
+  .o2{width:620px;height:620px;background:var(--c);bottom:-260px;left:-260px;opacity:.35}
+  .o3{width:420px;height:420px;background:var(--p);top:46%;right:-200px;opacity:.25}
+  .noise{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .z{position:relative;z-index:2;flex-shrink:0}
+
+  /* ---------- header ---------- */
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .logo{display:flex;align-items:center;gap:18px}
+  .mark{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--v),var(--c));box-shadow:0 10px 40px rgba(124,92,255,.5),inset 0 1px 0 rgba(255,255,255,.4);
+    font-weight:800;font-size:28px;letter-spacing:-1px}
+  .brand{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .brand small{display:block;font-size:15px;font-weight:400;color:var(--mute);letter-spacing:4px;text-transform:uppercase;margin-top:8px}
+  .pill{font-family:"JetBrains Mono",monospace;font-size:18px;padding:12px 22px;border-radius:99px;border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.04);backdrop-filter:blur(8px);display:flex;align-items:center;gap:10px;color:#d6dbf5}
+  .dot{width:10px;height:10px;border-radius:50%;background:#2ee59d;box-shadow:0 0 14px #2ee59d}
+
+  /* ---------- titre ---------- */
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--c);letter-spacing:3px;text-transform:uppercase;margin-top:var(--gap1)}
+  h1{font-size:var(--h1);font-weight:800;line-height:.98;letter-spacing:-4px;margin-top:22px}
+  .grad{background:linear-gradient(100deg,var(--v) 0%,var(--c) 55%,var(--p) 110%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .az{display:inline-flex;align-items:center;gap:18px}
+  .az i{font-style:normal;display:inline-block;width:var(--arrow);height:6px;border-radius:6px;background:linear-gradient(90deg,var(--v),var(--c));position:relative;top:-6px}
+  .az i:after{content:"";position:absolute;right:-4px;top:-9px;border:12px solid transparent;border-left:16px solid var(--c);border-right:0}
+  .sub{font-size:var(--sub);color:var(--mute);font-weight:300;line-height:1.4;margin-top:26px;max-width:860px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  /* ---------- mockup ---------- */
+  .stage{position:relative;height:var(--stage);margin-top:var(--gap2)}
+  .browser{position:absolute;left:0;top:0;width:800px;height:calc(var(--stage) - 40px);border-radius:24px;overflow:hidden;
+    background:#0d1020;border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(124,92,255,.15),0 0 80px rgba(124,92,255,.25)}
+  .bar{height:52px;display:flex;align-items:center;gap:10px;padding:0 20px;background:#141830;border-bottom:1px solid rgba(255,255,255,.06)}
+  .bar span{width:13px;height:13px;border-radius:50%}
+  .url{margin-left:18px;flex:1;height:30px;border-radius:9px;background:rgba(255,255,255,.06);font-family:"JetBrains Mono",monospace;font-size:15px;color:#aab3dd;display:flex;align-items:center;padding:0 14px;gap:8px}
+  .lock{color:#2ee59d}
+  .site{padding:28px 32px;position:relative;height:calc(100% - 52px)}
+  .nav{display:flex;justify-content:space-between;align-items:center}
+  .nav .l{width:110px;height:16px;border-radius:5px;background:linear-gradient(90deg,var(--v),var(--c))}
+  .nav .m{display:flex;gap:16px}.nav .m b{width:52px;height:9px;border-radius:5px;background:rgba(255,255,255,.18)}
+  .nav .btn{width:92px;height:28px;border-radius:8px;background:var(--ink)}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;margin-top:34px;align-items:center}
+  .ln{height:20px;border-radius:6px;background:rgba(255,255,255,.85);margin-bottom:12px}
+  .ln.s{height:10px;background:rgba(255,255,255,.2);margin-bottom:9px}
+  .cta2{display:flex;gap:12px;margin-top:20px}
+  .cta2 b{height:34px;width:120px;border-radius:9px;background:linear-gradient(90deg,var(--v),var(--c))}
+  .cta2 b+b{background:transparent;border:1px solid rgba(255,255,255,.25)}
+  .img{height:var(--img);border-radius:16px;background:
+     radial-gradient(circle at 30% 30%,rgba(255,78,205,.8),transparent 55%),
+     radial-gradient(circle at 75% 70%,rgba(34,211,238,.8),transparent 55%),
+     linear-gradient(135deg,#2a1d6e,#0f1a3d)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .cards div{height:var(--card);border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);padding:14px}
+  .cards div:before{content:"";display:block;width:30px;height:30px;border-radius:9px;background:rgba(124,92,255,.5);margin-bottom:12px}
+  .cards div:after{content:"";display:block;height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,.2)}
+
+  .phone{position:absolute;right:0;bottom:0;width:250px;height:calc(var(--stage) - 60px);max-height:520px;border-radius:40px;padding:12px;
+    background:linear-gradient(160deg,#2b2f4a,#0b0d18);box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 60px rgba(34,211,238,.25);border:1px solid rgba(255,255,255,.15)}
+  .screen{width:100%;height:100%;border-radius:30px;background:#0d1020;overflow:hidden;padding:36px 16px 16px;position:relative}
+  .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:20px;border-radius:12px;background:#000}
+  .screen .img{height:120px;margin:14px 0}
+  .screen .ln{height:14px}
+
+  /* stats flottantes */
+  .float{position:absolute;padding:16px 20px;border-radius:18px;background:rgba(14,17,34,.85);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 50px rgba(0,0,0,.5);display:flex;align-items:center;gap:14px}
+  .float .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px}
+  .float .t{font-size:15px;color:var(--mute);line-height:1.2}
+  .float .t b{display:block;font-size:24px;color:var(--ink);font-weight:700}
+  .f1{left:560px;top:-26px}
+  .f2{left:-20px;bottom:6px}
+
+  /* ---------- étapes ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:var(--gap3);position:relative}
+  .step{padding:24px 20px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);position:relative}
+  .step .n{font-family:"JetBrains Mono",monospace;font-size:17px;color:var(--c);font-weight:700}
+  .step .ic{font-size:34px;margin:12px 0 10px;line-height:1}
+  .step h3{font-size:23px;font-weight:700;letter-spacing:-.5px;line-height:1.15}
+  .step p{font-size:15px;color:var(--mute);margin-top:8px;line-height:1.35}
+  .step.hl{background:linear-gradient(160deg,rgba(124,92,255,.35),rgba(34,211,238,.12));border-color:rgba(124,92,255,.6);box-shadow:0 0 40px rgba(124,92,255,.3)}
+
+  /* ---------- avantages ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--gap4)}
+  .chip{display:flex;align-items:center;gap:10px;font-size:19px;padding:12px 20px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+  .chip:before{content:"✓";width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;color:#06070d;background:linear-gradient(135deg,#2ee59d,var(--c))}
+
+  /* ---------- CTA ---------- */
+  .foot{margin-top:auto}
+  .cta{display:flex;align-items:center;justify-content:space-between;padding:30px 34px;border-radius:28px;
+    background:linear-gradient(110deg,var(--v),#4f7cff 50%,var(--c));box-shadow:0 20px 60px rgba(124,92,255,.45),inset 0 1px 0 rgba(255,255,255,.35);position:relative;overflow:hidden}
+  .cta:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 40px,rgba(255,255,255,.05) 40px 80px)}
+  .cta .tx{position:relative}
+  .cta .tx small{font-family:"JetBrains Mono",monospace;font-size:17px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+  .cta .tx b{display:block;font-size:var(--ctafs);font-weight:800;letter-spacing:-1px;margin-top:6px}
+  .go{position:relative;width:86px;height:86px;border-radius:50%;background:#06070d;display:grid;place-items:center;flex-shrink:0;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .go svg{width:38px;height:38px}
+  .sig{display:flex;justify-content:space-between;margin-top:22px;font-family:"JetBrains Mono",monospace;font-size:17px;color:#7d86ad}
+  .sig b{color:var(--ink);font-weight:500}
+
+  /* ---------- formats ---------- */
+  body.story{--h:1920px;--pad:84px;--h1:116px;--arrow:116px;--sub:32px;--stage:500px;--img:170px;--card:84px;--gap1:56px;--gap2:50px;--gap3:44px;--gap4:28px;--ctafs:42px}
+  body.post{--h:1350px;--pad:66px;--h1:100px;--arrow:100px;--sub:29px;--stage:0px;--gap1:64px;--gap2:0px;--gap3:64px;--gap4:40px;--ctafs:38px}
+  body.post .step{padding:34px 24px}body.post .step h3{font-size:25px;white-space:nowrap}body.post .step{padding:34px 20px}body.post .step .ic{font-size:44px;margin:16px 0 14px}body.post .step p{font-size:17px}body.post .chip{font-size:21px;padding:14px 22px}
+  body.post .stage{display:none}
+  body.post h1{letter-spacing:-3px}
+</style>
+</head>
+<body>
+<div class="c">
+  <div class="grid"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="noise"></div>
+
+  <div class="top z">
+    <div class="logo">
+      <div class="mark">IL</div>
+      <div class="brand">IL4N<small>Studio Web</small></div>
+    </div>
+    <div class="pill"><span class="dot"></span>Places dispo ce mois-ci</div>
+  </div>
+
+  <div class="z">
+    <div class="eyebrow">// Création &amp; gestion de sites</div>
+    <h1>Votre site web<br><span class="az"><span class="grad">de A</span><i></i><span class="grad">à Z.</span></span></h1>
+    <p class="sub">Je le <b>crée</b>, je le <b>mets en ligne</b> et je le <b>gère pour vous</b>. Vous, vous vous concentrez sur votre activité.</p>
+  </div>
+
+  <div class="stage z">
+    <div class="browser">
+      <div class="bar"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span>
+        <div class="url"><span class="lock">🔒</span>votre-entreprise.fr</div></div>
+      <div class="site">
+        <div class="nav"><div class="l"></div><div class="m"><b></b><b></b><b></b></div><div class="btn"></div></div>
+        <div class="hero">
+          <div><div class="ln" style="width:95%"></div><div class="ln" style="width:70%"></div>
+            <div class="ln s" style="width:90%;margin-top:18px"></div><div class="ln s" style="width:80%"></div><div class="ln s" style="width:60%"></div>
+            <div class="cta2"><b></b><b></b></div></div>
+          <div class="img"></div>
+        </div>
+        <div class="cards"><div></div><div></div><div></div></div>
+      </div>
+    </div>
+    <div class="phone"><div class="screen"><div class="notch"></div>
+      <div class="ln" style="width:60%;height:10px;background:linear-gradient(90deg,var(--v),var(--c))"></div>
+      <div class="img"></div>
+      <div class="ln" style="width:90%"></div><div class="ln" style="width:65%"></div>
+      <div class="ln s" style="width:95%;margin-top:14px"></div><div class="ln s" style="width:85%"></div><div class="ln s" style="width:70%"></div>
+      <div class="cta2"><b style="width:100%"></b></div>
+    </div></div>
+    <div class="float f1"><div class="ic" style="background:rgba(46,229,157,.15)">⚡</div><div class="t"><b>100/100</b>Performance</div></div>
+    <div class="float f2"><div class="ic" style="background:rgba(124,92,255,.2)">📈</div><div class="t"><b>Visible sur Google</b>SEO optimisé</div></div>
+  </div>
+
+  <div class="steps z">
+    <div class="step"><div class="n">01</div><div class="ic">✏️</div><h3>Design</h3><p>Maquette à votre image</p></div>
+    <div class="step"><div class="n">02</div><div class="ic">💻</div><h3>Création</h3><p>Site rapide &amp; responsive</p></div>
+    <div class="step"><div class="n">03</div><div class="ic">🚀</div><h3>Mise en ligne</h3><p>Domaine &amp; hébergement</p></div>
+    <div class="step hl"><div class="n">04</div><div class="ic">🛠️</div><h3>Gestion</h3><p>Mises à jour &amp; suivi</p></div>
+  </div>
+
+  <div class="chips z">
+    <div class="chip">Adapté mobile</div>
+    <div class="chip">Référencement Google</div>
+    <div class="chip">Hébergement inclus</div>
+    <div class="chip">Modifications illimitées</div>
+    <div class="chip">Support réactif</div>
+  </div>
+
+  <div class="foot z">
+    <div class="cta">
+      <div class="tx"><small>Devis gratuit · Réponse en 24h</small><b>Écrivez-moi en message privé</b></div>
+      <div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </div>
+    <div class="sig"><span>Sites vitrines · E-commerce · Landing pages</span><b>IL4N ©2026</b></div>
+  </div>
+</div>
+<script>document.body.className=new URLSearchParams(location.search).get('f')||'story'</script>
+</body>
+</html>
