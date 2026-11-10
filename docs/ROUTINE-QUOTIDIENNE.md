@@ -26,6 +26,25 @@ récemment, prends le suivant. Chaque thème = une accroche + 3-4 idées + CTA.
 Règles de contenu : aucun faux client, faux avis, faux chiffre, faux prix. Les seules réalisations
 montrables sont celles du site il4nstudio.netlify.app (captures dans `reel/assets/shots/`).
 
+## Améliorations obligatoires (demandées par le client le 10/11/2026)
+1. **Sous-titres synchronisés** sur toute la voix : mots horodatés par Whisper sur `audio/vo.wav`
+   (après montage), affichés par groupes de 2-4 mots au moment où ils sont dits, Inter 800 blanc
+   ~64-72 px, le mot clé du groupe en or #d6a96a, centrés vers y≈1250-1400 (au-dessus de la zone
+   interface du bas, sans masquer le texte principal du plan), petite apparition ressort.
+   Corriger l'orthographe selon le texte du script (Whisper peut écrire « consoie »).
+2. **Accroche « problème » dans la 1re seconde** : une question ou une douleur concrète du
+   commerçant (« Pas de site ? Vos clients vont chez le voisin. »), puis la promesse
+   (« Votre site, de A à Z. ») juste après. Le premier mot claque sur le beat 0.
+3. **Vraie réalisation client** quand le thème s'y prête : capture de la section Réalisations
+   (`reel/assets/shots/section_02_un-style-pour.png`), cartes de visite de l'association ou flyer
+   bien-être, marqués « Pour un vrai client » sur le site — garder cette mention, ne jamais montrer
+   les exemples « commerce imaginaire » comme des clients.
+4. **Boucle** : la dernière image (carte de fin) doit enchaîner visuellement sur la première
+   (même fond nuit, même position du titre / un mot qui reprend l'accroche) pour que la vidéo
+   tourne en boucle sans coupure visible.
+5. **Contact** : garder « Écrivez-moi en privé ↗ » tant que le client n'a pas donné de numéro,
+   d'@ ou de lien ; s'il en donne un, l'ajouter sous la pastille.
+
 ## 2. Production (dossier `reels/AAAA-MM-JJ/`)
 1. `node <skill motion-reel>/scripts/scaffold.mjs reels/AAAA-MM-JJ --title "..." --duration 15 --formats 9x16`
    puis copier `reel/index.html`, `reel/fonts/`, `reel/assets/` et partir de `reel/film.js`
