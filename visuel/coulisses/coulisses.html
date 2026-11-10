@@ -1,0 +1,71 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Gelasio:ital@1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;background:#111018;overflow:hidden}
+body{font-family:Inter,sans-serif;color:#fffdf8;padding:60px 64px;position:relative}
+.h{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:34px}
+.k{font-family:"JetBrains Mono",monospace;color:#d6a96a;font-size:20px;letter-spacing:3px;text-transform:uppercase}
+h1{font-size:62px;font-weight:900;letter-spacing:-2px;line-height:1;margin-top:14px}
+h1 em{font-family:Gelasio,serif;font-weight:400;color:#d6a96a}
+.badge{font-size:19px;font-weight:600;border:1.5px solid #d6a96a;color:#d6a96a;padding:10px 18px;border-radius:99px;white-space:nowrap}
+.ruler{position:relative;height:40px;margin-left:190px;border-bottom:1px solid #2b2838}
+.ruler span{position:absolute;top:8px;font-family:"JetBrains Mono",monospace;font-size:15px;color:#8f8aa0;transform:translateX(-50%)}
+.track{display:flex;align-items:center;margin-top:22px;height:120px}
+.lab{width:190px;flex-shrink:0;font-size:19px;font-weight:600;color:#a49eaa}
+.area{position:relative;flex:1;height:100%;min-width:0;background:#1b1825;border-radius:14px;overflow:hidden}
+.clip{font-variant-numeric:tabular-nums;position:absolute;top:8px;bottom:8px;border-radius:10px;padding:10px 8px;font-size:15px;font-weight:600;line-height:1.2;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.shot{background:#2d2740;border:1px solid #4a4262;color:#fffdf8}
+.shot.hi{background:#d6a96a;color:#111018;border-color:#d6a96a}
+.vo{background:#3f8a62;color:#fffdf8}
+.snd{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#d6a96a}
+.sub{background:transparent;border:1.5px dashed #4a4262;color:#7c7690;font-weight:600}
+.note{margin-top:60px;font-size:19px;color:#a49eaa;line-height:1.5}
+.note b{color:#fffdf8}
+.foot{position:absolute;left:64px;right:64px;bottom:56px;display:flex;justify-content:space-between;align-items:center;font-size:18px;color:#8f8aa0;border-top:1px solid #2b2838;padding-top:22px}
+.foot b{color:#d6a96a;font-weight:600}
+</style></head><body>
+<div class="h"><div><div class="k">Coulisses · Reel IL4N 16,9 s</div><h1>Comment on le <em>fabrique</em></h1></div>
+<div class="badge">Réalisé avec des outils IA</div></div>
+
+<div class="ruler">
+ <span style="left:0%">0 s</span><span style="left:12%">2</span><span style="left:24%">4</span><span style="left:36%">6</span><span style="left:48%">8</span><span style="left:60%">10</span><span style="left:72%">12</span><span style="left:84%">14</span><span style="left:96%">16</span>
+</div>
+
+<!-- Helpers: 16,9 s = 100 % ; left/width en % -->
+<div class="track"><div class="lab">Plans</div><div class="area">
+ <div class="clip shot" style="left:0%;width:25.8%">Accroche typo</div>
+ <div class="clip shot" style="left:25.8%;width:20.7%">Site qui défile</div>
+ <div class="clip shot hi" style="left:46.5%;width:23.4%">DROP</div>
+ <div class="clip shot" style="left:69.9%;width:16.8%">Cartes</div>
+ <div class="clip shot" style="left:86.7%;width:13.3%">Mobile</div>
+</div></div>
+
+
+<div class="track"><div class="lab">Voix off</div><div class="area">
+ <div class="clip vo" style="left:0%;width:12%">« Votre site… »</div>
+ <div class="clip vo" style="left:25.5%;width:9%">« Je le conçois »</div>
+ <div class="clip vo" style="left:37%;width:9%">« Je le crée »</div>
+ <div class="clip vo" style="left:48.7%;width:17.5%">« Je le mets en ligne… »</div>
+ <div class="clip vo" style="left:80%;width:9.5%">« Zéro souci »</div>
+ <div class="clip vo" style="left:90.5%;width:9%">« Écrivez-moi »</div>
+</div></div>
+
+<div class="track"><div class="lab">Sons (31 accents)</div><div class="area">
+ <span class="snd" style="left:1%"></span><span class="snd" style="left:5%"></span><span class="snd" style="left:9%"></span>
+ <span class="snd" style="left:27%"></span><span class="snd" style="left:33%"></span><span class="snd" style="left:47%"></span><span class="snd" style="left:53%"></span>
+ <span class="snd" style="left:70%"></span><span class="snd" style="left:76%"></span><span class="snd" style="left:84%"></span><span class="snd" style="left:92%"></span>
+</div></div>
+
+<div class="track"><div class="lab">Sous-titres</div><div class="area">
+ <div class="clip sub" style="left:0%;width:100%;text-align:center;line-height:70px">Prévus pour la prochaine version (mot à mot, mot clé en or)</div>
+</div></div>
+
+<div class="note">
+ <b>Musique</b> : house synthétisée à 128 bpm, sur la grille du tempo (drop au 8ᵉ temps).<br>
+ <b>Voix</b> : clone de la voix du client (Chatterbox), texte généré d'une traite, chaque phrase vérifiée à l'écoute par transcription.<br>
+ <b>Images</b> : uniquement de vraies captures du site il4nstudio.netlify.app. Aucun faux client, faux avis ni faux chiffre.
+</div>
+
+<div class="foot"><span>Montage, voix et musique : <b>IL4N Studio</b></span><span>il4nstudio.netlify.app</span></div>
+</body></html>
