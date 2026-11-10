@@ -1,6 +1,6 @@
 # Routine : 1 reel IL4N par jour (livré vers 13h, heure de Paris)
 
-Lis d'abord `docs/REFERENCE-REEL.md` (le modèle validé) et `reel/` (le film de référence).
+Lis d'abord `docs/REFERENCE-REEL.md` et la section « Amendements du client » en bas de ce fichier (le modèle validé) et `reel/` (le film de référence).
 
 ## 1. Thème du jour
 Numéro du jour dans l'année modulo 14 → ligne ci-dessous. Si `reels/` contient déjà ce thème
@@ -69,3 +69,15 @@ montrables sont celles du site il4nstudio.netlify.app (captures dans `reel/asset
 - Hôtes autorisés : il4nstudio.netlify.app, huggingface.co + CDN hf, download(-r2).pytorch.org.
 - Python 3.11 venv `/home/user/tts-env` : torch/torchaudio 2.6.0+cpu, chatterbox-tts,
   faster-whisper, setuptools<81 (installé par le script de démarrage de l'environnement « il4n »).
+
+## Amendements du client (11/11/2026) — obligatoires
+1. **Dire ce qui distingue dès la première seconde**, en phrase naturelle qui annonce le service :
+   « Je crée votre site. Et je le gère pour vous. » (remplace « Votre site web, de A à Z » comme
+   accroche principale ; « de A à Z » peut rester en sous-titre ou en fin de plan).
+2. **Un exemple de site tient à l'écran environ 2 secondes, stable** (pas de zoom rapide). Au
+   moins un plan par vidéo où le site entier est lisible sans bouger (ex. une capture de la
+   section Réalisations ou l'accueil), avec sa légende.
+3. **Parler comme un commerçant** sur le plan « Zéro souci » : remplacer une partie de la liste
+   par une phrase concrète, par exemple :
+   « Vos horaires changent ? Votre carte aussi ? Envoyez-moi un message, je mets votre site à jour. »
+   Garder au maximum 2 ou 3 éléments de liste à côté.
