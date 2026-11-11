@@ -81,3 +81,8 @@ montrables sont celles du site il4nstudio.netlify.app (captures dans `reel/asset
    par une phrase concrète, par exemple :
    « Vos horaires changent ? Votre carte aussi ? Envoyez-moi un message, je mets votre site à jour. »
    Garder au maximum 2 ou 3 éléments de liste à côté.
+
+## Voix calée sur les plans (11/11/2026, validé)
+- Écrire le texte **plan par plan** pour qu'il remplisse la vidéo (environ 2,5 mots par seconde de plan) : une phrase par plan, pas de texte trop court.
+- Générer le texte entier d'une traite (variante A : `exaggeration 0.5`, `cfg_weight 0.5`, référence `voix/ref22.wav`), 3 prises, garder la meilleure à la transcription.
+- Accroche en prise séparée. Puis `reel/audio/vo_sync.py` : chaque phrase démarre au début de son plan, débit ajusté entre 0,88 et 1,15 pour le remplir. Jamais de phrase recollée sur un temps fixe avec un silence avant.
