@@ -2,29 +2,52 @@
 
 Lis d'abord `docs/REFERENCE-REEL.md` et la section « Amendements du client » en bas de ce fichier (le modèle validé) et `reel/` (le film de référence).
 
-## 1. Thème du jour
-Numéro du jour dans l'année modulo 14 → ligne ci-dessous. Si `reels/` contient déjà ce thème
-récemment, prends le suivant. Chaque thème = une accroche + 3-4 idées + CTA.
+## 1. Thème du jour (tous les services d'il4n Studio)
+Calendrier en 3 temps qui tourne : **jour pair = un service**, **jour impair = un sujet transversal**,
+et un **sujet de saison** remplace le sujet du jour quand une date approche (voir plus bas).
+Prends la ligne suivante après le dernier thème livré (regarde `reels/` : le dernier dossier contient
+`theme.txt`). Écris toujours `reels/AAAA-MM-JJ/theme.txt` (numéro + nom du thème).
 
-| # | Thème | Accroche (point de départ, à améliorer) |
-|---|-------|------------------------------------------|
-| 0 | Le service complet A → Z | « Votre site web, de A à Z. » |
-| 1 | Pas de site = clients perdus | « Pas de site ? Vos clients vont ailleurs. » |
-| 2 | La gestion, zéro souci | « Votre site… sans jamais y toucher. » |
-| 3 | Visible sur Google | « On vous cherche sur Google. On vous trouve ? » |
-| 4 | Parfait sur mobile | « Votre site sur téléphone, il ressemble à quoi ? » |
-| 5 | Les étapes, simplement | « Un site pro en quatre étapes. » |
-| 6 | Avant / après (vieux site) | « Votre site a dix ans ? Ça se voit. » |
-| 7 | Commerce local (Vaucluse) | « Commerçants du Vaucluse, ce message est pour vous. » |
-| 8 | Questions fréquentes | « La question qu'on me pose tout le temps. » |
-| 9 | Vitrine ouverte 24h/24 | « Votre boutique ferme. Votre site, jamais. » |
-| 10 | Image de marque | « Faites bonne impression, dès le premier clic. » |
-| 11 | Mises à jour & sécurité | « Un site oublié, c'est un site qui coule. » |
-| 12 | Témoignage du studio (son propre site) | « Ce site, je l'ai fait. Le vôtre, c'est quand ? » |
-| 13 | Appel direct | « Vous avez une idée ? Parlons-en. » |
+### A. Services (un par vidéo)
+| # | Service | Accroche de départ (à améliorer) | Captures réelles |
+|---|---------|----------------------------------|------------------|
+| S1 | Site web créé ET géré | « Je crée votre site. Et je le gère pour vous. » | accueil, mobile |
+| S2 | Flyers (Start / Pro / Prestige) | « Votre flyer passe inaperçu ? » | section prestations (cartes flyers) |
+| S3 | Menus de restaurant | « Votre carte donne-t-elle faim ? » | section réalisations / prestations |
+| S4 | Cartes de visite | « Votre carte de visite, on la garde ou on la jette ? » | réalisation cartes de visite (vrai client) |
+| S5 | Visuels réseaux sociaux | « Vos posts sont-ils à la hauteur de votre commerce ? » | prestations (Social Media Kit) |
+| S6 | Identité / logo | « Votre logo, on s'en souvient ? » | prestations (Identité de marque) |
+| S7 | Affiches événement | « Un événement sans affiche, c'est une salle vide. » | prestations (Flyer Prestige) |
+| S8 | Pack lancement (ouverture) | « Vous ouvrez ? Tout est prêt le jour J. » | prestations (Pack Lancement 360°) |
 
-Règles de contenu : aucun faux client, faux avis, faux chiffre, faux prix. Les seules réalisations
-montrables sont celles du site il4nstudio.netlify.app (captures dans `reel/assets/shots/`).
+### B. Sujets transversaux (un par vidéo)
+| # | Sujet | Accroche de départ |
+|---|-------|--------------------|
+| T1 | Vous validez avant de payer | « Vous ne payez que si ça vous plaît. » |
+| T2 | Tarifs affichés, pas de surprise | « Le prix, vous le connaissez avant. » |
+| T3 | Les étapes (brief → visuel) | « Du brief au visuel, sans complication. » |
+| T4 | Graphiste local (Sarrians, Carpentras, Avignon) | « Un graphiste près de chez vous. » |
+| T5 | Erreur fréquente des commerçants | « L'erreur que je vois sur trop de vitrines. » |
+| T6 | Questions fréquentes (section FAQ du site) | « La question qu'on me pose tout le temps. » |
+| T7 | Vraie réalisation client | « Ce que j'ai fait pour un vrai client. » |
+| T8 | Avant / après (sur une création du site) | « Même message. Pas le même effet. » |
+
+### C. Saison (prioritaire quand la date approche, 10 jours avant)
+- Novembre : menus et commandes de fêtes, horaires de fin d'année, bons cadeaux.
+- Décembre : cartes de vœux, préparer janvier (si le site affiche une offre de décembre, la citer telle quelle).
+- Janvier : vœux, soldes, nouveaux tarifs · Février : Saint-Valentin · Printemps : terrasses, nouvelle
+  carte, mariages · Été : saison touristique, événements · Septembre : rentrée.
+
+### Règles de contenu
+- L'accroche « Je crée votre site. Et je le gère pour vous. » est réservée aux vidéos **site web** ;
+  pour les autres sujets, accroche « problème » propre au sujet, dite dès la première seconde.
+- **Prix** : seulement ceux affichés sur il4nstudio.netlify.app au moment de la vidéo (vérifier sur le
+  site ou les captures) ; sinon dire « tarifs affichés sur le site ». Jamais de remise inventée.
+- Images : vraies captures du site uniquement (les recapturer si besoin avec la skill motion-reel
+  `gather.mjs` dans `reels/AAAA-MM-JJ/assets/`), badge Netlify recadré. Les créations marquées
+  « exemple · commerce imaginaire » sur le site sont présentées comme **exemples**, jamais comme clients.
+  Seules celles marquées « Pour un vrai client » peuvent être dites « vrai client ».
+- Aucun faux client, faux avis, faux chiffre, aucune promesse de résultat (« +50 % de clients »).
 
 ## Améliorations obligatoires (demandées par le client le 10/11/2026)
 1. **Sous-titres synchronisés** sur toute la voix : mots horodatés par Whisper sur `audio/vo.wav`
@@ -71,7 +94,7 @@ montrables sont celles du site il4nstudio.netlify.app (captures dans `reel/asset
   faster-whisper, setuptools<81 (installé par le script de démarrage de l'environnement « il4n »).
 
 ## Amendements du client (11/11/2026) — obligatoires
-1. **Dire ce qui distingue dès la première seconde**, en phrase naturelle qui annonce le service :
+1. **Dire ce qui distingue dès la première seconde** (vidéos site web ; pour les autres sujets, même principe avec leur propre phrase), en phrase naturelle qui annonce le service :
    « Je crée votre site. Et je le gère pour vous. » (remplace « Votre site web, de A à Z » comme
    accroche principale ; « de A à Z » peut rester en sous-titre ou en fin de plan).
 2. **Un exemple de site tient à l'écran environ 2 secondes, stable** (pas de zoom rapide). Au
