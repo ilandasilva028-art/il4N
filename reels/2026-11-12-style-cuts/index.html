@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>IL4N — Besoin d'un site ?</title>
+<style>
+@font-face{font-family:Sora;src:url(assets/sora.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:Serif;src:url(assets/serif.woff2) format('woff2');font-style:italic}
+:root{--bg:#07070c;--light:#f5f6fb;--ink:#07070c;--g:linear-gradient(100deg,#7c5cff,#22d3ee)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.scene.on{display:block}
+/* plan d'ouverture : la maquette du site, mouvement de caméra */
+#s0{background:radial-gradient(ellipse 90% 50% at 70% 30%,rgba(124,92,255,.35),transparent 70%),radial-gradient(ellipse 70% 40% at 20% 85%,rgba(34,211,238,.18),transparent 70%),#0b0b12}
+#s0 .grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:72px 72px}
+#s0 img{position:absolute;left:0;top:50%;height:1250px;transform-origin:50% 50%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 88%,transparent 100%),linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+#s0 .vig{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,transparent 45%,rgba(0,0,0,.75))}
+#s0 .flare{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(160,140,255,.45),transparent 60%);mix-blend-mode:screen}
+/* cartes texte */
+.card{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center}
+.card.on{display:flex}
+.light{background:linear-gradient(180deg,#d9dbe6 0%,#f5f6fb 22%,#f5f6fb 78%,#e4e6f0 100%);color:var(--ink)}
+.dark{background:linear-gradient(180deg,#1a1a26 0%,#101018 30%,#0b0b12 100%);color:#f5f6fb}
+.t{font-family:Sora;font-weight:800;letter-spacing:-3px;line-height:1.05;transform:skewX(-9deg)}
+.big{font-size:150px}
+.mid{font-size:112px}
+.sm{font-size:74px;letter-spacing:-1.5px;line-height:1.18}
+.grad{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .08em}
+.serif{font-family:Serif;font-style:italic;font-weight:400;letter-spacing:0}
+.lightgrad{background:linear-gradient(100deg,#5b3bff,#0fb5d6);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .08em}
+.inner{will-change:transform}
+/* logo */
+.mark{width:300px;height:300px;border-radius:72px;margin:0 auto 64px;background:linear-gradient(135deg,#7c5cff,#22d3ee);display:grid;place-items:center;box-shadow:0 30px 120px rgba(124,92,255,.55),inset 0 2px 0 rgba(255,255,255,.4)}
+.mark svg{width:160px;height:160px}
+.brand{font-family:Sora;font-weight:800;font-size:96px;letter-spacing:-2px;color:#f5f6fb}
+.brand small{display:block;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:30px;letter-spacing:12px;color:#8f96b8;margin-top:12px}
+.tag{margin-top:70px}
+</style>
+</head>
+<body>
+<div id="s0" class="scene"><div class="grid"></div><img id="stage" src="assets/stage.jpg"><div class="flare" id="flare"></div><div class="vig"></div></div>
+
+<div id="c1" class="card light"><div class="inner t mid">Besoin d'un<br><span class="lightgrad">site web</span>&nbsp;?</div></div>
+<div id="c2" class="card dark"><div class="inner t big">propre.</div></div>
+<div id="c3" class="card light"><div class="inner t big">moderne.</div></div>
+<div id="c4" class="card dark"><div class="inner t big">qui <span class="grad">vend.</span></div></div>
+<div id="c5" class="card light"><div class="inner t sm">Commentez «&nbsp;<span class="lightgrad">SITE</span>&nbsp;»<br>ou écrivez-moi en privé<br>pour un devis gratuit</div></div>
+<div id="c6" class="card dark"><div class="inner">
+  <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#07070c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg></div>
+  <div class="brand">IL4N<small>STUDIO WEB</small></div>
+  <div class="t sm tag">Création &amp; gestion<br>de <span class="grad">sites web</span></div>
+</div></div>
+
+<script>
+// Coupes calées sur la vidéo de référence (mêmes instants), pour que le même son tombe juste.
+const CUTS = [
+  [0.00, 's0'], [2.00, 'c1'], [3.00, 'c2'], [4.03, 'c3'], [5.07, 'c4'], [6.10, 'c5'], [7.10, 'c6'], [8.32, 's0b'],
+];
+const DUR = 8.8;
+const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+window.seek = (t) => {
+  let cur = CUTS[0], start = 0;
+  for (const [s, id] of CUTS) if (t >= s) { cur = id; start = s; }
+  document.querySelectorAll('.scene,.card').forEach(e => e.classList.remove('on'));
+  const name = typeof cur === 'string' ? cur : cur[1];
+  const local = t - start;
+  if (name === 's0' || name === 's0b') {
+    document.getElementById('s0').classList.add('on');
+    // mouvement caméra : travelling du navigateur vers le téléphone, léger zoom et roulis
+    const p = name === 's0' ? t / 2.0 : 0.15 + (t - 8.32) / 2.0;
+    const img = document.getElementById('stage');
+    const x = -120 - 560 * ease(p * 0.9);
+    const s = 1.0 + 0.12 * p;
+    const r = -2.2 + 3.2 * p;
+    img.style.transform = `translate(${x}px,-50%) scale(${s}) rotate(${r}deg)`;
+    const f = document.getElementById('flare');
+    f.style.left = (700 - 900 * p) + 'px'; f.style.top = (300 + 200 * p) + 'px';
+    f.style.opacity = 0.6 + 0.4 * Math.sin(p * 3);
+    document.querySelector('#s0 .grid').style.transform = `translate(${-40 * p}px,${-30 * p}px)`;
+  } else {
+    const el = document.getElementById(name);
+    el.classList.add('on');
+    // petit « punch » à l'apparition puis léger zoom continu
+    const k = ease(local / 0.14);
+    const sc = (1.12 - 0.12 * k) * (1 + 0.025 * local);
+    const inn = el.querySelector('.inner');
+    inn.style.transform = `scale(${sc})` + (inn.classList.contains('t') ? ' skewX(-9deg)' : '');
+  }
+};
+window.DUR = DUR;
+window.seek(0);
+</script>
+</body>
+</html>
