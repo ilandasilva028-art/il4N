@@ -39,7 +39,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
 </style>
 </head>
 <body>
-<div id="s0" class="scene"><div class="grid"></div><img id="stage" src="assets/stage.jpg"><div class="flare" id="flare"></div><div class="vig"></div></div>
+<div id="s0" class="scene"><canvas id="cv" width="1080" height="1920"></canvas></div>
 
 <div id="c1" class="card light"><div class="inner t mid">Besoin d'un<br><span class="lightgrad">site web</span>&nbsp;?</div></div>
 <div id="c2" class="card dark"><div class="inner t big">propre.</div></div>
@@ -52,6 +52,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
   <div class="t sm tag">Création &amp; gestion<br>de <span class="grad">sites web</span></div>
 </div></div>
 
+<script src="foot.js"></script>
 <script>
 // Coupes calées sur la vidéo de référence (mêmes instants), pour que le même son tombe juste.
 const CUTS = [
@@ -67,17 +68,9 @@ window.seek = (t) => {
   const local = t - start;
   if (name === 's0' || name === 's0b') {
     document.getElementById('s0').classList.add('on');
-    // mouvement caméra : travelling du navigateur vers le téléphone, léger zoom et roulis
-    const p = name === 's0' ? t / 2.0 : 0.15 + (t - 8.32) / 2.0;
-    const img = document.getElementById('stage');
-    const x = -120 - 560 * ease(p * 0.9);
-    const s = 1.0 + 0.12 * p;
-    const r = -2.2 + 3.2 * p;
-    img.style.transform = `translate(${x}px,-50%) scale(${s}) rotate(${r}deg)`;
-    const f = document.getElementById('flare');
-    f.style.left = (700 - 900 * p) + 'px'; f.style.top = (300 + 200 * p) + 'px';
-    f.style.opacity = 0.6 + 0.4 * Math.sin(p * 3);
-    document.querySelector('#s0 .grid').style.transform = `translate(${-40 * p}px,${-30 * p}px)`;
+    // fin : retour au ballon posé (même image qu'au début) pour une boucle sans coupure
+    const lt = name === 's0' ? t : 0.0 + (t - 8.32) * 0.5;
+    window.drawFoot(document.getElementById('cv').getContext('2d'), lt);
   } else {
     const el = document.getElementById(name);
     el.classList.add('on');
