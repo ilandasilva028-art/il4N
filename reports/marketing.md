@@ -1,38 +1,45 @@
 # IL4N STUDIO — Campagne 7 jours « Prêt pour les fêtes »
 
-> **Statut : brouillon à valider.** Rien n'est publié ni programmé. Chaque publication attend ton accord.
-> Préparé le 14/11/2026 · Campagne proposée du **lundi 16 au dimanche 22 novembre 2026**.
-> Sources : site il4nstudio.netlify.app (lu le 14/11/2026), `docs/ROUTINE-QUOTIDIENNE.md`, `docs/REFERENCE-REEL.md`.
+> **Statut : textes à valider.** Rien n'est publié ni programmé. Chaque publication attend ton accord.
+> Préparé le 14/11/2026, mis à jour le 14/11/2026 avec tes réponses · Campagne du **lundi 16 au dimanche 22 novembre 2026**.
+> Sources : site il4nstudio.netlify.app (lu le 14/11/2026), tes réponses du 14/11, `docs/ROUTINE-QUOTIDIENNE.md`, `docs/REFERENCE-REEL.md`.
+
+**Tes décisions du 14/11 (appliquées partout)**
+- Plateformes : **Instagram, Facebook, Threads, TikTok** (pas de X ni de YouTube).
+- Contact : **« Écrivez-moi en privé »** uniquement (ni téléphone ni @ dans les posts).
+- Vidéos : **ta voix seulement**, pas de visage, pas de prénom à l'écran.
+- Offre flyers -20 % : **active à partir du 20/11**, citée dès le vendredi 20.
+- Les 2 vrais clients sont **d'accord** pour être montrés.
 
 ---
 
 ## 0. Ce qui est vrai et peut être dit (base de toute la campagne)
 
-Tout ce qui suit vient du site tel qu'il est le 14/11/2026. **Si un tarif change sur le site, on corrige les posts avant publication.**
+Tout ce qui suit vient du site tel qu'il est le 14/11/2026 et de tes réponses. **Si un tarif change sur le site, on corrige les posts avant publication.**
 
-| Élément | Ce que dit le site |
+| Élément | Ce qui peut être dit |
 |---|---|
 | Site internet | **290 €** la création · option tranquillité **100 €/an** (hébergement, nom de domaine .fr sous réserve de disponibilité, mises à jour) · 390 € la 1re année avec l'option |
 | Flyers | Start **21 €** (72 h) · Pro **35 €** (48 h) · Prestige **49 €** (24 h possible) |
 | Autres | Visuel réseaux **15 €** (5 pour 59 €) · Carte de visite **25 €** · Menu **39 €** · Affiche A3/A2 **39 €** · Plaquette **45 €** · Pack Artisan **129 €** |
-| Offre affichée | « Offre de décembre : jusqu'à -20 % sur les 3 formules flyer, jusqu'au 31 décembre inclus. » ⚠️ **À confirmer : date de début de l'offre** (le site dit « de décembre »). |
+| Offre | « Jusqu'à -20 % sur les 3 formules flyer, jusqu'au 31 décembre inclus. » **À partir du 20/11.** Formulation reprise telle quelle, rien de plus. |
 | Garanties | Tarifs affichés · Vous validez avant de payer · Un seul interlocuteur · Devis gratuit et sans engagement · Paiement par virement après validation |
-| Vrais clients | Cartes de visite · Association (harcèlement scolaire, Puy-de-Dôme) · Flyer événement bien-être (conseillère) — **seules réalisations à présenter comme « vrai client »** |
+| Vrais clients (accord donné) | **Cartes de visite** pour une association de lutte contre le harcèlement scolaire (Puy-de-Dôme) · **Flyer pour un événement aloe vera** (après-midi découverte d'une conseillère) |
 | Exemples | Salon de coiffure, Bâtiment, Bistrot provençal, Boutique → **toujours « exemple · commerce imaginaire »** |
-| Contact public | Formulaire de devis du site · Instagram @il4n_Studio |
+| Contact | **« Écrivez-moi en privé »** · le lien du site reste en bio pour consulter les tarifs |
 
-**Interdits pendant la campagne** : chiffre de résultat (« +30 % de clients »), avis ou témoignage non réel, remise non affichée, exemple présenté comme client, image ou musique sans droits.
+**Interdits pendant la campagne** : chiffre de résultat (« +30 % de clients »), avis ou témoignage non réel, remise autre que celle affichée, exemple présenté comme client, image ou musique sans droits.
 
 ---
 
 ## 1. Objectif
 
-**Objectif principal** : obtenir des **demandes de devis** (formulaire du site ou message privé) de commerçants et indépendants qui préparent la fin d'année.
+**Objectif principal** : obtenir des **messages privés avec un projet concret** et des **demandes de devis** de commerçants et indépendants qui préparent la fin d'année.
 
-**Objectifs de la semaine** (pas de chiffre cible tant qu'on n'a pas de référence, voir § 7) :
-1. Relever la situation de départ (J0) sur chaque compte.
+**Objectifs de la semaine** (pas de chiffre cible tant qu'on n'a pas de référence, voir § 9) :
+1. Relever la situation de départ (J0) sur les 4 comptes.
 2. Publier 7 jours d'affilée, 1 contenu principal par jour, décliné par plateforme.
-3. Faire passer les gens du contenu → profil → site → formulaire / message privé.
+3. Faire passer les gens du contenu → message privé (ou profil → site → formulaire).
 4. Repérer **quel sujet** génère des messages (site, flyer, menu, local) pour la suite.
 
 **Promesse de campagne (fil rouge)** : *« Vos supports de fin d'année, prêts et validés avant de payer. »*
@@ -42,19 +49,19 @@ Chaque création garde **une seule promesse** (indiquée pour chaque jour).
 
 ## 2. Public
 
-### Audiences prioritaires
-
 | # | Audience | Où les trouver | Ce qui les bloque | Ce qu'on leur dit |
 |---|---|---|---|---|
 | A1 | **Restaurateurs, traiteurs, boulangers** (Sarrians, Carpentras, Avignon, Orange, Vaison) | Facebook, Instagram, groupes locaux | Menus de fêtes à refaire chaque année, pas le temps | Menu de fêtes prêt à imprimer, 39 €, vous validez avant de payer |
-| A2 | **Commerçants et artisans sans site** (coiffure, bâtiment, bien-être, boutiques) | Facebook, Google, Instagram | « Un site c'est cher et compliqué à tenir à jour » | Site 290 €, et je le gère pour vous (100 €/an) |
-| A3 | **Organisateurs d'événements / associations** (marchés de Noël, soirées, galas) | Facebook, groupes, Threads | Affiche faite à la dernière minute | Flyer en 24 h possible (Prestige), affiche A3 |
-| A4 | **Créateurs qui ouvrent / se lancent** | Instagram, TikTok | Tout à faire en même temps | Pack Artisan 129 € (logo + cartes + plaquette) |
+| A2 | **Commerçants et artisans sans site** (coiffure, bâtiment, bien-être, boutiques) | Facebook, Instagram | « Un site c'est cher et compliqué à tenir à jour » | Site 290 €, et je le gère pour vous (100 €/an) |
+| A3 | **Organisateurs d'événements / associations** (marchés de Noël, soirées, ateliers) | Facebook, groupes, Threads | Affiche faite à la dernière minute | Flyer en 24 h possible (Prestige), -20 % jusqu'au 31/12 |
+| A4 | **Créateurs qui se lancent** | Instagram, TikTok | Tout à faire en même temps | Pack Artisan 129 € (logo + cartes + plaquette) |
 
-### Personas (pour écrire)
+**Personas (pour écrire)**
 - **Sandrine, 46 ans, restauratrice à Carpentras** — sur Facebook le soir, veut un menu de réveillon propre sans y passer sa soirée. Lit les prix avant tout.
 - **Karim, 34 ans, artisan plaquiste** — n'a qu'une page Facebook, perd des chantiers face aux concurrents « qui ont un site ». Veut que quelqu'un s'en occupe.
-- **Léa, 28 ans, ouvre sa boutique** — sur Instagram/TikTok, veut une image cohérente, budget serré.
+- **Léa, 28 ans, organise des ateliers bien-être** — sur Instagram/TikTok, a besoin d'un flyer pour chaque événement, budget serré.
+
+*(Personas fictifs, pour écrire uniquement — jamais publiés comme clients.)*
 
 ---
 
@@ -73,49 +80,45 @@ Chaque création garde **une seule promesse** (indiquée pour chaque jour).
 
 ## 4. Calendrier (16 → 22 novembre 2026)
 
-Heures indicatives à ajuster dès qu'on a les statistiques réelles des comptes (heure d'activité de l'audience).
+Heures indicatives, à ajuster dès qu'on a les statistiques réelles des comptes.
 
-| Jour | Thème | Promesse unique | Format principal | IG | TikTok | FB | Threads | X | YT Shorts |
-|---|---|---|---|---|---|---|---|---|---|
-| **Lun 16** | S1 Site web | Je crée votre site et je le gère | Reel 15-17 s | Reel 12h30 | 19h | Reel 12h30 | 18h | 18h | 19h |
-| **Mar 17** | T1 Validez avant de payer | Vous ne payez que si ça vous plaît | Carrousel 6 images | Carrousel 12h30 | Mode photo 19h | Post 12h30 | 18h | 18h | — |
-| **Mer 18** | S3 Menus de fêtes (saison) | Votre carte de fêtes, prête à imprimer | Reel 15 s | Reel 11h30 | 19h | Reel 11h30 + groupes | 18h | 18h | 19h |
-| **Jeu 19** | T7 Vraie réalisation client | Ce que j'ai fait pour un vrai client | Carrousel coulisses | Carrousel 12h30 | Mode photo 19h | Post 12h30 | 18h | 18h | — |
-| **Ven 20** | S2 Flyers (Start / Pro / Prestige) | Le bon flyer selon votre besoin | Reel comparatif 15 s | Reel 12h30 | 19h | Reel 12h30 | 18h | 18h | 19h |
-| **Sam 21** | T4 Graphiste local | Un graphiste près de chez vous | Face caméra 20-25 s | Reel 10h | 11h | Reel 10h | 10h | 10h | 11h |
-| **Dim 22** | T6 FAQ + récap | Ce qu'il faut m'envoyer pour commencer | Carrousel récap + story | Carrousel 18h | Mode photo 18h | Post 18h | 18h | 18h | — |
+| Jour | Thème | Promesse unique | Format principal | Instagram | Facebook | TikTok | Threads |
+|---|---|---|---|---|---|---|---|
+| **Lun 16** | Site web | Je crée votre site et je le gère | Reel 15-17 s | Reel 12h30 | Reel 12h30 | 19h | 18h |
+| **Mar 17** | Validez avant de payer | Vous ne payez que si ça vous plaît | Carrousel 6 images | Carrousel 12h30 | Post 12h30 | Mode photo 19h | 18h |
+| **Mer 18** | Menus de fêtes | Votre carte de fêtes, prête à imprimer | Reel 15 s | Reel 11h30 | Reel 11h30 + groupes | 19h | 18h |
+| **Jeu 19** | Vrais clients | Ce que j'ai fait pour de vrais clients | Carrousel 5 images | Carrousel 12h30 | Post 12h30 | Mode photo 19h | 18h |
+| **Ven 20** | Flyers + offre -20 % | Le bon flyer, jusqu'à -20 % | Reel 15 s | Reel 12h30 | Reel 12h30 | 19h | 18h |
+| **Sam 21** | Graphiste local | Un graphiste près de chez vous | Reel voix + captures 20 s | Reel 10h | Reel 10h | 11h | 10h |
+| **Dim 22** | Ce qu'il faut m'envoyer + récap | Commencer prend 5 minutes | Carrousel 6 images + story | Carrousel 18h | Post 18h | Mode photo 18h | 18h |
 
-**Chaque jour, en plus** : 2-3 stories Instagram/Facebook (sondage, coulisse, lien du site), 15 min de réponses aux commentaires et messages (§ 6).
-
-**Site / référencement (en parallèle, toute la semaine)** : voir § 8.
+**Chaque jour, en plus** : 2-3 stories Instagram/Facebook (sondage, coulisse, rappel « écrivez-moi en privé »), 15 min de réponses aux commentaires et messages.
 
 ---
 
 ## 5. Publications prêtes
 
-Format : légende principale (Instagram / Facebook) + déclinaisons courtes. Hashtags locaux à la fin, 3 à 5 max.
-Lien : en bio sur Instagram/TikTok/Threads, en commentaire ou dans le post sur Facebook et X.
+Appel à l'action unique : **« Écrivez-moi en privé »**. Le lien du site reste en bio (Instagram, TikTok, Threads) et sur la page Facebook, pour ceux qui veulent voir les tarifs.
+Hashtags locaux à la fin, 3 à 5 max (Threads : 0 ou 1).
 
 ### J1 — Lundi 16 · Site web créé ET géré
 
-**Visuel** : reel de référence (`reel/`, déjà validé) ou nouvelle déclinaison selon la routine. Mention « Exemple : mon propre site ».
+**Visuel** : reel de référence (`reel/`, déjà validé). Mention « Exemple : mon propre site ».
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
 > Un site, ce n'est pas le plus dur à créer. C'est le plus dur à tenir à jour.
 >
 > Je crée votre site (290 €). Et si vous voulez, je le gère pour vous : hébergement, nom de domaine en .fr, horaires, promos, changements au fil de l'année (option à 100 €/an).
 >
 > Vos horaires changent pour les fêtes ? Vous m'envoyez un message, je m'en occupe.
 >
-> 👉 Devis gratuit sur le site (lien en bio).
+> 👉 Un projet ? Écrivez-moi en privé.
 >
 > #Vaucluse #Carpentras #Avignon #commercelocal #siteinternet
 
-**Threads** : Un site à jour, c'est un site qu'on ne gère pas soi-même. Je crée le vôtre à 290 €, et je peux m'en occuper toute l'année. Ça vous intéresse ? Écrivez-moi.
+**TikTok** : Je crée votre site. Et je le gère pour vous. 290 €, tarifs affichés. Écrivez-moi en privé. #graphiste #siteweb #Vaucluse
 
-**X** : Votre site affiche encore les horaires de l'été dernier ? Je crée votre site (290 €) et je le tiens à jour pour vous. Devis gratuit 👉 il4nstudio.netlify.app
-
-**TikTok / YT Shorts (description)** : Je crée votre site. Et je le gère pour vous. 290 €, tarifs affichés. #graphiste #siteweb #Vaucluse
+**Threads** : Un site à jour, c'est un site qu'on ne gère pas soi-même. Je crée le vôtre à 290 €, et je peux m'en occuper toute l'année. Écrivez-moi en privé.
 
 ---
 
@@ -127,82 +130,82 @@ Lien : en bio sur Instagram/TikTok/Threads, en commentaire ou dans le post sur F
 3. « 2. On définit ensemble — style, format, contenu, tarif. Avant la création. »
 4. « 3. Vous voyez la création. Vous demandez des retouches. »
 5. « 4. Vous validez. Ensuite seulement : facture, par virement. »
-6. « Le prix, vous le connaissez avant. Devis gratuit, sans engagement. » + pastille « Demander un devis ↗ »
+6. « Le prix, vous le connaissez avant. » + pastille « Écrivez-moi en privé ↗ »
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
 > Commander un visuel à quelqu'un qu'on ne connaît pas, ça peut faire peur. Alors chez moi, c'est simple : vous voyez d'abord, vous payez ensuite.
 >
 > Les tarifs sont affichés sur le site. Une demande de devis ne vous engage à rien.
 >
-> 👉 Lien en bio · ou écrivez-moi en privé.
+> 👉 Écrivez-moi en privé.
 >
 > #Vaucluse #graphiste #commercelocal #Sarrians
 
+**TikTok mode photo** : mêmes 6 images. Texte : « Payer avant de voir ? Non. Écrivez-moi en privé. »
+
 **Threads** : Petite règle chez il4n Studio : vous validez la création avant de recevoir la facture. Pas l'inverse.
-
-**X** : Chez moi, vous voyez la création, vous validez, puis vous payez. Tarifs affichés, devis gratuit. il4nstudio.netlify.app
-
-**TikTok mode photo** : mêmes 6 images, texte court : « Payer avant de voir ? Non. »
 
 ---
 
-### J3 — Mercredi 18 · Menus de fêtes (saison)
+### J3 — Mercredi 18 · Menus de fêtes
 
-**Visuel** : reel avec capture réelle « Menu · Bistrot provençal » **marquée « Exemple · commerce imaginaire »** à l'écran.
+**Visuel** : reel avec la capture réelle « Menu · Bistrot provençal », **marquée « Exemple · commerce imaginaire »** à l'écran.
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
 > Votre menu de fêtes donne-t-il faim… ou mal aux yeux ?
 >
 > Je mets en page votre carte de réveillon ou votre menu du jour : lisible, à votre image, livrée en fichier prêt à imprimer. 39 €.
 >
 > Vous m'envoyez vos plats et vos prix, je m'occupe du reste. Vous validez avant de payer.
 >
-> 👉 Pensez-y maintenant, avant le rush de décembre. Lien en bio.
+> 👉 Pensez-y avant le rush de décembre : écrivez-moi en privé.
 >
 > (Le menu montré est un exemple pour un commerce imaginaire.)
 >
 > #restaurantVaucluse #Avignon #Carpentras #menudefetes #commercelocal
 
-**Facebook groupes locaux** (seulement si le règlement du groupe autorise la pub, publier une fois, pas de copier-coller massif) :
-> Bonjour à tous 👋 Je suis graphiste à Sarrians. Si vous êtes restaurateur ou traiteur et que vous préparez votre menu de fêtes, je peux le mettre en page (39 €, fichier prêt à imprimer, vous validez avant de payer). Tarifs sur il4nstudio.netlify.app. Bonne journée !
+**Facebook, groupes locaux** (seulement si le règlement du groupe autorise la pub ; un groupe à la fois, pas de copier-coller massif) :
+> Bonjour à tous 👋 Je suis graphiste à Sarrians. Si vous êtes restaurateur ou traiteur et que vous préparez votre menu de fêtes, je peux le mettre en page (39 €, fichier prêt à imprimer, vous validez avant de payer). Écrivez-moi en privé si ça vous intéresse. Bonne journée !
 
-**Threads** : Restaurateurs du Vaucluse : votre menu de réveillon est prêt ? Je le mets en page à 39 €, prêt à imprimer.
+**TikTok** : Votre menu de fêtes donne faim ? Mise en page à 39 €, prête à imprimer. Écrivez-moi en privé. #restaurant #Vaucluse #menudefetes
 
-**X** : Menu de fêtes à refaire ? Mise en page lisible, prête à imprimer, 39 €. Vous validez avant de payer. il4nstudio.netlify.app
+**Threads** : Restaurateurs du Vaucluse : votre menu de réveillon est prêt ? Je le mets en page à 39 €, prêt à imprimer. Écrivez-moi en privé.
 
 ---
 
-### J4 — Jeudi 19 · Vraie réalisation client
+### J4 — Jeudi 19 · Vrais clients
 
 **Carrousel 5 images** (captures réelles de la section Réalisations, mention « Pour un vrai client » conservée)
-1. « Ce que j'ai fait pour un vrai client. »
-2. Cartes de visite · Association (lutte contre le harcèlement scolaire, Puy-de-Dôme) — capture
-3. « La demande : des cartes sérieuses, rassurantes, lisibles. » ⚠️ **à confirmer avec toi : la vraie demande du client**
-4. Flyer événement · Bien-être — capture
-5. « Votre projet peut être le prochain. Devis gratuit. »
+1. « Ce que j'ai fait pour de vrais clients. »
+2. Cartes de visite · Association — capture
+3. « La demande : des cartes de visite pour une association de lutte contre le harcèlement scolaire. »
+4. Flyer événement — capture + « La demande : un flyer pour un événement autour de l'aloe vera. »
+5. « Votre projet peut être le prochain. » + pastille « Écrivez-moi en privé ↗ »
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
 > Pas d'exemple inventé aujourd'hui : deux vrais travaux.
 >
-> Des cartes de visite pour une association qui lutte contre le harcèlement scolaire (Puy-de-Dôme), et un flyer pour l'après-midi découverte d'une conseillère bien-être.
+> Des cartes de visite pour une association qui lutte contre le harcèlement scolaire, dans le Puy-de-Dôme. Et un flyer pour un événement autour de l'aloe vera, pour une conseillère.
 >
-> Je travaille à distance sans problème : tout se fait par message et par e-mail.
+> Je travaille aussi à distance : tout se fait par message et par e-mail.
 >
-> 👉 Une idée en tête ? Écrivez-moi.
+> 👉 Une idée en tête ? Écrivez-moi en privé.
 >
 > #graphiste #cartesdevisite #flyer #Vaucluse
 
-⚠️ **À vérifier avant publication** : accord des deux clients pour être montrés sur les réseaux (le site les montre déjà, mais l'accord pour les réseaux est à confirmer).
+**TikTok mode photo** : mêmes 5 images. Texte : « Deux vrais projets clients. Pas d'exemple inventé. »
 
-**Threads / X** : Deux vrais projets clients cette semaine sur le compte : des cartes de visite pour une association, un flyer pour un événement bien-être. Le reste du site, ce sont des exemples, et c'est écrit dessus.
+**Threads** : Deux vrais projets clients sur le compte aujourd'hui : des cartes de visite pour une association, un flyer pour un événement aloe vera. Le reste de mon site, ce sont des exemples, et c'est écrit dessus.
 
 ---
 
-### J5 — Vendredi 20 · Quel flyer choisir ?
+### J5 — Vendredi 20 · Quel flyer choisir ? (début de l'offre)
 
-**Visuel** : reel comparatif avec capture réelle du tableau « Quel flyer choisir ? » (section prestations), tenue ≥ 2 s lisible.
+**Visuel** : reel avec la capture réelle du tableau « Quel flyer choisir ? », tenue ≥ 2 s lisible, puis le bandeau de l'offre.
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
+> À partir d'aujourd'hui : jusqu'à -20 % sur les 3 formules flyer, jusqu'au 31 décembre inclus.
+>
 > Quel flyer choisir ?
 > • Start, 21 € : 1 proposition, 1 retouche, 72 h.
 > • Pro, 35 € : 2 propositions, recto-verso, version story, 48 h.
@@ -210,35 +213,34 @@ Lien : en bio sur Instagram/TikTok/Threads, en commentaire ou dans le post sur F
 >
 > Un marché de Noël, une soirée, une promo de fin d'année ? Dites-moi ce que vous annoncez, je vous dis lequel prendre.
 >
-> 👉 Lien en bio.
+> 👉 Écrivez-moi en privé.
 >
 > #flyer #Vaucluse #marchédenoël #Carpentras #commercelocal
 
-**Variante si l'offre de décembre est active à cette date** (à confirmer) : ajouter la ligne *« Offre de décembre : jusqu'à -20 % sur les 3 formules flyer, jusqu'au 31 décembre inclus. »* — texte repris tel quel du site, rien de plus.
+**TikTok** : Flyer à 21, 35 ou 49 €, et jusqu'à -20 % jusqu'au 31 décembre. Écrivez-moi en privé. #flyer #Vaucluse
 
-**Threads** : Start, Pro ou Prestige ? Dites-moi ce que vous annoncez, je vous dis lequel suffit. Souvent, c'est le moins cher.
-⚠️ Ne garder « souvent, c'est le moins cher » que si c'est vrai dans ta pratique.
-
-**X** : Flyer à 21, 35 ou 49 €. La différence : nombre de propositions, retouches et délai (jusqu'à 24 h). Tout est sur il4nstudio.netlify.app
+**Threads** : Start, Pro ou Prestige ? Dites-moi ce que vous annoncez, je vous dis lequel suffit. Et jusqu'au 31 décembre, c'est jusqu'à -20 % sur les trois.
 
 ---
 
-### J6 — Samedi 21 · Graphiste local (face caméra)
+### J6 — Samedi 21 · Graphiste local (ta voix sur captures)
 
-**Visuel** : toi face caméra (ou voix clonée sur captures si tu préfères ne pas apparaître — accord déjà donné pour tes propres vidéos).
+**Visuel** : reel voix off (ta voix clonée, accord déjà donné pour tes propres vidéos) sur captures réelles du site et des 2 réalisations clients. Pas de visage, pas de prénom.
 
-**Légende IG / FB**
-> Je suis [prénom], graphiste à Sarrians, dans le Vaucluse.
+**Légende Instagram / Facebook**
+> Graphiste à Sarrians, dans le Vaucluse.
 >
 > Flyers, menus, cartes de visite, visuels réseaux, et maintenant des sites internet. Un seul interlocuteur, des tarifs affichés, et vous validez avant de payer.
 >
-> Vous êtes du coin et vous avez un projet pour les fêtes ? Écrivez-moi, on en parle.
+> Vous êtes du coin et vous avez un projet pour les fêtes ?
+>
+> 👉 Écrivez-moi en privé.
 >
 > #Sarrians #Vaucluse #Carpentras #Avignon #graphisteVaucluse
 
-**Threads** : Graphiste à Sarrians. Si vous êtes commerçant dans le Vaucluse et que vous avez besoin d'un flyer, d'un menu ou d'un site pour les fêtes, je suis là.
+**TikTok** : Un graphiste près de chez vous, dans le Vaucluse. Écrivez-moi en privé. #Sarrians #Vaucluse #graphiste
 
-**X** : Graphiste à Sarrians (84). Flyers, menus, sites. Tarifs affichés, validation avant paiement. il4nstudio.netlify.app
+**Threads** : Graphiste à Sarrians. Commerçant dans le Vaucluse et besoin d'un flyer, d'un menu ou d'un site pour les fêtes ? Écrivez-moi en privé.
 
 ---
 
@@ -250,88 +252,80 @@ Lien : en bio sur Instagram/TikTok/Threads, en commentaire ou dans le post sur F
 3. « Votre logo, si vous en avez un. »
 4. « Vos photos. »
 5. « Il manque quelque chose ? Je vous le demande. »
-6. Récap semaine : Site 290 € · Menu 39 € · Flyer dès 21 € · « Demander un devis ↗ »
+6. Récap : Site 290 € · Menu 39 € · Flyer dès 21 € (jusqu'à -20 % jusqu'au 31/12) · pastille « Écrivez-moi en privé ↗ »
 
-**Légende IG / FB**
+**Légende Instagram / Facebook**
 > Commander un visuel, ça prend 5 minutes de votre côté. Vos textes, votre logo si vous en avez un, vos photos. Le reste, c'est mon travail.
 >
 > Cette semaine on a parlé sites, menus de fêtes et flyers. Si l'un de ces sujets vous concerne, c'est le moment : décembre arrive vite.
 >
-> 👉 Devis gratuit, sans engagement, lien en bio.
+> 👉 Écrivez-moi en privé.
 >
 > #commercelocal #Vaucluse #graphiste #fêtesdefinannée
 
-**Story J7** : sondage « Votre priorité pour décembre ? » → Menu · Flyer · Site · Rien pour l'instant. (Donne une vraie donnée d'intérêt.)
+**TikTok mode photo** : mêmes 6 images. Texte : « Commander un visuel : 5 minutes de votre côté. »
+
+**Threads** : Pour commencer un visuel, il me faut vos textes, votre logo si vous en avez un, et vos photos. C'est tout. Le reste, c'est mon travail.
+
+**Story J7** : sondage « Votre priorité pour décembre ? » → Menu · Flyer · Site · Rien pour l'instant.
 
 ---
 
 ## 6. Scripts vidéo courts
 
-Règles reprises de `docs/REFERENCE-REEL.md` : 9:16, 1080×1920, accroche problème dans la 1re seconde, ~2,5 mots/s, sous-titres synchronisés (mot clé en or `#d6a96a`), vraies captures uniquement, rien d'important dans les 250 px du haut et 430 px du bas, carte de fin « Écrivez-moi en privé ↗ » tenue ≥ 1,5 s, boucle fin → début.
+Règles reprises de `docs/REFERENCE-REEL.md` : 9:16, 1080×1920, accroche problème dans la 1re seconde, ~2,5 mots/s, ta voix clonée (texte entier d'une traite, vérifié avec Whisper), sous-titres synchronisés (mot clé en or `#d6a96a`), vraies captures uniquement, rien d'important dans les 250 px du haut et 430 px du bas, carte de fin « Écrivez-moi en privé ↗ » tenue ≥ 1,5 s, boucle fin → début. Pas de visage.
 
-### Script J1 — Site web (15-17 s) — *réutiliser le reel validé*
-| Temps | Image | Voix |
-|---|---|---|
-| 0-2 s | Typo sur fond nuit : « Pas de site ? » → « Je crée votre site. » | « Je crée votre site. Et je le gère pour vous. » |
-| 2-6 s | Téléphone qui défile le vrai site (mention « Exemple : mon propre site ») | « Un site clair, sur mobile et sur ordinateur. » |
-| 6-8 s | Capture stable de l'accueil, 2 s | « Deux cent quatre-vingt-dix euros, affichés. » |
-| 8-13 s | Plan « Zéro souci » | « Vos horaires changent ? Envoyez-moi un message, je mets votre site à jour. » |
-| 13-17 s | Carte de fin | « Écrivez-moi en privé. » |
+### Script J1 — Site web (15-17 s) — *reel validé, à réutiliser tel quel*
 
 ### Script J3 — Menus de fêtes (15 s)
 | Temps | Image | Voix | Texte écran |
 |---|---|---|---|
 | 0-1,5 s | Typo qui claque | « Votre menu de fêtes donne faim ? » | « Votre menu donne faim ? » |
 | 1,5-5 s | Capture « Menu · Bistrot provençal », **stable 2 s**, étiquette « Exemple · commerce imaginaire » | « Je mets votre carte en page, lisible, à votre image. » | « Lisible. À votre image. » |
-| 5-9 s | Capture de la ligne tarif « Menu de restaurant 39 € » | « Trente-neuf euros, fichier prêt à imprimer. » | « 39 € · prêt à imprimer » |
+| 5-9 s | Capture de la ligne « Menu de restaurant 39 € » | « Trente-neuf euros, fichier prêt à imprimer. » | « 39 € · prêt à imprimer » |
 | 9-12 s | Typo papier : « Vous validez avant de payer. » | « Vous voyez, vous validez, ensuite vous payez. » | — |
-| 12-15 s | Carte de fin (boucle sur fond nuit) | « Écrivez-moi avant le rush ! » | « Écrivez-moi en privé ↗ » |
+| 12-15 s | Carte de fin (boucle sur fond nuit) | « Écrivez-moi en privé ! » | « Écrivez-moi en privé ↗ » |
 
 ### Script J5 — Quel flyer choisir ? (15 s)
 | Temps | Image | Voix | Texte écran |
 |---|---|---|---|
 | 0-1,5 s | Typo | « Votre flyer passe inaperçu ? » | « Flyer invisible ? » |
 | 1,5-5 s | Capture réelle du tableau comparatif, stable 2 s | « Trois formules, prix affichés. » | « 21 € · 35 € · 49 € » |
-| 5-9 s | Zoom doux colonne Prestige | « Pressé ? Le Prestige, c'est vingt-quatre heures possible. » | « 24 h possible » |
-| 9-12 s | Capture flyer réel « Pour un vrai client » (bien-être) | « Comme ce flyer, fait pour une vraie cliente. » | « Pour un vrai client » |
-| 12-15 s | Carte de fin | « Dites-moi ce que vous annoncez. » | « Écrivez-moi en privé ↗ » |
+| 5-8 s | Bandeau or | « Et jusqu'au trente et un décembre, jusqu'à moins vingt pour cent. » | « Jusqu'à -20 % · jusqu'au 31/12 » |
+| 8-12 s | Capture du flyer aloe vera, mention « Pour un vrai client » | « Comme ce flyer, fait pour une vraie cliente. » | « Pour un vrai client » |
+| 12-15 s | Carte de fin | « Écrivez-moi en privé ! » | « Écrivez-moi en privé ↗ » |
 
-### Script J6 — Face caméra « Graphiste local » (20-25 s)
-> **[0-2 s, en marchant, plan serré]** « Vous êtes commerçant dans le Vaucluse ? Deux minutes. »
-> **[2-8 s]** « Moi c'est [prénom], graphiste à Sarrians. Je fais vos flyers, vos menus, vos cartes de visite… et maintenant vos sites. »
-> **[8-15 s]** « Les prix sont affichés sur mon site. Et vous ne payez qu'une fois la création validée. »
-> **[15-22 s]** « Décembre arrive. Si vous avez un menu, une affiche ou un site à faire, écrivez-moi maintenant, pas le vingt. »
-> **[22-25 s, carte de fin]** « Écrivez-moi en privé ↗ »
+### Script J6 — Graphiste local (20 s, voix sur captures)
+| Temps | Image | Voix | Texte écran |
+|---|---|---|---|
+| 0-2 s | Typo sur fond nuit | « Commerçant dans le Vaucluse ? » | « Vaucluse ? » |
+| 2-7 s | Téléphone qui défile le vrai site | « Je suis graphiste à Sarrians. Flyers, menus, cartes de visite… et sites internet. » | « Graphiste à Sarrians » |
+| 7-11 s | Capture stable des 2 réalisations « Pour un vrai client » | « Pour de vrais clients, ici comme ailleurs. » | « Pour de vrais clients » |
+| 11-16 s | Typo papier : « Prix affichés. Vous validez avant de payer. » | « Les prix sont affichés, et vous validez avant de payer. » | — |
+| 16-20 s | Carte de fin | « Un projet pour les fêtes ? Écrivez-moi en privé. » | « Écrivez-moi en privé ↗ » |
 
-Conseils tournage : lumière de fenêtre face à toi, téléphone à hauteur des yeux, 3 prises, garder la plus naturelle (pas la plus parfaite). Sous-titres obligatoires.
-
-### Script J2 / J4 / J7 — Variante vidéo des carrousels (TikTok/Shorts, optionnel)
-Diaporama 1 image/2 s sur musique libre de droits (bibliothèque de la plateforme ou musique synthétisée maison), même texte que le carrousel.
+### J2 / J4 / J7 en vidéo (TikTok, optionnel)
+Diaporama 1 image toutes les 2 s sur musique libre de droits (bibliothèque TikTok ou musique synthétisée maison), même texte que le carrousel.
 
 ---
 
 ## 7. Appels à l'action
 
-Un seul appel à l'action par publication. Bibliothèque :
-
 | Situation | Appel à l'action |
 |---|---|
-| Fin de vidéo (charte validée) | **Écrivez-moi en privé ↗** |
-| Post avec offre / prix | **Devis gratuit, lien en bio.** |
-| Facebook / X (lien cliquable) | **Devis gratuit 👉 il4nstudio.netlify.app** |
-| Saison | **Écrivez-moi maintenant, pas le 20 décembre.** |
+| Partout (principal) | **Écrivez-moi en privé ↗** |
+| Saison | **Écrivez-moi avant le rush de décembre.** |
 | Engagement (sans vente) | **Dites-moi en commentaire ce que vous annoncez, je vous dis quel flyer prendre.** |
-| Story | Autocollant lien → site · sondage · boîte à questions « Votre projet en une phrase » |
+| Story | Sondage · boîte à questions « Votre projet en une phrase » · rappel « écrivez-moi en privé » |
 
-**Réponses types en message privé** (à personnaliser, jamais en automatique sans ton accord) :
-> Bonjour [prénom] ! Merci pour votre message. Pour vous faire un devis précis : c'est pour quel support (site, flyer, menu…) et pour quelle date ? Vous pouvez aussi remplir le formulaire du site, c'est gratuit et sans engagement.
+**Réponse type en message privé** (à personnaliser, jamais automatique sans ton accord) :
+> Bonjour [prénom] ! Merci pour votre message. Pour vous faire un devis précis : c'est pour quel support (site, flyer, menu…) et pour quelle date ? Le devis est gratuit et sans engagement.
 
-**Liens de suivi** (pour savoir d'où viennent les visites, si le site a des statistiques activées) :
+**Lien en bio avec suivi** (pour voir d'où viennent les visites, si le site a des statistiques activées) :
 - Instagram : `https://il4nstudio.netlify.app/?utm_source=instagram&utm_medium=social&utm_campaign=fetes7j`
-- Facebook : `...?utm_source=facebook&utm_medium=social&utm_campaign=fetes7j`
-- TikTok / Threads / X / YouTube : même schéma, `utm_source` = nom de la plateforme.
+- Facebook, TikTok, Threads : même schéma, `utm_source` = nom de la plateforme.
 
-Ajout conseillé au formulaire (à valider) : champ facultatif « Comment m'avez-vous connu ? ».
+**Suivi des messages** : noter pour chaque message privé la plateforme et le post d'origine (« vous m'avez trouvé comment ? »).
 
 ---
 
@@ -339,11 +333,11 @@ Ajout conseillé au formulaire (à valider) : champ facultatif « Comment m'avez
 
 À faire pendant la semaine (modifications du site = à valider avant mise en ligne) :
 
-1. **Fiche Google Business Profile** (lien « Avis Google » présent sur le site) : publier 1 post Google par jour en reprenant le thème du réseau (menu de fêtes, flyer, site), photos = vraies créations. Vérifier catégorie « Graphiste » + zone desservie (Sarrians, Carpentras, Avignon, Orange).
-2. **Avis** : demander un avis aux **vrais clients** passés (message simple, sans contrepartie). Jamais d'avis rédigé à leur place.
-3. **Mots-clés locaux** à vérifier dans le titre / textes du site : « graphiste Vaucluse », « graphiste Carpentras », « création site internet Vaucluse », « menu restaurant Avignon ». Le titre actuel du site mentionne Sarrians : bien.
-4. **FAQ** : ajouter une question saisonnière, ex. « Pouvez-vous faire mon menu de fêtes avant le 20 décembre ? » (réponse selon tes vraies disponibilités).
-5. **Lien en bio** pointant vers le formulaire de devis (ancre `#contact` si elle existe).
+1. **Libellé de l'offre** : le site dit « Offre de décembre » alors qu'elle démarre le 20/11 → proposer « Offre de fin d'année » pour éviter la confusion.
+2. **Fiche Google Business Profile** (lien « Avis Google » présent sur le site) : 1 post Google par jour reprenant le thème du jour, avec de vraies créations. Vérifier la catégorie « Graphiste » et la zone desservie (Sarrians, Carpentras, Avignon, Orange).
+3. **Avis** : demander un avis Google aux 2 vrais clients (message simple, sans contrepartie). Jamais d'avis rédigé à leur place.
+4. **Mots-clés locaux** à vérifier dans les textes du site : « graphiste Vaucluse », « graphiste Carpentras », « création site internet Vaucluse », « menu restaurant Avignon ».
+5. **FAQ** : ajouter une question de saison, ex. « Pouvez-vous faire mon menu de fêtes avant le 20 décembre ? » (réponse selon tes vraies disponibilités).
 
 Pas de promesse de position Google : le référencement local prend des semaines.
 
@@ -352,55 +346,59 @@ Pas de promesse de position Google : le référencement local prend des semaines
 ## 9. Indicateurs de suivi
 
 ### Situation de départ (J0 = dimanche 15/11, à relever avant la campagne)
-**Aucune donnée réelle n'est disponible dans cette session** (Metricool n'est pas connecté ; aucun accès aux statistiques des comptes). Il faut relever à la main ou via Metricool :
+**Aucune donnée réelle n'est disponible dans cette session** (Metricool non connecté, pas d'accès aux statistiques des comptes). À relever à la main dans chaque application :
 
-| Compte | Abonnés J0 | Portée moy. 30 j | Visites site 30 j | Demandes de devis 30 j |
-|---|---|---|---|---|
-| Instagram | … | … | — | — |
-| Facebook | … | … | — | — |
-| TikTok | … | … | — | — |
-| Threads / X / YouTube | … | … | — | — |
-| Site | — | — | … | … |
+| Compte | Abonnés J0 | Portée moy. 30 j | Messages privés 30 j |
+|---|---|---|---|
+| Instagram | … | … | … |
+| Facebook | … | … | … |
+| TikTok | … | … | … |
+| Threads | … | … | … |
+| Site (visites 30 j / demandes de devis 30 j) | … | … | … |
 
-### Tableau quotidien (à remplir J+1 de chaque publication)
+### Tableau quotidien (à remplir le lendemain de chaque publication)
 
-| Jour | Plateforme | Portée | Vues 3 s / taux de rétention | Enregistrements | Partages | Visites profil | Clics lien | Messages privés | Devis reçus |
+| Jour | Plateforme | Portée | Vues 3 s / rétention | Enregistrements | Partages | Visites profil | Clics lien bio | Messages privés | Devis envoyés |
 |---|---|---|---|---|---|---|---|---|---|
-| J1 | IG | | | | | | | | |
+| J1 | Instagram | | | | | | | | |
+| J1 | Facebook | | | | | | | | |
+| J1 | TikTok | | | | | | | | |
+| J1 | Threads | | | | | | | | |
 | … | | | | | | | | | |
 
 ### Ce qu'on regarde, par ordre d'importance
-1. **Demandes de devis** (formulaire + messages privés avec projet concret) — l'indicateur qui compte.
-2. **Messages privés reçus** et **clics vers le site**.
+1. **Messages privés avec un projet concret** et **devis envoyés** — l'indicateur qui compte.
+2. **Clics sur le lien en bio** et visites de profil.
 3. **Enregistrements et partages** (signe que le contenu est utile).
-4. **Rétention vidéo** à 3 s (accroche) et taux de visionnage complet.
+4. **Rétention vidéo** à 3 s (accroche) et visionnage complet.
 5. Portée et abonnés — utile, mais secondaire.
 
 ### Bilan J8 (lundi 23/11)
-- Quel jour / sujet a donné le plus de messages et de clics ?
+- Quel jour / sujet a donné le plus de messages ?
 - Quelle accroche a gardé le plus de monde à 3 s ?
-- Quelle plateforme a envoyé des visites au site ?
+- Quelle plateforme a envoyé le plus de messages ?
 → On garde les 2 meilleurs sujets pour la semaine suivante, on retravaille l'accroche des 2 plus faibles. **Les conclusions s'appuient uniquement sur les chiffres relevés.**
 
 ---
 
-## 10. Validation avant publication — à cocher par toi
+## 10. Validation
 
-- [ ] Dates de campagne (16 → 22/11) OK
-- [ ] Prénom à afficher (J6)
-- [ ] Offre de décembre -20 % flyers : active à partir de quand ?
-- [ ] Accord des 2 vrais clients pour les montrer sur les réseaux (J4) + description réelle de la demande
-- [ ] Contact à afficher : uniquement « Écrivez-moi en privé » ou aussi @il4n_Studio / téléphone ?
-- [ ] Comptes réellement ouverts : Instagram, TikTok, Facebook, Threads, X, YouTube ? (on retire ceux qui n'existent pas)
-- [ ] Face caméra (J6) : toi à l'écran ou voix sur captures ?
-- [ ] Modifications du site (§ 8) autorisées ?
+- [x] Dates de campagne (16 → 22/11)
+- [x] Offre -20 % flyers : active à partir du 20/11
+- [x] Accord des 2 vrais clients + description réelle de la demande
+- [x] Contact : « Écrivez-moi en privé » uniquement
+- [x] Plateformes : Instagram, Facebook, Threads, TikTok
+- [x] Vidéos : ta voix seulement, pas de visage
+- [ ] **Textes des 7 jours (§ 5) validés**
+- [ ] Changement du libellé de l'offre sur le site (§ 8.1)
+- [ ] Autres modifications du site (§ 8)
 
 ## 11. Outils
 
 | Outil | État dans cette session | Usage prévu |
 |---|---|---|
-| Canva | Connecté | Carrousels J2, J4, J7 et déclinaisons de formats — **création en brouillon après ta validation des textes** |
-| Metricool | **Non connecté** | Programmation + statistiques : à connecter pour remplir § 9 automatiquement |
-| Chaîne reel maison (`reel/`, motion-reel, voix clonée) | Disponible | Reels J1, J3, J5 selon la routine validée |
+| Canva | Connecté | Carrousels J2, J4, J7 en brouillon, **après validation des textes** |
+| Metricool | **Non connecté** | Programmation + statistiques : à connecter pour remplir le § 9 automatiquement |
+| Chaîne reel maison (`reel/`, motion-reel, ta voix clonée) | Disponible | Reels J3, J5, J6 (J1 déjà prêt) |
 
-Aucune publication ni programmation ne sera faite sans ton feu vert explicite, plateforme par plateforme.
+Aucune publication ni programmation sans ton feu vert explicite, plateforme par plateforme.
