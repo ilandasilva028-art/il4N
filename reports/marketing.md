@@ -402,3 +402,101 @@ Pas de promesse de position Google : le référencement local prend des semaines
 | Chaîne reel maison (`reel/`, motion-reel, ta voix clonée) | Disponible | Reels J3, J5, J6 (J1 déjà prêt) |
 
 Aucune publication ni programmation sans ton feu vert explicite, plateforme par plateforme.
+
+---
+
+## 12. Posts « tendance » prêts (ajout du 14/11/2026)
+
+Fichiers prêts dans `posts/2026-11-tendances/` (PNG 1080×1350, stories 1080×1920 ; source modifiable : `src/posts.html`).
+Charte du site : nuit `#111018`, papier `#f4f0e8`, or `#d6a96a`, Inter + italique serif dorée.
+
+### Ce que j'ai retenu de ton style (tes 5 visuels + 11 vidéos)
+- Titre en 2 temps : phrase droite + **2e ligne en italique de couleur** (« dans le même style. », « Et je le gère pour vous. »).
+- Maquettes réalistes (téléphone, flyer, carte posés sur une table), fond sobre, une seule couleur d'accent.
+- Formats qui reviennent : avant / après, fil Instagram dans un téléphone, glissement de carrousel, « POV », pack de supports.
+- Appel à l'action en message privé, et **mention honnête** « Concept fictif » / « Exemple » sur chaque visuel inventé. ✅ À garder.
+
+### Tendances de novembre 2026 retenues (sources en bas)
+| Tendance | Pourquoi elle sert IL4N | Post |
+|---|---|---|
+| Carrousels à enregistrer (ils génèrent plus d'enregistrements et de partages que les vidéos, selon les blogs de tendances) | Un calendrier pratique, utile au commerçant | **A** |
+| Formats « classement » / listes | Conseil concret, montre l'expertise | **B** |
+| **Résultat d'abord**, puis le point de départ (format en tête dans l'alimentation et la beauté) | Ton avant/après, inversé | **C** |
+| Reels à texte minimal + « POV » + compte à rebours de Noël | Le menu de fêtes, avec le bon timing | **D** |
+| Sons de Noël qui remontent (ex. « All I Want for Christmas Is You ») | À ajouter **depuis la bibliothèque musicale d'Instagram/TikTok** (droits gérés par la plateforme), jamais dans le fichier exporté | D, C |
+
+Je n'ai pas pu mesurer les tendances par moi-même : vidIQ n'a plus de crédits et deux sites d'analyse sont bloqués par le réseau de la session. Les tendances viennent de blogs de veille, à prendre comme des pistes.
+
+### Où les placer dans la semaine
+- **Mar 17** : Post A remplace le carrousel « Vous validez avant de payer » (la promesse reste sur la dernière image).
+- **Mer 18** : Post C en publication + Post D en story / couverture de reel, avec le reel menu prévu.
+- **Dim 22** : Post B remplace le carrousel « Ce qu'il faut m'envoyer ».
+
+### Post A — « Noël approche. Votre com' aussi ? » (carrousel 6 images, A1 → A6)
+**Instagram / Facebook**
+> Enregistrez-le, il vous servira jusqu'en janvier 📌
+>
+> Menu de fêtes, horaires, flyer de marché de Noël, dates limites, vœux… Tout ne se prépare pas en même temps. Voici l'ordre.
+>
+> Il vous manque un support ? Vous validez avant de payer.
+> 👉 Écrivez-moi en privé.
+>
+> #commercelocal #Vaucluse #Carpentras #Avignon #Noël
+
+**TikTok (mode photo)** : Le calendrier com' des fêtes pour commerçants. Enregistre-le 📌 #commercant #Noël #Vaucluse
+**Threads** : Petit calendrier pour les commerçants : le menu de fêtes et les horaires d'abord, les flyers début décembre, les dates limites mi-décembre, les vœux à la fin. Il vous manque un support ? Écrivez-moi en privé.
+
+### Post B — « 3 erreurs qui rendent un flyer invisible » (classement, B1 → B5)
+**Instagram / Facebook**
+> L'erreur n°1, je la vois tout le temps. 👀
+>
+> 3. Trop d'infos au même niveau.
+> 2. La date et le lieu cachés en bas.
+> 1. Personne ne sait quoi faire après.
+>
+> Votre flyer passe le test ? Envoyez-le moi en privé, je vous dis ce que je changerais.
+>
+> #flyer #graphiste #Vaucluse #marchédenoël #commercelocal
+
+**TikTok** : 3 erreurs qui rendent un flyer invisible. La n°1 est la plus courante. #flyer #graphiste
+**Threads** : L'erreur n°1 sur un flyer : personne ne sait quoi faire après l'avoir lu. Réserver ? Venir ? Commander ? Dites-le en gros.
+⚠️ **À valider** : « je vous dis ce que je changerais » = un avis gratuit sur leur flyer. Bon moyen d'ouvrir la conversation, mais c'est un engagement de ton temps.
+
+### Post C — « Même menu. Pas le même effet. » (écran partagé, C1)
+Après en haut (résultat d'abord), avant en bas. Images tirées de ta vidéo « menu bistrot avant/après », mention « Exemple · commerce imaginaire » visible.
+**Instagram / Facebook**
+> Même menu. Mêmes plats. Mêmes prix.
+> Pas le même effet.
+>
+> Votre carte de fêtes mérite mieux qu'un document Word. Menu prêt à imprimer, 39 €, vous validez avant de payer.
+> 👉 Écrivez-moi en privé.
+>
+> (Exemple pour un commerce imaginaire.)
+>
+> #restaurant #menudefetes #Vaucluse #Avignon #Carpentras
+
+**Threads** : Même menu, mêmes plats, mêmes prix. Seule la mise en page change. Et ça change tout.
+
+### Post D — « POV » (story ou reel 9:16, D1 → D2)
+Reel conseillé : D1 affiché 2,5 s sur un son de Noël de la bibliothèque → coupe nette sur la sortie de ton reel menu avant/après (tes captures) → D2 pendant 3 s. Rien d'important dans les 250 px du haut ni les 430 px du bas : c'est respecté.
+**Légende (Instagram / TikTok / Facebook)** :
+> POV : on est fin novembre et ta carte de réveillon est encore un document Word 😅
+> Tu m'envoies tes plats, je fais le reste. 39 €, tu valides avant de payer.
+> 👉 Écris-moi en privé.
+> #restaurant #menudefetes #POV #Vaucluse
+
+### Points à harmoniser (vus sur tes visuels)
+- **Nom** : « IL4N STUDIO » sur certains visuels, « IL4NFC Studio » sur d'autres. Un seul nom partout.
+- **Compte** : « @Il4n_dsv » sur les visuels BTP, « @il4n_Studio » sur le site. Un seul @ partout.
+- **Ville** : « Avignon » sur le visuel Atelier Aube, « Sarrians » sur le site. Choisir : « Sarrians · Vaucluse » ou « Près d'Avignon ».
+- **Couleurs** : violet, orange, rouge, or… Garder **or + nuit + papier** pour la marque. Les autres couleurs vont uniquement dans les exemples clients.
+- Le visuel du site « Café L'Atelier » porte bien « Exemple de site vitrine » ✅. Pareil pour toute image générée par IA.
+
+### Sources tendances
+- [Instagram Trends: November 2026 — New Engen](https://newengen.com/insights/instagram-trends/)
+- [TikTok Trends: November 2026 — New Engen](https://newengen.com/insights/tiktok-trends/)
+- [Top Instagram Reels Trends Right Now (November 2026) — NapoleonCat](https://napoleoncat.com/blog/instagram-reels-trends/)
+- [Instagram Trends November 2026 — Mean CEO](https://blog.mean.ceo/instagram-trends-november-2026/)
+- [TikTok Trends for November 2026 — Palladium SMM](https://palladium-smm.com/en/blog/trendy-tiktok-noyabr-2026)
+- [Trends TikTok 2026 — Takema Studio](https://www.takema-studio.com/marques/trends-tiktok)
+- [TikTok trends this week (November 2026) — Volume](https://tryvolume.app/working)

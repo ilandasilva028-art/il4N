@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Acc;src:url(../../../reel/fonts/accent.woff2)}
+@font-face{font-family:Inter;font-weight:400;src:url(../../../reel/fonts/Inter-Regular.otf)}
+@font-face{font-family:Inter;font-weight:500;src:url(../../../reel/fonts/Inter-Medium.otf)}
+@font-face{font-family:Inter;font-weight:600;src:url(../../../reel/fonts/Inter-SemiBold.otf)}
+@font-face{font-family:Inter;font-weight:700;src:url(../../../reel/fonts/Inter-Bold.otf)}
+@font-face{font-family:Inter;font-weight:800;src:url(../../../reel/fonts/Inter-ExtraBold.otf)}
+@font-face{font-family:Inter;font-weight:900;src:url(../../../reel/fonts/Inter-Black.otf)}
+:root{--night:#111018;--night2:#1b1825;--paper:#f4f0e8;--white:#fffdf8;--gold:#d6a96a;--ink:#17131d;--muted:#6d6870;--line:#d9d2c7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#555;font-family:Inter,sans-serif}
+.slide{position:relative;width:1080px;height:1350px;overflow:hidden;margin:20px}
+.story{height:1920px}
+.dark{background:radial-gradient(120% 80% at 80% 0%,#221d2e 0%,var(--night) 60%);color:var(--white)}
+.light{background:var(--paper);color:var(--ink)}
+.pad{position:absolute;inset:0;padding:96px 92px}
+.kicker{font-size:26px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.75}
+.dark .kicker{color:var(--white)} .light .kicker{color:var(--muted)}
+.h1{font-weight:900;font-size:118px;line-height:.98;letter-spacing:-.035em}
+.h2{font-weight:900;font-size:92px;line-height:1;letter-spacing:-.03em}
+.acc{font-family:Acc,Georgia,serif;font-style:italic;font-weight:400;color:var(--gold);letter-spacing:-.01em}
+.light .acc{color:#9a663e}
+.body{font-size:40px;line-height:1.35;font-weight:500}
+.dark .body{color:#e9e3d8} .light .body{color:#4a4450}
+.foot{position:absolute;left:92px;right:92px;bottom:70px;display:flex;justify-content:space-between;font-size:24px;font-weight:600;letter-spacing:.08em;opacity:.6}
+.pill{display:inline-flex;align-items:center;gap:18px;background:var(--gold);color:var(--night);font-weight:800;font-size:42px;padding:30px 52px;border-radius:999px}
+.rule{width:120px;height:4px;background:var(--gold);margin:44px 0}
+.num{font-family:Acc,Georgia,serif;font-style:italic;color:var(--gold);font-size:360px;line-height:.8;position:absolute;right:70px;top:70px;opacity:.95}
+.light .num{color:#9a663e}
+.step{display:flex;gap:30px;align-items:flex-start;padding:34px 0;border-top:2px solid rgba(255,255,255,.12)}
+.light .step{border-top:2px solid var(--line)}
+.step b{font-weight:800}
+.tick{flex:none;width:54px;height:54px;border-radius:50%;border:3px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:30px;margin-top:4px}
+.when{display:inline-block;font-size:28px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--night);background:var(--gold);padding:12px 22px;border-radius:10px}
+.swipe{position:absolute;right:92px;bottom:150px;font-size:30px;font-weight:700;color:var(--gold)}
+.half{position:absolute;left:0;right:0;height:675px;overflow:hidden}
+.half img{width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;left:40px;top:40px;background:var(--night);color:var(--white);font-weight:800;font-size:30px;letter-spacing:.14em;padding:14px 26px;border-radius:999px}
+.tag.g{background:var(--gold);color:var(--night)}
+.ex{position:absolute;right:40px;top:44px;background:rgba(17,16,24,.82);color:#fff;font-size:24px;font-weight:600;padding:10px 20px;border-radius:999px}
+</style></head><body>
+
+<!-- ===== POST A : compte à rebours des fêtes (carrousel à enregistrer) ===== -->
+<section class="slide dark" id="A1"><div class="pad">
+  <div class="kicker">il4n Studio · à enregistrer</div>
+  <div style="margin-top:200px" class="h1">Noël approche.<br><span class="acc">Votre com' aussi&nbsp;?</span></div>
+  <div class="rule"></div>
+  <div class="body" style="max-width:820px">Le calendrier des supports de fin d'année, pour les commerçants. Dans l'ordre.</div>
+  <div class="swipe">Glissez →</div>
+  <div class="foot"><span>IL4N STUDIO</span><span>1 / 6</span></div>
+</div></section>
+
+<section class="slide light" id="A2"><div class="pad">
+  <span class="when">Maintenant → fin novembre</span>
+  <div class="h2" style="margin-top:60px">Ce qui doit être<br><span class="acc">prêt en premier.</span></div>
+  <div style="margin-top:80px">
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Votre menu de fêtes</b><br>Les clients réservent tôt : la carte doit être là avant eux.</div></div>
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Vos horaires de fin d'année</b><br>Sur la vitrine, les réseaux et votre site.</div></div>
+  </div>
+  <div class="foot"><span>IL4N STUDIO</span><span>2 / 6</span></div>
+</div></section>
+
+<section class="slide light" id="A3"><div class="pad">
+  <span class="when">Début décembre</span>
+  <div class="h2" style="margin-top:60px">Ce qui<br><span class="acc">fait venir.</span></div>
+  <div style="margin-top:80px">
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Flyer ou affiche</b><br>Marché de Noël, soirée, ouverture exceptionnelle.</div></div>
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Vos visuels réseaux</b><br>Pour annoncer les commandes et les dates limites.</div></div>
+  </div>
+  <div class="foot"><span>IL4N STUDIO</span><span>3 / 6</span></div>
+</div></section>
+
+<section class="slide light" id="A4"><div class="pad">
+  <span class="when">Mi-décembre</span>
+  <div class="h2" style="margin-top:60px">Ce qu'on<br><span class="acc">oublie souvent.</span></div>
+  <div style="margin-top:80px">
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Le rappel des dates limites</b><br>« Commandes jusqu'au… » en gros, partout.</div></div>
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Vos jours de fermeture</b><br>Pour éviter la porte close et le client déçu.</div></div>
+  </div>
+  <div class="foot"><span>IL4N STUDIO</span><span>4 / 6</span></div>
+</div></section>
+
+<section class="slide light" id="A5"><div class="pad">
+  <span class="when">Fin décembre → janvier</span>
+  <div class="h2" style="margin-top:60px">Ce qui prépare<br><span class="acc">l'année suivante.</span></div>
+  <div style="margin-top:80px">
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Vos vœux</b><br>Un visuel simple, à votre image.</div></div>
+    <div class="step"><div class="tick">✓</div><div class="body"><b>Vos infos de janvier</b><br>Nouveaux horaires, soldes, nouveaux tarifs.</div></div>
+  </div>
+  <div class="foot"><span>IL4N STUDIO</span><span>5 / 6</span></div>
+</div></section>
+
+<section class="slide dark" id="A6"><div class="pad">
+  <div class="kicker">Il vous manque un support&nbsp;?</div>
+  <div style="margin-top:170px" class="h1">Je m'en<br><span class="acc">occupe.</span></div>
+  <div class="rule"></div>
+  <div class="body">Menu 39 € · Flyer dès 21 € · Site 290 €<br><span style="color:var(--gold)">Jusqu'à -20 % sur les flyers jusqu'au 31/12.</span><br>Vous validez avant de payer.</div>
+  <div style="margin-top:80px"><span class="pill">Écrivez-moi en privé ↗</span></div>
+  <div class="foot"><span>IL4N STUDIO · SARRIANS</span><span>6 / 6</span></div>
+</div></section>
+
+<!-- ===== POST B : classement « 3 erreurs » ===== -->
+<section class="slide dark" id="B1"><div class="pad">
+  <div class="kicker">Classement · flyer de fêtes</div>
+  <div style="margin-top:220px" class="h1">3 erreurs qui rendent un flyer <span class="acc">invisible.</span></div>
+  <div class="rule"></div>
+  <div class="body">De la moins grave à la pire.</div>
+  <div class="swipe">Glissez →</div>
+  <div class="foot"><span>IL4N STUDIO</span><span>1 / 5</span></div>
+</div></section>
+
+<section class="slide light" id="B2"><div class="pad">
+  <div class="num">3</div>
+  <div class="kicker">Erreur n°3</div>
+  <div class="h2" style="margin-top:420px">Trop d'infos<br><span class="acc">au même niveau.</span></div>
+  <div class="rule"></div>
+  <div class="body" style="max-width:840px">Un flyer se lit en passant. Une info en grand, le reste en petit.</div>
+  <div class="foot"><span>IL4N STUDIO</span><span>2 / 5</span></div>
+</div></section>
+
+<section class="slide light" id="B3"><div class="pad">
+  <div class="num">2</div>
+  <div class="kicker">Erreur n°2</div>
+  <div class="h2" style="margin-top:420px">La date et le lieu,<br><span class="acc">cachés en bas.</span></div>
+  <div class="rule"></div>
+  <div class="body" style="max-width:840px">Ce qu'on cherche en premier doit se voir en premier.</div>
+  <div class="foot"><span>IL4N STUDIO</span><span>3 / 5</span></div>
+</div></section>
+
+<section class="slide dark" id="B4"><div class="pad">
+  <div class="num">1</div>
+  <div class="kicker">Erreur n°1</div>
+  <div class="h2" style="margin-top:420px">Personne ne sait<br><span class="acc">quoi faire après.</span></div>
+  <div class="rule"></div>
+  <div class="body" style="max-width:840px">Réserver ? Commander ? Venir ? Dites-le en gros, avec le contact juste à côté.</div>
+  <div class="foot"><span>IL4N STUDIO</span><span>4 / 5</span></div>
+</div></section>
+
+<section class="slide dark" id="B5"><div class="pad">
+  <div class="kicker">Et le vôtre&nbsp;?</div>
+  <div style="margin-top:200px" class="h1">Il passe <span class="acc">le test&nbsp;?</span></div>
+  <div class="rule"></div>
+  <div class="body" style="max-width:860px">Envoyez-moi votre flyer en privé. Je vous dis ce que je changerais.</div>
+  <div style="margin-top:80px"><span class="pill">Écrivez-moi en privé ↗</span></div>
+  <div class="foot"><span>IL4N STUDIO · SARRIANS</span><span>5 / 5</span></div>
+</div></section>
+
+<!-- ===== POST C : résultat d'abord (écran partagé) ===== -->
+<section class="slide dark" id="C1">
+  <div class="half" style="top:0"><img src="menu_4_c.png" style="object-position:50% 0%"><span class="tag g">APRÈS</span><span class="ex">Exemple · commerce imaginaire</span></div>
+  <div class="half" style="top:675px"><img src="menu_0.5_c.png" style="object-position:50% 0%;transform:translateY(60px)"><span class="tag">AVANT</span></div>
+  <div style="position:absolute;left:50%;top:675px;transform:translate(-50%,-50%);background:var(--night);color:var(--white);padding:22px 40px;border-radius:999px;font-weight:900;font-size:40px;white-space:nowrap;border:3px solid var(--gold)">Même menu. <span class="acc">Pas le même effet.</span></div>
+</section>
+
+<!-- ===== POST D : POV (story / couverture de reel 9:16) ===== -->
+<section class="slide story dark" id="D1"><div class="pad" style="padding-top:330px">
+  <div class="kicker">POV</div>
+  <div class="h1" style="margin-top:50px;font-size:112px">On est fin novembre et ta carte de réveillon est encore <span class="acc">un document Word.</span></div>
+  <div class="foot" style="bottom:470px"><span>IL4N STUDIO</span><span></span></div>
+</div></section>
+
+<section class="slide story dark" id="D2"><div class="pad" style="padding-top:330px">
+  <div class="kicker">Ou alors…</div>
+  <div class="h1" style="margin-top:50px">Tu m'envoies<br>tes plats.<br><span class="acc">Je fais le reste.</span></div>
+  <div class="rule"></div>
+  <div class="body">Menu prêt à imprimer · 39 €<br>Vous validez avant de payer.</div>
+  <div style="margin-top:70px"><span class="pill">Écrivez-moi en privé ↗</span></div>
+  <div class="foot" style="bottom:470px"><span>IL4N STUDIO · SARRIANS</span><span></span></div>
+</div></section>
+
+</body></html>
