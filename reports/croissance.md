@@ -16,6 +16,7 @@ La vente Aloe Vera n'est pas datée : elle est comptée dans le cumul à date, p
 | S3 | Site en ligne il4nstudio.netlify.app (consulté le 14/11) | offres, prix, formulaire, présence d'un outil de mesure | ✅ |
 | S4 | Dépôt `il4N` (docs/, reel/) | règles de communication | ✅ |
 | S5 | **Déclarations du dirigeant (14/11)** | 3 ventes, origine des clients, encaissements, abonnements, statut | ✅ déclaré · pas de pièce justificative consultée |
+| S6 | Prix publics relevés le 14/11 (sites tiers, aucune page officielle consultée) | Claude Pro ≈ 18 € HT, soit ≈ 21,60 € TTC/mois ; ChatGPT Go (formule payante la moins chère qui inclut Codex) ≈ 8 €/mois | ⚠️ **estimation** à confirmer sur le relevé |
 
 > Aucune donnée financière n'a été modifiée dans les outils du dirigeant. Les montants
 > « déclarés » viennent du dirigeant et n'ont pas été contrôlés sur un relevé bancaire.
@@ -46,17 +47,19 @@ Micro-entreprise **sans TVA** (franchise en base, confirmée par le dirigeant). 
 | **Chiffre d'affaires** (ventes réalisées) | **76,00 €** | 3 ventes, panier moyen 25,33 € |
 | **Chiffre d'affaires encaissé** | **à confirmer : entre 0 € et 76 €** | déclarations contradictoires ; c'est l'encaissé qui sert de base aux déclarations URSSAF |
 | **Revenus récurrents mensuels (MRR)** | **0,00 €** | 3 ventes ponctuelles, aucune option « Tranquillité » (100 €/an) signée |
-| **Coûts mensuels connus** | **8 €/mois** (Netlify) + Codex (montant ?) + Claude (montant ?) | tous mensuels |
-| **Cotisations sociales** | **à calculer** | taux URSSAF selon la catégorie déclarée (prestations de services BIC ou BNC) et selon le versement libératoire : à confirmer |
-| **Bénéfice** | **non calculable** | dépend des montants Codex et Claude et du taux de cotisations |
-| **Résultat partiel** | 76 € − 8 € (1 mois Netlify) = **68 €**, avant Codex, Claude et cotisations | **pas un bénéfice** : c'est un plafond |
+| **Coûts mensuels** | **≈ 37,60 €/mois** *(estimation)* | Netlify 8 € (déclaré) + Claude Pro ≈ 21,60 € TTC + ChatGPT Go (Codex) ≈ 8 € (S6). Sans TVA, la micro-entreprise ne récupère pas la TVA : le coût réel est le TTC |
+| **Cotisations sociales** | **≈ 16 à 20 €** *(hypothèse)* | taux de 21 à 26 % des encaissements selon la catégorie (BIC prestations ou BNC), à confirmer sur le compte URSSAF ; dues seulement sur ce qui est encaissé |
+| **Bénéfice estimé** (76 € encaissés, 1 mois d'abonnements) | 76 − 37,60 − (16 à 20) = **≈ 18 à 22 €** | **estimation**, pas un résultat comptable ; si rien n'est encaissé, le résultat du mois est **≈ −37,60 €** |
 | **Trésorerie générée** | **à confirmer** | si rien n'est encaissé : 0 € de recettes face à des abonnements déjà payés, donc une trésorerie négative |
 
 **Ce qu'il faut retenir :**
 - **3 clients, 76 € facturés, encaissement à confirmer, 0 € récurrent.**
 - **2 clients sur 3 viennent du bouche-à-oreille, 1 sur 3 d'une prospection hors e-mail.**
 - **La prospection par e-mail n'a encore rien rapporté** : 0 client sur environ 480 contacts.
-- Les coûts fixes mensuels (au moins 8 € + 2 abonnements IA) risquent d'absorber l'essentiel du chiffre d'affaires si le rythme de vente ne monte pas.
+- **Les abonnements (≈ 37,60 €/mois) absorbent environ la moitié du chiffre d'affaires.** Après cotisations,
+  il reste ≈ 18 à 22 € de bénéfice estimé pour environ 13 à 21 h de travail.
+- **Seuil de rentabilité** *(estimation)* : à 25 € de panier moyen, il faut **2 ventes par mois** rien que pour
+  payer les abonnements et les cotisations. Chaque vente au-delà est du bénéfice.
 
 ---
 
@@ -89,7 +92,8 @@ appels, e-mails…), soit environ 8 à 16 h sur les 2,7 semaines de la période 
 | Temps total (production + prospection) | ≈ 13 h | ≈ 21 h |
 | **Revenu brut par heure travaillée** (avant coûts et cotisations) | **≈ 5,80 €/h** | **≈ 3,60 €/h** |
 
-Ce revenu horaire est **avant** abonnements et cotisations URSSAF. Le levier principal est
+Après abonnements (≈ 37,60 €) et cotisations (≈ 16 à 20 €), le **bénéfice par heure travaillée** est d'environ
+**0,90 à 1,70 €/h** *(estimation, si les 76 € sont encaissés)*. Le levier principal est
 le prix et le nombre de ventes par heure de prospection, pas la vitesse de production.
 
 ### 2.3 Tunnel de prospection par e-mail
@@ -204,7 +208,7 @@ moins les échanges sans lien avec la prospection.
 - seuil de réussite fixé à l'avance : au moins 2 réponses positives sur 30 dans le groupe B.
 
 ### Action 3 : relever le panier moyen et mesurer le site
-**Pourquoi :** à 25 € de panier moyen, les abonnements absorbent l'essentiel du chiffre d'affaires,
+**Pourquoi :** à 25 € de panier moyen, les abonnements (≈ 37,60 €/mois) absorbent environ la moitié du chiffre d'affaires,
 et sans mesure on ne sait pas d'où viennent les demandes.
 - Appliquer la grille du site : dépliant 3 volets = plaquette (45 €), plus de dépliant au prix du Flyer Start.
 - Fixer un prix plancher : au moins 25 €/h de production (une carte de visite de 2 h ne peut pas être vendue 25 €).
@@ -223,7 +227,7 @@ mesurer les visites par source et le taux visite → demande.
 
 | Donnée | Utilité |
 |---|---|
-| Montants mensuels des abonnements Codex et Claude | coûts réels, bénéfice |
+| Montants exacts prélevés pour Claude et Codex (relevé bancaire ou facture) | remplacer l'estimation de ≈ 29,60 €/mois |
 | Part d'usage professionnel de ces abonnements, si une part est personnelle | coûts imputables à l'activité |
 | Catégorie URSSAF (BIC prestations ou BNC) et versement libératoire (oui/non) | cotisations, bénéfice net |
 | **Encaissement : avez-vous reçu le paiement des 3 factures (30 €, 25 €, 21 €) ?** | chiffre d'affaires encaissé, trésorerie, URSSAF |
