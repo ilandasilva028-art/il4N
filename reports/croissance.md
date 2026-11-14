@@ -29,27 +29,31 @@ La vente Aloe Vera n'est pas datée : elle est comptée dans le cumul à date, p
 
 | Client | Prestation | Montant | Origine | Facture | Encaissé |
 |---|---|---|---|---|---|
-| Aloe Vera | flyer + fiche produit | 30,00 € | **prospection** (hors e-mail : absent du registre et de Gmail) | n° non retrouvé | ✅ déclaré |
-| Association (lutte contre le harcèlement scolaire, Puy-de-Dôme) | carte de visite | 25,00 € | bouche-à-oreille | FA-2026-001 (31/10) | ✅ déclaré |
-| LuZo Head Spa | dépliant A4 3 volets | 21,00 € | bouche-à-oreille | FA-2026-002 (14/11) | ✅ déclaré |
-| **Total** | | **76,00 €** | | | **76,00 € déclarés** |
+| Aloe Vera | flyer + fiche produit | 30,00 € | **prospection** (hors e-mail : absent du registre et de Gmail) | envoyée (n° non retrouvé) | ❓ à confirmer |
+| Association (lutte contre le harcèlement scolaire, Puy-de-Dôme) | carte de visite | 25,00 € | bouche-à-oreille | FA-2026-001 (31/10) | ❓ à confirmer |
+| LuZo Head Spa | dépliant A4 3 volets | 21,00 € | bouche-à-oreille | FA-2026-002 (14/11) | ❓ à confirmer |
+| **Total** | | **76,00 €** | | 3 factures envoyées | **non confirmé** ⁴ |
+
+⁴ Deux déclarations contradictoires du dirigeant le 14/11 : « j'ai tout reçu », puis « je n'ai rien reçu ».
+Par prudence, **aucun encaissement n'est compté** tant que ce point n'est pas clarifié.
 
 ### 1.2 Chiffre d'affaires, bénéfice et trésorerie
 
-Micro-entreprise : la TVA est à confirmer (franchise en base probable). Les montants sont pris tels que facturés.
+Micro-entreprise **sans TVA** (franchise en base, confirmée par le dirigeant). Les montants facturés sont donc nets.
 
 | Notion | Montant | Commentaire |
 |---|---|---|
 | **Chiffre d'affaires** (ventes réalisées) | **76,00 €** | 3 ventes, panier moyen 25,33 € |
-| **Chiffre d'affaires encaissé** | **76,00 €** (déclaré) | base des déclarations URSSAF en micro-entreprise |
+| **Chiffre d'affaires encaissé** | **à confirmer : entre 0 € et 76 €** | déclarations contradictoires ; c'est l'encaissé qui sert de base aux déclarations URSSAF |
 | **Revenus récurrents mensuels (MRR)** | **0,00 €** | 3 ventes ponctuelles, aucune option « Tranquillité » (100 €/an) signée |
 | **Coûts mensuels connus** | **8 €/mois** (Netlify) + Codex (montant ?) + Claude (montant ?) | tous mensuels |
 | **Cotisations sociales** | **à calculer** | taux URSSAF selon la catégorie déclarée (prestations de services BIC ou BNC) et selon le versement libératoire : à confirmer |
 | **Bénéfice** | **non calculable** | dépend des montants Codex et Claude et du taux de cotisations |
 | **Résultat partiel** | 76 € − 8 € (1 mois Netlify) = **68 €**, avant Codex, Claude et cotisations | **pas un bénéfice** : c'est un plafond |
+| **Trésorerie générée** | **à confirmer** | si rien n'est encaissé : 0 € de recettes face à des abonnements déjà payés, donc une trésorerie négative |
 
 **Ce qu'il faut retenir :**
-- **3 clients, 76 € encaissés, 0 € récurrent.**
+- **3 clients, 76 € facturés, encaissement à confirmer, 0 € récurrent.**
 - **2 clients sur 3 viennent du bouche-à-oreille, 1 sur 3 d'une prospection hors e-mail.**
 - **La prospection par e-mail n'a encore rien rapporté** : 0 client sur environ 480 contacts.
 - Les coûts fixes mensuels (au moins 8 € + 2 abonnements IA) risquent d'absorber l'essentiel du chiffre d'affaires si le rythme de vente ne monte pas.
@@ -68,7 +72,27 @@ Micro-entreprise : la TVA est à confirmer (franchise en base probable). Les mon
 | Site et formulaire | non mesuré | 0 connu | 0 € | — |
 | **Total** | | **3** | **76 €** | |
 
-### 2.2 Tunnel de prospection par e-mail
+### 2.2 Temps et rentabilité horaire (temps déclarés, approximatifs)
+
+| Vente | Montant | Temps | Revenu brut par heure |
+|---|---|---|---|
+| Aloe Vera (flyer + fiche produit) | 30 € | ≈ 1 h | 30,00 €/h |
+| Association (carte de visite) | 25 € | ≈ 2 h | 12,50 €/h |
+| LuZo (dépliant 3 volets) | 21 € | ≈ 2 h | 10,50 €/h |
+| **Production totale** | **76 €** | **≈ 5 h** | **15,20 €/h** |
+
+Il faut ajouter le temps de prospection : 3 à 6 h par semaine (messages dans les groupes Facebook,
+appels, e-mails…), soit environ 8 à 16 h sur les 2,7 semaines de la période *(estimation)*.
+
+| | Hypothèse basse | Hypothèse haute |
+|---|---|---|
+| Temps total (production + prospection) | ≈ 13 h | ≈ 21 h |
+| **Revenu brut par heure travaillée** (avant coûts et cotisations) | **≈ 5,80 €/h** | **≈ 3,60 €/h** |
+
+Ce revenu horaire est **avant** abonnements et cotisations URSSAF. Le levier principal est
+le prix et le nombre de ventes par heure de prospection, pas la vitesse de production.
+
+### 2.3 Tunnel de prospection par e-mail
 
 | Indicateur | P1 (27/10 → 02/11) | P2 (03/11 → 14/11) | Total |
 |---|---|---|---|
@@ -90,7 +114,7 @@ moins les échanges sans lien avec la prospection.
 **Les 12 réponses humaines sont 12 refus** : 7 « pas de besoin », 2 « déjà équipé », 2 « stop »,
 1 refus pour des raisons de valeurs.
 
-### 2.3 Site et pages commerciales
+### 2.4 Site et pages commerciales
 
 | Indicateur | Valeur |
 |---|---|
@@ -141,7 +165,7 @@ moins les échanges sans lien avec la prospection.
 
 | Opportunité | Ce qui est vérifié | Valeur possible *(non acquise)* |
 |---|---|---|
-| Site LuZo Head Spa en janvier | accord oral, site de démo en ligne | 290 € + 100 €/an, soit 8,33 €/mois de MRR si l'option est signée |
+| Site LuZo Head Spa en janvier | prix annoncé : **250 € + abonnement 100 €/an** (inférieur aux 290 € affichés) ; site de démo en ligne ; pas de signature ni d'acompte connus | 250 € ponctuels + 8,33 €/mois de MRR **si signé** |
 | Impression pour LuZo | proposée le 14/11 | marge d'intermédiation, à chiffrer |
 | Recommandations des 3 clients satisfaits | 2 ventes déjà issues du bouche-à-oreille | nouveaux clients sans coût d'acquisition |
 | Client Aloe Vera : suite (site, réseaux sociaux, autres fiches produit) | client acquis, satisfait (à confirmer) | vente additionnelle |
@@ -155,7 +179,8 @@ moins les échanges sans lien avec la prospection.
 
 ### Action 1 : transformer les 3 clients en revenu récurrent et en recommandations
 **Pourquoi :** le bouche-à-oreille a apporté 2 clients sur 3, pour un coût d'acquisition nul.
-- LuZo : envoyer un **devis daté** pour le site de janvier (290 € + option 100 €/an) avec un acompte.
+- LuZo : formaliser par un **devis daté et signé** le prix annoncé (250 € + 100 €/an), avec un acompte de 30 % (75 €).
+  C'est la plus grosse vente possible du trimestre : elle triple le chiffre d'affaires actuel.
 - Aloe Vera : proposer la suite (autres fiches produit, visuels réseaux sociaux, site).
 - Aux 3 clients : demander un **avis Google**, l'autorisation de citer leur nom et **2 contacts**
   à qui recommander il4n Studio (une petite remise au parrain, si la marge le permet).
@@ -165,7 +190,8 @@ moins les échanges sans lien avec la prospection.
 
 ### Action 2 : reproduire la prospection qui a marché (Aloe Vera) et réduire l'e-mail de masse
 **Pourquoi :** 0 client sur environ 480 e-mails, 1 client par une prospection directe.
-- Documenter précisément comment Aloe Vera a été trouvé : visite, téléphone, Instagram, salon…
+- Documenter précisément comment Aloe Vera a été trouvé : groupe Facebook, appel ou autre.
+- Noter le temps passé et les résultats **par canal** (groupes Facebook, appels, e-mails) pour savoir lequel rapporte le plus par heure.
 - Refaire la même démarche sur **10 commerces locaux par semaine** (Vaucluse).
 - Limiter l'e-mail à des messages **très personnalisés** et toujours suivis d'un appel ou d'une visite.
 - Ajouter au registre les colonnes `canal` et `origine_client`, y saisir Aloe Vera et les ≈ 90 contacts de P2,
@@ -181,6 +207,8 @@ moins les échanges sans lien avec la prospection.
 **Pourquoi :** à 25 € de panier moyen, les abonnements absorbent l'essentiel du chiffre d'affaires,
 et sans mesure on ne sait pas d'où viennent les demandes.
 - Appliquer la grille du site : dépliant 3 volets = plaquette (45 €), plus de dépliant au prix du Flyer Start.
+- Fixer un prix plancher : au moins 25 €/h de production (une carte de visite de 2 h ne peut pas être vendue 25 €).
+- Ne plus accorder de remise sur le site sans contrepartie (signature rapide, acompte, abonnement annuel payé d'avance).
 - Pousser le **Flyer Pro (35 €)** et le **pack de 5 visuels à 59 €** plutôt que l'unité.
 - Installer une mesure d'audience, suivre le formulaire chaque semaine, aligner la liste des
   prestations sur la page et ajouter `?src=` aux liens.
@@ -198,10 +226,9 @@ mesurer les visites par source et le taux visite → demande.
 | Montants mensuels des abonnements Codex et Claude | coûts réels, bénéfice |
 | Part d'usage professionnel de ces abonnements, si une part est personnelle | coûts imputables à l'activité |
 | Catégorie URSSAF (BIC prestations ou BNC) et versement libératoire (oui/non) | cotisations, bénéfice net |
-| TVA : mention « TVA non applicable, art. 293 B du CGI » sur les factures ? | conformité des factures |
-| Aloe Vera : date, canal exact de prospection, n° de facture, date de paiement | dater la vente, reproduire le canal |
-| Dates de paiement de FA-2026-001 et FA-2026-002 | délai d'encaissement |
-| Temps passé par vente | coût horaire réel, prix plancher |
+| **Encaissement : avez-vous reçu le paiement des 3 factures (30 €, 25 €, 21 €) ?** | chiffre d'affaires encaissé, trésorerie, URSSAF |
+| Aloe Vera : date et canal exact (groupe Facebook, appel, e-mail…) | dater la vente, reproduire le canal |
+| LuZo : devis signé pour le site à 250 € + 100 €/an (oui/non) ? acompte ? | distinguer devis et vente |
 | Demandes reçues par le formulaire du site | conversion du site |
 | Trafic du site | conversion des pages commerciales |
 | Statistiques Instagram, Facebook et reels | contribution des réseaux |
