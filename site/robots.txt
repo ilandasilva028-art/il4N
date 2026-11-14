@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /apercu/
+
+Sitemap: https://il4nstudio.netlify.app/sitemap.xml

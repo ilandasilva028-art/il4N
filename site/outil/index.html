@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111018">
+<meta name="description" content="Annonce IA par il4n Studio : envoyez une photo, l'IA rédige votre annonce immobilière, produit ou restaurant. 9 € par mois, sans engagement.">
+<title>Annonce IA — il4n Studio</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{--ink:#17131d;--night:#111018;--paper:#f4f0e8;--white:#fffdf8;--line:#d9d2c7;--muted:#6d6870;--accent:#d6a96a;--violet:#7a5fe9;--radius:18px}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+  a{color:inherit}
+  .wrap{width:min(760px,calc(100% - 32px));margin-inline:auto}
+  header{background:var(--night);color:var(--white)}
+  .hd{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo{font-size:22px;font-weight:950;letter-spacing:-.09em;text-decoration:none}.logo span{color:var(--accent)}
+  .hd nav{display:flex;gap:16px;font-size:13px}.hd nav a{text-decoration:none;color:#d8d2dc}
+  .hero{background:var(--night);color:var(--white);padding:36px 0 44px}
+  .eyebrow{margin:0;color:var(--accent);font-size:11px;font-weight:850;letter-spacing:.19em;text-transform:uppercase}
+  h1{margin:10px 0 10px;font-size:clamp(34px,6vw,52px);line-height:1.02;letter-spacing:-.06em}
+  .hero p.lead{margin:0;color:#c9c2cd;max-width:560px}
+  main{padding:32px 0 70px}
+  .card{background:var(--white);border:1px solid #e2dcd3;border-radius:var(--radius);padding:22px;margin-bottom:18px}
+  .card h2{margin:0 0 6px;font-size:24px;letter-spacing:-.04em}
+  .price{font-size:44px;font-weight:900;letter-spacing:-.05em;margin:8px 0 2px}.price small{font-size:15px;font-weight:600;letter-spacing:0;color:var(--muted)}
+  ul.check{list-style:none;padding:0;margin:14px 0}ul.check li{margin:6px 0}ul.check li:before{content:"✓ ";color:var(--accent);font-weight:900}
+  label{display:block;font-size:13px;font-weight:700;margin:14px 0 6px}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font:inherit}
+  textarea{min-height:80px;resize:vertical}
+  .row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:49px;padding:12px 24px;border:1px solid transparent;border-radius:50px;background:var(--accent);color:var(--night);font:inherit;font-size:14px;font-weight:800;cursor:pointer;margin-top:16px}
+  .btn.sec{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn:disabled{opacity:.55;cursor:wait}
+  .muted{color:var(--muted);font-size:13px}
+  #previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}#previews img{height:84px;border-radius:10px;border:1px solid var(--line)}
+  #out{white-space:pre-wrap}
+  .err{color:#b3261e}
+  .msg{margin-top:10px;font-size:14px}
+  footer{background:var(--night);color:#aaa3ae;font-size:12px;padding:26px 0}
+  footer a{color:#d8d2dc}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="wrap hd"><a class="logo" href="/">il4n<span>.</span></a><nav><a href="/">Le studio</a><a href="/#contact">Contact</a></nav></div></header>
+
+<section class="hero"><div class="wrap">
+  <p class="eyebrow">Outil en ligne · Annonce IA</p>
+  <h1>Une photo, une annonce prête à publier.</h1>
+  <p class="lead">Envoyez la photo d'un bien, d'un produit ou d'un plat : l'IA rédige l'annonce en quelques secondes, dans le ton et la langue de votre choix.</p>
+</div></section>
+
+<main class="wrap">
+
+  <!-- Visiteur non abonné -->
+  <section id="vente" hidden>
+    <div class="card">
+      <h2>Abonnement Annonce IA</h2>
+      <div class="price">9 € <small>/ mois, sans engagement</small></div>
+      <ul class="check">
+        <li>Annonces immobilières, produits, restaurants</li>
+        <li>Jusqu'à 4 photos par annonce</li>
+        <li>5 langues, 5 tons, 3 longueurs</li>
+        <li>Résiliable à tout moment en un clic</li>
+      </ul>
+      <button class="btn" id="payer">S'abonner pour 9 €/mois ↗</button>
+      <p class="muted">Paiement sécurisé par Stripe. En vous abonnant, vous acceptez les <a href="/conditions-abonnement">conditions d'abonnement</a>.</p>
+      <p class="msg" id="venteMsg" role="status"></p>
+    </div>
+    <div class="card">
+      <h2>Déjà abonné ?</h2>
+      <p class="muted">Sur un nouvel appareil, saisissez l'e-mail utilisé lors du paiement : vous recevrez un lien de connexion.</p>
+      <label for="email">Adresse e-mail</label>
+      <input id="email" type="email" autocomplete="email" placeholder="vous@exemple.fr">
+      <button class="btn sec" id="connexion">Recevoir mon lien</button>
+      <p class="msg" id="cxMsg" role="status"></p>
+    </div>
+  </section>
+
+  <!-- Abonné -->
+  <section id="outil" hidden>
+    <div class="card">
+      <label for="type">Type d'annonce</label>
+      <select id="type">
+        <option value="immo">Immobilier (vente / location)</option>
+        <option value="produit">Produit à vendre</option>
+        <option value="resto">Restaurant / plat</option>
+        <option value="desc">Simple description de la photo</option>
+      </select>
+      <label for="files">Photos (jusqu'à 4)</label>
+      <input id="files" type="file" accept="image/*" multiple>
+      <div id="previews"></div>
+      <label for="infos">Informations à intégrer <span class="muted">(prix, surface, adresse, horaires, contact…)</span></label>
+      <textarea id="infos" maxlength="1500" placeholder="Ex : 3 pièces, 68 m², 245 000 €, Carpentras centre"></textarea>
+      <div class="row">
+        <div><label for="ton">Ton</label><select id="ton"><option>professionnel</option><option>chaleureux</option><option>luxe</option><option>dynamique</option><option>simple et direct</option></select></div>
+        <div><label for="long">Longueur</label><select id="long"><option value="courte">courte</option><option value="moyenne" selected>moyenne</option><option value="longue">longue</option></select></div>
+        <div><label for="lang">Langue</label><select id="lang"><option>français</option><option>anglais</option><option>espagnol</option><option>portugais</option><option>arabe</option></select></div>
+      </div>
+      <button class="btn" id="go">Rédiger l'annonce ↗</button>
+    </div>
+    <div class="card" id="res" hidden>
+      <div id="out"></div>
+      <button class="btn sec" id="copy">Copier le texte</button>
+    </div>
+    <p class="muted"><a href="#" id="gerer">Gérer mon abonnement (factures, carte, résiliation)</a> · <a href="#" id="deco">Se déconnecter</a></p>
+  </section>
+
+  <p class="msg" id="global" role="status"></p>
+</main>
+
+<footer><div class="wrap">© 2026 il4n Studio · <a href="/mentions-legales">Mentions légales</a> · <a href="/conditions-abonnement">Conditions d'abonnement</a></div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try { return localStorage.getItem(k) } catch { return null } },
+  set(k, v){ try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v) } catch {} }
+};
+let jeton = store.get('annonce_jeton');
+
+async function api(path, opts = {}){
+  const r = await fetch(path, opts);
+  const j = await r.json().catch(() => ({ erreur: 'Réponse invalide du serveur.' }));
+  if (!r.ok) { const e = new Error(j.erreur || 'Erreur ' + r.status); e.code = j.code; throw e; }
+  return j;
+}
+const post = (path, body) => api(path, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+
+function afficher(){
+  $('outil').hidden = !jeton;
+  $('vente').hidden = !!jeton;
+}
+function deconnecter(msg){
+  jeton = null; store.set('annonce_jeton', null); afficher();
+  if (msg) $('global').textContent = msg;
+}
+
+/* Retour de paiement (?session_id=) ou lien e-mail (#t=) */
+(async () => {
+  const p = new URLSearchParams(location.search);
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get('t')) { jeton = h.get('t'); store.set('annonce_jeton', jeton); history.replaceState(null, '', '/outil/'); }
+  else if (p.get('session_id')) {
+    $('global').textContent = 'Activation de votre abonnement…';
+    try {
+      const r = await api('/api/acces?session_id=' + encodeURIComponent(p.get('session_id')));
+      jeton = r.jeton; store.set('annonce_jeton', jeton);
+      $('global').textContent = 'Merci ! Votre abonnement est actif.';
+    } catch (e) { $('global').className = 'msg err'; $('global').textContent = e.message; }
+    history.replaceState(null, '', '/outil/');
+  }
+  afficher();
+})();
+
+$('payer').onclick = async () => {
+  $('payer').disabled = true; $('venteMsg').textContent = 'Redirection vers le paiement…';
+  try { location.href = (await post('/api/abonnement', {})).url; }
+  catch (e) { $('venteMsg').className = 'msg err'; $('venteMsg').textContent = e.message; $('payer').disabled = false; }
+};
+
+$('connexion').onclick = async () => {
+  $('connexion').disabled = true; $('cxMsg').className = 'msg';
+  try { $('cxMsg').textContent = (await post('/api/connexion', { email: $('email').value })).message; }
+  catch (e) { $('cxMsg').className = 'msg err'; $('cxMsg').textContent = e.message; }
+  $('connexion').disabled = false;
+};
+
+$('gerer').onclick = async ev => {
+  ev.preventDefault();
+  try { location.href = (await post('/api/portail', { jeton })).url; }
+  catch (e) { e.code === 'auth' ? deconnecter(e.message) : alert(e.message); }
+};
+$('deco').onclick = ev => { ev.preventDefault(); deconnecter('Vous êtes déconnecté.'); };
+
+/* Photos : réduites à 1024 px max avant l'envoi */
+function reduire(file){
+  return new Promise((ok, ko) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const s = Math.min(1, 1024 / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = () => ko(new Error('Photo illisible : ' + file.name));
+    img.src = url;
+  });
+}
+$('files').onchange = () => {
+  $('previews').innerHTML = '';
+  [...$('files').files].slice(0, 4).forEach(f => { const i = document.createElement('img'); i.src = URL.createObjectURL(f); i.alt = ''; $('previews').append(i); });
+};
+
+$('go').onclick = async () => {
+  const files = [...$('files').files].slice(0, 4);
+  if (!files.length) { alert('Ajoutez au moins une photo.'); return; }
+  $('go').disabled = true; $('res').hidden = false; $('out').className = ''; $('out').textContent = 'Rédaction en cours…';
+  try {
+    const images = await Promise.all(files.map(reduire));
+    const r = await post('/api/annonce', { jeton, images, type: $('type').value, infos: $('infos').value, ton: $('ton').value, long: $('long').value, lang: $('lang').value });
+    $('out').textContent = r.texte;
+  } catch (e) {
+    if (e.code === 'auth') { deconnecter(e.message); return; }
+    $('out').className = 'err'; $('out').textContent = e.message;
+  } finally { $('go').disabled = false; }
+};
+
+$('copy').onclick = async () => {
+  try { await navigator.clipboard.writeText($('out').textContent); $('copy').textContent = 'Copié ✓'; }
+  catch { $('copy').textContent = 'Sélectionnez le texte pour le copier'; }
+  setTimeout(() => $('copy').textContent = 'Copier le texte', 2000);
+};
+</script>
+</body>
+</html>
