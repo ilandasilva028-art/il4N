@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok IA</title>
+<style>
+  :root{--bg:#0f1115;--card:#181b22;--txt:#e9ecf1;--mut:#8b93a3;--acc:#ff4d6d;--bd:#2a2f3a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  p.sub{color:var(--mut);margin:0 0 20px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:16px}
+  label{display:block;font-size:.85rem;color:var(--mut);margin:10px 0 4px}
+  input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid var(--bd);background:#0f1115;color:var(--txt);font:inherit}
+  textarea{min-height:70px;resize:vertical}
+  button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;margin-top:12px}
+  button.sec{background:transparent;border:1px solid var(--bd);color:var(--txt)}
+  button:disabled{opacity:.5;cursor:wait}
+  .row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:200px}
+  img.thumb{max-width:220px;border-radius:10px;display:block;margin-bottom:10px}
+  #out{white-space:pre-wrap}
+  .err{color:#ff8a8a}
+  .hist-item{border-top:1px solid var(--bd);padding:10px 0;font-size:.9rem}
+  .hist-item a{color:var(--acc)}
+  small{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+  <h1>TikTok IA</h1>
+  <p class="sub">Colle l'URL d'une vidéo TikTok : l'appli récupère sa première image (oEmbed officiel) et la fait analyser par Mistral. Tout tourne dans ton navigateur, rien à installer.</p>
+
+  <div class="card">
+    <label for="key">Clé API Mistral <small>(gratuite sur console.mistral.ai, gardée seulement dans ton navigateur)</small></label>
+    <input id="key" type="password" placeholder="Ta clé API Mistral" autocomplete="off">
+    <div class="row">
+      <div><label for="model">Modèle</label>
+        <input id="model" value="mistral-small-latest"></div>
+      <div><label for="proxy">Proxy CORS <small>(utilisé si TikTok bloque l'appel direct)</small></label>
+        <input id="proxy" value="https://corsproxy.io/?url="></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label for="url">URL de la vidéo TikTok</label>
+    <input id="url" placeholder="https://www.tiktok.com/@compte/video/123… ou https://vm.tiktok.com/…">
+    <label for="mode">Question</label>
+    <select id="mode">
+      <option value="film">Dans quel film cette personne pourrait-elle jouer ?</option>
+      <option value="resume">Décris et résume ce que montre l'image</option>
+      <option value="idees">Donne 5 idées de vidéos dans le même style</option>
+      <option value="custom">Question libre…</option>
+    </select>
+    <textarea id="custom" placeholder="Ta question" style="display:none;margin-top:8px"></textarea>
+    <button id="go">Analyser</button>
+  </div>
+
+  <div class="card" id="res" style="display:none">
+    <img id="thumb" class="thumb" alt="">
+    <div id="meta"></div>
+    <hr style="border:0;border-top:1px solid var(--bd);margin:12px 0">
+    <div id="out"></div>
+  </div>
+
+  <div class="card">
+    <strong>Historique</strong> <small>(base de données IndexedDB, dans ton navigateur)</small>
+    <div id="hist"></div>
+    <button class="sec" id="clear">Vider l'historique</button>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const PROMPTS = {
+  film: "Regarde cette image extraite d'une vidéo TikTok. Dans quel film cette personne pourrait-elle jouer, et quel rôle ? Réponds en français, avec humour et en 5 lignes maximum.",
+  resume: "Décris précisément cette image extraite d'une vidéo TikTok, puis résume en 3 lignes de quoi parle probablement la vidéo. Réponds en français.",
+  idees: "À partir de cette image extraite d'une vidéo TikTok, donne 5 idées de vidéos dans le même style, avec une accroche pour chacune. Réponds en français."
+};
+
+/* ---------- Réglages (localStorage, avec garde-fou) ---------- */
+const store = {
+  get(k, d){ try { return localStorage.getItem(k) ?? d } catch { return d } },
+  set(k, v){ try { localStorage.setItem(k, v) } catch {} }
+};
+$('key').value = store.get('mistral_key', '');
+$('model').value = store.get('mistral_model', $('model').value);
+$('proxy').value = store.get('cors_proxy', $('proxy').value);
+['key','model','proxy'].forEach(id => $(id).addEventListener('change', () =>
+  store.set({key:'mistral_key',model:'mistral_model',proxy:'cors_proxy'}[id], $(id).value.trim())));
+$('mode').addEventListener('change', () => $('custom').style.display = $('mode').value === 'custom' ? 'block' : 'none');
+
+/* ---------- Base de données dans le navigateur (IndexedDB) ---------- */
+const db = {
+  open(){ return new Promise((ok, ko) => {
+    const r = indexedDB.open('tiktok-ia', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('analyses', {keyPath:'id', autoIncrement:true});
+    r.onsuccess = () => ok(r.result); r.onerror = () => ko(r.error);
+  })},
+  async tx(mode, fn){ const d = await this.open();
+    return new Promise((ok, ko) => { const t = d.transaction('analyses', mode);
+      const req = fn(t.objectStore('analyses')); t.oncomplete = () => ok(req?.result); t.onerror = () => ko(t.error); }) },
+  add(o){ return this.tx('readwrite', s => s.add(o)) },
+  all(){ return this.tx('readonly', s => s.getAll()) },
+  clear(){ return this.tx('readwrite', s => s.clear()) }
+};
+async function renderHist(){
+  let rows = []; try { rows = (await db.all()).reverse() } catch {}
+  $('hist').innerHTML = rows.length ? '' : '<p><small>Aucune analyse pour l\'instant.</small></p>';
+  for (const r of rows){
+    const d = document.createElement('div'); d.className = 'hist-item';
+    const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.title || r.url;
+    const t = document.createElement('div'); t.textContent = r.answer.slice(0, 200) + (r.answer.length > 200 ? '…' : '');
+    d.append(a, t); $('hist').append(d);
+  }
+}
+$('clear').onclick = async () => { await db.clear(); renderHist(); };
+
+/* ---------- oEmbed TikTok ---------- */
+async function getOembed(videoUrl){
+  const target = 'https://www.tiktok.com/oembed?url=' + encodeURIComponent(videoUrl);
+  const tries = [target];
+  const proxy = $('proxy').value.trim();
+  if (proxy) tries.push(proxy + encodeURIComponent(target));
+  let lastErr;
+  for (const u of tries){
+    try {
+      const r = await fetch(u);
+      if (!r.ok) throw new Error('oEmbed HTTP ' + r.status);
+      const j = await r.json();
+      if (!j.thumbnail_url) throw new Error('Pas de miniature dans la réponse oEmbed');
+      return j;
+    } catch (e) { lastErr = e }
+  }
+  throw new Error("Impossible de lire l'oEmbed TikTok (" + lastErr.message + "). Vérifie l'URL ou le proxy CORS.");
+}
+
+/* ---------- Mistral (vision) ---------- */
+async function askMistral(imageUrl, prompt){
+  const key = $('key').value.trim();
+  if (!key) throw new Error('Ajoute ta clé API Mistral.');
+  const r = await fetch('https://api.mistral.ai/v1/chat/completions', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json', Authorization:'Bearer ' + key},
+    body: JSON.stringify({
+      model: $('model').value.trim() || 'mistral-small-latest',
+      messages: [{role:'user', content:[
+        {type:'text', text: prompt},
+        {type:'image_url', image_url: imageUrl}
+      ]}]
+    })
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error('Mistral : ' + (j.message || j.error?.message || r.status));
+  return j.choices[0].message.content;
+}
+
+/* ---------- Action principale ---------- */
+$('go').onclick = async () => {
+  const url = $('url').value.trim();
+  if (!/^https?:\/\/(www\.|vm\.|vt\.|m\.)?tiktok\.com\//.test(url)) { alert('URL TikTok invalide.'); return; }
+  const mode = $('mode').value;
+  const prompt = mode === 'custom' ? $('custom').value.trim() : PROMPTS[mode];
+  if (!prompt) { alert('Écris ta question.'); return; }
+  $('go').disabled = true; $('res').style.display = 'block'; $('out').className = '';
+  $('out').textContent = 'Récupération de la vidéo…'; $('meta').textContent = ''; $('thumb').removeAttribute('src');
+  try {
+    const o = await getOembed(url);
+    $('thumb').src = o.thumbnail_url;
+    $('meta').textContent = (o.title || '') + (o.author_name ? ' — ' + o.author_name : '');
+    $('out').textContent = 'Analyse par Mistral…';
+    const answer = await askMistral(o.thumbnail_url, prompt);
+    $('out').textContent = answer;
+    try { await db.add({url, title: o.title || o.author_name, answer, date: Date.now()}); renderHist(); } catch {}
+  } catch (e) {
+    $('out').className = 'err'; $('out').textContent = e.message;
+  } finally { $('go').disabled = false; }
+};
+renderHist();
+</script>
+</body>
+</html>
