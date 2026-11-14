@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Annonce à partir d'une photo</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--txt:#1b1f27;--mut:#6b7385;--acc:#2f6bff;--bd:#dfe3ea}
+  @media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#181b22;--txt:#e9ecf1;--mut:#8b93a3;--bd:#2a2f3a}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,sans-serif}
+  main{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .sub{color:var(--mut);margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:16px}
+  label{display:block;font-size:.85rem;color:var(--mut);margin:12px 0 4px}
+  input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--txt);font:inherit}
+  textarea{min-height:70px;resize:vertical}
+  button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;margin-top:14px}
+  button.sec{background:transparent;color:var(--txt);border:1px solid var(--bd)}
+  button:disabled{opacity:.5;cursor:wait}
+  .row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:160px}
+  #previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  #previews img{height:90px;border-radius:8px;border:1px solid var(--bd)}
+  #out{white-space:pre-wrap}
+  .err{color:#d33}
+  small{color:var(--mut)}
+  details summary{cursor:pointer;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Annonce à partir d'une photo</h1>
+  <p class="sub">Envoie une ou plusieurs photos : l'IA décrit ce qu'elle voit et rédige l'annonce, prête à copier-coller.</p>
+
+  <div class="card">
+    <label for="type">Type d'annonce</label>
+    <select id="type">
+      <option value="immo">Immobilier (vente / location)</option>
+      <option value="produit">Produit à vendre</option>
+      <option value="resto">Restaurant / plat</option>
+      <option value="desc">Simple description de la photo</option>
+    </select>
+
+    <label for="files">Photos (jusqu'à 4)</label>
+    <input id="files" type="file" accept="image/*" multiple>
+    <div id="previews"></div>
+
+    <label for="infos">Informations à intégrer <small>(prix, surface, adresse, horaires, contact…)</small></label>
+    <textarea id="infos" placeholder="Ex : 3 pièces, 68 m², 245 000 €, Lyon 7e, proche métro"></textarea>
+
+    <div class="row">
+      <div><label for="ton">Ton</label>
+        <select id="ton"><option>professionnel</option><option>chaleureux</option><option>luxe</option><option>dynamique</option><option>simple et direct</option></select></div>
+      <div><label for="long">Longueur</label>
+        <select id="long"><option value="court (3 à 4 lignes)">courte</option><option value="moyenne (un paragraphe de 6 à 8 lignes)" selected>moyenne</option><option value="longue et détaillée">longue</option></select></div>
+      <div><label for="lang">Langue</label>
+        <select id="lang"><option>français</option><option>anglais</option><option>espagnol</option><option>portugais</option><option>arabe</option></select></div>
+    </div>
+    <button id="go">Rédiger l'annonce</button>
+  </div>
+
+  <div class="card" id="res" style="display:none">
+    <div id="out"></div>
+    <button class="sec" id="copy">Copier le texte</button>
+  </div>
+
+  <details class="card">
+    <summary>Réglages (clé API Mistral)</summary>
+    <label for="key">Clé API Mistral <small>(gratuite sur console.mistral.ai ; reste dans ce navigateur uniquement)</small></label>
+    <input id="key" type="password" autocomplete="off" placeholder="Clé API">
+    <label for="model">Modèle</label>
+    <input id="model" value="mistral-small-latest">
+  </details>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const store = {
+  get(k, d){ try { return localStorage.getItem(k) ?? d } catch { return d } },
+  set(k, v){ try { localStorage.setItem(k, v) } catch {} }
+};
+$('key').value = store.get('mistral_key', '');
+$('model').value = store.get('mistral_model', $('model').value);
+$('key').onchange = () => store.set('mistral_key', $('key').value.trim());
+$('model').onchange = () => store.set('mistral_model', $('model').value.trim());
+
+const BRIEFS = {
+  immo: "Rédige une annonce immobilière attractive et honnête : accroche, description des pièces et de la luminosité, points forts, puis une conclusion avec appel à contacter. N'invente ni surface, ni prix, ni adresse : utilise uniquement ce qui est visible sur les photos ou fourni dans les informations.",
+  produit: "Rédige une annonce de vente pour ce produit : titre accrocheur, description (état, matière, couleur, usages), points forts, puis appel à l'action. N'invente ni marque, ni prix, ni caractéristique non visible : utilise seulement ce qui est visible ou fourni.",
+  resto: "Rédige un texte de présentation appétissant pour ce plat ou ce restaurant (carte, réseaux sociaux, vitrine) : titre, description sensorielle, ambiance, puis appel à venir ou réserver. N'invente ni prix ni ingrédient non visible : utilise seulement ce qui est visible ou fourni.",
+  desc: "Décris précisément ce que montrent les photos, de façon claire et structurée."
+};
+
+/* Réduit chaque photo (max 1024 px) pour accélérer l'envoi */
+function shrink(file){
+  return new Promise((ok, ko) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const s = Math.min(1, 1024 / Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.85));
+    };
+    img.onerror = () => ko(new Error('Photo illisible : ' + file.name));
+    img.src = url;
+  });
+}
+
+$('files').onchange = () => {
+  $('previews').innerHTML = '';
+  [...$('files').files].slice(0, 4).forEach(f => {
+    const i = document.createElement('img'); i.src = URL.createObjectURL(f); $('previews').append(i);
+  });
+};
+
+$('go').onclick = async () => {
+  const key = $('key').value.trim();
+  const files = [...$('files').files].slice(0, 4);
+  if (!files.length) { alert('Ajoute au moins une photo.'); return; }
+  if (!key) { $('res').style.display = 'block'; $('out').className = 'err'; $('out').textContent = 'Ouvre « Réglages » en bas de page et ajoute la clé API Mistral.'; return; }
+  $('go').disabled = true; $('res').style.display = 'block'; $('out').className = ''; $('out').textContent = 'Analyse des photos…';
+  try {
+    const imgs = await Promise.all(files.map(shrink));
+    const prompt = BRIEFS[$('type').value]
+      + `\nTon : ${$('ton').value}. Longueur : ${$('long').value}. Langue de l'annonce : ${$('lang').value}.`
+      + ($('infos').value.trim() ? `\nInformations fournies par le client :\n${$('infos').value.trim()}` : '')
+      + "\nRéponds uniquement avec le texte de l'annonce, sans commentaire autour.";
+    const r = await fetch('https://api.mistral.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', Authorization:'Bearer ' + key},
+      body: JSON.stringify({
+        model: $('model').value.trim() || 'mistral-small-latest',
+        messages: [{role:'user', content:[{type:'text', text: prompt}, ...imgs.map(u => ({type:'image_url', image_url: u}))]}]
+      })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error('Mistral : ' + (j.message || j.error?.message || r.status));
+    $('out').textContent = j.choices[0].message.content.trim();
+  } catch (e) {
+    $('out').className = 'err'; $('out').textContent = e.message;
+  } finally { $('go').disabled = false; }
+};
+
+$('copy').onclick = async () => {
+  try { await navigator.clipboard.writeText($('out').textContent); $('copy').textContent = 'Copié ✓'; }
+  catch { $('copy').textContent = 'Copie impossible : sélectionne le texte'; }
+  setTimeout(() => $('copy').textContent = 'Copier le texte', 2000);
+};
+</script>
+</body>
+</html>
