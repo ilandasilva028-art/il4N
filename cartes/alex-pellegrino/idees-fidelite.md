@@ -8,12 +8,11 @@
 5. **Case surprise** : une case au hasard sur la carte (ex. la 7e) donne une surprise (mini-gâteau, échantillon de la nouveauté).
 
 ## Bonus qui rapportent un tampon (actions utiles pour Alex)
-- **Venir avec sa boîte** (+1) : écologique, moins d'emballages pour lui.
 - **Parrainage** (+1 pour vous et +1 pour l'ami) : le bouche-à-oreille, c'est déjà ce qui marche.
 - **S'abonner à son Instagram ou Facebook** (+1) : il peut ensuite annoncer ses marchés et ses nouveautés.
 - **Photo partagée en story avec son @** (+1) : publicité gratuite.
 - **Mois de l'anniversaire** : 1 part offerte.
-- **Commande de fête** (gâteau d'anniversaire, Noël) : double tampon.
+- **Commande de fête** (gâteau d'anniversaire, Noël) : 2 tampons d'un coup (déjà sur la piste A).
 
 ## ⚠️ « Un avis Google = un tampon » : à éviter
 Google interdit d'offrir une récompense en échange d'un avis (règles des avis Google : avis « incités »). Risques : avis supprimés, fiche pénalisée. En France, un avis obtenu contre une contrepartie doit aussi être signalé comme tel.
