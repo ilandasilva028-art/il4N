@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce' });
+const p = await ctx.newPage(); await p.clock.setFixedTime(new Date('2026-11-17T12:00:00+01:00'));
+await p.goto('https://il4nstudio.netlify.app', { waitUntil: 'networkidle' }); await p.waitForTimeout(800);
+const D = 'reels/2026-11-noel/site/assets/shots/';
+await p.locator('#sites .web-card').nth(0).screenshot({ path: D + 'carte_site_creation.png' });
+await p.locator('#sites .web-card').nth(1).screenshot({ path: D + 'carte_site_gestion.png' });
+await p.locator('#sites .web-note').screenshot({ path: D + 'note_351.png' });
+await p.locator('#sites .web-cards').screenshot({ path: D + 'cartes_site.png' });
+await b.close();

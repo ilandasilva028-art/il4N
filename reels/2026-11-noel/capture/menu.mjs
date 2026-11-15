@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce' });
+const p = await ctx.newPage(); await p.clock.setFixedTime(new Date('2026-11-17T12:00:00+01:00'));
+await p.goto('https://il4nstudio.netlify.app', { waitUntil: 'networkidle' });
+await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } });
+const items = await p.evaluate(() => [...document.querySelectorAll('#realisations *')].filter(e => /Bistrot provençal/.test(e.textContent) && e.children.length > 0 && e.getBoundingClientRect().height > 200 && e.getBoundingClientRect().height < 1200).map(e => e.tagName + '.' + e.className + ' h=' + Math.round(e.getBoundingClientRect().height)));
+console.log(items.slice(-4).join('\n'));
+const el = p.locator('#realisations figure, #realisations article, #realisations .work, #realisations li').filter({ hasText: 'Bistrot provençal' }).last();
+await el.screenshot({ path: 'posts/2026-11-noel-20/assets/menu_bistrot_exemple.png' }).catch(e => console.log('échec', e.message.slice(0, 120)));
+await p.locator('.noel-bar').screenshot({ path: 'posts/2026-11-noel-20/assets/bandeau_noel_17-11.png' });
+await b.close();

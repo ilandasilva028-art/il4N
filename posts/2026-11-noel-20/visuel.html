@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>IL4N — visuels de Noël</title>
+<!-- Gabarit unique : visuel.html?v=flyers|site|menu&f=post|story. Exporté par export.mjs.
+     Prix = ceux affichés sur il4nstudio.netlify.app pendant l'offre (16-25/11 puis 1-31/12/2026). Captures réelles du 17/11. -->
+<style>
+  @font-face { font-family: Display; src: url(assets/fonts/Inter-Medium.otf); font-weight: 500; }
+  @font-face { font-family: Display; src: url(assets/fonts/Inter-SemiBold.otf); font-weight: 600; }
+  @font-face { font-family: Display; src: url(assets/fonts/Inter-Bold.otf); font-weight: 700; }
+  @font-face { font-family: Display; src: url(assets/fonts/Inter-ExtraBold.otf); font-weight: 800; }
+  @font-face { font-family: Display; src: url(assets/fonts/Inter-Black.otf); font-weight: 900; }
+  @font-face { font-family: Accent; src: url(assets/fonts/accent.woff2) format('woff2'); }
+  :root { --nuit: #111018; --nuit2: #1b1825; --papier: #f4f0e8; --blanc: #fffdf8; --or: #d6a96a; --rouge: #b0482f; --vert: #3f8a62; --gris: #a49eaa; --encre: #17131d; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--nuit); }
+  body { width: 1080px; overflow: hidden; font-family: Display, sans-serif; color: var(--blanc); position: relative; }
+  body.post { height: 1350px; } body.story { height: 1920px; }
+  .halo { position: absolute; width: 1100px; height: 1100px; right: -380px; top: 80px; border-radius: 50%; background: radial-gradient(rgba(214,169,106,.18), transparent 65%); }
+  .zone { position: absolute; left: 72px; right: 72px; }
+  .post .zone { top: 150px; bottom: 70px; } .story .zone { top: 250px; bottom: 440px; }
+  .guirlande { position: absolute; left: 0; right: 0; height: 40px; }
+  .post .guirlande { top: 56px; } .story .guirlande { top: 175px; }
+  .kicker { display: flex; align-items: center; gap: 18px; color: var(--or); font-weight: 700; font-size: 28px; letter-spacing: .2em; text-transform: uppercase; }
+  .kicker:before { content: ""; width: 56px; height: 3px; background: var(--or); }
+  h1 { font-weight: 900; letter-spacing: -.045em; line-height: .98; margin-top: 26px; }
+  .post h1 { font-size: 92px; } .story h1 { font-size: 94px; }
+  .story .ligne .neuf { font-size: 70px; } .story .ligne s { font-size: 44px; } .story .ligne .nom { font-size: 32px; }
+  .story .note { font-size: 29px; } .story .pied { font-size: 27px; margin-top: 14px !important; } .story .cta { height: 112px; font-size: 46px; }
+  h1 em { display: block; font-family: Accent, Georgia, serif; font-style: normal; font-weight: 400; color: var(--or); letter-spacing: -.01em; margin-top: 6px; }
+  .pastille { position: absolute; width: 240px; height: 240px; border-radius: 50%; background: var(--rouge); transform: rotate(12deg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 0 10px var(--rouge), inset 0 0 0 6px var(--or), 0 24px 50px #0008; }
+  .pastille b { font-size: 80px; font-weight: 900; letter-spacing: -.05em; line-height: 1; white-space: nowrap; }
+  .pastille span { font-size: 21px; font-weight: 800; letter-spacing: .14em; color: #ffe9b8; margin-top: 6px; }
+  .prix { display: grid; gap: 14px; }
+  .ligne { display: grid; grid-template-columns: 1fr auto auto; align-items: baseline; gap: 26px; padding: 8px 0; border-bottom: 1px solid #ffffff1a; }
+  .ligne .nom { font-size: 36px; font-weight: 700; color: var(--gris); }
+  .ligne s { font-size: 52px; font-weight: 800; color: #8b8590; text-decoration-color: var(--rouge); text-decoration-thickness: 7px; }
+  .ligne .neuf { font-size: 84px; font-weight: 900; color: var(--or); letter-spacing: -.04em; }
+  .cartes { display: flex; gap: 22px; justify-content: center; }
+  .cartes img { border-radius: 18px; box-shadow: 0 20px 40px #0007; }
+  .cartes img:nth-child(1) { transform: rotate(-4deg); } .cartes img:nth-child(3) { transform: rotate(4deg); }
+  .note { font-size: 32px; font-weight: 600; color: var(--gris); line-height: 1.35; }
+  .note b { color: var(--blanc); }
+  .cta { display: flex; align-items: center; justify-content: space-between; background: var(--or); color: var(--encre); border-radius: 999px; padding: 0 48px; font-size: 50px; font-weight: 800; }
+  .post .cta { height: 118px; } .story .cta { height: 132px; }
+  .cta svg { width: 40px; height: 40px; }
+  .pied { font-size: 30px; font-weight: 600; color: var(--gris); }
+  .etiquette { display: inline-block; font-size: 24px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 10px 18px; border-radius: 999px; background: #ffffff14; color: var(--papier); }
+  .col { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .col > * { flex-shrink: 0; }
+  h1 { max-width: 640px; }
+  .menuv h1 { max-width: none; } .story h1 { max-width: none; }
+  .story .pastille { width: 210px; height: 210px; } .story .pastille b { font-size: 70px; }
+  .flex1 { flex: 1; }
+  .site-tel { border-radius: 40px; border: 14px solid #08070c; box-shadow: 0 30px 60px #000a; overflow: hidden; background: #08070c; }
+  .site-tel img { display: block; width: 100%; }
+  .menu img { border-radius: 26px; box-shadow: 0 30px 60px #000a; display: block; }
+  .bonnet { position: absolute; }
+</style>
+</head>
+<body>
+<div class="halo"></div>
+<svg class="guirlande" viewBox="0 0 1080 40" preserveAspectRatio="none" id="g"></svg>
+<div class="zone"><div class="col" id="c"></div></div>
+<script>
+  const q = new URLSearchParams(location.search), V = q.get('v') || 'flyers', F = q.get('f') || 'post';
+  document.body.className = F + ' ' + V + 'v';
+  // guirlande de points or / rouge / vert
+  const g = document.getElementById('g'); const cols = ['#d6a96a', '#b0482f', '#3f8a62'];
+  let s = '<path d="M0 10 Q 270 30 540 10 T 1080 10" stroke="#f4f0e840" stroke-width="2" fill="none"/>';
+  for (let i = 0, x = 22; x < 1080; x += 46, i++) s += `<circle cx="${x}" cy="${16 + Math.sin(x / 90) * 8}" r="9" fill="${cols[i % 3]}"/>`;
+  g.innerHTML = s;
+  const fleche = '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 34 6M12 6h22v22"/></svg>';
+  const cta = `<div class="cta">Écrivez-moi en privé ${fleche}</div>`;
+  const pied = `<p class="pied" style="margin-top:22px">@il4n_studio · il4nstudio.netlify.app</p>`;
+  const st = F === 'story';
+  const C = {
+    flyers: `
+      <p class="kicker">Offre flash de Noël</p>
+      <h1>Noël approche.<em>Votre flyer, lui&nbsp;?</em></h1>
+      <div class="pastille" style="right:0;top:${st ? 330 : 20}px"><b>−20 %</b><span>NOËL · FLYERS</span></div>
+      <div class="flex1" style="min-height:24px"></div>
+      ${st ? `<div class="cartes" style="justify-content:flex-start;padding-left:10px"><img src="assets/carte_flyer_1.png" style="width:165px"><img src="assets/carte_flyer_2.png" style="width:165px"><img src="assets/carte_flyer_3.png" style="width:165px"></div><div class="flex1"></div>` : ''}
+      <div class="prix">
+        <div class="ligne"><span class="nom">Flyer Start</span><s>21 €</s><span class="neuf">16 €</span></div>
+        <div class="ligne"><span class="nom">Flyer Pro</span><s>35 €</s><span class="neuf">28 €</span></div>
+        <div class="ligne"><span class="nom">Flyer Prestige</span><s>49 €</s><span class="neuf">39 €</span></div>
+      </div>
+      <p class="note" style="margin:22px 0 26px"><b>Du 16 au 25/11 à 23 h 59</b>, puis du 1er au 31/12.<br>Maquette gratuite · vous validez avant de payer.</p>
+      ${cta}${pied}`,
+    site: `
+      <p class="kicker">Offre de Noël · sites internet</p>
+      <h1>Je crée votre site.<em>Et je le gère pour vous.</em></h1>
+      <div class="pastille" style="right:0;top:${st ? 330 : 20}px"><b>−10 %</b><span>NOËL · SITES</span></div>
+      <div class="flex1" style="min-height:24px"></div>
+      ${st ? `<div style="display:flex;gap:40px;align-items:center"><div class="site-tel" style="width:175px"><img src="assets/m_top.png"></div><p class="note">Exemple :<br><b>mon propre site</b><br>capture du 17/11</p></div><div class="flex1"></div>` : ''}
+      <div class="prix">
+        <div class="ligne"><span class="nom">Création du site</span><s>290 €</s><span class="neuf">261 €</span></div>
+        <div class="ligne"><span class="nom">Gestion · 1re année</span><s>100 €</s><span class="neuf">90 €</span></div>
+      </div>
+      <p class="note" style="margin:26px 0 30px">Avec l’option : <b>351 € la 1re année</b> au lieu de 390 €,<br>puis 100 €/an. Maquette gratuite, vous validez avant de payer.</p>
+      ${cta}${pied}`,
+    menu: `
+      <p class="kicker">Menus de fêtes</p>
+      <h1>Votre carte des fêtes<em>donne-t-elle faim&nbsp;?</em></h1>
+      <div class="flex1" style="min-height:24px"></div>
+      <div style="display:flex;gap:40px;align-items:flex-end">
+        <div class="menu"><img src="assets/menu_bistrot_exemple.png" style="width:${st ? 320 : 300}px"></div>
+        <div>
+          <p class="etiquette">Exemple · commerce imaginaire</p>
+          <p style="font-size:36px;font-weight:700;color:var(--gris);margin-top:30px">Menu de restaurant</p>
+          <p style="font-size:${st ? 120 : 120}px;font-weight:900;color:var(--or);letter-spacing:-.05em;line-height:1">39 €</p>
+          <p class="note" style="margin-top:12px">carte ou menu du jour</p>
+        </div>
+      </div>
+      <p class="note" style="margin:30px 0 30px">Maquette gratuite et sans engagement :<br><b>vous validez avant de payer.</b></p>
+      ${cta}${pied}`,
+  };
+  document.getElementById('c').innerHTML = C[V];
+</script>
+</body>
+</html>
