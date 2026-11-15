@@ -1,3 +1,10 @@
+# Version 3 (simple, lisible sur un stand) : 3 façons de compter sans points
+- **A. La tarte** : 8 parts à tamponner, la 8e est offerte.
+- **B. Le mille-feuille** : 6 couches qui montent, la glaçure du dessus est offerte. Bonus unique : anniversaire, une part offerte.
+- **C. La tablette** : 10 carrés de chocolat, le dernier est offert.
+Recto : le nom seul, rien d'autre. Un seul message par verso.
+
+---
 # Idées de fidélité pour Alex Pellegrino (gâteaux, marchés du Vaucluse)
 
 ## Mécaniques de carte (au-delà des simples points)
