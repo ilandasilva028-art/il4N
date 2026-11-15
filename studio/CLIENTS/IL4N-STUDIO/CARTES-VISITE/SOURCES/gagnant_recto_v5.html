@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « Ticket gagnant » IL4N v5 — recto, 55×85 mm vertical. Dessin original (n'imite aucun jeu existant).
+     Lot réel : maquette gratuite, sans obligation d'achat (mention au verso). ?n=0052 : numéro de ticket (suivi). -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-ExtraBold.ttf); font-weight: 800; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #d6a96a; }
+  .bleed { background: #d6a96a; }
+  .rayons { position: absolute; left: 50%; top: 24%; width: 150mm; height: 150mm; margin: -75mm 0 0 -75mm; }
+  .trim { font-family: Inter, sans-serif; color: #111018; }
+  .haut { position: absolute; left: 4.6mm; right: 4.6mm; top: 4.4mm; display: flex; justify-content: space-between; align-items: center; }
+  .num { font-family: Mono, monospace; font-size: 7pt; font-weight: 800; letter-spacing: .04em; background: #111018; color: #d6a96a; padding: .5mm 1.4mm; border-radius: .8mm; }
+  .mini { font-size: 12pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; }
+  .mini b { display: inline-block; width: 1.1mm; height: 1.1mm; border-radius: 50%; background: #111018; margin-left: .3mm; }
+  .chance { position: absolute; left: 0; right: 0; top: 11.6mm; text-align: center; font-size: 7.4pt; font-weight: 900; letter-spacing: .12em; }
+  .titre { position: absolute; left: 0; right: 0; top: 15mm; text-align: center; line-height: .86; }
+  .titre .a { display: block; position: relative; font-size: 15pt; font-weight: 900; letter-spacing: .14em; color: #fffdf8; }
+  .titre .a i { position: absolute; left: 0; right: 0; top: .55mm; margin-left: .55mm; font-style: normal; color: #111018; z-index: -1; }
+  .titre { z-index: 1; isolation: isolate; }
+  .titre .b { display: block; font-size: 25.5pt; font-weight: 900; letter-spacing: -.03em; color: #111018; margin-top: .6mm; }
+  /* zone « grattée » : 3 symboles identiques révélés */
+  .gratter { position: absolute; left: 4.4mm; right: 4.4mm; top: 31.4mm; height: 15.4mm; border-radius: 2.4mm; background: #111018; }
+  .gratter svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pieces { position: absolute; left: 0; right: 0; top: 1.4mm; display: flex; justify-content: center; gap: 2.4mm; }
+  .piece { width: 10.2mm; height: 10.2mm; border-radius: 50%; background: #d6a96a; border: .45mm solid #fffdf8; display: flex; align-items: center; justify-content: center;
+           font-size: 7.6pt; font-weight: 900; letter-spacing: -.08em; color: #111018; }
+  .piece b { display: inline-block; width: .8mm; height: .8mm; border-radius: 50%; background: #b0482f; margin-left: .2mm; }
+  .regle { position: absolute; left: 0; right: 0; bottom: .7mm; text-align: center; font-family: Mono, monospace; font-size: 6.8pt; font-weight: 800; color: #d6a96a; letter-spacing: .03em; }
+  .tampon { position: absolute; right: 4.3mm; top: 27.2mm; transform: rotate(-12deg); border: .55mm solid #b0482f; color: #b0482f; background: #fffdf8;
+            font-size: 9pt; font-weight: 900; letter-spacing: .06em; padding: .3mm 1.6mm; border-radius: 1mm; }
+  .lot { position: absolute; left: 0; right: 0; top: 48mm; text-align: center; }
+  .lot .k { font-size: 7.2pt; font-weight: 800; letter-spacing: .14em; }
+  .lot .v { font-size: 12pt; font-weight: 900; letter-spacing: -.02em; line-height: 1.02; margin-top: .5mm; }
+  .lot .s { font-family: Accent, Georgia, serif; font-size: 9pt; margin-top: .5mm; }
+  .question { position: absolute; left: 4.6mm; right: 4.6mm; top: 65.3mm; text-align: center; font-size: 7pt; font-weight: 700; line-height: 1.25; }
+  .cta { position: absolute; left: 4.4mm; right: 4.4mm; bottom: 4.4mm; height: 8.4mm; border-radius: 1.6mm; background: #111018; color: #fffdf8;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.12; }
+  .cta .k { font-size: 6.8pt; font-weight: 800; letter-spacing: 0; color: #d6a96a; white-space: nowrap; }
+  .cta .v { font-size: 10.6pt; font-weight: 900; letter-spacing: .02em; }
+</style></head>
+<body><div class="page">
+  <div class="bleed">
+    <svg class="rayons" viewBox="-50 -50 100 100" id="rayons"></svg>
+  </div>
+  <div class="trim" style="outline:none">
+    <div class="haut"><span class="num" id="num">N° IL4N</span><span class="mini">il4n<b></b></span></div>
+    <div class="chance">C’EST TON JOUR DE CHANCE !</div>
+    <div class="titre"><span class="a"><i aria-hidden="true">TICKET</i>TICKET</span><span class="b">GAGNANT</span></div>
+    <div class="gratter">
+      <svg viewBox="0 0 46.2 15.4" preserveAspectRatio="none" id="grain"></svg>
+      <div class="pieces"><span class="piece">il4n<b></b></span><span class="piece">il4n<b></b></span><span class="piece">il4n<b></b></span></div>
+      <div class="regle">3 IDENTIQUES = GAGNÉ</div>
+    </div>
+    <div class="tampon">GAGNÉ !</div>
+    <div class="lot"><div class="k">TU AS GAGNÉ</div><div class="v">1 MAQUETTE<br>GRATUITE</div><div class="s">flyer, site ou visuel</div></div>
+    <div class="question">Une activité, une asso,<br>une fête samedi prochain ?</div>
+    <div class="cta"><span class="k">CONTACTE-MOI DÈS MAINTENANT</span><span class="v">06 10 55 71 25</span></div>
+  </div>
+</div>
+<script>
+  // rayons de soleil (vectoriels, couleurs pleines)
+  let r = '';
+  for (let i = 0; i < 36; i++) {
+    const a = (i / 36) * Math.PI * 2, b = ((i + .5) / 36) * Math.PI * 2;
+    if (i % 2 === 0) r += `<path d="M0 0 L${80 * Math.cos(a)} ${80 * Math.sin(a)} L${80 * Math.cos(b)} ${80 * Math.sin(b)} Z" fill="#e3bb80"/>`;
+  }
+  document.getElementById('rayons').innerHTML = r;
+  // reste de « pellicule argentée » grattée autour des pièces (aplats gris, vectoriels)
+  let g = '';
+  const pts = [[1.4, 1.4, 5, 2.2], [39, 1.2, 6, 2.4], [1.2, 7.5, 2.4, 3.6], [42.6, 6.6, 2.4, 4]];
+  for (const [x, y, w, h] of pts) g += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1" fill="#8d8995"/><rect x="${x + .6}" y="${y + .4}" width="${w * .6}" height="${h * .35}" rx=".5" fill="#b9b5c0"/>`;
+  document.getElementById('grain').innerHTML = g;
+  const n = new URLSearchParams(location.search).get('n');
+  if (n) document.getElementById('num').textContent = 'TICKET N° ' + n;
+</script>
+</body></html>

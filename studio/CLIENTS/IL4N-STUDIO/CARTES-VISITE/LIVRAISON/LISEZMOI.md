@@ -1,4 +1,31 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v4 « Ticket découpé » — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v5 « Ticket gagnant » — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
+QR code décodé = https://il4nstudio.netlify.app. Contrôle de mise en page : aucun chevauchement, rien hors zone de sécurité.
+
+## Le concept
+Format 55×85 vertical, fond doré à rayons de soleil (visible de loin), « C'EST TON JOUR DE CHANCE ! — TICKET GAGNANT »,
+zone « grattée » avec 3 « il4n. » identiques et tampon rouge « GAGNÉ ! », lot « 1 MAQUETTE GRATUITE — flyer, site ou visuel »,
+« Une activité, une asso, une fête samedi prochain ? », bandeau « CONTACTE-MOI DÈS MAINTENANT 06 10 55 71 25 ».
+Verso nuit : « Récupère ton lot en 3 étapes » (écris-moi avec le n° · raconte ton projet · découvre ta maquette, tu valides avant de payer),
+QR, coordonnées, mentions « Maquette offerte, sans obligation d'achat. Ne pas jeter sur la voie publique. »
+
+## Pourquoi ces mentions
+- Annoncer à quelqu'un qu'il a « gagné » est une pratique commerciale trompeuse si le lot n'existe pas ou s'il faut payer pour l'avoir.
+  Ici le lot est réel (maquette gratuite, sans engagement) : **il faut tenir cette promesse** pour chaque ticket présenté.
+- Si tu veux limiter l'offre (une maquette par commerce, date de validité…), il faut l'écrire sur le ticket : dis-le-moi, je l'ajoute.
+- Ne pas déposer les tickets par terre dans la rue (dépôt sauvage, verbalisable) : les donner en main propre ou les laisser sur un comptoir avec accord.
+- Design 100 % original : n'imite aucun jeu existant (pas de logo ni de nom de jeu de grattage).
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_ticket-gagnant_v5_print.pdf` | **Imprimeur** : carte 55×85 **verticale**, recto puis verso, fond perdu 3 mm (numéro affiché : « N° IL4N »). |
+| `IL4N_tickets-gagnants_planches_A4_0052-0078.pdf` | **Chez toi** : 3 feuilles recto-verso, 27 tickets numérotés **0052 → 0078** (suite des billets et tickets). |
+| `IL4N_ticket-gagnant_v5_apercu_recto-verso.png` | Aperçu. |
+
+Impression maison : 100 % / taille réelle, recto-verso bord long, papier 250–300 g, couper sur les traits.
+
+---
+## Version 4 « Ticket découpé »
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
 QR code décodé = https://il4nstudio.netlify.app.
 
