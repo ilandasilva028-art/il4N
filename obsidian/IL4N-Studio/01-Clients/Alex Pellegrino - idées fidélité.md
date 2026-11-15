@@ -1,3 +1,5 @@
+> **Décision (15/11) : on reste sur la v2** (`cartes-v2.html`, `planche-v2.png`). La v3 minimale (`cartes-v3.html`, `planche-v3.png`) est gardée en réserve.
+
 # Version 3 (simple, lisible sur un stand) : 3 façons de compter sans points
 - **A. La tarte** : 8 parts à tamponner, la 8e est offerte.
 - **B. Le mille-feuille** : 6 couches qui montent, la glaçure du dessus est offerte. Bonus unique : anniversaire, une part offerte.
