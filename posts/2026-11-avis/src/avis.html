@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Acc;src:url(../../../reel/fonts/accent.woff2)}
+@font-face{font-family:Inter;font-weight:500;src:url(../../../reel/fonts/Inter-Medium.otf)}
+@font-face{font-family:Inter;font-weight:600;src:url(../../../reel/fonts/Inter-SemiBold.otf)}
+@font-face{font-family:Inter;font-weight:700;src:url(../../../reel/fonts/Inter-Bold.otf)}
+@font-face{font-family:Inter;font-weight:800;src:url(../../../reel/fonts/Inter-ExtraBold.otf)}
+@font-face{font-family:Inter;font-weight:900;src:url(../../../reel/fonts/Inter-Black.otf)}
+:root{--night:#111018;--paper:#f4f0e8;--white:#fffdf8;--gold:#d6a96a;--gold2:#9a663e;--ink:#17131d;--ink2:#6d6870;--muted:#a49eaa}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#555;font-family:Inter,sans-serif}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;margin:20px}
+.story{height:1920px}
+.light{background:var(--paper);color:var(--ink)}
+.dark{background:radial-gradient(90% 60% at 85% 8%,#2a2333 0%,var(--night) 65%);color:var(--white)}
+.abs{position:absolute}
+.k{font-size:26px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:20px;color:var(--gold2)}
+.dark .k{color:var(--gold)}
+.k:before{content:"";width:56px;height:3px;background:currentColor}
+.stars{display:flex;gap:14px}
+.stars svg{width:64px;height:64px;fill:var(--gold)}
+.q{font-family:Acc,Georgia,serif;line-height:1.16;letter-spacing:-.01em}
+.qm{font-family:Acc,Georgia,serif;color:var(--gold);font-size:300px;line-height:.6;height:120px}
+.who{font-size:34px;font-weight:800}
+.src{font-size:28px;font-weight:600;color:var(--ink2);margin-top:8px}
+.dark .src{color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:22px;background:var(--gold);color:var(--night);font-weight:800;font-size:44px;padding:32px 56px;border-radius:999px}
+.pill svg{width:34px;height:34px}
+.foot{position:absolute;left:84px;right:84px;bottom:64px;display:flex;justify-content:space-between;font-size:24px;font-weight:700;letter-spacing:.1em;opacity:.55}
+.shot{border-radius:36px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.45);background:#fff}
+.shot img{display:block;width:100%}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <symbol id="st" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></symbol>
+ <symbol id="ar" viewBox="0 0 24 24"><path d="M6 18 18 6M9 6h9v9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- 1/2 : l'avis mis en page -->
+<section class="s light" id="avis_1">
+  <div class="abs" style="left:84px;top:96px;right:84px">
+    <div class="k">Avis client · Google</div>
+    <div class="stars" style="margin-top:56px"><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg></div>
+    <div class="qm" style="margin-top:100px">“</div>
+    <div class="q" style="font-size:68px">Ilan est très réactif, impliqué, il écoute et conseille de manière à mettre en avant votre activité.</div>
+    <div class="q" style="font-size:72px;color:var(--gold2);margin-top:26px">Je recommande vivement.</div>
+    <div style="margin-top:60px;display:flex;align-items:center;gap:26px">
+      <div style="width:84px;height:84px;border-radius:50%;background:#5b3db8;color:#fff;display:grid;place-items:center;font-size:40px;font-weight:600">L</div>
+      <div><div class="who">LuZoHeadSpa</div><div class="src">Avis Google · novembre 2026</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>IL4N STUDIO · SARRIANS</span><span>1 / 2 →</span></div>
+</section>
+
+<!-- 2/2 : la capture réelle + appel -->
+<section class="s dark" id="avis_2">
+  <div class="abs" style="left:84px;top:96px;right:84px">
+    <div class="k">La capture, telle quelle</div>
+    <div style="font-weight:900;font-size:92px;letter-spacing:-.035em;line-height:1;margin-top:40px">Merci pour<br><span class="q" style="font-weight:400;color:var(--gold);font-size:100px">ce premier avis.</span></div>
+  </div>
+  <div class="abs shot" style="left:84px;right:84px;top:470px"><img src="avis_capture.png"></div>
+  <div class="abs" style="left:84px;bottom:150px"><span class="pill">Votre projet ? Écrivez-moi <svg><use href="#ar"/></svg></span></div>
+  <div class="foot"><span>IL4N STUDIO · SARRIANS</span><span>2 / 2</span></div>
+</section>
+
+<!-- Story 9:16 -->
+<section class="s story dark" id="avis_story">
+  <div class="abs" style="left:84px;top:300px;right:84px">
+    <div class="k">Avis client · Google</div>
+    <div class="stars" style="margin-top:50px"><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg><svg><use href="#st"/></svg></div>
+    <div class="qm" style="margin-top:110px">“</div>
+    <div class="q" style="font-size:78px">Ilan est très réactif, impliqué, il écoute et conseille de manière à mettre en avant votre activité.</div>
+    <div class="q" style="font-size:78px;color:var(--gold);margin-top:24px">Je recommande vivement.</div>
+    <div style="margin-top:54px;display:flex;align-items:center;gap:26px">
+      <div style="width:80px;height:80px;border-radius:50%;background:#5b3db8;color:#fff;display:grid;place-items:center;font-size:38px;font-weight:600">L</div>
+      <div><div class="who">LuZoHeadSpa</div><div class="src">Avis Google · novembre 2026</div></div>
+    </div>
+  </div>
+  <div class="abs" style="left:84px;top:1400px"><span class="pill">Écrivez-moi en privé <svg><use href="#ar"/></svg></span></div>
+</section>
+</body></html>
