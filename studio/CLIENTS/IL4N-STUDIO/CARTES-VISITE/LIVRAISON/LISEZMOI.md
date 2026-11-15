@@ -1,4 +1,22 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v6 « MAXI MAQUETTE » (ticket à gratter) — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v7 « MAXI MAQUETTE » carte de visite — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
+QR code décodé = https://il4nstudio.netlify.app. Aucun chevauchement, rien hors zone de sécurité.
+
+Version simplifiée de la v6 : **plus rien à gratter, plus de règlement**. Ça reste une carte de visite.
+- Recto : « TICKET N° … · PRIX : OFFERT », titre « MAXI MAQUETTE » en relief, pastille « OFFERT », rangée « 3 SUR 3 ! » de 3 pièces « il4n. »,
+  « TU AS GAGNÉ 1 MAQUETTE GRATUITE — flyer · site · visuel », « Une asso, une fête samedi prochain ? 06 10 55 71 25 ».
+- Verso : vraie carte de visite — logo, « Faites bonne impression. », QR « Mes tarifs », Ilan Da Silva, « Graphiste & sites web · Sarrians »,
+  téléphone, Instagram, e-mail, site. Une seule mention : « Maquette offerte, sans obligation d'achat. Tu valides avant de payer. »
+  (obligatoire dès qu'on écrit « tu as gagné » : la maquette doit rester réellement gratuite pour chaque carte présentée).
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_maxi-maquette_v7_carte_print.pdf` | **Imprimeur** : 55×85 vertical, recto puis verso, fond perdu 3 mm. |
+| `IL4N_maxi-maquette_v7_planches_A4_0115-0141.pdf` | **Chez toi** : 3 feuilles recto-verso, 27 cartes numérotées 0115 → 0141. |
+| `IL4N_maxi-maquette_v7_apercu.png` | Aperçu recto-verso. |
+
+---
+## Version 6 « MAXI MAQUETTE » ticket à gratter
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement) pour les 2 versions, 100 % vectoriel,
 polices TrueType incorporées, QR code décodé = https://il4nstudio.netlify.app.
 

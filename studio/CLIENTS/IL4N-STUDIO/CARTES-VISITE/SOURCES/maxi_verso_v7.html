@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte de visite « MAXI MAQUETTE » IL4N v7 — verso : vraie carte de visite (nom, activité, coordonnées, QR) + mention de l'offre. -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #fbf8f1; }
+  .bleed { background: #fbf8f1; }
+  .bande { position: absolute; left: 0; right: 0; top: 0; height: calc(var(--bleed) + 27mm); background: #7a5fe9; }
+  .trim { font-family: Inter, sans-serif; color: #17131d; }
+  .logo { position: absolute; left: 4.8mm; top: 5mm; font-size: 26pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; color: #fffdf8; }
+  .logo b { display: inline-block; width: 2.2mm; height: 2.2mm; border-radius: 50%; background: #ffd34d; margin-left: .6mm; }
+  .slogan { position: absolute; left: 4.8mm; top: 15.4mm; font-family: Accent, Georgia, serif; font-size: 10.4pt; line-height: 1.08; color: #ffd34d; }
+  .nom { position: absolute; left: 4.8mm; top: 32mm; font-size: 12.5pt; font-weight: 900; letter-spacing: -.02em; }
+  .metier { position: absolute; left: 4.8mm; top: 38mm; font-size: 6.9pt; font-weight: 800; letter-spacing: .01em; white-space: nowrap; color: #7a5fe9; }
+  .contacts { position: absolute; left: 4.8mm; right: 4.8mm; top: 44.2mm; display: grid; gap: 1.5mm; font-size: 7.6pt; font-weight: 700; }
+  .contacts div { display: flex; align-items: center; gap: 1.8mm; white-space: nowrap; }
+  .contacts svg { width: 3mm; height: 3mm; flex: none; }
+  .qr { position: absolute; right: 4.6mm; top: 4.6mm; width: 17mm; }
+  .qr .fond { background: #fffdf8; border-radius: 1.2mm; padding: .7mm; }
+  .qr img { display: block; width: 100%; }
+  .qr span { display: block; text-align: center; font-size: 6.8pt; font-weight: 800; color: #ffd34d; margin-top: .4mm; }
+  .mention { position: absolute; left: 4.8mm; right: 4.8mm; bottom: 4.4mm; font-size: 6.8pt; font-weight: 600; color: #6d6870; line-height: 1.3;
+             border-top: .25mm solid #e3dcef; padding-top: 1.2mm; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><div class="bande"></div></div>
+  <div class="trim" style="outline:none">
+    <div class="logo">il4n<b></b></div>
+    <div class="slogan">Faites bonne<br>impression.</div>
+    <div class="nom">Ilan Da Silva</div>
+    <div class="metier">GRAPHISTE &amp; SITES WEB · SARRIANS</div>
+    <div class="contacts">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#7a5fe9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 10 55 71 25</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#7a5fe9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#7a5fe9"/></svg>@il4n_studio</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#7a5fe9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ilandasilva028@gmail.com</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#7a5fe9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>il4nstudio.netlify.app</div>
+    </div>
+    <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div><span>MES TARIFS</span></div>
+    <div class="mention">Maquette offerte, sans obligation d’achat.<br>Tu valides avant de payer.</div>
+  </div>
+</div></body></html>

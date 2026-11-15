@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte de visite « MAXI MAQUETTE » IL4N v7 — recto (plus rien à gratter), 55×85 mm vertical, inspirée des codes des tickets à gratter.
+     Nom, logo et dessin ORIGINAUX (aucun nom ni logo de jeu existant). Lot réel : maquette gratuite, sans obligation d'achat.
+     ?n=0115 : numéro (suivi). -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-ExtraBold.ttf); font-weight: 800; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #7a5fe9; }
+  .bleed { background: #7a5fe9; }
+  .rayons { position: absolute; left: 50%; top: 21%; width: 160mm; height: 160mm; margin: -80mm 0 0 -80mm; }
+  .trim { font-family: Inter, sans-serif; color: #111018; }
+  /* bandeau haut : numéro + prix */
+  .haut { position: absolute; left: 4.4mm; right: 4.4mm; top: 4.3mm; display: flex; justify-content: space-between; align-items: center;
+          font-family: Mono, monospace; font-size: 6.8pt; font-weight: 800; color: #fffdf8; }
+  .haut span { background: #111018; padding: .4mm 1.3mm; border-radius: .8mm; }
+  .haut .prix { color: #d6a96a; }
+  /* titre en relief (copies décalées en aplats, sans contour : le PDF garde un vrai texte) */
+  .titre { position: absolute; left: 0; right: 0; top: 9.4mm; height: 19mm; transform: rotate(-6deg); }
+  .ligne { position: absolute; left: 0; right: 0; text-align: center; font-weight: 900; letter-spacing: -.035em; line-height: 1; transform: skewX(-9deg); }
+  .l1 { top: 0; font-size: 17pt; } .l2 { top: 6.2mm; font-size: 23.5pt; }
+  .ligne span { position: absolute; left: 0; right: 0; }
+  /* pastille étoilée « OFFERT ! » */
+  .etoile { position: absolute; left: 39.6mm; top: 23.6mm; width: 12.6mm; height: 12.6mm; transform: rotate(12deg); }
+  .etoile svg { position: absolute; inset: 0; }
+  .etoile b { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 6.6pt; font-weight: 900; color: #fffdf8; line-height: 1; }
+  .etoile b i { font-style: normal; font-size: 7pt; color: #ffe08a; letter-spacing: -.01em; }
+  /* zone de grattage */
+  .zone { position: absolute; left: 4.4mm; right: 4.4mm; top: 35mm; height: 21.4mm; background: #111018; border-radius: 2mm; }
+  .zone .k { position: absolute; left: 0; right: 0; top: 1.1mm; text-align: center; font-size: 6.8pt; font-weight: 900; letter-spacing: .1em; color: #d6a96a; }
+  .rangee { position: absolute; left: 0; right: 0; top: 5.2mm; display: flex; justify-content: center; gap: 2.6mm; }
+  .rangee .coin { width: 12.6mm; height: 12.6mm; border-radius: 50%; background: #d6a96a; border: .5mm solid #fffdf8; display: flex; align-items: center; justify-content: center; font-size: 9.4pt; font-weight: 900; letter-spacing: -.08em; }
+  .rangee .coin b { display: inline-block; width: .95mm; height: .95mm; border-radius: 50%; background: #b0482f; margin-left: .2mm; }
+  .cases { position: absolute; left: 2mm; right: 2mm; top: 4.6mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4mm; }
+  .case { height: 9mm; border-radius: 1.2mm; background: #fffdf8; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .case svg { width: 6.6mm; height: 6.6mm; }
+  .case .coin { width: 7.4mm; height: 7.4mm; border-radius: 50%; background: #d6a96a; display: flex; align-items: center; justify-content: center; font-size: 6.8pt; font-weight: 900; letter-spacing: -.08em; }
+  .case .coin b { display: inline-block; width: .7mm; height: .7mm; border-radius: 50%; background: #b0482f; margin-left: .15mm; }
+  .argent { position: absolute; inset: 0; background: #a9a5b2; }
+  .argent i { position: absolute; left: 1mm; right: 1mm; height: .5mm; background: #c9c6cf; }
+  .reste { position: absolute; background: #a9a5b2; }
+  .gratter-ok .argent, .gratter-ok .reste { display: none; }
+  /* lot */
+  .lot { position: absolute; left: 4.4mm; right: 4.4mm; top: 59.6mm; height: 12.8mm; text-align: center; background: #d6a96a; border-radius: 2mm; border: .45mm solid #111018;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+  .lot .k { font-size: 6.8pt; font-weight: 900; letter-spacing: .06em; white-space: nowrap; }
+  .lot .v { font-size: 10.2pt; font-weight: 900; letter-spacing: -.02em; white-space: nowrap; margin: .3mm 0; }
+  .lot .s { font-size: 6.8pt; font-weight: 800; }
+  .appel { position: absolute; left: 4.4mm; right: 4.4mm; top: 73.4mm; text-align: center; color: #fffdf8; line-height: 1.15; }
+  .appel .q { font-size: 6.8pt; font-weight: 700; }
+  .appel .t { font-size: 10.4pt; font-weight: 900; color: #ffe08a; letter-spacing: .02em; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><svg class="rayons" viewBox="-50 -50 100 100" id="rayons"></svg></div>
+  <div class="trim" style="outline:none">
+    <div class="haut"><span id="num">N° IL4N</span><span class="prix">PRIX : OFFERT</span></div>
+    <div class="titre" id="titre"></div>
+    <div class="zone">
+      <div class="k">3 SUR 3 !</div>
+      <div class="rangee"><span class="coin">il4n<b></b></span><span class="coin">il4n<b></b></span><span class="coin">il4n<b></b></span></div>
+    </div>
+    <div class="etoile"><svg viewBox="-50 -50 100 100" id="etoile"></svg><b><i>OFFERT</i></b></div>
+    <div class="lot"><span class="k">TU AS GAGNÉ</span><span class="v">1 MAQUETTE GRATUITE</span><span class="s">flyer · site · visuel</span></div>
+    <div class="appel"><div class="q">Une asso, une fête samedi prochain ?</div><div class="t">06 10 55 71 25</div></div>
+  </div>
+</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  if (q.get('n')) document.getElementById('num').textContent = 'TICKET N° ' + q.get('n');
+  // rayons
+  let r = '';
+  for (let i = 0; i < 40; i++) { if (i % 2) continue; const a = i / 40 * 2 * Math.PI, b = (i + 1) / 40 * 2 * Math.PI;
+    r += `<path d="M0 0L${80 * Math.cos(a)} ${80 * Math.sin(a)}L${80 * Math.cos(b)} ${80 * Math.sin(b)}Z" fill="#8a72f2"/>`; }
+  document.getElementById('rayons').innerHTML = r;
+  // étoile de la pastille
+  let e = ''; for (let i = 0; i < 32; i++) { const a = i / 32 * 2 * Math.PI - Math.PI / 2, rr = i % 2 ? 38 : 50; e += `${i ? 'L' : 'M'}${rr * Math.cos(a)} ${rr * Math.sin(a)}`; }
+  document.getElementById('etoile').innerHTML = `<path d="${e}Z" fill="#111018" transform="translate(2.5 2.5)"/><path d="${e}Z" fill="#b0482f"/>`;
+  // titre en relief : 7 couches nuit décalées, puis face or, puis reflet crème
+  const T = document.getElementById('titre');
+  for (const [cls, txt] of [['l1', 'MAXI'], ['l2', 'MAQUETTE']]) {
+    let h = '';
+    for (let k = 7; k >= 1; k--) h += `<span style="transform:translate(${k * .13}mm,${k * .13}mm);color:#111018">${txt}</span>`;
+    h += `<span style="transform:translate(-.18mm,-.18mm);color:#fffdf8">${txt}</span><span style="color:#ffd34d">${txt}</span>`;
+    T.insertAdjacentHTML('beforeend', `<div class="ligne ${cls}">${h}</div>`);
+  }
+</script>
+</body></html>
