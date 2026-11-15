@@ -1,0 +1,59 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Cartes de fidélité · Alex Pellegrino · 3 pistes</title>
+<style>
+@font-face{font-family:Inter;font-weight:900;src:url(Inter-Black.otf)}
+@font-face{font-family:Inter;font-weight:700;src:url(Inter-Bold.otf)}
+@font-face{font-family:Inter;font-weight:500;src:url(Inter-Medium.otf)}
+*{box-sizing:border-box;margin:0}
+body{background:#e9e6e1;font-family:Inter,sans-serif;padding:40px;width:2200px}
+h1{font-size:34px;margin-bottom:6px}.sub{color:#555;margin-bottom:28px;font-size:18px}
+.row{display:flex;gap:40px;margin-bottom:46px;align-items:flex-start}
+.lab{width:200px;font-size:17px;line-height:1.4}.lab b{display:block;font-size:24px;margin-bottom:6px}
+.card{width:1020px;height:660px;border-radius:26px;position:relative;overflow:hidden;box-shadow:0 14px 34px #0003;flex:none}
+.card small{display:block}
+/* A — Marché provençal */
+.A{background:#f6ecdc;color:#3d3426}
+.A .band{position:absolute;left:0;right:0;bottom:0;height:150px;background:#c4623a}
+.A .sun{position:absolute;right:-70px;top:-70px;width:330px;height:330px;border-radius:50%;background:#e8b04a;opacity:.9}
+.A .r1{position:absolute;left:70px;top:90px}
+.A .script{font:italic 400 92px Georgia,serif;color:#c4623a;line-height:1}
+.A .name{font:900 64px Inter;letter-spacing:.04em;margin-top:6px;color:#3d3426}
+.A .tag{font:500 24px Inter;letter-spacing:.22em;text-transform:uppercase;margin-top:26px;color:#5b6b3a}
+.A .foot{position:absolute;left:70px;bottom:52px;font:700 26px Inter;color:#f6ecdc;letter-spacing:.06em}
+/* B — Pâtisserie chic */
+.B{background:#f3d9d6;color:#5a1d2f}
+.B .frame{position:absolute;inset:26px;border:3px solid #b98b4e;border-radius:18px}
+.B .mono{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:170px;height:170px;border-radius:50%;border:3px solid #b98b4e;display:flex;align-items:center;justify-content:center;font:italic 400 88px Georgia,serif;color:#6b2336}
+.B .name{position:absolute;left:0;right:0;top:350px;text-align:center;font:400 54px Georgia,serif;letter-spacing:.2em;text-transform:uppercase}
+.B .tag{position:absolute;left:0;right:0;top:432px;text-align:center;font:500 22px Inter;letter-spacing:.3em;text-transform:uppercase;color:#b98b4e}
+/* C — Artisan gourmand */
+.C{background:#d9b88f;color:#3b2417}
+.C .stamp{position:absolute;right:60px;top:60px;width:210px;height:210px;border-radius:50%;border:6px double #3b2417;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-12deg);font:900 24px Inter;letter-spacing:.12em;text-align:center;line-height:1.35}
+.C .name{position:absolute;left:70px;top:150px;font:900 120px Inter;letter-spacing:-.04em;line-height:.9;color:#3b2417}
+.C .name span{display:block;color:#f6ecdc}
+.C .tag{position:absolute;left:74px;bottom:70px;font:700 26px Inter;letter-spacing:.18em;text-transform:uppercase}
+/* versos */
+.v{padding:54px 64px}
+.v h3{font:900 34px Inter;letter-spacing:.02em}
+.v p{font:500 22px Inter;margin-top:6px;opacity:.85}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:34px}
+.dot{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font:900 30px Inter}
+.A .dot{border:4px dashed #c4623a;color:#c4623a}.A .dot.last{background:#c4623a;color:#f6ecdc;border-style:solid;font-size:20px}
+.B .dot{border:3px solid #b98b4e;color:#b98b4e;font-family:Georgia,serif;font-weight:400}.B .dot.last{background:#6b2336;color:#f3d9d6;border-color:#6b2336;font:700 20px Inter}
+.C .dot{border:5px solid #3b2417;color:#3b2417}.C .dot.last{background:#3b2417;color:#d9b88f;font-size:20px}
+.vfoot{position:absolute;left:64px;right:64px;bottom:40px;display:flex;justify-content:space-between;font:500 20px Inter}
+.ph{opacity:.6;font-style:italic}
+</style>
+<h1>Cartes de fidélité · Alex Pellegrino — 3 pistes de maquette</h1>
+<p class="sub">Maquettes de départ (85 × 55 mm, recto/verso). Nom, couleurs, récompense et contact sont des propositions à valider avec Alex.</p>
+
+<div class="row"><div class="lab"><b>Piste A</b>Marché provençal<br>Crème, terracotta, olive, soleil. Chaleureux, local.</div>
+ <div class="card A" id="A1"><div class="sun"></div><div class="band"></div><div class="r1"><div class="script">Alex</div><div class="name">PELLEGRINO</div><div class="tag">Gâteaux · Marchés du Vaucluse</div></div><div class="foot">CARTE DE FIDÉLITÉ</div></div>
+ <div class="card A v" id="A2"><h3>Votre carte gourmande</h3><p>Un tampon à chaque achat. Le 10<sup>e</sup> est pour moi !</p><div class="grid"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div><div class="dot">6</div><div class="dot">7</div><div class="dot">8</div><div class="dot">9</div><div class="dot last">OFFERT</div></div><div class="vfoot"><span>Retrouvez-moi sur les marchés du Vaucluse</span><span class="ph">téléphone / réseau à compléter</span></div></div></div>
+
+<div class="row"><div class="lab"><b>Piste B</b>Pâtisserie chic<br>Rose poudré, bordeaux, filet doré. Élégant, cadeau.</div>
+ <div class="card B" id="B1"><div class="frame"></div><div class="mono">A</div><div class="name">Alex Pellegrino</div><div class="tag">Gâteaux · Vaucluse</div></div>
+ <div class="card B v" id="B2"><div class="frame"></div><h3 style="font-family:Georgia,serif;font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:30px;margin-top:18px">Carte de fidélité</h3><p>Chaque gourmandise vous rapproche d'une attention offerte.</p><div class="grid"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div><div class="dot">6</div><div class="dot">7</div><div class="dot">8</div><div class="dot">9</div><div class="dot last">OFFERT</div></div><div class="vfoot" style="bottom:56px"><span>Marchés du Vaucluse</span><span class="ph">contact à compléter</span></div></div></div>
+
+<div class="row"><div class="lab"><b>Piste C</b>Artisan gourmand<br>Kraft, chocolat, grand nom, tampon. Franc, marché.</div>
+ <div class="card C" id="C1"><div class="stamp">FAIT<br>MAISON<br>★</div><div class="name">ALEX<span>PELLEGRINO</span></div><div class="tag">Gâteaux de marché</div></div>
+ <div class="card C v" id="C2"><h3>CARTE DE FIDÉLITÉ</h3><p>10 tampons = 1 gâteau offert.</p><div class="grid"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div><div class="dot">6</div><div class="dot">7</div><div class="dot">8</div><div class="dot">9</div><div class="dot last">OFFERT</div></div><div class="vfoot"><span>Sur les marchés du Vaucluse</span><span class="ph">téléphone / réseau à compléter</span></div></div></div>
