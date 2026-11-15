@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « ticket de caisse » IL4N — verso, 55×85 mm vertical : logo, accroche, QR vers le site. -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-Bold.ttf); font-weight: 700; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #111018; }
+  .bleed { background: #111018; }
+  .disque { position: absolute; left: -16mm; top: -18mm; width: 70mm; height: 70mm; }
+  .trim { font-family: Inter, sans-serif; color: #fffdf8; }
+  .kicker { position: absolute; left: 6mm; top: 7mm; font-size: 6.8pt; font-weight: 800; letter-spacing: .2em; color: #d6a96a; }
+  .logo { position: absolute; left: 5.4mm; top: 13.5mm; font-size: 40pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; }
+  .logo b { display: inline-block; width: 3.2mm; height: 3.2mm; border-radius: 50%; background: #d6a96a; margin-left: .9mm; }
+  .accroche { position: absolute; left: 6mm; top: 31.5mm; font-family: Accent, Georgia, serif; font-size: 12.5pt; line-height: 1.12; color: #d6a96a; }
+  .qr { position: absolute; left: 6mm; bottom: 7mm; width: 21mm; }
+  .qr .fond { background: #fbf8f1; border-radius: 1.4mm; padding: 1mm; }
+  .qr img { display: block; width: 100%; }
+  .scan { position: absolute; left: 29.5mm; bottom: 7.4mm; font-family: Mono, monospace; font-size: 6.8pt; font-weight: 700; color: #c9c3cc; line-height: 1.45; }
+  .scan b { color: #d6a96a; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><svg class="disque" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1b1825"/><circle cx="50" cy="50" r="34" fill="#221e2b"/></svg></div>
+  <div class="trim" style="outline:none">
+    <div class="kicker">IL4N STUDIO</div>
+    <div class="logo">il4n<b></b></div>
+    <div class="accroche">Conservez<br>votre ticket.</div>
+    <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div></div>
+    <div class="scan">SCANNEZ<br><b>MES TARIFS</b><br>il4nstudio<br>.netlify.app</div>
+  </div>
+</div></body></html>

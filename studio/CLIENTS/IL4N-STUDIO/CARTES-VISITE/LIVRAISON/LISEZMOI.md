@@ -1,4 +1,25 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v2 « Billet de bonne impression » — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v3 « Ticket de caisse » — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées
+(Inter, Gelasio, JetBrains Mono — licences libres), QR code décodé = https://il4nstudio.netlify.app.
+
+## Le concept
+Format **vertical 55×85 mm**. Recto : un ticket de caisse (bords déchirés) posé sur fond nuit, avec tes **vrais tarifs affichés sur le site**
+(Flyer Start 21 €, carte de visite 25 €, menu 39 €, visuel réseaux 15 €, site 290 €), la ligne dorée **« MAQUETTE 0,00 € »**,
+« TOTAL : BONNE IMPRESSION », tes coordonnées. Verso : logo, « Conservez votre ticket. », QR code vers tes tarifs.
+Mention « Prix à confirmer au devis » (le site précise que les tarifs sont à confirmer avant commande).
+⚠️ Si tu changes un prix sur le site, la carte doit être mise à jour (`SOURCES/ticket_recto_v3.html`).
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_ticket_v3_print.pdf` | **Imprimeur** : carte **55×85 verticale**, recto puis verso, + fond perdu 3 mm. Numéro affiché : « N° IL4N ». |
+| `IL4N_tickets_planches_A4_0025-0051.pdf` | **Chez toi** : 3 feuilles recto-verso, 27 tickets numérotés **0025 à 0051** (suite des billets 0001-0024). |
+| `IL4N_ticket_recto_v3_HD.png` / `…_verso_v3_HD.png` | Aperçus 600 ppp. |
+
+Impression maison : 100 % / taille réelle, recto-verso **bord long**, papier 250–300 g, couper sur les traits.
+Chez un imprimeur : choisir « carte de visite format portrait » ; papier offset/naturel non couché = effet ticket réussi.
+
+---
+## Version 2 « Billet de bonne impression »
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
 QR code décodé = https://il4nstudio.netlify.app.
 

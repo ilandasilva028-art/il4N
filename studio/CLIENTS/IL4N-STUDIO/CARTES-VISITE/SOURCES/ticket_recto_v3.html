@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « ticket de caisse » IL4N — recto, 55×85 mm vertical. Tarifs = ceux affichés sur il4nstudio.netlify.app (hors offres).
+     ?n=0007 : numéro de ticket (suivi des dépôts) ; sans paramètre : « N° IL4N ». -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-ExtraBold.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #111018; }
+  .bleed { background: #111018; }
+  .papier { position: absolute; left: 0; top: 0; width: 55mm; height: 85mm; }
+  .t { position: absolute; left: 8.2mm; right: 8.2mm; top: 7.2mm; font-family: Mono, monospace; font-size: 6.8pt; color: #17131d; line-height: 2.85mm; }
+  .c { text-align: center; }
+  .logo { font-family: Inter, sans-serif; font-size: 21pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; text-align: center; margin-bottom: .9mm; }
+  .logo b { display: inline-block; width: 1.8mm; height: 1.8mm; border-radius: 50%; background: #d6a96a; margin-left: .5mm; }
+  .sep { border-top: .25mm dashed #17131d; margin: 1.5mm 0; }
+  .l { display: flex; justify-content: space-between; white-space: nowrap; }
+  .gras { font-weight: 800; }
+  .or { background: #d6a96a; margin: 0 -1.2mm; padding: .4mm 1.2mm; font-weight: 800; }
+  .total { font-size: 7.6pt; font-weight: 800; line-height: 3.1mm; }
+  .petit { font-size: 6.8pt; color: #4a4450; }
+  .merci { font-weight: 800; letter-spacing: .02em; margin-top: .4mm; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"></div>
+  <div class="trim" style="outline:none">
+    <!-- le ticket : bords haut et bas déchirés en zigzag (vectoriel), ombre en aplat décalé -->
+    <svg class="papier" viewBox="0 0 55 85">
+      <defs><path id="ticket" d="M5.5 3.4 L6.75 4.6 L8 3.4 L9.25 4.6 L10.5 3.4 L11.75 4.6 L13 3.4 L14.25 4.6 L15.5 3.4 L16.75 4.6 L18 3.4 L19.25 4.6 L20.5 3.4 L21.75 4.6 L23 3.4 L24.25 4.6 L25.5 3.4 L26.75 4.6 L28 3.4 L29.25 4.6 L30.5 3.4 L31.75 4.6 L33 3.4 L34.25 4.6 L35.5 3.4 L36.75 4.6 L38 3.4 L39.25 4.6 L40.5 3.4 L41.75 4.6 L43 3.4 L44.25 4.6 L45.5 3.4 L46.75 4.6 L48 3.4 L49.25 4.6 L49.5 4.4
+        L49.5 80.4 L48.25 81.6 L47 80.4 L45.75 81.6 L44.5 80.4 L43.25 81.6 L42 80.4 L40.75 81.6 L39.5 80.4 L38.25 81.6 L37 80.4 L35.75 81.6 L34.5 80.4 L33.25 81.6 L32 80.4 L30.75 81.6 L29.5 80.4 L28.25 81.6 L27 80.4 L25.75 81.6 L24.5 80.4 L23.25 81.6 L22 80.4 L20.75 81.6 L19.5 80.4 L18.25 81.6 L17 80.4 L15.75 81.6 L14.5 80.4 L13.25 81.6 L12 80.4 L10.75 81.6 L9.5 80.4 L8.25 81.6 L7 80.4 L5.75 81.6 L5.5 81.4 Z"/></defs>
+      <use href="#ticket" fill="#060509" transform="translate(.9 .9)"/>
+      <use href="#ticket" fill="#fbf8f1"/>
+    </svg>
+    <div class="t">
+      <div class="logo">il4n<b></b></div>
+      <div class="c gras">GRAPHISTE · SITES WEB</div>
+      <div class="l"><span>SARRIANS (84)</span><span id="num">N° IL4N</span></div>
+      <div class="sep"></div>
+      <div class="l"><span>FLYER START</span><span>21,00 €</span></div>
+      <div class="l"><span>CARTE VISITE</span><span>25,00 €</span></div>
+      <div class="l"><span>MENU RESTO</span><span>39,00 €</span></div>
+      <div class="l"><span>VISUEL RÉSEAUX</span><span>15,00 €</span></div>
+      <div class="l"><span>SITE INTERNET</span><span>290,00 €</span></div>
+      <div class="sep"></div>
+      <div class="l or"><span>MAQUETTE</span><span>0,00 €</span></div>
+      <div class="l total" style="margin-top:.8mm"><span>TOTAL</span><span>BONNE</span></div>
+      <div class="l total"><span></span><span>IMPRESSION</span></div>
+      <div class="c petit" style="margin-top:.4mm">VALIDEZ AVANT DE PAYER</div>
+      <div class="sep"></div>
+      <div class="c merci">MERCI DE VOTRE VISITE</div>
+      <div class="c" style="margin-top:.5mm">ILAN DA SILVA</div>
+      <div class="c gras">06 10 55 71 25</div>
+      <div class="c">@il4n_studio</div>
+      <div class="c">ilandasilva028@gmail.com</div>
+      <div class="c petit" style="margin-top:.5mm">Prix à confirmer au devis</div>
+    </div>
+  </div>
+</div>
+<script>
+  const n = new URLSearchParams(location.search).get('n');
+  if (n) document.getElementById('num').textContent = 'N° ' + n;
+</script>
+</body></html>

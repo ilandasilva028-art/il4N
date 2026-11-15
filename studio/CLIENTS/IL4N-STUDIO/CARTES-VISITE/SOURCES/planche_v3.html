@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Planche A4 « tickets » : 9 cartes 55×85 mm verticales (fond perdu 3 mm), traits de coupe. ?face=recto&start=1 (rectos numérotés) | ?face=verso -->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 210mm; height: 297mm; background: #fff; overflow: hidden; }
+  .carte { position: absolute; width: 61mm; height: 91mm; }
+  .carte img { width: 100%; height: 100%; display: block; }
+  .t { position: absolute; background: #000; }
+  .info { position: absolute; left: 14mm; top: 1.6mm; font: 7pt sans-serif; color: #888; }
+</style></head>
+<body>
+<script>
+  const q = new URLSearchParams(location.search), face = q.get('face') || 'recto', start = +(q.get('start') || 1);
+  const img = (k) => face === 'recto' ? `../EXPORTS/numeros_tickets/recto_${String(start + k).padStart(4, '0')}_bleed.png` : '../EXPORTS/IL4N_ticket_verso_v3_bleed.png';
+  const X0 = 13.5, Y0 = 12;              // coin haut-gauche du fond perdu de la 1re carte (mm)
+  const cols = [0, 1, 2], rows = [0, 1, 2];
+  let h = '', k = 0;
+  // verso : colonnes inversées pour l'impression recto-verso bord long (le n° k du recto tombe derrière sa carte)
+  for (const r of rows) for (const c of cols) { const cc = face === 'verso' ? 2 - c : c; h += `<div class="carte" style="left:${X0 + cc * 61}mm;top:${Y0 + r * 91}mm"><img src="${img(k++)}"></div>`; }
+  // traits de coupe : prolongent les bords de coupe dans les marges extérieures uniquement
+  const xs = [], ys = [];
+  for (const c of cols) xs.push(X0 + c * 61 + 3, X0 + c * 61 + 58);
+  for (const r of rows) ys.push(Y0 + r * 91 + 3, Y0 + r * 91 + 88);
+  const L = 5, G = 1.5;
+  for (const x of xs) { h += `<div class="t" style="left:${x - 0.06}mm;top:${Y0 - G - L}mm;width:.12mm;height:${L}mm"></div><div class="t" style="left:${x - 0.06}mm;top:${Y0 + 3 * 91 + G}mm;width:.12mm;height:${L}mm"></div>`; }
+  for (const y of ys) { h += `<div class="t" style="top:${y - 0.06}mm;left:${X0 - G - L}mm;height:.12mm;width:${L}mm"></div><div class="t" style="top:${y - 0.06}mm;left:${X0 + 3 * 61 + G}mm;height:.12mm;width:${L}mm"></div>`; }
+  h += `<div class="info">il4n Studio · tickets 55×85 mm · ${face}${face === 'recto' ? ' n° ' + String(start).padStart(4, '0') + '–' + String(start + 8).padStart(4, '0') : ''} · imprimer à 100 % (taille réelle), papier 300 g conseillé · couper sur les traits</div>`;
+  document.body.innerHTML = h;
+</script>
+</body></html>
