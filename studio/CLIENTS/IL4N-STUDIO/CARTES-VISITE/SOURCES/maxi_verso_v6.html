@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « MAXI MAQUETTE » IL4N v6 — verso, façon dos de ticket à gratter : comment jouer, mini règlement honnête,
+     QR, coordonnées, faux code-barres décoratif (ne code rien). -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-ExtraBold.ttf); font-weight: 800; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #fbf8f1; }
+  .bleed { background: #fbf8f1; }
+  .bande { position: absolute; left: 0; right: 0; top: 0; height: calc(var(--bleed) + 10.6mm); background: #7a5fe9; }
+  .trim { font-family: Inter, sans-serif; color: #17131d; }
+  .t1 { position: absolute; left: 0; right: 0; top: 4.2mm; text-align: center; font-size: 11pt; font-weight: 900; color: #ffd34d; letter-spacing: -.01em; transform: skewX(-9deg); }
+  .h { position: absolute; left: 4.6mm; right: 4.6mm; font-size: 7.2pt; font-weight: 900; letter-spacing: .1em; color: #7a5fe9; }
+  .etapes { position: absolute; left: 4.6mm; right: 4.6mm; top: 18.6mm; display: grid; gap: 1.4mm; }
+  .e { display: grid; grid-template-columns: 4.6mm 1fr; gap: 1.6mm; align-items: center; font-size: 7pt; font-weight: 700; line-height: 1.22; }
+  .e i { width: 4.6mm; height: 4.6mm; border-radius: 50%; background: #111018; color: #ffd34d; font-style: normal; font-size: 7.4pt; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+  .regle { position: absolute; left: 4.6mm; right: 4.6mm; top: 44.4mm; font-size: 6.8pt; font-weight: 600; line-height: 1.32; color: #4a4450; }
+  .regle b { color: #17131d; font-weight: 800; }
+  .bas { position: absolute; left: 4.6mm; right: 4.6mm; top: 55.4mm; display: grid; grid-template-columns: 16mm 1fr; gap: 2.2mm; align-items: center; }
+  .qr img { display: block; width: 100%; }
+  .contacts { font-size: 6.9pt; font-weight: 700; line-height: 1.38; }
+  .contacts .n { font-size: 8.6pt; font-weight: 900; }
+  .mail { position: absolute; left: 0; right: 0; top: 72.4mm; text-align: center; font-size: 6.9pt; font-weight: 700; }
+  .codebar { position: absolute; left: 4.6mm; right: 4.6mm; bottom: 4.2mm; height: 4.4mm; display: flex; align-items: flex-end; justify-content: space-between; }
+  .barres { height: 100%; width: 24mm; }
+  .codebar span { font-family: Mono, monospace; font-size: 6.8pt; font-weight: 800; letter-spacing: .02em; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><div class="bande"></div></div>
+  <div class="trim" style="outline:none">
+    <div class="t1">MAXI MAQUETTE</div>
+    <div class="h" style="top:14.6mm">COMMENT JOUER ?</div>
+    <div class="etapes">
+      <div class="e"><i>1</i><span>Gratte les 6 cases (c’est déjà fait pour toi).</span></div>
+      <div class="e"><i>2</i><span>3 « il4n. » identiques : tu gagnes 1 maquette gratuite.</span></div>
+      <div class="e"><i>3</i><span>Écris-moi avec le n° de ton ticket et ton projet.</span></div>
+    </div>
+    <div class="h" style="top:41mm">RÈGLEMENT (COURT)</div>
+    <div class="regle"><b>100 % des tickets sont gagnants.</b> Maquette offerte, sans obligation d’achat : tu valides avant de payer.</div>
+    <div class="bas">
+      <div class="qr"><img src="qr.svg" alt=""></div>
+      <div class="contacts"><div class="n">06 10 55 71 25</div><div>@il4n_studio</div><div>Ilan · Sarrians (84)</div><div style="color:#7a5fe9">Scanne : mes tarifs</div></div>
+    </div>
+    <div class="mail">ilandasilva028@gmail.com</div>
+    <div class="codebar"><svg class="barres" viewBox="0 0 60 10" preserveAspectRatio="none" id="bar"></svg><span>NE PAS JETER</span></div>
+  </div>
+</div>
+<script>
+  // faux code-barres décoratif (motif fixe, ne code aucune donnée)
+  const w = [2,1,1,3,1,2,2,1,3,1,1,2,1,3,2,1,1,2,3,1,2,1,1,3,1,2]; let x = 0, s = '';
+  w.forEach((v, i) => { if (i % 2 === 0) s += `<rect x="${x}" y="0" width="${v * .9}" height="10" fill="#17131d"/>`; x += v * .9 + .4; });
+  document.getElementById('bar').innerHTML = s;
+</script>
+</body></html>

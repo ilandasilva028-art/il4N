@@ -1,4 +1,35 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v5 « Ticket gagnant » — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v6 « MAXI MAQUETTE » (ticket à gratter) — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement) pour les 2 versions, 100 % vectoriel,
+polices TrueType incorporées, QR code décodé = https://il4nstudio.netlify.app.
+
+## Le concept
+Inspiré des codes des tickets à gratter (titre en relief incliné, rayons, pastille étoilée, 6 cases, règlement au dos, code-barres),
+avec un **nom et un dessin 100 % originaux** : « MAXI MAQUETTE ». Aucun nom ni logo de jeu existant (Banco, Jackpot, Cash… sont des
+marques de la FDJ : ne pas les utiliser). Couleurs : violet et or de la charte du site, rouge et jaune « jeu ».
+Recto : « TICKET N° … · PRIX : OFFERT », 6 cases dont 3 « il4n. », lot « 1 MAQUETTE GRATUITE — flyer · site · visuel », téléphone.
+Verso : « Comment jouer ? », « Règlement (court) : 100 % des tickets sont gagnants. Maquette offerte, sans obligation d'achat »,
+QR, coordonnées, faux code-barres décoratif (ne code rien), « NE PAS JETER ».
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_maxi-maquette_v6_print.pdf` | **Imprimeur** — version « argent imprimé » (cases déjà grattées). |
+| `IL4N_maxi-maquette_planches_A4_0079-0105.pdf` | **Chez toi** — 3 feuilles recto-verso, 27 tickets numérotés 0079 → 0105. |
+| `IL4N_maxi-maquette_v6_a-gratter_print.pdf` | **Version vraiment à gratter** (imprimeur) : cases imprimées découvertes, à recouvrir. |
+| `IL4N_maxi-maquette_a-gratter_planche_A4_0106-0114.pdf` | **Essai maison** de la version à gratter : 1 feuille, 9 tickets 0106 → 0114. |
+| `IL4N_maxi-maquette_v6_apercu.png` | Aperçu : recto, verso, recto « à gratter ». |
+
+## Version vraiment à gratter
+Coller des **étiquettes à gratter argentées** (autocollants vendus en rouleau, en papeterie ou en ligne) sur la grille des 6 cases :
+une grande étiquette rectangulaire d'environ 42 × 20 mm, ou 6 petites (cases ≈ 13 × 9 mm). Aucun achat fait : à toi de décider.
+Vérifier que l'étiquette couvre bien les symboles et laisse lisible « GRATTE LES 6 CASES ».
+
+## Règles à tenir
+- Le lot est réel : **chaque ticket présenté donne droit à sa maquette gratuite**, sans obligation d'achat (sinon : pratique trompeuse).
+- Une limite (une maquette par commerce, date de validité) doit être écrite sur le ticket : me la donner pour l'ajouter.
+- Ne pas déposer les tickets par terre dans la rue (dépôt sauvage) : main propre ou comptoir avec accord.
+
+---
+## Version 5 « Ticket gagnant »
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
 QR code décodé = https://il4nstudio.netlify.app. Contrôle de mise en page : aucun chevauchement, rien hors zone de sécurité.
 
