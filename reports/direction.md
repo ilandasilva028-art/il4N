@@ -56,3 +56,6 @@ Aucun autre agent n'a été lancé. Voici l'agent compétent pour chaque mission
 
 ## Objectifs de la semaine (à confirmer)
 - 15 prospects contactés · 3 conversations ouvertes · 1 devis envoyé · 1 post saisonnier publié · tableau de suivi tenu à jour.
+
+## Correctif (15/11/2026, après lecture de Gmail)
+Le constat du 14/11 « aucune prospection sortante » était **faux** : il reposait sur le seul dépôt. Gmail montre une vague de prospection e-mail déjà envoyée (2-13 novembre, ~15 commerces) avec relance finale le 13/11, et **un client réel** : LuZo Head Spa (dépliant + facture le 14/11, site prévu en janvier). Bilan de la vague : 0 acceptation de maquette, 4 refus ou « stop », 1 e-mail non distribué. Le canal e-mail seul ne convertit pas, d'où la bascule décidée vers téléphone, visites et messages privés. Détail dans `reports/suivi-contacts.md`.
