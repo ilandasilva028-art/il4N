@@ -13,6 +13,7 @@
 - [ ] Posts Noël validés et publiés ([[04-Scripts/Posts Noël]])
 
 ## Navigation
+- Tous les dossiers : [[13-Index-Dossiers]]
 - Clients : [[01-Clients/LuZo Head Spa]]
 - Prospects : [[02-Prospects/Suivi des prospects]]
 - Offres et prix : [[03-Offres/Offres et tarifs]] · [[03-Offres/Offre de Noël 2026]]
