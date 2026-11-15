@@ -31,6 +31,13 @@ Demandez votre maquette gratuite ↗
 Dernière semaine : −20 % sur les flyers jusqu'au 31 décembre. Pensez déjà aux vœux et à janvier 🎆
 Message privé ↗
 
+## Post 6 — Sites internet −10 % (Facebook + Instagram)
+🎄 Votre site internet à 261 € au lieu de 290 € (−10 %) !
+Et l'abonnement annuel (hébergement, nom de domaine .fr, mises à jour) à 90 € la 1re année au lieu de 100 €.
+Soit 351 € la 1re année avec l'option. Offre flash jusqu'au 25 novembre, puis du 1er au 31 décembre. Vous validez avant de payer.
+Message privé ↗
+#Sarrians #Vaucluse #siteinternet #commerçants #Noël
+
 ## Story (3 écrans, 9:16)
 1. « Noël chez il4n » — −20 % flyers
 2. Start 16 € · Pro 28 € · Prestige 39 € · compte à rebours 10 jours
@@ -41,6 +48,7 @@ Message privé ↗
 |------|------|-------|
 | 16/11 | Post 1 + story | Facebook, Instagram |
 | 19/11 | Post 2 | Groupes Facebook locaux, Instagram |
+| 18/11 | Post 6 (sites −10 %) | Facebook, Instagram |
 | 24/11 | Post 3 + rappel « dernier jour demain » | Facebook |
 | 02/12 | Post 4 (retour de l'offre) | Facebook, Instagram |
 | 27/12 | Post 5 | Facebook, Instagram |

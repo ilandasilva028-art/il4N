@@ -110,7 +110,7 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
 @media(prefers-reduced-motion:reduce){.noel-garland,.noel-sticker{animation:none}#noel-snow{display:none}}
 .noel-cd{display:inline-flex;gap:6px;font-variant-numeric:tabular-nums}.noel-cd i{font-style:normal;background:#17131d;color:#ffe9b8;border-radius:8px;padding:4px 8px;font-size:15px;min-width:46px;text-align:center}.noel-cd i small{display:block;font-size:8px;letter-spacing:.1em;color:#d6a96a;text-transform:uppercase}.noel-bar .santa{flex:none}
 .logo .hat{position:absolute;margin:-12px 0 0 -4px;font-size:15px;transform:rotate(-14deg)}
-</style></head>
+.noel-web{margin:0 0 22px;border:1px solid #d6a96a55}.web-price .old{font-size:.45em;color:#bdb6c3;margin-right:6px}.web-price .promo-note{display:block;color:#ffb199;font-size:13px;font-weight:800}</style></head>
 <body>
   <a class="skip" href="#contact">Aller au formulaire de devis</a>
   <div class="noel-bar promo-only" role="region" aria-label="Offre de Noël"><svg class="santa" viewBox="0 0 64 64" width="46" height="46" aria-hidden="true"><circle cx="32" cy="38" r="17" fill="#f6d2b0"/><path d="M13 40c0 14 8 22 19 22s19-8 19-22c-4 6-10 8-19 8s-15-2-19-8z" fill="#fffdf8"/><path d="M14 30C14 12 24 4 40 6c6 1 8 6 6 10-6-2-14-1-20 6z" fill="#b0482f"/><path d="M12 28c8-5 32-5 40 0 0 5-2 7-5 7-9-4-21-4-30 0-3 0-5-2-5-7z" fill="#fffdf8"/><circle cx="46" cy="8" r="6" fill="#fffdf8"/><circle cx="26" cy="38" r="2" fill="#17131d"/><circle cx="38" cy="38" r="2" fill="#17131d"/><circle cx="32" cy="43" r="3" fill="#e08b7a"/><path d="M26 49c4 3 8 3 12 0-2 4-10 4-12 0z" fill="#b0482f"/></svg><span id="noel-title">Offre flash de Noël</span><b>−20 %</b><span>sur les 3 flyers · se termine dans</span><span class="noel-cd" id="noel-cd" aria-live="off">--</span><a href="#offres">Voir les prix</a></div><div class="noel-garland promo-only" aria-hidden="true"></div>
@@ -408,18 +408,42 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
     if(cd)cd.innerHTML='<i>'+pad(Math.floor(r/864e5))+'<small>jours</small></i><i>'+pad(Math.floor(r%864e5/36e5))+'<small>h</small></i><i>'+pad(Math.floor(r%36e5/6e4))+'<small>min</small></i><i>'+pad(Math.floor(r%6e4/1e3))+'<small>s</small></i>';
     setTimeout(tick,1000)}
   tick();
+  /* −10 % création de site et abonnement (1re année), pendant l'offre seulement */
+  (function(){
+    var cards=document.querySelectorAll('.web-card .web-price');
+    if(cards.length>=2){
+      function setPrice(el,oldP,newP,note){var sm=el.querySelector('small');var t=sm?sm.outerHTML:'';el.innerHTML='<s class="old">'+oldP+'</s> '+newP+t+'<small class="promo-note">'+note+'</small>';}
+      setPrice(cards[0],'290 €','261 €','Offre de Noël −10 %');
+      setPrice(cards[1],'100 €','90 €','Offre de Noël −10 % · 1re année');
+      var wc=document.querySelector('.web-cards');
+      if(wc){var b=document.createElement('div');b.className='promo-banner noel-web';b.innerHTML='<strong>Offre de Noël</strong><span>−10 % sur la création du site (261 € au lieu de 290 €) et −10 % sur l’abonnement annuel (90 € la 1re année).</span>';wc.parentNode.insertBefore(b,wc);}
+      var bs=document.querySelectorAll('.web-card .btn[data-offer]');
+      if(bs[0])bs[0].setAttribute('data-offer','Site internet — 261 € (offre de Noël −10 %)');
+      if(bs[1])bs[1].setAttribute('data-offer','Site internet + option tranquillité — 90 € la 1re année (offre de Noël −10 %)');
+      var note=document.querySelector('.web-note');
+      if(note)note.innerHTML='Avec l’option et l’offre de Noël : <b>351 € la première année</b> (261 € de création + 90 € de gestion annuelle, au lieu de 390 €), puis 100 €/an pour la gestion. Les pages, fonctionnalités et modalités des modifications sont définies ensemble dans le devis.';
+    }
+    document.querySelectorAll('.btn').forEach(function(x){if(/Votre site à 290/.test(x.textContent)){x.innerHTML='Votre site à 261 € <small style="opacity:.75">(−10 %)</small> <span class="arrow" aria-hidden="true">↗</span>';}});
+  })();
   var hero=document.querySelector('.hero');
   if(hero){var s=document.createElement('div');s.className='noel-sticker';s.setAttribute('aria-hidden','true');s.innerHTML='<b>−20 %</b><span>Noël · flyers</span>';hero.appendChild(s);}
   var lg=document.querySelector('.logo');if(lg){var hat=document.createElement('span');hat.className='hat';hat.setAttribute('aria-hidden','true');hat.textContent='🎅';lg.style.position='relative';lg.insertBefore(hat,lg.firstChild);}
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   var c=document.createElement('canvas');c.id='noel-snow';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
-  var x=c.getContext('2d'),Wd,H,f=[];
+  var x=c.getContext('2d'),Wd,H,f=[],sprites=[];
+  function sprite(sz){var o=document.createElement('canvas');o.width=o.height=sz*2;var g=o.getContext('2d');g.translate(sz,sz);g.strokeStyle='#fffdf8';g.lineCap='round';g.lineWidth=Math.max(1,sz/9);
+    for(var k=0;k<6;k++){g.save();g.rotate(k*Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(0,-sz*.92);
+      g.moveTo(0,-sz*.5);g.lineTo(-sz*.26,-sz*.74);g.moveTo(0,-sz*.5);g.lineTo(sz*.26,-sz*.74);
+      g.moveTo(0,-sz*.22);g.lineTo(-sz*.15,-sz*.38);g.moveTo(0,-sz*.22);g.lineTo(sz*.15,-sz*.38);g.stroke();g.restore();}
+    return o}
+  [8,13,20].forEach(function(s){sprites.push(sprite(s))});
   function rs(){Wd=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
-  var n=innerWidth<700?35:70;
-  for(var i=0;i<n;i++)f.push({x:Math.random()*Wd,y:Math.random()*H,r:1+Math.random()*2.6,v:.4+Math.random()*1.1,d:Math.random()*6.28});
-  (function t(){x.clearRect(0,0,Wd,H);x.fillStyle='rgba(255,253,248,.85)';
-    f.forEach(function(p){p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.5;if(p.y>H){p.y=-5;p.x=Math.random()*Wd}
-      x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fill()});requestAnimationFrame(t)})();
+  var n=innerWidth<700?22:46;
+  for(var i=0;i<n;i++){var k=Math.random()<.55?0:(Math.random()<.65?1:2);f.push({x:Math.random()*Wd,y:Math.random()*H,s:k,v:.35+k*.28+Math.random()*.5,d:Math.random()*6.28,r:Math.random()*6.28,w:(Math.random()-.5)*.012,a:.45+k*.2+Math.random()*.15});}
+  (function t(){x.clearRect(0,0,Wd,H);
+    f.forEach(function(p){p.y+=p.v;p.d+=.012;p.x+=Math.sin(p.d)*.6;p.r+=p.w;if(p.y>H+24){p.y=-24;p.x=Math.random()*Wd}
+      var sp=sprites[p.s];x.save();x.globalAlpha=p.a;x.translate(p.x,p.y);x.rotate(p.r);x.drawImage(sp,-sp.width/2,-sp.height/2);x.restore()});
+    requestAnimationFrame(t)})();
 })();
 </script>
 </body>
