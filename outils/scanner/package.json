@@ -1,0 +1,16 @@
+{
+  "name": "scanner-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pré-audit d'accessibilité et détection des contenus non français d'un site web",
+  "type": "module",
+  "bin": { "scanner-site": "scan.mjs" },
+  "scripts": {
+    "scan": "node scan.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "axe-core": "4.14.0",
+    "franc-min": "6.2.0"
+  }
+}
