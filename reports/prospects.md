@@ -36,7 +36,21 @@ Règles : un message = une idée = une question ; pas de fausse urgence ; arrêt
 - 15 prospects vérifiés puis contactés · 3 réponses · 1 maquette gratuite envoyée · 1 devis.
 - Tableau de suivi à tenir : date, commerce, canal, offre, réponse, relance, devis, source.
 
-## 5. Décisions pour Ilan
-1. Valider les messages A, B, C.
-2. Choisir le canal : visite en personne, Messenger/Instagram, ou téléphone. Je recommande la visite ou le message privé.
-3. Accepter d'offrir **une maquette gratuite** par prospect ciblé (coût : 20-30 min chacune). C'est le meilleur levier de conversion, mais cela demande du temps.
+## 5. Décisions validées par Ilan (15/11/2026)
+- Messages A, B, C : **validés**.
+- Canaux : **téléphone, e-mail, réseaux sociaux** (Messenger/Instagram).
+- Maquette gratuite : **acceptée**, déclenchée **uniquement quand le prospect dit oui** (pas de maquette à l'aveugle).
+
+## 6. Versions par canal
+**Téléphone (30 s)** : « Bonjour, Ilan, graphiste à Sarrians. Je vous appelle car [détail réel]. Je crée des menus/sites avec validation avant paiement. Puis-je vous envoyer une maquette gratuite de votre [carte/site] ? À quelle adresse ? » Si non : remercier, noter, ne pas rappeler.
+**E-mail** : objet « Maquette gratuite de votre [carte / site], [commerce] » + message A ou B + signature (il4nstudio.netlify.app, téléphone et Instagram du site).
+**Réseaux sociaux (DM)** : message A ou B raccourci à 3 lignes, sans pièce jointe au premier envoi.
+
+## 7. Process maquette gratuite (se déclenche au « oui »)
+1. Ilan note dans le suivi : commerce, offre acceptée, infos reçues (nom, textes, logo, photos).
+2. Il me les transmet ici : je produis la maquette (menu ou page d'accueil de site), un seul agent, ≤ 30 min, charte propre au commerce, mention « maquette » en filigrane.
+3. Ilan l'envoie. Si le prospect valide : devis, facture, paiement par virement après validation (conditions du site).
+4. Relance unique à J+3, puis clôture.
+
+## 8. Suivi
+Voir `reports/suivi-contacts.md`.
