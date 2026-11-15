@@ -1,11 +1,11 @@
 # Tâche — Agent artistique / marketing : vidéos Noël −20 % (15/11/2026)
 
-**Objectif** : 2 vidéos verticales 9:16 (Reels / TikTok / Facebook) qui amènent des messages privés pendant l'offre Noël (16/11 → 31/12).
+**Objectif** : 2 vidéos verticales 9:16 (Reels / TikTok / Facebook) qui amènent des messages privés pendant l'offre Noël : flash 10 jours du 16 au 25/11, puis offre de décembre du 1er au 31/12.
 **Mesure** : nombre de messages entrants et de maquettes demandées, noté dans `reports/suivi-contacts.md`.
 
-## Vidéo 1 — « Noël −20 % sur les flyers » (15-17 s)
+## Vidéo 1 — « Noël −20 % sur les flyers : 10 jours » (15-17 s, à publier avant le 25/11)
 - Accroche (0-1,5 s, mot qui claque sur le beat 0) : « Noël approche. Votre flyer, lui ? »
-- Plans : problème (carte/flyer qui passe inaperçu) → les 3 flyers → prix barrés 21→16,80 / 35→28 / 49→39,20 → « −20 % jusqu'au 31/12 » → CTA « Écrivez-moi en privé ↗ ».
+- Plans : problème (carte/flyer qui passe inaperçu) → les 3 flyers → prix barrés 21→16 / 35→28 / 49→39 → « −20 %, 10 jours seulement » avec le compte à rebours du site → CTA « Écrivez-moi en privé ↗ ».
 - Un plan de 2 s stable avec les vraies captures du site (section prestations avec prix barrés).
 - Sous-titres synchronisés, mot clé en or #d6a96a, boucle fin→début.
 
@@ -19,7 +19,7 @@
 - Décors Noël sobres : rouge #b0482f (déjà sur le site), or, touches de vert #3f8a62, flocons. Rien de kitsch.
 - Images : vraies captures de `site-noel/index.html` (rendu avec la date simulée du 17/11) ; badge Netlify recadré.
 - Voix : clone validé (`voix/ref22.wav`, 3 prises, vérif Whisper), texte ≤ 32 mots, chiffres écrits en lettres.
-- Interdits : faux avis, faux client, promesse de résultat, remise autre que −20 % flyers.
+- Interdits : compte à rebours truqué ou qui se remet à zéro, faux avis, faux client, promesse de résultat, remise autre que −20 % flyers.
 - Livrables : `final.mp4`, `poster.png`, texte de la voix, légende Facebook (2-3 lignes + 3-5 hashtags locaux), points à améliorer.
 - Cadence : 2 vidéos, pas de série quotidienne (économie de calcul tant que les retours ne sont pas mesurés).
 

@@ -106,12 +106,14 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
 @keyframes noelpulse{0%,100%{transform:rotate(12deg) scale(1)}50%{transform:rotate(9deg) scale(1.07)}}
 .hero{position:relative}
 #noel-snow{position:fixed;inset:0;pointer-events:none;z-index:40}
-@media(max-width:700px){.noel-sticker{width:72px;height:72px;top:0;right:8px}.noel-sticker b{font-size:21px}.noel-sticker span{font-size:7px}.noel-bar{font-size:12px}.noel-bar b{font-size:16px}}
+@media(max-width:700px){.noel-sticker{display:none}.noel-sticker b{font-size:21px}.noel-sticker span{font-size:7px}.noel-bar{font-size:12px}.noel-bar b{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.noel-garland,.noel-sticker{animation:none}#noel-snow{display:none}}
+.noel-cd{display:inline-flex;gap:6px;font-variant-numeric:tabular-nums}.noel-cd i{font-style:normal;background:#17131d;color:#ffe9b8;border-radius:8px;padding:4px 8px;font-size:15px;min-width:46px;text-align:center}.noel-cd i small{display:block;font-size:8px;letter-spacing:.1em;color:#d6a96a;text-transform:uppercase}.noel-bar .santa{flex:none}
+.logo .hat{position:absolute;margin:-12px 0 0 -4px;font-size:15px;transform:rotate(-14deg)}
 </style></head>
 <body>
   <a class="skip" href="#contact">Aller au formulaire de devis</a>
-  <div class="noel-bar promo-only" role="region" aria-label="Offre de Noël"><span>🎄 Offre de Noël</span><b>−20 %</b><span>sur les 3 flyers · jusqu’au 31 décembre</span><a href="#offres">Voir les prix</a></div><div class="noel-garland promo-only" aria-hidden="true"></div>
+  <div class="noel-bar promo-only" role="region" aria-label="Offre de Noël"><svg class="santa" viewBox="0 0 64 64" width="46" height="46" aria-hidden="true"><circle cx="32" cy="38" r="17" fill="#f6d2b0"/><path d="M13 40c0 14 8 22 19 22s19-8 19-22c-4 6-10 8-19 8s-15-2-19-8z" fill="#fffdf8"/><path d="M14 30C14 12 24 4 40 6c6 1 8 6 6 10-6-2-14-1-20 6z" fill="#b0482f"/><path d="M12 28c8-5 32-5 40 0 0 5-2 7-5 7-9-4-21-4-30 0-3 0-5-2-5-7z" fill="#fffdf8"/><circle cx="46" cy="8" r="6" fill="#fffdf8"/><circle cx="26" cy="38" r="2" fill="#17131d"/><circle cx="38" cy="38" r="2" fill="#17131d"/><circle cx="32" cy="43" r="3" fill="#e08b7a"/><path d="M26 49c4 3 8 3 12 0-2 4-10 4-12 0z" fill="#b0482f"/></svg><span id="noel-title">Offre flash de Noël</span><b>−20 %</b><span>sur les 3 flyers · se termine dans</span><span class="noel-cd" id="noel-cd" aria-live="off">--</span><a href="#offres">Voir les prix</a></div><div class="noel-garland promo-only" aria-hidden="true"></div>
 
   <header class="site-header"><div class="wrap header-inner"><a class="logo" href="#top" aria-label="il4n Studio, accueil">il4n<span>.</span></a><div class="header-right"><nav aria-label="Navigation principale"><a href="#offres">Prestations</a><a href="#realisations">Réalisations</a><a href="#sites">Sites web</a><a class="m-hide" href="#faq">FAQ</a><a href="#contact">Contact</a></nav><a class="header-cta" href="#contact">Parlons de votre projet ↗</a></div></div></header>
   <main id="top">
@@ -128,7 +130,7 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
       <figure class="work"><a href="realisations/menu-restaurant.jpg" target="_blank" rel="noopener"><img src="realisations/menu-restaurant.jpg" alt="Menu de bistrot provençal : entrées, plats et desserts avec prix alignés, formule du midi mise en avant" loading="lazy" width="1080" height="1350"></a><figcaption><b>Menu · Bistrot provençal</b>Carte claire, formule du midi en avant</figcaption></figure>
       <figure class="work wide"><a href="realisations/carrousel-boutique.jpg" target="_blank" rel="noopener"><img src="realisations/carrousel-boutique.jpg" alt="Trois visuels d’un carrousel Instagram pour une boutique de vêtements : nouvelle collection, 3 pièces coups de cœur, -15 % ce week-end" loading="lazy" width="1440" height="900"></a><figcaption><b>Carrousel Instagram · Boutique</b>Collection, coups de cœur et promo en 4 visuels</figcaption></figure>
     </div><p class="disclaimer">Commerces, noms et numéros inventés pour l’exemple.</p></section>
-    <section class="offers wrap" id="offres"><div class="section-head"><div><p class="eyebrow">01 / Prestations</p><h2>À chaque idée,<br>son format.</h2></div><p class="intro">Une annonce à faire, un événement à lancer ou une marque à faire grandir ? Choisissez un point de départ et racontez-nous votre projet.</p></div><div class="promo-banner promo-only"><strong>Offre de Noël</strong><span>−20 % sur les 3 formules flyer, jusqu’au 31 décembre inclus.</span></div><div class="offer-grid" id="products"></div>
+    <section class="offers wrap" id="offres"><div class="section-head"><div><p class="eyebrow">01 / Prestations</p><h2>À chaque idée,<br>son format.</h2></div><p class="intro">Une annonce à faire, un événement à lancer ou une marque à faire grandir ? Choisissez un point de départ et racontez-nous votre projet.</p></div><div class="promo-banner promo-only"><strong>Offre de Noël</strong><span>−20 % sur les 3 formules flyer : du 16 au 25 novembre, puis du 1er au 31 décembre inclus.</span></div><div class="offer-grid" id="products"></div>
       <div class="compare"><h3>Quel flyer choisir ?</h3><p>Les 3 formules côte à côte : plus vous montez, plus vous avez de choix, de retouches et de formats.</p><div class="table-scroll"><table><thead><tr><th scope="col"></th><th scope="col">Flyer Start<span data-old="21 €" data-promo="17 €">21 €</span></th><th scope="col" class="hl">Flyer Pro<span data-old="35 €" data-promo="28 €">35 €</span></th><th scope="col">Flyer Prestige<span data-old="49 €" data-promo="39 €">49 €</span></th></tr></thead><tbody>
         <tr><td>Propositions de design</td><td>1</td><td class="hl">2 au choix</td><td>3 au choix</td></tr>
         <tr><td>Retouches incluses</td><td>1</td><td class="hl">3</td><td>Jusqu’à validation</td></tr>
@@ -164,11 +166,11 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
   <script>
     // feats : ce qui est inclus. "+" = ce que l'offre ajoute par rapport à la précédente.
     const products=[
-      {name:'Flyer Start',kind:'Flyer · Formule 1',desc:'Un visuel clair et propre pour faire passer votre message, sans chichis.',ideal:'une annonce simple : ouverture, promo, service, petit commerce.',price:'21 €',promo:'16,80 €',art:'MAKE\nIT SEEN',sub:'L’ESSENTIEL / BIEN PENSÉ',format:'Flyer',
+      {name:'Flyer Start',kind:'Flyer · Formule 1',desc:'Un visuel clair et propre pour faire passer votre message, sans chichis.',ideal:'une annonce simple : ouverture, promo, service, petit commerce.',price:'21 €',promo:'16 €',art:'MAKE\nIT SEEN',sub:'L’ESSENTIEL / BIEN PENSÉ',format:'Flyer',
         feats:['<strong>1 proposition</strong> de design','Mise en page de vos textes, logo et infos','Format A5 ou A6, recto','<strong>1 retouche</strong> incluse','Fichiers HD prêts à imprimer (PDF + PNG)','Livré sous 72 h']},
       {name:'Flyer Pro',kind:'Flyer · Formule 2',desc:'Un design plus travaillé qui vous démarque et reflète vraiment votre image.',ideal:'une marque, un commerce ou un indépendant qui veut paraître pro.',price:'35 €',promo:'28 €',art:'YOUR\nMOMENT',sub:'UNE CRÉATION QUI MARQUE',format:'Flyer',badge:'Le plus choisi',featured:true,
         plus:'Tout le Flyer Start, et en plus :',feats:['<strong>2 propositions</strong> de style au choix','<strong>Recto-verso</strong> pour plus d’infos','<strong>3 retouches</strong> incluses','Version <strong>story Instagram</strong> offerte','Retouche photo simple','Livré sous 48 h'],newFrom:0},
-      {name:'Flyer Prestige',kind:'Flyer · Formule 3 · Événement',desc:'Un design percutant qui donne envie de venir à votre soirée ou événement.',ideal:'soirée, concert, match, tournoi, anniversaire, inauguration.',price:'49 €',promo:'39,20 €',art:'THE\nNIGHT',sub:'ÉVÉNEMENT / ÉDITION 01',format:'Événement',
+      {name:'Flyer Prestige',kind:'Flyer · Formule 3 · Événement',desc:'Un design percutant qui donne envie de venir à votre soirée ou événement.',ideal:'soirée, concert, match, tournoi, anniversaire, inauguration.',price:'49 €',promo:'39 €',art:'THE\nNIGHT',sub:'ÉVÉNEMENT / ÉDITION 01',format:'Événement',
         plus:'Tout le Flyer Pro, et en plus :',feats:['<strong>3 propositions</strong> au choix','<strong>Affiche A3</strong> en plus du flyer','Retouche photo avancée (détourage, effets)','<strong>Retouches jusqu’à validation</strong>','Version sans date, réutilisable','Livraison <strong>24 h</strong> possible'],newFrom:0},
       {name:'Social Media Kit',kind:'Réseaux sociaux',desc:'Des visuels pensés pour arrêter le scroll et faire réagir votre audience.',ideal:'poster régulièrement sur Instagram, TikTok ou Facebook.',price:'Sur devis',priceNote:'selon le nombre de visuels',art:'SHOW\nUP',sub:'POST / STORY / DIGITAL',format:'Digital',
         feats:['Posts carrés, carrousels ou stories','Formats adaptés à chaque réseau','Style cohérent avec votre image','Textes accrocheurs mis en valeur','Modèles réutilisables sur demande']},
@@ -178,9 +180,9 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
         feats:['<strong>1 Flyer Pro</strong> (recto-verso)','<strong>3 visuels</strong> réseaux sociaux','<strong>1 story</strong> + 1 bannière de profil','Le même style sur tous les supports','Traitement prioritaire']}
     ];
     // Promo : visible uniquement entre ces deux dates (prix de référence = prix pratiqués en novembre)
-    const PROMO_START=new Date('2026-11-16T00:00:00+01:00');
-    const PROMO_END=new Date('2026-12-31T23:59:59+01:00');
-    const promoOn=Date.now()>=PROMO_START.getTime()&&Date.now()<=PROMO_END.getTime();
+    // Offre réelle : flash 10 jours (16-25 nov) puis offre de décembre (1-31 déc)
+    const PROMO_WINDOWS=[['2026-11-16T00:00:00+01:00','2026-11-25T23:59:59+01:00'],['2026-12-01T00:00:00+01:00','2026-12-31T23:59:59+01:00']].map(w=>[new Date(w[0]).getTime(),new Date(w[1]).getTime()]);
+    const promoOn=PROMO_WINDOWS.some(w=>Date.now()>=w[0]&&Date.now()<=w[1]);
     if(!promoOn)document.querySelectorAll('.promo-only').forEach(el=>el.remove());
     else document.querySelectorAll('[data-promo]').forEach(el=>{el.innerHTML=`<s class="old">${el.dataset.old}</s> ${el.dataset.promo}`});
     document.querySelector('#products').innerHTML=products.map((p,i)=>`<article class="product${p.featured?' featured':''}">${p.badge?`<span class="badge">${p.badge}</span>`:(promoOn&&p.promo?`<span class="badge promo">-${Math.round((1-parseFloat(p.promo.replace(',','.'))/parseFloat(p.price))*100)} %</span>`:'')}<div class="art" aria-hidden="true"><span class="index">IL4N / 0${i+1}</span><div class="sample"><small>IL4N STUDIO</small><b>${p.art.replace('\n','<br>')}</b><span>${p.sub}</span></div><span class="format">${p.format} ↗</span></div><div class="details"><span class="kind">${p.kind}</span><h3>${p.name}</h3><p class="desc">${p.desc}</p><p class="ideal"><b>Idéal pour :</b> ${p.ideal}</p>${p.plus?`<p class="plus">${p.plus}</p>`:''}<ul class="feats">${p.feats.map(f=>`<li${p.plus?' class="new"':''}><span>${f}</span></li>`).join('')}</ul><div class="purchase"><span class="price">${promoOn&&p.promo?`<s class="old">${p.price}</s> ${p.promo}<small class="promo-note">Offre de Noël −20 %</small>`:p.price}${p.priceNote?`<small>${p.priceNote}</small>`:''}</span><a href="#contact" data-offer="${p.name}" aria-label="Demander un devis pour ${p.name}">Choisir cette offre ↗</a></div></div></article>`).join('');
@@ -395,17 +397,28 @@ background-size:80px 26px;background-repeat:repeat-x;animation:noelblink 2.4s ea
   </script>
 <script>
 (function(){
-  var now=Date.now();if(now<new Date('2026-11-16T00:00:00+01:00').getTime()||now>new Date('2026-12-31T23:59:59+01:00').getTime())return;
+  var W=[['2026-11-16T00:00:00+01:00','2026-11-25T23:59:59+01:00'],['2026-12-01T00:00:00+01:00','2026-12-31T23:59:59+01:00']].map(function(w){return[new Date(w[0]).getTime(),new Date(w[1]).getTime()]});
+  function cur(){var n=Date.now();for(var i=0;i<W.length;i++)if(n>=W[i][0]&&n<=W[i][1])return W[i];return null}
+  var w=cur();if(!w)return;
+  var cd=document.getElementById('noel-cd'),ti=document.getElementById('noel-title');
+  if(w===W[1]&&ti)ti.textContent='Offre de Noël';
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){var r=w[1]-Date.now();
+    if(r<=0){document.querySelectorAll('.promo-only,.noel-sticker,#noel-snow').forEach(function(e){e.remove()});return}
+    if(cd)cd.innerHTML='<i>'+pad(Math.floor(r/864e5))+'<small>jours</small></i><i>'+pad(Math.floor(r%864e5/36e5))+'<small>h</small></i><i>'+pad(Math.floor(r%36e5/6e4))+'<small>min</small></i><i>'+pad(Math.floor(r%6e4/1e3))+'<small>s</small></i>';
+    setTimeout(tick,1000)}
+  tick();
   var hero=document.querySelector('.hero');
   if(hero){var s=document.createElement('div');s.className='noel-sticker';s.setAttribute('aria-hidden','true');s.innerHTML='<b>−20 %</b><span>Noël · flyers</span>';hero.appendChild(s);}
+  var lg=document.querySelector('.logo');if(lg){var hat=document.createElement('span');hat.className='hat';hat.setAttribute('aria-hidden','true');hat.textContent='🎅';lg.style.position='relative';lg.insertBefore(hat,lg.firstChild);}
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   var c=document.createElement('canvas');c.id='noel-snow';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
-  var x=c.getContext('2d'),W,H,f=[];
-  function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
+  var x=c.getContext('2d'),Wd,H,f=[];
+  function rs(){Wd=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
   var n=innerWidth<700?35:70;
-  for(var i=0;i<n;i++)f.push({x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*2.6,v:.4+Math.random()*1.1,d:Math.random()*6.28});
-  (function t(){x.clearRect(0,0,W,H);x.fillStyle='rgba(255,253,248,.85)';
-    f.forEach(function(p){p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.5;if(p.y>H){p.y=-5;p.x=Math.random()*W}
+  for(var i=0;i<n;i++)f.push({x:Math.random()*Wd,y:Math.random()*H,r:1+Math.random()*2.6,v:.4+Math.random()*1.1,d:Math.random()*6.28});
+  (function t(){x.clearRect(0,0,Wd,H);x.fillStyle='rgba(255,253,248,.85)';
+    f.forEach(function(p){p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.5;if(p.y>H){p.y=-5;p.x=Math.random()*Wd}
       x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fill()});requestAnimationFrame(t)})();
 })();
 </script>
