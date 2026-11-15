@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Planche A4 : 8 cartes 85×55 mm avec fond perdu 3 mm, traits de coupe dans les marges. ?face=recto|verso -->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 210mm; height: 297mm; background: #fff; overflow: hidden; }
+  .carte { position: absolute; width: 91mm; height: 61mm; }
+  .carte img { width: 100%; height: 100%; display: block; }
+  .t { position: absolute; background: #000; }
+  .info { position: absolute; left: 14mm; bottom: 6mm; font: 7pt sans-serif; color: #888; }
+</style></head>
+<body>
+<script>
+  const face = new URLSearchParams(location.search).get('face') || 'verso';
+  const img = `../EXPORTS/IL4N_carte_${face}_v1_bleed.png`;
+  const X0 = 14, Y0 = 26.5;              // coin haut-gauche du fond perdu de la 1re carte (mm)
+  const cols = [0, 1], rows = [0, 1, 2, 3];
+  let h = '';
+  for (const r of rows) for (const c of cols) h += `<div class="carte" style="left:${X0 + c * 91}mm;top:${Y0 + r * 61}mm"><img src="${img}"></div>`;
+  // traits de coupe : prolongent les bords de coupe dans les marges extérieures uniquement
+  const xs = [], ys = [];
+  for (const c of cols) xs.push(X0 + c * 91 + 3, X0 + c * 91 + 88);
+  for (const r of rows) ys.push(Y0 + r * 61 + 3, Y0 + r * 61 + 58);
+  const L = 7, G = 2;
+  for (const x of xs) { h += `<div class="t" style="left:${x - 0.06}mm;top:${Y0 - G - L}mm;width:.12mm;height:${L}mm"></div><div class="t" style="left:${x - 0.06}mm;top:${Y0 + 4 * 61 + G}mm;width:.12mm;height:${L}mm"></div>`; }
+  for (const y of ys) { h += `<div class="t" style="top:${y - 0.06}mm;left:${X0 - G - L}mm;height:.12mm;width:${L}mm"></div><div class="t" style="top:${y - 0.06}mm;left:${X0 + 2 * 91 + G}mm;height:.12mm;width:${L}mm"></div>`; }
+  h += `<div class="info">il4n Studio · cartes de visite 85×55 mm · ${face} · imprimer à 100 % (taille réelle), papier 300 g conseillé · couper sur les traits</div>`;
+  document.body.innerHTML = h;
+</script>
+</body></html>

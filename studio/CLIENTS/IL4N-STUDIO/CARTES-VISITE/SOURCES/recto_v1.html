@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 85mm; --h: 55mm; --bleed: 3mm; --safe: 4mm; --bg: #111018; }
+  .bleed { background: #111018; }
+  .halo { position: absolute; right: -8mm; top: -14mm; width: 62mm; height: 62mm; }
+  .safe { font-family: Inter, sans-serif; color: #fffdf8; }
+  .kicker { position: absolute; left: 1mm; top: 1.2mm; display: flex; align-items: center; gap: 2mm;
+            font-size: 7pt; font-weight: 800; letter-spacing: .2em; color: #d6a96a; }
+  .kicker i { display: block; width: 5mm; height: .35mm; background: #d6a96a; }
+  .logo { position: absolute; left: 0; top: 11.5mm; font-size: 40pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; }
+  .logo b { display: inline-block; width: 3.1mm; height: 3.1mm; border-radius: 50%; background: #d6a96a; margin-left: .9mm; }
+  .accroche { position: absolute; left: .4mm; top: 28.5mm; font-family: Accent, Georgia, serif; font-size: 13pt; color: #d6a96a; line-height: 1; }
+  .services { position: absolute; left: .4mm; bottom: .4mm; font-size: 7pt; font-weight: 600; color: #c9c3cc; letter-spacing: .02em; }
+</style></head>
+<body><div class="page">
+  <div class="bleed">
+    <svg class="halo" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1d1922"/><circle cx="50" cy="50" r="34" fill="#25202a"/></svg>
+  </div>
+  <div class="safe">
+    <div class="kicker"><i></i>GRAPHISTE · SARRIANS</div>
+    <div class="logo">il4n<b></b></div>
+    <div class="accroche">Faites bonne impression.</div>
+    <div class="services">Flyers · Menus · Cartes · Réseaux sociaux · Sites</div>
+  </div>
+  <div class="trim"></div>
+</div></body></html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-500.ttf); font-weight: 500; }
+  :root { --w: 85mm; --h: 55mm; --bleed: 3mm; --safe: 4mm; --bg: #f4f0e8; }
+  .bleed { background: #f4f0e8; }
+  /* bandeau nuit en bas, jusqu'au fond perdu */
+  .bande { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--bleed) + 11mm); background: #111018; }
+  .safe { font-family: Inter, sans-serif; color: #17131d; }
+  .nom { position: absolute; left: 0; top: .8mm; font-size: 12.5pt; font-weight: 800; letter-spacing: -.02em; }
+  .titre { position: absolute; left: 0; top: 6.9mm; font-size: 7.5pt; font-weight: 700; color: #9a663e; letter-spacing: .04em; }
+  .contacts { position: absolute; left: 0; top: 12.6mm; display: grid; gap: 1.55mm; font-size: 8pt; font-weight: 600; }
+  .contacts div { display: flex; align-items: center; gap: 1.8mm; white-space: nowrap; }
+  .contacts svg { width: 3mm; height: 3mm; flex: none; }
+  .qr { position: absolute; right: -1mm; top: -.6mm; width: 22mm; text-align: center; }
+  .qr .fond { background: #fffdf8; border-radius: 1.6mm; padding: .6mm; }
+  .qr img { display: block; width: 100%; }
+  .qr span { display: block; font-size: 7pt; font-weight: 700; color: #6d6870; margin-top: .6mm; }
+  .bas { position: absolute; left: 0; right: 0; bottom: -.2mm; font-size: 7pt; font-weight: 600; color: #fffdf8; display: flex; justify-content: space-between; }
+  .bas b { color: #d6a96a; font-weight: 700; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><div class="bande"></div></div>
+  <div class="safe">
+    <div class="nom">Ilan Da Silva</div>
+    <div class="titre">GRAPHISTE &amp; SITES INTERNET</div>
+    <div class="contacts">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#9a663e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 10 55 71 25</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#9a663e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ilandasilva028@gmail.com</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#9a663e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#9a663e"/></svg>@il4n_studio</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#9a663e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>il4nstudio.netlify.app</div>
+    </div>
+    <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div><span>Mes tarifs</span></div>
+    <div class="bas"><span>Sarrians · Vaucluse</span><span><b>Vous validez</b> avant de payer</span></div>
+  </div>
+</div></body></html>
