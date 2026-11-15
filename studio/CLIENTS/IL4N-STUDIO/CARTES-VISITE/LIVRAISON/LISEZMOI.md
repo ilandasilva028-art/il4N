@@ -1,4 +1,34 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v1 — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v2 « Billet de bonne impression » — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
+QR code décodé = https://il4nstudio.netlify.app.
+
+## Le concept
+Une carte qu'on garde dans son portefeuille : un **billet de « 1 maquette gratuite »** (ton offre réelle : maquette gratuite et sans
+engagement, validée avant paiement). Rosace guillochée, cadre doré, numéro de série, signature au verso.
+**Dessin 100 % original** : aucun élément d'un vrai billet (ni €, ni symbole européen, ni format de billet) et la mention « Sans valeur
+monétaire ». La reproduction des billets en euros est réglementée : ne pas ajouter d'éléments qui y ressemblent.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_billet_v2_print.pdf` | **Imprimeur** (recto puis verso, sans numéro : « IL4N · 2026 »). 85×55 + fond perdu 3 mm. |
+| `IL4N_billets_planches_A4_0001-0024.pdf` | **Chez toi** : 3 feuilles recto-verso (6 pages), 24 billets numérotés **0001 à 0024**. |
+| `IL4N_billet_recto_v2_HD.png` / `…_verso_v2_HD.png` | Aperçus 600 ppp. |
+
+## Le numéro de série = ton suivi
+Au dos : « Écrivez-moi avec le n° du billet ». Note dans ton tableau de suivi à qui tu as donné chaque numéro
+(ex. 0007 = boulangerie X, Aubignan). Quand quelqu'un t'écrit en citant son numéro, tu sais quelle visite a marché.
+
+## Imprimer chez toi
+Imprimer à **100 % / taille réelle**, recto-verso **bord long** (le verso est déjà inversé pour tomber derrière chaque billet),
+papier 250–300 g. Faire un test sur papier normal pour vérifier l'alignement. Couper sur les traits.
+Le cadre doré est à 4 mm du bord : une coupe imprécise (± 1 mm) se verrait un peu ; couper au massicot ou à la règle.
+
+## Imprimeur
+Envoyer `IL4N_billet_v2_print.pdf` (carte de visite recto-verso, papier mat 350 g, ou « soft touch » pour l'effet premium).
+PDF en RGB (accepté par la plupart des imprimeurs en ligne ; conversion CMJN si exigée).
+
+---
+## Version 1 (sobre), toujours disponible
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), QR code décodé = https://il4nstudio.netlify.app.
 
 Coordonnées utilisées (toutes publiques sur il4nstudio.netlify.app) : Ilan Da Silva · 06 10 55 71 25 · ilandasilva028@gmail.com · @il4n_studio · il4nstudio.netlify.app · Sarrians (84).

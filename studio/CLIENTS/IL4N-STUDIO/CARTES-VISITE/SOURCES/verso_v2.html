@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « billet » IL4N — verso : coordonnées, QR vers le site, signature. Dessin original. -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 85mm; --h: 55mm; --bleed: 3mm; --safe: 4mm; --bg: #f4f0e8; }
+  .bleed { background: #f4f0e8; }
+  .bleed img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trim { font-family: Inter, sans-serif; color: #17131d; }
+  .cadre { position: absolute; inset: 0; width: 85mm; height: 55mm; }
+  .nom { position: absolute; left: 7.6mm; top: 7.2mm; font-size: 11.5pt; font-weight: 800; letter-spacing: -.02em; }
+  .titre { position: absolute; left: 7.6mm; top: 12.8mm; font-size: 6.8pt; font-weight: 800; color: #8a5a34; letter-spacing: .08em; }
+  .contacts { position: absolute; left: 7.6mm; top: 17.4mm; display: grid; gap: 1.25mm; font-size: 7.5pt; font-weight: 700; }
+  .contacts div { display: flex; align-items: center; gap: 1.6mm; white-space: nowrap; }
+  .contacts svg { width: 2.7mm; height: 2.7mm; flex: none; }
+  .qr { position: absolute; right: 7.4mm; top: 7.2mm; width: 20.5mm; text-align: center; }
+  .qr .fond { background: #fffdf8; border: .3mm solid #b08850; border-radius: 1.4mm; padding: .9mm; }
+  .qr img { display: block; width: 100%; }
+  .qr span { display: block; font-size: 6.8pt; font-weight: 800; color: #6d6870; margin-top: .7mm; letter-spacing: .04em; }
+  .signature { position: absolute; left: 7.6mm; bottom: 6.6mm; }
+  .signature .main { font-family: Accent, Georgia, serif; font-size: 12pt; color: #17131d; line-height: 1; padding-bottom: .5mm; border-bottom: .2mm solid #b08850; }
+  .signature span { display: block; font-size: 6.8pt; font-weight: 700; color: #6d6870; margin-top: .6mm; letter-spacing: .06em; }
+  .accroche { position: absolute; right: 7.6mm; bottom: 6.6mm; text-align: right; font-size: 6.8pt; font-weight: 700; color: #6d6870; line-height: 1.35; }
+  .accroche b { color: #17131d; font-weight: 800; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"><img src="vagues_papier.svg" alt=""></div>
+  <div class="trim" style="outline:none">
+    <svg class="cadre" viewBox="0 0 85 55">
+      <rect x="4" y="4" width="77" height="47" rx="1.6" fill="none" stroke="#b08850" stroke-width=".35"/>
+      <rect x="4.9" y="4.9" width="75.2" height="45.2" rx="1.1" fill="none" stroke="#d3c3a3" stroke-width=".14"/>
+      <g fill="#b08850"><circle cx="4" cy="4" r=".9"/><circle cx="81" cy="4" r=".9"/><circle cx="4" cy="51" r=".9"/><circle cx="81" cy="51" r=".9"/></g>
+    </svg>
+    <div class="nom">Ilan Da Silva</div>
+    <div class="titre">GRAPHISTE &amp; SITES INTERNET</div>
+    <div class="contacts">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#8a5a34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 10 55 71 25</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#8a5a34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ilandasilva028@gmail.com</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#8a5a34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#8a5a34"/></svg>@il4n_studio</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#8a5a34" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>il4nstudio.netlify.app</div>
+    </div>
+    <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div><span>MES TARIFS</span></div>
+    <div class="signature"><div class="main">Ilan Da Silva</div><span>LE GRAPHISTE</span></div>
+    <div class="accroche">Écrivez-moi avec le <b>n° du billet</b><br><b>Maquette offerte</b>, sans engagement</div>
+  </div>
+</div></body></html>
