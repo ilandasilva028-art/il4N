@@ -1,4 +1,31 @@
-# Livraison — IL4N STUDIO / Cartes de visite — v3 « Ticket de caisse » — 15/11/2026
+# Livraison — IL4N STUDIO / Cartes de visite — v4 « Ticket découpé » — 15/11/2026
+Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
+QR code décodé = https://il4nstudio.netlify.app.
+
+## Le concept
+La carte **est** un ticket de caisse : 55×85 mm vertical, **découpée en zigzag en haut et en bas**, recto ET verso en style ticket.
+Recto : tes tarifs du site (hors offres), « MAQUETTE 0,00 € », « TOTAL : BONNE IMPRESSION », coordonnées.
+Verso : « *** EXEMPLAIRE CLIENT *** », « Conservez votre ticket. », QR code « Scannez : mes tarifs », « À bientôt ! ».
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_ticket_v4_decoupe-forme_print.pdf` | **Imprimeur avec découpe à la forme** : 2 pages (recto, verso), 55×85 + fond perdu 3 mm, tracé de découpe vectoriel en couleur d'accompagnement **« CutContour »** (100 % magenta, surimpression), le standard demandé par les imprimeurs. |
+| `IL4N_tickets_v4_planches_A4_0025-0051.pdf` | **Chez toi** : 3 feuilles recto-verso, 9 tickets numérotés par feuille (0025 → 0051), contour gris à suivre. |
+| `IL4N_ticket_v4_apercu_recto-verso.png` | Aperçu du rendu découpé. |
+
+## Option 1 — imprimeur (rendu parfait)
+Chercher l'option **« découpe à la forme »** / « forme personnalisée » / « contour cut » chez un imprimeur en ligne, et envoyer le PDF tel quel.
+Plus cher qu'une carte rectangulaire (compare les devis ; je n'ai pas de prix vérifié à te donner).
+Vérifier sur sa fiche technique : nom du calque de découpe attendu (souvent « CutContour »), fond perdu (3 mm), RGB accepté ou non.
+
+## Option 2 — chez toi
+1. Imprimer à **100 %**, recto-verso **bord long**, papier 250–300 g (test sur papier normal d'abord).
+2. Découper : côtés droits au cutter + règle ; haut et bas en suivant le zigzag gris, au cutter ou, plus vite, aux
+   **ciseaux cranteurs** (ciseaux à denture qui font le zigzag tout seuls). Une marge de papier de 0,8 mm dépasse le contour :
+   un petit écart ne laisse pas de blanc.
+
+---
+## Version 3 « Ticket de caisse » sur fond nuit
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées
 (Inter, Gelasio, JetBrains Mono — licences libres), QR code décodé = https://il4nstudio.netlify.app.
 

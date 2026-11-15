@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte « ticket de caisse » IL4N v4 — verso, même forme : « exemplaire client », QR vers le site à la place du code-barres. -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: Mono; src: url(fonts/JetBrainsMono-ExtraBold.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 55mm; --h: 85mm; --bleed: 3mm; --safe: 4mm; --bg: #fbf8f1; }
+  .bleed { background: #fbf8f1; }
+  .t { position: absolute; left: 4.8mm; right: 4.8mm; top: 5.6mm; font-family: Mono, monospace; font-size: 7pt; color: #17131d; line-height: 2.95mm; }
+  .c { text-align: center; }
+  .gras { font-weight: 800; }
+  .sep { border-top: .25mm dashed #17131d; margin: 1.5mm 0; }
+  .titre { font-weight: 800; font-size: 7.6pt; letter-spacing: .06em; }
+  .accroche { font-family: Accent, Georgia, serif; font-size: 15pt; line-height: 1.08; text-align: center; margin: 1.6mm 0 1.4mm; }
+  .accroche em { font-style: normal; color: #a8763d; }
+  .qr { width: 26mm; margin: 1.4mm auto .8mm; }
+  .qr img { display: block; width: 100%; }
+  .logo { font-family: Inter, sans-serif; font-size: 13pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; }
+  .logo b { display: inline-block; width: 1.1mm; height: 1.1mm; border-radius: 50%; background: #d6a96a; margin-left: .3mm; }
+  .petit { color: #4a4450; }
+</style></head>
+<body><div class="page">
+  <div class="bleed"></div>
+  <div class="trim" style="outline:none">
+    <div class="t">
+      <div class="c titre">*** EXEMPLAIRE CLIENT ***</div>
+      <div class="sep"></div>
+      <div class="accroche">Conservez<br>votre <em>ticket.</em></div>
+      <div class="c petit">Il vous fera gagner du temps</div>
+      <div class="c petit">le jour où il vous faudra</div>
+      <div class="c petit">un flyer, un menu ou un site.</div>
+      <div class="sep"></div>
+      <div class="qr"><img src="qr.svg" alt=""></div>
+      <div class="c gras">SCANNEZ : MES TARIFS</div>
+      <div class="c">il4nstudio.netlify.app</div>
+      <div class="sep"></div>
+      <div class="l" style="display:flex;justify-content:space-between;align-items:center"><span class="logo">il4n<b></b></span><span class="gras">À BIENTÔT !</span></div>
+    </div>
+  </div>
+</div></body></html>
