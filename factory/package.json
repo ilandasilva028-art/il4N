@@ -23,6 +23,8 @@
     "node": ">=20"
   },
   "dependencies": {
+    "gsap": "^3.14.2",
+    "matter-js": "^0.20.0",
     "next": "^16.4.6",
     "playwright": "^1.55.1",
     "react": "^19.2.9",

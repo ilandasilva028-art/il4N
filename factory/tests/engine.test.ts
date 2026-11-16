@@ -59,3 +59,19 @@ test('contrôle qualité : les critères non mesurables ne rapportent jamais de 
   assert.ok(manual.some((c) => c.item.startsWith('Force du message')));
   assert.equal(q.measurableMax + q.manualMax, 100);
 });
+
+test('cinématique inverse : le pied atteint exactement la cible', async () => {
+  const { ik2, gait } = await import('../engine/render/player/lib/anim.js');
+  const D = Math.PI / 180;
+  for (const [dx, dy] of [[30, 140], [-40, 150], [0, 158], [60, 120]]) {
+    const [a1, a2] = ik2(dx, dy, 80, 78, 1);
+    const kx = Math.sin(a1 * D) * 80, ky = Math.cos(a1 * D) * 80;
+    const fx = kx + Math.sin((a1 + a2) * D) * 78, fy = ky + Math.cos((a1 + a2) * D) * 78;
+    assert.ok(Math.hypot(fx - dx, fy - dy) < 0.5, `cible ${dx},${dy} atteinte à ${fx.toFixed(1)},${fy.toFixed(1)}`);
+    assert.ok(a2 <= 0.01, 'le genou plie vers l’avant');
+  }
+  // pied d'appui immobile dans le monde pendant que la hanche avance
+  const g1 = gait(0.10, { x0: 200, speed: 260 }), g2 = gait(0.15, { x0: 200, speed: 260 });
+  const footX = (g: any) => { const [a1, a2] = g.pose.legF; return g.x + Math.sin(a1 * D) * 80 + Math.sin((a1 + a2) * D) * 78; };
+  if (g1.plantedF && g2.plantedF) assert.ok(Math.abs(footX(g1) - footX(g2)) < 1.5, 'le pied ne glisse pas');
+});

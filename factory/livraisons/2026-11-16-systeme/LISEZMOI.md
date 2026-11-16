@@ -4,7 +4,7 @@
 
 - Fichier : `systeme.mp4` (31.93 s) · couverture : `couverture.jpg`
 - Concept : Jauge de motivation qui clignote ; 4 règles visuelles : l'envie ondule / l'habitude monte en escalier, le mur « 1 h de sport » contre la marche « 5 pompes », le sac prêt la veille, le calendrier qui ne rate jamais deux fois.
-- Score mesuré : **94.8 / 96** (98.7 %) sur 2 itération(s) — 4 points à noter par toi (message, lisibilité).
+- Score mesuré : **95.2 / 96** (99.2 %) sur 1 itération(s) — 4 points à noter par toi (message, lisibilité).
 
 ## Publication proposée
 
@@ -18,8 +18,7 @@ Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heur
 
 ## Itérations
 
-- v2 : 94.8 / 96 ← livrée
-- v1 : 89.3 / 96
+- v1 : 95.2 / 96 ← livrée
 
 _Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._
 

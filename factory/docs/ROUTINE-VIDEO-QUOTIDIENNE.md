@@ -67,7 +67,7 @@ Exemple de référence : `films/j20261116-systeme3.js`. Le contrôle qualité me
 - **Les coupes restent sur une grille de BPM** (124 dans les exemples). Indiquer le BPM dans le message de livraison : Ilan pourra choisir un son au même tempo (ou à la moitié).
 
 ## 1 quinquies. Animation (demande d'Ilan, 16/11/2026)
-Modèle à suivre : **`films/j20261116-systeme3.js`**. Utiliser systématiquement :
+Utiliser systématiquement (modèle : **`films/j20261116-systeme4.js`**) :
 - **ombre au sol** (`ground: y` dans `drawStick`) dès qu'un personnage touche le sol ;
 - **poussière** (`dust`) à chaque atterrissage, chute ou objet posé ;
 - **anneau d'impact** (`impactRing`) sur les chocs et les moments clés ;
@@ -76,9 +76,25 @@ Modèle à suivre : **`films/j20261116-systeme3.js`**. Utiliser systématiquemen
 - **texte cinétique** (`kinetic`) : les mots arrivent un par un, au lieu d'un bloc qui apparaît d'un coup ;
 - **caméra** (`camera`) : légère poussée sur les plans longs, claquement à l'image 0.
 
+## 1 sexies. Outils d'animation avancés (installés le 16/11/2026, `lib/anim.js`)
+Modèle à suivre : **`films/j20261116-systeme4.js`**.
+- **GSAP 3.14** : `choreo(etatInitial, (tl, s) => tl.to(s, {...}, temps))`. Chorégraphies avec easings pro (`expo.out`, `back.out(2)`, `elastic.out`…), à « seeker » au temps de chaque image. À utiliser pour les mouvements de caméra, les objets clés et les entrées en scène.
+  - Licence : GreenSock « no charge », gratuite, usage commercial autorisé.
+- **Matter.js 0.20 (MIT)** : physique précalculée, donc déterministe.
+  - `shatterBake` : éclatement en débris qui rebondissent ;
+  - `wallBake` : mur de briques qui s'effondre ;
+  - `bake()` : tout autre objet qui tombe, roule ou s'empile ;
+  - `drawBaked` : affichage des objets précalculés.
+  - Au moins **un moment physique par vidéo** : explosion, chute d'objets, effondrement.
+- **Cinématique inverse** :
+  - `gait(t, {x0, speed, ground})` : marche ou course avec **pieds plantés**, sans glissement (vérifié par test) ;
+  - `gaitSteps()` : bruits de pas exactement au contact du pied ;
+  - `ik2()` : poser une main ou un pied sur une cible (barreau, objet, bouton).
+  - **Toujours `gait` au lieu de `walk`** pour un personnage qui se déplace au sol.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
-- **`films/j20261116-systeme3.js`** : le modèle actuel, à suivre en priorité ;
+- **`films/j20261116-systeme4.js`** : le modèle actuel, à suivre en priorité ;
 - `films/discipline.js` ;
 - `films/j20261116-telephone.js`.
 

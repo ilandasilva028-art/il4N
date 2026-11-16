@@ -1,0 +1,273 @@
+// Vision « Le système » v4 — GSAP (chorégraphie), Matter.js (débris, mur qui s'effondre), IK (pieds plantés).
+// Base v2 — refonte : accroche choc ≤ 6 mots, ≤ 12 mots par écran, yeux et rebonds,
+// carte de fin d'abonnement, étiquette de série, variante d'accroche B (?v=b).
+// Message : la discipline n'est pas une question de volonté mais de système. 4 règles concrètes.
+import { W, H, timeline, bg, floor, caption, topBand, compose, grainVignette, bed, door, box, flag, drawStick, POSES, label, COLORS, clamp, prog, ease, pop, hash, lerp, noise, VARIANT, seriesTag, endCard, camera, dust, speedLines, impactRing, kinetic, stepHits } from '../lib/kit.js';
+import { walk, run, climb, lerpPose, breathe } from '../lib/stick.js';
+import { choreo, shatterBake, wallBake, drawBaked, gait, gaitSteps } from '../lib/anim.js';
+
+export { W, H };
+export const BPM = 124;
+const { B, S } = timeline(BPM, [['hook', 8], ['r1', 10], ['r2', 10], ['r3', 8], ['r4', 10], ['montage', 8], ['fin', 7], ['outro', 5]]);
+const SERIES = 'LES RÈGLES · #1';
+const HANDLE = null; // ex. '@toicontretoi' une fois le compte créé et le @ confirmé
+export const DURATION = S.end;
+// Pas de musique : Ilan ajoute son propre son dans TikTok. Uniquement des bruitages synchronisés.
+export const MUSIC = null;
+const RED = COLORS.red;
+
+// En-tête de règle : pastille rouge « RÈGLE n » + titre sur 1-2 lignes.
+function rule(ctx, tl, n, l1, l2) {
+  topBand(ctx);
+  const k = pop(tl, 0, 0.3);
+  ctx.save(); ctx.globalAlpha = clamp(k); ctx.translate(W / 2, 320); ctx.scale(0.7 + 0.3 * k, 0.7 + 0.3 * k);
+  ctx.fillStyle = RED; ctx.beginPath(); ctx.roundRect(-120, -36, 240, 56, 28); ctx.fill();
+  ctx.font = '900 30px Display'; ctx.letterSpacing = '6px'; ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.fillText(`RÈGLE ${n}`, 3, 2);
+  ctx.restore();
+  kinetic(ctx, l1, 430, 64, tl, 0.12);
+  if (l2) caption(ctx, l2, 510, 52, pop(tl, 0.35), 1);
+}
+
+// 0. Accroche choc : la jauge est pleine à l'image 0 (caméra qui claque), puis explose sur le 2ᵉ temps.
+const HOOK = VARIANT === 'b'
+  ? [[['ARRÊTE D’ATTENDRE', '#f1f1f1']], [['L’ENVIE.', RED]]]
+  : [[['LA MOTIVATION', '#f1f1f1']], [['EST UN PIÈGE.', RED]]];
+// Chorégraphie GSAP de l'accroche : claquement de caméra, jauge qui gonfle puis explose.
+const HOOKC = choreo({ zoom: 1.35, batt: 1, battScale: 1 }, (tl, s) => {
+  tl.to(s, { zoom: 1, duration: 0.55, ease: 'expo.out' }, 0)
+    .to(s, { battScale: 1.12, duration: 0.25, ease: 'power2.in' }, 2 * B - 0.25)
+    .to(s, { battScale: 1, batt: 0, duration: 0.18, ease: 'power4.out' }, 2 * B)
+    .to(s, { zoom: 1.08, duration: 3, ease: 'sine.inOut' }, 2 * B + 0.2);
+});
+// Débris physiques de la jauge (Matter.js), calculés une fois.
+const BATT_DEBRIS = shatterBake({ x: 540, y: 825, n: 16, w: 30, h: 22, power: 13, colors: ['#e9e9eb', '#e3342c', '#bdbdbf'], seed: 7, ground: 1300, duration: 4 });
+function hook(ctx, tl) {
+  bg(ctx, '#060606');
+  const crash = 2 * B;
+  const HC = HOOKC(tl);
+  const bph = (tl % B) / B;
+  const zc = HC.zoom + 0.05 * Math.exp(-bph * 7);
+  const shake = tl > crash ? 22 * Math.exp(-(tl - crash) * 6) : 0;
+  ctx.save(); camera(ctx, { zoom: zc, x: 540, y: 1000, dx: noise(tl * 45) * shake, dy: noise(tl * 45, 4) * shake, rot: Math.sin(tl * 1.7) * 0.01 });
+  for (let i = 0; i < 40; i++) { const x = hash(i) * W, y = ((hash(i + 40) * 1400 + tl * (80 + hash(i + 80) * 160)) % 1400) + 250; ctx.fillStyle = `rgba(255,255,255,${0.12 + 0.2 * hash(i + 7)})`; ctx.fillRect(x, y, 5, 5); }
+  floor(ctx, 1300);
+  // jauge : pleine, puis se vide d'un coup en éclatant
+  const lvl = HC.batt;
+  ctx.save(); camera(ctx, { zoom: HC.battScale, x: 540, y: 825 });
+  ctx.strokeStyle = '#8c8c8e'; ctx.lineWidth = 10; ctx.strokeRect(390, 770, 300, 110);
+  ctx.fillStyle = '#8c8c8e'; ctx.fillRect(690, 805, 18, 40);
+  ctx.fillStyle = tl < crash ? '#e9e9eb' : RED; ctx.fillRect(402, 782, 276 * lvl, 86);
+  ctx.restore();
+  if (tl >= crash) drawBaked(ctx, BATT_DEBRIS.at(tl - crash), 1 - prog(tl, crash + 1.6, 8 * B));
+  label(ctx, 'MOTIVATION', 540, 750, { size: 30, color: '#bdbdbf' });
+  impactRing(ctx, 540, 825, tl, crash, { r: 260 });
+  dust(ctx, 540, 1300, tl, crash + 0.4, { spread: 200 });
+  const fall = ease.out(prog(tl, crash, crash + 0.4));
+  drawStick(ctx, 540, lerp(1140, 1240, fall), lerpPose(POSES.victory, POSES.sit, fall), { ground: 1300, scale: 1.0, eyes: true, t: tl, mouth: tl > crash ? 'sad' : 'happy', squash: tl > crash + 0.4 ? 0.18 * Math.exp(-(tl - crash - 0.4) * 10) : 0 });
+  ctx.restore();
+  topBand(ctx);
+  seriesTag(ctx, SERIES, pop(tl, 0.3));
+  kinetic(ctx, HOOK[0], 400, 78, tl, -0.12, { stagger: 0.09 });
+  kinetic(ctx, HOOK[1], 500, 92, tl, crash, { stagger: 0.09, rise: 60 });
+  kinetic(ctx, [['4 RÈGLES POUR T’EN PASSER', '#bdbdbf']], 1440, 40, tl, 4 * B);
+  if (tl > crash && tl < crash + 0.08) { ctx.fillStyle = 'rgba(227,52,44,0.35)'; ctx.fillRect(0, 0, W, H); }
+}
+
+// 1. Ne compte pas sur l'envie : la motivation ondule, l'habitude monte en escalier.
+function r1(ctx, tl) {
+  bg(ctx, '#050505');
+  rule(ctx, tl, 1, [['N’ATTENDS PAS ', '#f1f1f1'], ['L’ENVIE.', RED]], null);
+  const x0 = 110, x1 = 960, yb = 1330;
+  ctx.save(); camera(ctx, { zoom: 1 + 0.06 * ease.inOut(prog(tl, 0, 10 * B)), x: 760, y: 1000 });
+  ctx.strokeStyle = '#4a4a4d'; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x0, 700); ctx.lineTo(x0, yb); ctx.lineTo(x1, yb); ctx.stroke();
+  label(ctx, 'TEMPS →', x1 - 80, yb + 50, { size: 24, color: '#6f6f72' });
+  const rev = ease.inOut(prog(tl, 0.4, 9 * B));
+  const xe = lerp(x0, x1, rev);
+  // motivation : vague
+  ctx.strokeStyle = '#9a9a9c'; ctx.lineWidth = 12; ctx.lineCap = 'round'; ctx.beginPath();
+  for (let x = x0; x <= xe; x += 6) { const u = (x - x0) / (x1 - x0); const y = 1050 - 230 * Math.sin(u * 14) * (0.6 + 0.4 * Math.sin(u * 5)); x === x0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+  ctx.stroke();
+  // habitude : escalier qui ne redescend jamais
+  ctx.strokeStyle = RED; ctx.lineWidth = 14; ctx.beginPath();
+  const steps = 10; let lastY = yb - 40; ctx.moveTo(x0, lastY);
+  for (let i = 0; i < steps; i++) {
+    const sx = x0 + ((x1 - x0) * i) / steps, ex = x0 + ((x1 - x0) * (i + 1)) / steps, y = yb - 40 - i * 52;
+    if (sx > xe) break;
+    ctx.lineTo(sx, y); ctx.lineTo(Math.min(ex, xe), y); lastY = y;
+  }
+  ctx.stroke();
+  // le héros marche sur l'escalier rouge, au bout du tracé
+  drawStick(ctx, Math.max(x0 + 30, xe - 10), lastY - 7 - 95, walk(tl * 1.7, 0.8), { scale: 0.6, eyes: true });
+  if (rev > 0.5) { label(ctx, 'MOTIVATION', 300, 760, { size: 26, color: '#9a9a9c', alpha: prog(rev, 0.5, 0.7) }); }
+  if (rev > 0.8) { label(ctx, 'HABITUDE', 830, lastY - 230, { size: 28, color: RED, alpha: prog(rev, 0.8, 0.95) }); }
+  ctx.restore();
+}
+
+const WALL = wallBake({ x: 600, y: 1300, cols: 3, rows: 9, bw: 73, bh: 73, push: 6, seed: 5, ground: 1300, duration: 3 });
+// 2. Rends-le ridiculement facile : le mur « 1 H DE SPORT » bloque, la marche « 5 POMPES » passe.
+function r2(ctx, tl) {
+  bg(ctx, '#060606'); floor(ctx, 1300);
+  rule(ctx, tl, 2, [['RENDS-LE ', '#f1f1f1'], ['MINUSCULE.', RED]], null);
+  if (tl < 2.2) {
+    box(ctx, 600, 640, 220, 660, '#3d3d40'); label(ctx, '1 H', 710, 930, { size: 64 }); label(ctx, 'DE SPORT', 710, 990, { size: 30, color: '#d0d0d2' });
+  } else {
+    // le mur trop haut s'effondre en petites briques (physique) : chaque brique = une petite action
+    drawBaked(ctx, WALL.at(tl - 2.2), 1 - prog(tl, 3.6, 4.4));
+    dust(ctx, 710, 1300, tl, 2.45, { n: 12, spread: 260 });
+  }
+  if (tl < 2.4) {
+    const a = prog(tl, 0, 1.2), b2 = prog(tl, 1.2, 2.0);
+    const x = tl < 1.2 ? lerp(180, 470, ease.in(a)) : lerp(470, 330, ease.out(b2));
+    const p = tl < 1.2 ? run(tl * 1.8) : lerpPose(POSES.push, POSES.fall, ease.out(b2));
+    if (tl < 1.2) speedLines(ctx, x, 1300, tl, { dir: -1, alpha: prog(tl, 0.3, 0.8) });
+    drawStick(ctx, x, 1300 - 160 + (tl > 1.2 ? 60 * ease.out(b2) : 0), p, { ground: 1300, scale: 1.0, eyes: true, t: tl, mouth: tl > 1.2 ? 'sad' : null, squash: tl > 2.0 ? 0.2 * Math.exp(-(tl - 2.0) * 10) : 0 });
+    impactRing(ctx, 590, 1000, tl, 1.2, { r: 180, color: '#f1f1f1' });
+    dust(ctx, 560, 1290, tl, 1.2, { spread: 120 });
+    dust(ctx, 330, 1300, tl, 2.0, { spread: 170 });
+    if (tl > 1.25 && tl < 1.9) label(ctx, 'TROP DUR', 470, 820, { size: 34, color: RED });
+  } else {
+    // marches de 5 pompes qui apparaissent une à une, le héros monte
+    const n = Math.min(6, 1 + Math.floor((tl - 2.6) / 0.38));
+    for (let i = 0; i < n; i++) { const k = pop(tl, 2.6 + i * 0.38, 0.2); ctx.save(); ctx.globalAlpha = clamp(k); box(ctx, 300 + i * 105, 1300 - 70 * (i + 1), 105, 70 * (i + 1), i === 0 ? '#5a5a5d' : '#3d3d40'); ctx.restore(); }
+    label(ctx, '5 POMPES', 352, 1210, { size: 20, color: '#f1f1f1', track: 2 });
+    const hop = clamp((tl - 2.75) / 0.38, 0, 6), i = Math.min(5, Math.floor(hop)), f = hop - i;
+    const x = 300 + 52 + i * 105 + 105 * ease.inOut(Math.min(1, f));
+    const yTop = (j) => 1300 - 70 * (j + 1);
+    const y = lerp(yTop(i), yTop(Math.min(5, i + 1)), f) - Math.sin(Math.PI * Math.min(1, f)) * 60;
+    drawStick(ctx, tl < 2.75 ? 250 : Math.min(x, 300 + 52 + 5 * 105), (tl < 2.75 ? 1300 : y) - 150, tl < 2.75 ? POSES.stand : run(f * 0.5), { scale: 0.95, eyes: true, t: tl, mouth: 'happy', squash: tl < 2.75 ? 0 : Math.max(0, 0.22 * (1 - f / 0.2)) - (f > 0.2 && f < 0.8 ? 0.08 : 0) });
+    for (let j = 0; j < 5; j++) dust(ctx, 300 + 52 + (j + 1) * 105, yTop(j + 1) + 4, tl, 2.75 + 0.38 * (j + 1), { n: 6, spread: 70, size: 0.6 });
+    kinetic(ctx, [['TROP PETIT ', '#f1f1f1'], ['POUR ÉCHOUER.', RED]], 1440, 50, tl, 3.3);
+  }
+}
+
+// 3. Décide la veille : sac prêt le soir, le matin on ne négocie pas.
+function r3(ctx, tl) {
+  const night = tl < 4 * B;
+  bg(ctx, night ? '#03030a' : '#070707'); floor(ctx, 1300);
+  rule(ctx, tl, 3, [['DÉCIDE ', '#f1f1f1'], ['LA VEILLE.', RED]], null);
+  door(ctx, 760, 1300, night ? 0 : ease.inOut(prog(tl, 2.2, 2.7)), null, !night);
+  if (night) {
+    ctx.fillStyle = '#d9d9db'; ctx.beginPath(); ctx.arc(250, 700, 50, 0, 7); ctx.fill(); ctx.fillStyle = '#03030a'; ctx.beginPath(); ctx.arc(272, 688, 46, 0, 7); ctx.fill();
+    label(ctx, '22 H — LA VEILLE', 540, 640, { size: 34, color: '#bdbdbf' });
+    const k = ease.out(prog(tl, 0.2, 1.0));
+    box(ctx, lerp(380, 600, k), 1210, 120, 90, '#5a5a5d'); label(ctx, 'SAC PRÊT', lerp(440, 660, k), 1190, { size: 22 });
+    const g = gait(Math.min(tl, 0.85), { x0: 290, speed: 270, ground: 1300 });
+    drawStick(ctx, g.x, g.y, lerpPose(g.pose, POSES.crouch, prog(tl, 0.9, 1.3)), { ground: 1300, scale: 1.0, eyes: true, t: tl });
+    dust(ctx, 660, 1300, tl, 1.0, { n: 6, spread: 90, size: 0.7 });
+  } else {
+    const k = prog(tl, 4 * B, 4 * B + 0.3);
+    const shk = 10 * Math.max(0, Math.sin(tl * 60)) * (1 - prog(tl, 4 * B, 4 * B + 0.5));
+    ctx.save(); ctx.font = '900 120px Display'; ctx.textAlign = 'center'; ctx.fillStyle = '#f1f1f1'; ctx.globalAlpha = 1 - prog(tl, 2.3, 2.6); ctx.fillText('6 H 00', W / 2 + shk, 760); ctx.restore();
+    box(ctx, 600, 1210, 120, 90, '#5a5a5d');
+    // bulle « ENVIE ? » barrée en rouge
+    const bk = pop(tl, 1.9);
+    ctx.save(); ctx.globalAlpha = clamp(bk) * (1 - prog(tl, 3.0, 3.3)); ctx.fillStyle = '#2b2b2e'; ctx.beginPath(); ctx.roundRect(170, 860, 260, 100, 50); ctx.fill();
+    label(ctx, 'ENVIE ?', 300, 925, { size: 34, color: '#bdbdbf' });
+    if (tl > 2.15) { ctx.strokeStyle = RED; ctx.lineWidth = 12; ctx.beginPath(); ctx.moveTo(180, 940); ctx.lineTo(180 + 240 * ease.out(prog(tl, 2.15, 2.35)), 880); ctx.stroke(); }
+    ctx.restore();
+    const gm = gait(Math.max(0, tl - 2.3), { x0: 340, speed: 380, ground: 1300 });
+    const still = tl < 2.3;
+    drawStick(ctx, still ? 340 : gm.x, still ? 1140 : gm.y, still ? breathe(POSES.stand, tl * 3) : gm.pose, { ground: 1300, scale: 1.0, eyes: true, t: tl, alpha: 1 - prog(tl, 3.5, 3.85) });
+    void k;
+  }
+}
+
+const X_DEBRIS = shatterBake({ x: 540, y: 0, n: 10, w: 16, h: 10, power: 9, colors: ['#e3342c'], seed: 11, ground: 900, duration: 3, spread: 1.4 });
+// 4. Ne rate jamais deux fois : le calendrier se remplit, un raté, la chaîne repart.
+function r4(ctx, tl) {
+  bg(ctx, '#050505');
+  rule(ctx, tl, 4, [['JAMAIS ', '#f1f1f1'], ['DEUX FOIS.', RED]], null);
+  const cols = 7, rows = 4, cs = 112, gx = (W - cols * cs) / 2 + 6, gy = 600;
+  const filled = Math.floor(prog(tl, 0.5, 3.6) * 28);
+  for (let i = 0; i < 28; i++) {
+    const x = gx + (i % cols) * cs, y = gy + Math.floor(i / cols) * cs;
+    ctx.fillStyle = '#18181a'; ctx.fillRect(x, y, cs - 12, cs - 12);
+    ctx.strokeStyle = '#2f2f32'; ctx.lineWidth = 3; ctx.strokeRect(x, y, cs - 12, cs - 12);
+    if (i < filled) {
+      const cx = x + (cs - 12) / 2, cy = y + (cs - 12) / 2;
+      if (i === 11) { ctx.strokeStyle = RED; ctx.lineWidth = 14; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(cx - 26, cy - 26); ctx.lineTo(cx + 26, cy + 26); ctx.moveTo(cx + 26, cy - 26); ctx.lineTo(cx - 26, cy + 26); ctx.stroke(); }
+      else { ctx.strokeStyle = i === 12 ? '#ffffff' : '#d9d9db'; ctx.lineWidth = i === 12 ? 16 : 12; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(cx - 28, cy + 2); ctx.lineTo(cx - 8, cy + 24); ctx.lineTo(cx + 30, cy - 24); ctx.stroke(); }
+    }
+  }
+  label(ctx, 'JOUR 12 : RATÉ', gx + 4 * cs + 40, gy - 30, { size: 24, color: RED, alpha: filled > 11 ? 1 : 0 });
+  const tX = 0.5 + 3.1 * (12 / 28);
+  if (tl > tX) { ctx.save(); ctx.translate(gx + 4 * cs + 50 - 540, gy + cs + 50); drawBaked(ctx, X_DEBRIS.at(tl - tX).map((p) => p), 1 - prog(tl, tX + 0.8, tX + 1.4)); ctx.restore(); }
+  impactRing(ctx, gx + 4 * cs + 50, gy + cs + 50, tl, tX, { r: 120 });
+  impactRing(ctx, gx + 5 * cs + 50, gy + cs + 50, tl, 0.5 + 3.1 * (13 / 28), { r: 100, color: '#f1f1f1' });
+  kinetic(ctx, [['1 FOIS = ', '#f1f1f1'], ['ACCIDENT.', '#9a9a9c']], 1190, 52, tl, 1.6);
+  kinetic(ctx, [['2 FOIS = ', '#f1f1f1'], ['HABITUDE.', RED]], 1280, 52, tl, 2.6);
+}
+
+// 5. Montage serré : des actions minuscules.
+const SHOTS = [
+  ['5 POMPES', (ctx, k) => drawStick(ctx, 540, 1110 + 40 * Math.abs(Math.sin(k * Math.PI * 3)), POSES.crouch, { ground: 1250, scale: 1.0, eyes: true, t: k })],
+  ['1 PAGE', (ctx, k) => { drawStick(ctx, 480, 1100, breathe(POSES.sit, k * 6), { ground: 1250, scale: 1.0, eyes: true, t: k * 4 }); ctx.fillStyle = '#f1f1f1'; ctx.fillRect(560, 1000, 90, 64); ctx.fillStyle = '#18181a'; ctx.fillRect(603, 1000, 4, 64); }],
+  ['ÉCRAN COUPÉ', (ctx, k) => { drawStick(ctx, 540, 1090, breathe(POSES.stand, k * 6), { ground: 1250, scale: 1.0, eyes: k > 0.35, t: k * 4 }); ctx.fillStyle = k < 0.35 ? '#cfe0ff' : '#2b2b2e'; ctx.fillRect(610, 950, 50, 90); }],
+  ['AU LIT', (ctx, k) => { bed(ctx, 280, 1220); drawStick(ctx, 520, 1150, POSES.lie, { scale: 0.85, eyes: k < 0.6 }); }],
+];
+function montage(ctx, tl) {
+  const i = Math.min(SHOTS.length - 1, Math.floor(tl / (2 * B))), k = (tl - i * 2 * B) / (2 * B);
+  bg(ctx, i % 2 ? '#070707' : '#0b0b0c'); floor(ctx, 1250);
+  const z = 1.14 - 0.14 * ease.out(k);
+  ctx.save(); ctx.translate(W / 2, 1000); ctx.scale(z, z); ctx.translate(-W / 2, -1000); SHOTS[i][1](ctx, k); ctx.restore();
+  kinetic(ctx, [[SHOTS[i][0], '#f1f1f1']], 470, 76, k * 2 * B, 0, { k: 1.15 - 0.15 * ease.out(clamp(k * 3)) });
+  label(ctx, 'CHAQUE JOUR', W / 2, 550, { size: 30, color: RED, track: 8 });
+  if (k < 0.18) { ctx.fillStyle = `rgba(255,255,255,${(0.28 * (1 - k / 0.18)).toFixed(3)})`; ctx.fillRect(0, 0, W, H); }
+}
+
+// 6. Chute : un escalier fait de toutes petites marches, le héros en haut.
+function fin(ctx, tl) {
+  bg(ctx, '#050505');
+  const z = lerp(1.6, 1.0, ease.inOut(prog(tl, 0, 2.2)));
+  ctx.save(); ctx.translate(820, 1080); ctx.scale(z, z); ctx.translate(-820, -1080);
+  const N = 24;
+  for (let i = 0; i < N; i++) { const x = 100 + i * 30, y = 1720 - i * 26; ctx.fillStyle = i % 2 ? '#2e2e31' : '#3a3a3d'; ctx.fillRect(x, y, 30, 1920 - y); }
+  const topX = 100 + (N - 1) * 30 + 15, topY = 1720 - (N - 1) * 26;
+  flag(ctx, topX + 40, topY, tl, prog(tl, 0.5, 1.5));
+  drawStick(ctx, topX - 10, topY - 128, lerpPose(POSES.stand, POSES.victory, ease.out(prog(tl, 0.4, 0.9))), { scale: 0.8, eyes: true, t: tl, mouth: 'happy', squash: tl > 0.4 && tl < 0.7 ? -0.1 : 0 });
+  impactRing(ctx, topX + 40, topY - 280, tl, 0.6, { r: 160 });
+  ctx.restore();
+  topBand(ctx);
+  kinetic(ctx, [['PETIT. FACILE. TOUS LES JOURS.', '#f1f1f1']], 400, 46, tl, 1.0, { stagger: 0.12 });
+  kinetic(ctx, [['C’EST ÇA, LA', '#f1f1f1']], 490, 60, tl, 2.0);
+  caption(ctx, [['DISCIPLINE.', RED]], 590, 92, pop(tl, 2.3), 0.7 + 0.3 * pop(tl, 2.3));
+}
+
+const end = (ctx, tl) => endCard(ctx, tl, { teaser: 'LA RÈGLE DE DEMAIN', handle: HANDLE, series: SERIES, t: tl });
+const SCENES = [[S.hook, hook], [S.r1, r1], [S.r2, r2], [S.r3, r3], [S.r4, r4], [S.montage, montage], [S.fin, fin], [S.outro, end]];
+export function draw(ctx, t) {
+  if (t >= S.end - B) { hook(ctx, 0); return; }
+  compose(ctx, t, SCENES, { B, pulseFrom: S.r1 });
+}
+export const samples = (t) => ((t >= S.montage && t < S.fin) || t < 0.4 ? 3 : 1);
+export const post = grainVignette;
+const tc = (i) => 0.5 + 3.1 * (i / 28); // instant où la case i du calendrier se coche
+export const HITS = [
+  // accroche
+  { t: 0, sfx: 'impact', gain: 0.9 }, { t: 0.05, sfx: 'swish', gain: 0.6 }, { t: 2 * B, sfx: 'shatter', gain: 1 }, { t: 2 * B, sfx: 'impact', gain: 0.8 },
+  { t: 2 * B + 0.4, sfx: 'thud', gain: 0.8 }, { t: 4 * B, sfx: 'click', gain: 0.6 },
+  // en-têtes de règles
+  ...['r1', 'r2', 'r3', 'r4'].flatMap((k) => [{ t: S[k] - 0.02, sfx: 'whoosh', gain: 0.5, len: 0.2 }, { t: S[k], sfx: 'impact', gain: 0.6 }, { t: S[k] + 0.05, sfx: 'pop', gain: 0.6 }]),
+  // règle 1 : petits pas sur l'escalier
+  ...stepHits(S.r1 + 0.4, S.r2 - 0.2, 1.7, 0.3), { t: S.r1 + 0.4 + 0.8 * (9 * B - 0.4), sfx: 'pop', gain: 0.5 },
+  // règle 2 : course, choc contre le mur, chute, marches
+  ...stepHits(S.r2, S.r2 + 1.2, 1.8, 0.55), { t: S.r2 + 1.2, sfx: 'impact', gain: 0.9 }, { t: S.r2 + 1.25, sfx: 'boing', gain: 0.6 }, { t: S.r2 + 2.0, sfx: 'thud', gain: 0.8 },
+  { t: S.r2 + 2.2, sfx: 'impact', gain: 0.8 }, ...Array.from({ length: 9 }, (_, i) => ({ t: S.r2 + 2.35 + i * 0.07, sfx: 'thud', gain: 0.35 })),
+  ...Array.from({ length: 6 }, (_, i) => ({ t: S.r2 + 2.6 + i * 0.38, sfx: 'click', gain: 0.5 })),
+  ...Array.from({ length: 5 }, (_, i) => ({ t: S.r2 + 2.75 + 0.38 * (i + 1), sfx: 'step', gain: 0.8 })), { t: S.r2 + 3.3, sfx: 'pop', gain: 0.5 },
+  // règle 3 : pas, sac posé, réveil, rature, porte, sortie
+  ...gaitSteps(S.r3, S.r3 + 0.85, { speed: 270 }), { t: S.r3 + 1.0, sfx: 'thud', gain: 0.45 },
+  { t: S.r3 + 4 * B, sfx: 'alarm', gain: 0.8 }, { t: S.r3 + 2.15, sfx: 'swish', gain: 0.7 }, { t: S.r3 + 2.2, sfx: 'door', gain: 0.7, len: 0.45 },
+  ...gaitSteps(S.r3 + 2.3, S.r3 + 3.6, { speed: 380 }),
+  // règle 4 : chaque case cochée, le raté, la reprise
+  ...Array.from({ length: 28 }, (_, i) => (i === 11 ? null : { t: S.r4 + tc(i + 1), sfx: 'click', gain: i === 12 ? 0.8 : 0.35 })).filter(Boolean),
+  { t: S.r4 + tc(12), sfx: 'shatter', gain: 0.6 }, { t: S.r4 + tc(12), sfx: 'impact', gain: 0.7 }, { t: S.r4 + 1.6, sfx: 'pop', gain: 0.5 }, { t: S.r4 + 2.6, sfx: 'pop', gain: 0.6 },
+  // montage
+  ...SHOTS.map((_, i) => ({ t: S.montage + i * 2 * B, sfx: 'impact', gain: 0.6 })),
+  ...[1, 2, 3].map((j) => ({ t: S.montage + (j / 3) * 2 * B - 0.02, sfx: 'thud', gain: 0.35 })),
+  { t: S.montage + 2 * B + 0.4, sfx: 'swish', gain: 0.5 }, { t: S.montage + 4 * B + 0.35 * 2 * B, sfx: 'click', gain: 0.8 }, { t: S.montage + 6 * B + 0.1, sfx: 'thud', gain: 0.4 },
+  // chute + carte de fin + retour à l'ouverture
+  { t: S.fin, sfx: 'whoosh', gain: 0.5 }, { t: S.fin + 0.6, sfx: 'ding', gain: 0.5 }, { t: S.fin + 2.3, sfx: 'impact', gain: 0.9 },
+  { t: S.outro, sfx: 'impact', gain: 0.7 }, { t: S.outro + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.outro + 0.9, sfx: 'ding', gain: 0.4 }, { t: S.end - B, sfx: 'whoosh', gain: 0.6 },
+];
+void hash; void noise; void climb;

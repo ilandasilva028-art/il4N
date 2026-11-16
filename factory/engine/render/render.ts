@@ -4,15 +4,22 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import { PLAYER_DIR, TOOLS, LIMITS } from '../core/config.ts';
+import { PLAYER_DIR, TOOLS, LIMITS, ROOT } from '../core/config.ts';
 import type { Logger } from '../core/log.ts';
 
 const launchOpts = (extra: string[] = []) => ({ args: extra, ...(process.env.FACTORY_CHROMIUM ? { executablePath: process.env.FACTORY_CHROMIUM } : {}) });
 const TYPES: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.otf': 'font/otf', '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg' };
 
+// Bibliothèques tierces servies au lecteur (fichiers UMD, chargés par index.html).
+const VENDOR: Record<string, string> = {
+  '/vendor/gsap.js': path.join(ROOT, 'node_modules', 'gsap', 'dist', 'gsap.min.js'),
+  '/vendor/matter.js': path.join(ROOT, 'node_modules', 'matter-js', 'build', 'matter.min.js'),
+};
+
 export function servePlayer(): Promise<{ url: string; close: () => void }> {
   const server = http.createServer((req, res) => {
     const p = path.normalize(decodeURIComponent((req.url || '/').split('?')[0])).replace(/^(\.\.[/\\])+/, '');
+    if (VENDOR[p] && fs.existsSync(VENDOR[p])) { res.writeHead(200, { 'Content-Type': 'text/javascript' }); fs.createReadStream(VENDOR[p]).pipe(res); return; }
     const file = path.join(PLAYER_DIR, p === '/' ? 'index.html' : p);
     if (!file.startsWith(PLAYER_DIR) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); res.end(); return; }
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream' });
