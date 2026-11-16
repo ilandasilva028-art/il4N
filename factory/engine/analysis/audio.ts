@@ -8,7 +8,7 @@ export interface AudioReport {
   present: boolean;
   integratedLufs: number | null; loudnessRangeLu: number | null; truePeakDbtp: number | null;
   silences: { start: number; end: number }[]; silencePct: number; leadingSilenceSec: number;
-  tempoBpm: number | null; tempoConfidence: number; onsets: number[]; onsetsPerSec: number;
+  tempoBpm: number | null; tempoConfidence: number; tempoWindows: { from: number; to: number; bpm: number | null; confidence: number }[]; onsets: number[]; onsetsPerSec: number;
   bands: { lowPct: number; midPct: number; highPct: number };
   pitch: { medianHz: number | null; p10Hz: number | null; p90Hz: number | null; voicedPct: number; note: string };
   rmsCurve: { t: number; db: number }[];
@@ -164,7 +164,7 @@ async function silences(file: string, durationSec: number, log?: Logger) {
 export async function analyzeAudio(file: string, durationSec: number, hasAudio: boolean, cuts: number[], log?: Logger): Promise<AudioReport> {
   const empty: AudioReport = {
     present: false, integratedLufs: null, loudnessRangeLu: null, truePeakDbtp: null, silences: [], silencePct: 100, leadingSilenceSec: durationSec,
-    tempoBpm: null, tempoConfidence: 0, onsets: [], onsetsPerSec: 0, bands: { lowPct: 0, midPct: 0, highPct: 0 },
+    tempoBpm: null, tempoConfidence: 0, tempoWindows: [], onsets: [], onsetsPerSec: 0, bands: { lowPct: 0, midPct: 0, highPct: 0 },
     pitch: { medianHz: null, p10Hz: null, p90Hz: null, voicedPct: 0, note: 'Pas de piste audio.' }, rmsCurve: [], dynamicRangeDb: 0, cutsOnBeatPct: null,
   };
   if (!hasAudio) return empty;
@@ -173,6 +173,13 @@ export async function analyzeAudio(file: string, durationSec: number, hasAudio: 
   const onsets = onsetsFromFlux(sp.flux, sp.hopSec);
   const tempo = estimateTempo(sp.flux, sp.hopSec);
   const pitch = pitchTrack(pcm);
+  const tempoWindows: AudioReport['tempoWindows'] = [];
+  const win = Math.min(20, durationSec);
+  for (let a = 0; a + win * 0.6 <= durationSec; a += win) {
+    const seg = spectral(pcm.slice(Math.round(a * SR), Math.round(Math.min(durationSec, a + win) * SR)));
+    const e = estimateTempo(seg.flux, seg.hopSec);
+    tempoWindows.push({ from: r2(a), to: r2(Math.min(durationSec, a + win)), bpm: e.bpm, confidence: e.confidence });
+  }
   const silTot = sil.reduce((a, s) => a + (s.end - s.start), 0);
   const rmsStep = Math.max(1, Math.round(0.1 / sp.hopSec));
   const rmsCurve: { t: number; db: number }[] = [];
@@ -186,7 +193,7 @@ export async function analyzeAudio(file: string, durationSec: number, hasAudio: 
     integratedLufs: ld.I, loudnessRangeLu: ld.LRA, truePeakDbtp: ld.TP,
     silences: sil, silencePct: pc(silTot / Math.max(0.01, durationSec)),
     leadingSilenceSec: sil.length && sil[0].start <= 0.05 ? sil[0].end : 0,
-    tempoBpm: tempo.bpm, tempoConfidence: tempo.confidence,
+    tempoBpm: tempo.bpm, tempoConfidence: tempo.confidence, tempoWindows,
     onsets: onsets.slice(0, 2000), onsetsPerSec: r2(onsets.length / Math.max(0.01, durationSec)),
     bands: sp.bandsPct,
     pitch: { ...pitch, note: 'Hauteur estimée sur tout le mixage (musique comprise) : indicative pour la voix seulement si la musique est discrète.' },

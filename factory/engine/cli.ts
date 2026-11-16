@@ -16,3 +16,10 @@ if (cmd === 'analyze') {
 } else {
   console.log('Commandes : analyze <video> [dossier] | doctor | produce');
 }
+
+if (cmd === 'film') {
+  const { produceFilm } = await import('./pipeline/filmProduction.ts');
+  const [film, outDir, ref] = args;
+  const r = await produceFilm({ film, outDir: path.resolve(outDir), referenceAnalysis: ref ? path.resolve(ref) : undefined, log });
+  console.log(JSON.stringify({ final: r.final, score: r.qc.score, max: r.qc.measurableMax }));
+}

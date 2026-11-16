@@ -3,7 +3,7 @@
 // Structure : intro filtrée pendant l'accroche, « drop » sur la fin de l'accroche, outro qui se referme.
 import { SR, Biquad, midiHz, polyBlepSaw, reverb, peakNormalize, mulberry32, writeWav } from './dsp.ts';
 
-export interface MusicSpec { durationSec: number; bpm: number; mood: 'energique' | 'chill' | 'cinematique'; dropAt: number; seed: number; accents?: number[] }
+export interface MusicSpec { durationSec: number; bpm: number; mood: 'energique' | 'chill' | 'cinematique' | 'sombre'; dropAt: number; seed: number; accents?: number[]; breakAt?: number; backAt?: number }
 
 const PROG = [[0, 3, 7, 'm'], [-4, 4, 7, 'M'], [3, 4, 7, 'M'], [-2, 4, 7, 'M']] as const; // i – VI – III – VII
 const ROOTS = [57, 60, 62, 52, 54, 55]; // la, do, ré, mi, fa#, sol
@@ -28,6 +28,7 @@ export function synthMusic(spec: MusicSpec): [Float32Array, Float32Array] {
   const clap = (t0: number, g = 1) => { const bp = new Biquad().set('bp', 1400, 0.9); add(drums, t0, 0.3, (t, i) => { const e = t < 0.03 ? (Math.exp(-((t % 0.01) / 0.003))) : Math.exp(-(t - 0.03) / 0.09); return g * bp.tick(noise[i % SR]) * e * 1.6; }); };
   const hat = (t0: number, open = false, g = 1) => { const hp = new Biquad().set('hp', 7500, 0.7); add(drums, t0, open ? 0.25 : 0.06, (t, i) => g * hp.tick(noise[(i * 7) % SR]) * Math.exp(-t / (open ? 0.08 : 0.018)) * 0.5); };
   const tom = (t0: number, f0: number, g = 1) => { let ph = 0; add(drums, t0, 0.6, (t) => { ph += (f0 * (1 + 0.5 * Math.exp(-t / 0.05))) / SR; return g * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.22) * 0.7; }); };
+  const distKick = (t0: number, g = 1) => { let ph = 0; add(drums, t0, 0.38, (t) => { const f = 45 + 160 * Math.exp(-t / 0.03); ph += f / SR; return g * 0.75 * Math.tanh(3.2 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.14)) + (t < 0.003 ? g * 0.4 : 0); }); };
   const bassNote = (m: number, t0: number, len: number, g = 1) => {
     const lp = new Biquad(); let ph = 0, sub = 0; const f = midiHz(m);
     add(bass, t0, len + 0.05, (t) => {
@@ -69,7 +70,16 @@ export function synthMusic(spec: MusicSpec): [Float32Array, Float32Array] {
     const afterDrop = t >= drop - 1e-3;
     const outro = t > end - bar * 0.75;
     const { r, notes } = chordAt(b);
-    if (spec.mood === 'energique') {
+    const inBreak = spec.breakAt !== undefined && spec.backAt !== undefined && t >= spec.breakAt - 1e-3 && t < spec.backAt - 1e-3;
+    if (spec.mood === 'sombre') {
+      // Hardtekk / phonk sombre : grosse caisse saturée à chaque temps, sub 808 tenu, mélodie mineure inquiétante.
+      if (!inBreak && (afterDrop || b % 2 === 0)) { distKick(t, afterDrop ? 1 : 0.75); kickTimes.push(t); }
+      if (afterDrop && !inBreak) { hat(t + beat / 2, false, 0.7); if (b % 2 === 1) hat(t + (3 * beat) / 4, false, 0.35); }
+      if (afterDrop && !inBreak && b % 4 === 2) clap(t, 0.55);
+      if (b % 4 === 0) { bassNote(r - 24, t, bar * 0.98, afterDrop && !inBreak ? 0.95 : 0.5); padChord(notes.map((x) => x + 12), t, bar, inBreak ? 1.3 : 0.75, afterDrop ? 1400 : 700); }
+      const MEL = [0, 3, 7, 8, 7, 3, 2, 3];
+      if (afterDrop && !inBreak && !outro) for (let k = 0; k < 2; k++) pluck(root + 12 + MEL[(b * 2 + k) % 8] + (b % 8 >= 4 ? 0 : 0), t + (k * beat) / 2, 0.9);
+    } else if (spec.mood === 'energique') {
       if (afterDrop || b % 2 === 0) { kick(t, afterDrop ? 1 : 0.7); kickTimes.push(t); }
       if (afterDrop && (b % 4 === 1 || b % 4 === 3)) clap(t, 0.8);
       hat(t + beat / 2, afterDrop && b % 2 === 1, afterDrop ? 0.9 : 0.5);

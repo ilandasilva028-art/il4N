@@ -74,7 +74,7 @@ export function analyzeColor(rf: RawFrames): ColorReport {
   const perFrame: FrameColor[] = [];
   const sample: number[] = [];
   rf.frames.forEach((buf, fi) => {
-    let sl = 0, sl2 = 0, ss = 0, dark = 0, bright = 0, rs = 0, bs = 0;
+    let sl = 0, sl2 = 0, ss = 0, sn = 0, dark = 0, bright = 0, rs = 0, bs = 0;
     let rgSum = 0, rgSum2 = 0, ybSum = 0, ybSum2 = 0;
     const n = buf.length / 3;
     for (let i = 0; i < n; i++) {
@@ -82,7 +82,7 @@ export function analyzeColor(rf: RawFrames): ColorReport {
       const y = luma(r, g, b);
       sl += y; sl2 += y * y;
       const max = Math.max(r, g, b), min = Math.min(r, g, b);
-      ss += max === 0 ? 0 : (max - min) / max;
+      if (y > 40) { ss += (max - min) / max; sn++; }
       if (y < 25) dark++;
       if (y > 235) bright++;
       rs += r; bs += b;
@@ -97,7 +97,7 @@ export function analyzeColor(rf: RawFrames): ColorReport {
       t: Math.round((fi / rf.fps) * 100) / 100,
       luma: Math.round(mean * 10) / 10,
       contrast: Math.round(Math.sqrt(Math.max(0, sl2 / n - mean * mean)) * 10) / 10,
-      saturation: Math.round((ss / n) * 1000) / 1000,
+      saturation: Math.round((ss / Math.max(1, sn)) * 1000) / 1000,
       colorfulness: Math.round(colorfulness * 10) / 10,
       darkPct: Math.round((dark / n) * 1000) / 10,
       brightPct: Math.round((bright / n) * 1000) / 10,
