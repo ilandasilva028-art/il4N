@@ -23,7 +23,7 @@ Numéros de suivi des cartes déjà attribués : 0001-0024 (billet), 0025-0051 (
 ## À faire (par ordre)
 1. ~~**Site** : corriger le tableau « Quel flyer choisir ? »~~ — **fait** : vérifié en ligne le 16/11/2026, le tableau affiche Start 21 € → 16 €, Pro 35 € → 28 €, Prestige 49 € → 39 €, comme les cartes.
 2. Publier le reel « Noël −20 % flyers » (légende dans `reels/2026-11-noel/LIVRAISON.md`) avant le 25/11 ; variante « offre de décembre » à prévoir après.
-3. Choisir la carte de visite et imprimer (planche A4 maison ou imprimeur).
+3. ~~Choisir la carte de visite~~ — **v7 « MAXI MAQUETTE » choisie (16/11)**, sans limite d'offre. Fichier final CMJN prêt : `studio/CLIENTS/IL4N-STUDIO/CARTES-VISITE/LIVRAISON/IL4N_maxi-maquette_v7_carte_print_CMJN.pdf`. **Reste : commander chez un imprimeur en ligne (Ilan).**
 4. Faire les 10 appels de prospection et remplir `suivi.csv` ; bilan après 10 jours (≥ 2 intéressés = on continue).
 
 ## Leçons techniques (à garder)

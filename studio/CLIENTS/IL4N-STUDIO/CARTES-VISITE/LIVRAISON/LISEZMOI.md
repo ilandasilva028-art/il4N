@@ -1,3 +1,20 @@
+# ✅ CARTE CHOISIE — v7 « MAXI MAQUETTE » (16/11/2026)
+Choix : la v7, celle qui se démarque le plus (aucun graphiste du coin ne fait une carte « ticket gagnant »),
+tout en restant une vraie carte de visite lisible (pas de grattage, pas de règlement). Limite de l'offre : **aucune**
+(chaque carte présentée = 1 maquette gratuite, sans obligation d'achat — à tenir pour chaque carte).
+
+**Fichier à envoyer à l'imprimeur en ligne : `IL4N_maxi-maquette_v7_carte_print_CMJN.pdf`**
+- 2 pages : page 1 = recto, page 2 = verso. Format fini **55 × 85 mm, portrait (vertical)**, fond perdu 3 mm inclus (61 × 91 mm).
+- Couleurs **CMJN** (taux d'encre max 240 %), textes fins du verso en noir pur (100 % K) pour rester nets, 100 % vectoriel,
+  polices incorporées, QR code testé → il4nstudio.netlify.app. Numéro affiché : « N° IL4N » (identique sur toutes les cartes).
+- Le violet est un peu moins vif en CMJN qu'à l'écran : c'est normal (aperçu fidèle : `IL4N_maxi-maquette_v7_CMJN_apercu.png`).
+- Si l'imprimeur accepte le RGB et que tu veux le violet le plus vif possible : `IL4N_maxi-maquette_v7_carte_print.pdf`.
+
+**À la commande, choisir :** carte de visite **recto-verso**, format **55 × 85 portrait** (parfois appelé « 85 × 55 vertical »),
+papier **mat 350 g** conseillé, quantité à ton choix. Vérifier sur sa fiche technique : fond perdu 3 mm et pas de traits de coupe (il n'y en a pas).
+Je n'ai pas de prix vérifié : compare 2-3 devis avant de payer. Rien n'est commandé.
+
+---
 # Livraison — IL4N STUDIO / Cartes de visite — v7 « MAXI MAQUETTE » carte de visite — 15/11/2026
 Statut : **BAT à valider par Ilan**. Preflight conforme (0 erreur, 0 avertissement), 100 % vectoriel, polices TrueType incorporées,
 QR code décodé = https://il4nstudio.netlify.app. Aucun chevauchement, rien hors zone de sécurité.
