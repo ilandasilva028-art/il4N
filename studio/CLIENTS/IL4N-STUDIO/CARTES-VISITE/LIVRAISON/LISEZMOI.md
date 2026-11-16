@@ -1,3 +1,22 @@
+# ⭐ NOUVELLE — v8 « LE BAT » (16/11/2026) — concept unique
+Statut : **BAT à valider par Ilan**. 85 × 55 mm horizontal, CMJN (encre max 240 %), 100 % vectoriel, polices TrueType incorporées,
+QR code testé → il4nstudio.netlify.app, tout dans la zone de sécurité (4 mm).
+
+**L'idée :** la carte raconte ta méthode. Recto = un « premier jet » (BAT n°1) corrigé au stylo rouge (« + GROS ! », « Trop sage. On ose ? »,
+« graphiste ~~→~~ & sites web ! », « appelle-moi »), avec repères de mise en page cyan et « TOURNE LA CARTE → ».
+Verso = la version finale sur fond nuit, tampon « VALIDÉ ✓ », accroche **« Vous validez avant de payer. »** (ton argument du site), coordonnées, QR.
+On retourne la carte = on voit l'avant/après. Aucun « tu as gagné », aucune promesse à tenir, aucun prix (rien à mettre à jour).
+Charte du site (nuit, papier, or) + rouge correction. Police manuscrite : Permanent Marker (licence Apache 2.0, usage commercial libre).
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_bat_v8_print_CMJN.pdf` | **Imprimeur en ligne** : 2 pages (recto, verso), 85 × 55 **horizontal**, fond perdu 3 mm. |
+| `IL4N_bat_v8_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+À la commande : carte de visite recto-verso, **85 × 55 paysage**, papier **mat 350 g** (le mat donne l'effet « papier de BAT »).
+Sources : `SOURCES/bat_recto_v8.html`, `SOURCES/bat_verso_v8.html` ; régénérer avec `bash SOURCES/build_v8.sh`.
+
+---
 # ✅ CARTE CHOISIE — v7 « MAXI MAQUETTE » (16/11/2026)
 Choix : la v7, celle qui se démarque le plus (aucun graphiste du coin ne fait une carte « ticket gagnant »),
 tout en restant une vraie carte de visite lisible (pas de grattage, pas de règlement). Limite de l'offre : **aucune**
