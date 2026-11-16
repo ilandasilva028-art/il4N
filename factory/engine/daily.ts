@@ -52,7 +52,7 @@ if (cmd === 'next') {
   const v = vision(visionId);
   const base = path.join(DIRS.projects, film);
   const versions = fs.readdirSync(base).filter((x) => /^v\d+$/.test(x));
-  const scored = versions.map((x) => ({ x, qc: readJson<QcReport>(path.join(base, x, 'qc.json')) })).sort((a, b) => b.qc.score - a.qc.score);
+  const scored = versions.map((x) => ({ x, qc: readJson<QcReport>(path.join(base, x, 'qc.json')) })).sort((a, b) => b.qc.score - a.qc.score || Number(b.x.slice(1)) - Number(a.x.slice(1))) // à score égal : la version la plus récente (corrigée);
   const best = scored[0];
   const date = today();
   const out = path.join(LIV, `${date}-${v.id}`);

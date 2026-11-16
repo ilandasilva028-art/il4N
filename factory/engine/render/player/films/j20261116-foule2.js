@@ -151,7 +151,7 @@ function jour63(ctx, tl) {
   }
   impactRing(ctx, 641, 1150, tl, 0.35, { r: 120, color: '#f1f1f1' });
   ctx.restore();
-  title(ctx, tl, tl < 1.45 ? [['JOUR ', '#f1f1f1'], ['63', RED], [' · ZÉRO ENVIE.', '#9a9a9c']] : [['5 MINUTES ', '#f1f1f1'], ['QUAND MÊME.', RED]], tl < 1.45 ? 0.05 : 1.45, 76);
+  title(ctx, tl, tl < 1.45 ? [['JOUR ', '#f1f1f1'], ['63', RED], [' · ZÉRO ENVIE.', '#9a9a9c']] : [['5 MINUTES ', '#f1f1f1'], ['QUAND MÊME.', RED]], tl < 1.45 ? 0.05 : 1.45, 62);
   tip(ctx, 2, 'JOURS SANS : 5 MINUTES.', tl, 1.55);
 }
 
