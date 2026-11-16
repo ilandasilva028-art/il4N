@@ -21,18 +21,21 @@ export async function produceFilm(j: FilmJob): Promise<{ final: string; qc: QcRe
   log?.info(`Rendu image du film « ${j.film} »…`);
   const r = await renderFilm(j.film, path.join(j.outDir, 'video.mp4'), { fps: j.fps ?? 30, crf: j.crf ?? 12, variant: j.variant, log, onProgress: (p) => log?.info(`rendu ${Math.round(p * 100)} %`) });
   log?.info(`${r.frames} images en ${r.seconds} s.`);
-  const m = r.music || { bpm: 120, mood: 'energique', dropAt: 2 };
+  // Sans musique (MUSIC = null dans le film) : bruitages seuls, plus bas (-16 LUFS) pour laisser la place
+  // au son que l'utilisateur ajoute dans TikTok.
+  const withMusic = !!r.music && r.music.mood !== 'none';
+  const target = withMusic ? -14 : -16;
   const music = path.join(j.outDir, 'music.wav'), sfx = path.join(j.outDir, 'sfx.wav'), mixed = path.join(j.outDir, 'mix.wav');
-  writeMusic(music, { durationSec: r.duration, bpm: m.bpm, mood: m.mood, dropAt: m.dropAt, breakAt: m.breakAt, backAt: m.backAt, seed: j.seed ?? 11 });
+  if (withMusic) writeMusic(music, { durationSec: r.duration, bpm: r.music.bpm, mood: r.music.mood, dropAt: r.music.dropAt, breakAt: r.music.breakAt, backAt: r.music.backAt, seed: j.seed ?? 11 });
   writeSfx(sfx, r.hits, r.duration);
-  const lv = await mix({ music, sfx, out: mixed, durationSec: r.duration, targetLufs: -14, truePeak: -1.5, musicDb: j.musicDb ?? 0, sfxDb: j.sfxDb ?? -3, voDb: 0 }, log);
+  const lv = await mix({ music: withMusic ? music : null, sfx, out: mixed, durationSec: r.duration, targetLufs: target, truePeak: -1.5, musicDb: j.musicDb ?? 0, sfxDb: withMusic ? (j.sfxDb ?? -3) : 0, voDb: 0 }, log);
   log?.info(`Mixage : ${lv.lufs} LUFS, crête ${lv.tp} dBTP.`);
   const final = path.join(j.outDir, 'final.mp4');
   await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', '-i', path.join(j.outDir, 'video.mp4'), '-i', mixed, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', final], { log });
-  const analysis = await analyzeVideo(final, path.join(j.outDir, 'analyse'), { log, transcribe: false });
+  const analysis = await analyzeVideo(final, path.join(j.outDir, 'analyse'), { log, transcribe: true });
   const ref = j.referenceAnalysis && fs.existsSync(j.referenceAnalysis) ? readJson<AnalysisReport>(j.referenceAnalysis) : null;
   writeJson(path.join(j.outDir, 'textes.json'), r.textLog);
-  const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: j.fps ?? 30 });
+  const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: j.fps ?? 30, hasMusic: withMusic, targetLufs: target });
   writeJson(path.join(j.outDir, 'qc.json'), qc);
   writeText(path.join(j.outDir, 'qc.md'), qcMarkdown(qc, j.film));
   return { final, qc, analysis };

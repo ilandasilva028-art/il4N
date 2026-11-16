@@ -237,4 +237,65 @@ export function endCard(ctx, tl, { teaser = 'LA RÈGLE DE DEMAIN', handle = null
   ctx.restore();
 }
 
+// ------------------------------------------------------------------ effets d'animation
+// Poussière à l'atterrissage / à l'impact : bouffées qui s'écartent et s'estompent (t0 = instant du contact).
+export function dust(ctx, x, y, tl, t0, { n = 9, spread = 160, color = '200,200,205', size = 1 } = {}) {
+  const k = prog(tl, t0, t0 + 0.6);
+  if (k <= 0 || k >= 1) return;
+  for (let i = 0; i < n; i++) {
+    const side = i % 2 ? 1 : -1, r = (0.4 + hash(i + t0 * 100) * 0.6);
+    const px = x + side * spread * r * ease.out(k), py = y - 30 * r * ease.out(k) - 10;
+    ctx.fillStyle = `rgba(${color},${(0.45 * (1 - k)).toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(px, py, (10 + 22 * r * k) * size, 0, Math.PI * 2); ctx.fill();
+  }
+}
+// Lignes de vitesse derrière un personnage qui court (dir = -1 : traînée à gauche).
+export function speedLines(ctx, x, y, tl, { dir = -1, alpha = 1, n = 6, len = 140 } = {}) {
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.strokeStyle = 'rgba(220,220,225,0.5)'; ctx.lineCap = 'round';
+  for (let i = 0; i < n; i++) {
+    const ph = (tl * 3 + hash(i)) % 1, yy = y - 250 + i * 50 + hash(i + 3) * 20;
+    ctx.lineWidth = 5 + hash(i + 9) * 5;
+    const x0 = x + dir * (60 + ph * 160);
+    ctx.globalAlpha = alpha * (1 - ph) * 0.8;
+    ctx.beginPath(); ctx.moveTo(x0, yy); ctx.lineTo(x0 + dir * len * (0.5 + hash(i + 5)), yy); ctx.stroke();
+  }
+  ctx.restore();
+}
+// Anneau d'impact qui s'élargit (choc, coche, explosion).
+export function impactRing(ctx, x, y, tl, t0, { r = 140, color = COLORS.red, width = 10 } = {}) {
+  const k = prog(tl, t0, t0 + 0.4);
+  if (k <= 0 || k >= 1) return;
+  ctx.save(); ctx.strokeStyle = color; ctx.globalAlpha = 1 - k; ctx.lineWidth = width * (1 - k) + 2;
+  ctx.beginPath(); ctx.arc(x, y, r * ease.out(k), 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+}
+// Texte cinétique : les mots arrivent un par un (glissement + fondu), couleurs par segment.
+export function kinetic(ctx, parts, y, size, tl, t0, { stagger = 0.07, rise = 34, k = 1 } = {}) {
+  const words = [];
+  for (const [s, c] of parts) for (const w of s.split(/(\s+)/)) if (w) words.push([w, c]);
+  ctx.save();
+  ctx.font = `900 ${size}px Display`; ctx.letterSpacing = '3px'; ctx.textBaseline = 'alphabetic';
+  const widths = words.map(([w]) => ctx.measureText(w).width);
+  let x = W / 2 - widths.reduce((a, b) => a + b, 0) / 2;
+  ctx.translate(W / 2, y); ctx.scale(k, k); ctx.translate(-W / 2, -y);
+  ctx.shadowColor = 'rgba(0,0,0,0.9)'; ctx.shadowBlur = 18;
+  const shown = [];
+  let wi = 0;
+  words.forEach(([w, c], i) => {
+    const isSpace = !w.trim();
+    const a = isSpace ? 1 : ease.out(prog(tl, t0 + wi * stagger, t0 + wi * stagger + 0.2));
+    if (!isSpace) { if (a >= 0.5) shown.push(w); wi++; }
+    if (a > 0) { ctx.globalAlpha = a; ctx.fillStyle = c; ctx.fillText(w, x, y + (1 - a) * rise); }
+    x += widths[i];
+  });
+  ctx.restore();
+  // On journalise la ligne entière dès qu'un mot est lisible : c'est la ligne que le spectateur lit.
+  if (shown.length) TEXTLOG.frame.push(words.map(([w]) => w).join('').trim());
+}
+// Pas synchronisés sur un cycle de marche : phase = (tl - t0) * cadence ; un pas à chaque demi-cycle.
+export function stepHits(t0, t1, cadence, gain = 0.6) {
+  const out = [];
+  for (let k = 1; t0 + k / (2 * cadence) < t1; k++) out.push({ t: t0 + k / (2 * cadence), sfx: 'step', gain: gain * (0.85 + 0.3 * hash(k)) });
+  return out;
+}
+
 export { drawStick, POSES, label, COLORS };

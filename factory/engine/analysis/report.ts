@@ -21,7 +21,7 @@ export interface StyleProfile {
   avgShotSec: number; cutsPerMinute: number; cutsFirst3s: number;
   palette: { hex: string; share: number; name: string }[]; meanLuma: number; meanContrast: number; meanSaturation: number;
   sharpness: number; motionEnergy: number; integratedLufs: number | null; truePeakDbtp: number | null;
-  tempoBpm: number | null; speechRateWpm: number | null; firstWordSec: number | null; hasVoice: boolean;
+  tempoBpm: number | null; speechRateWpm: number | null; firstWordSec: number | null; hasVoice: boolean | null;
 }
 export interface AnalysisReport {
   version: 1; createdAt: string; source: string; analysisSeconds: number;
@@ -123,7 +123,9 @@ export async function analyzeVideo(file: string, outDir: string, opts: { log?: L
     avgShotSec: scenes.avgShotSec, cutsPerMinute: scenes.cutsPerMinute, cutsFirst3s: scenes.cutsFirst3s,
     palette: color.palette, meanLuma: color.meanLuma, meanContrast: color.meanContrast, meanSaturation: color.meanSaturation,
     sharpness: sharpness.meanLaplacianVar, motionEnergy: motion.meanEnergy, integratedLufs: audio.integratedLufs, truePeakDbtp: audio.truePeakDbtp,
-    tempoBpm: audio.tempoConfidence >= 0.15 ? audio.tempoBpm : null, speechRateWpm: wpm, firstWordSec: firstWord, hasVoice: tr.ok ? tr.words.length > 3 : audio.pitch.voicedPct > 15,
+    tempoBpm: audio.tempoConfidence >= 0.15 ? audio.tempoBpm : null, speechRateWpm: wpm, firstWordSec: firstWord, // Sans transcription, la présence de voix n'est pas déterminable de façon fiable (les bruitages tonals
+    // ressemblent à de la voix pour un simple détecteur de hauteur) : null = non vérifiable.
+    hasVoice: tr.ok ? tr.words.length > 3 : (info.audio ? null : false),
   };
 
   const notMeasured = [

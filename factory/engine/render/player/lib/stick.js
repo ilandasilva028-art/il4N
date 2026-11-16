@@ -75,8 +75,15 @@ function shade(hex, k) {
 }
 
 // Dessine le bonhomme ; retourne la position du haut de la tête (pour poser une étiquette).
-export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0, eyes = false, t = 0, squash = 0 } = {}) {
+export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0, eyes = false, t = 0, squash = 0, ground = null } = {}) {
   const B = BODY;
+  if (ground !== null) {
+    // ombre portée au sol : plus petite et plus claire quand le personnage est en l'air
+    const feet = y + (B.thigh + B.shin) * scale, air = Math.max(0, Math.min(1, (ground - feet) / 320));
+    ctx.save(); ctx.globalAlpha *= alpha * 0.45 * (1 - air * 0.7);
+    ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(x, ground + 4, 95 * scale * (1 - air * 0.5), 16 * scale * (1 - air * 0.5), 0, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
   ctx.save();
   // squash > 0 : écrasé (atterrissage), < 0 : étiré (saut) ; volume conservé, ancré aux pieds
   const foot = (B.thigh + B.shin) * scale;

@@ -8,6 +8,7 @@ Le style de référence est mesuré dans `references/style-mentality.json` : enr
 ```bash
 cd factory
 npm ci                                   # dépendances Node (node_modules n'est pas versionné)
+npm run setup:python                     # Whisper : vérifie l'absence de voix (sinon point « non vérifiable »)
 export FACTORY_CHROMIUM=/opt/pw-browsers/chromium FACTORY_QUIET=1   # Chromium préinstallé du conteneur
 ```
 Sur le Mac : `npm run setup` (installe Chromium pour Playwright), puis la variable `FACTORY_CHROMIUM` est inutile.
@@ -26,7 +27,7 @@ Chaque vidéo doit **apprendre quelque chose de concret et applicable** : pas se
 - Alterner les formats : « N règles », « l'erreur que tout le monde fait », « avant / après », métaphore pure. Le format « règles » est le plus enregistré et partagé : au moins 3 vidéos sur 7.
 
 ## 1 ter. Règles de rétention (obligatoires depuis le 16/11/2026)
-Exemple de référence : `films/j20261116-systeme2.js`. Le contrôle qualité mesure désormais ces points grâce au journal des textes du rendu.
+Exemple de référence : `films/j20261116-systeme3.js`. Le contrôle qualité mesure désormais ces points grâce au journal des textes du rendu.
 1. **Accroche choc** :
    - mouvement fort dès l'image 0 : caméra qui « claque » (zoom 1,35 → 1), objet qui explose, chute, flash ;
    - **6 mots maximum** dans la 1,5 s, en deux lignes, avec le mot clé en rouge sur le 2ᵉ temps.
@@ -48,9 +49,36 @@ Exemple de référence : `films/j20261116-systeme2.js`. Le contrôle qualité me
    - après `deliver`, lancer `npx tsx engine/daily.ts variant <film> <visionId>`.
 8. Durée cible : 24 à 32 s.
 
+## 1 quater. Son : bruitages seulement (demande d'Ilan, 16/11/2026)
+- **Pas de musique** : `export const MUSIC = null;`. Ilan ajoute lui-même son son dans TikTok. La piste de bruitages est mixée à **−16 LUFS** pour laisser la place à sa musique.
+- **Chaque action a son bruit** (`HITS`) :
+  - `step` : pas, avec `stepHits(t0, t1, cadence)` calé sur le cycle de marche ;
+  - `thud` : chute, objet posé ;
+  - `impact` : coupe, choc ;
+  - `whoosh` / `swish` : mouvement rapide ;
+  - `pop` / `click` : apparition, case cochée ;
+  - `shatter` : éclat, explosion ;
+  - `door` : porte ;
+  - `alarm` : réveil ;
+  - `type` : machine à écrire ;
+  - `boing` : rebond ;
+  - `ding` : réussite ;
+  - `riser` : montée.
+- **Les coupes restent sur une grille de BPM** (124 dans les exemples). Indiquer le BPM dans le message de livraison : Ilan pourra choisir un son au même tempo (ou à la moitié).
+
+## 1 quinquies. Animation (demande d'Ilan, 16/11/2026)
+Modèle à suivre : **`films/j20261116-systeme3.js`**. Utiliser systématiquement :
+- **ombre au sol** (`ground: y` dans `drawStick`) dès qu'un personnage touche le sol ;
+- **poussière** (`dust`) à chaque atterrissage, chute ou objet posé ;
+- **anneau d'impact** (`impactRing`) sur les chocs et les moments clés ;
+- **lignes de vitesse** (`speedLines`) quand un personnage court ;
+- **écrasement et étirement** (`squash`) à l'atterrissage et en l'air, **yeux qui clignent** (`eyes`, `t`), bouche (`mouth`) pour l'émotion, respiration (`breathe`) sur les poses fixes ;
+- **texte cinétique** (`kinetic`) : les mots arrivent un par un, au lieu d'un bloc qui apparaît d'un coup ;
+- **caméra** (`camera`) : légère poussée sur les plans longs, claquement à l'image 0.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
-- **`films/j20261116-systeme2.js`** : le modèle actuel, à suivre en priorité ;
+- **`films/j20261116-systeme3.js`** : le modèle actuel, à suivre en priorité ;
 - `films/discipline.js` ;
 - `films/j20261116-telephone.js`.
 
@@ -75,7 +103,7 @@ Règles de style (mesurées sur la référence) :
   4. montage serré : un plan par temps, 6 à 8 plans, flash et zoom ;
   5. résolution plus la chute en 2 lignes, le mot clé en rouge ;
   6. dernier temps = image d'ouverture (la vidéo boucle).
-- **Musique** : `mood: 'sombre'`, BPM entre 118 et 130 (plage de la référence : 83-125 BPM, octave tolérée). Drop à la fin de l'accroche.
+- **Musique** : aucune, voir la section 1 quater. Les coupes restent calées sur une grille de 118 à 130 BPM.
 - **Sons** : un bruitage par accent visuel (`HITS` : impact, whoosh, pop, tick, riser, ding).
 - **Zone sûre** : rien d'important au-dessus de y = 250, sous y = 1490, ni à droite de x = 930.
 - **Textes** : en français, courts, sans fautes, sans chiffres inventés présentés comme des faits. Les compteurs de jours sont de la narration.
@@ -84,7 +112,7 @@ Règles de style (mesurées sur la référence) :
 ## 3. Produire et contrôler (3 itérations au maximum)
 `npx tsx engine/daily.ts produce <film> <visionId>`
 
-Cette commande enchaîne : rendu 1080×1920 30 i/s, musique originale, bruitages, mixage −14 LUFS, analyse, puis contrôle qualité (grille sur 100).
+Cette commande enchaîne : rendu 1080×1920 30 i/s, bruitages, mixage −16 LUFS (sans musique), analyse, puis contrôle qualité (grille sur 100).
 1. Lire les défauts et **regarder la planche contact** (`planche`) : lisibilité, chevauchements, personnages coupés, plans vides.
 2. Corriger dans le film et relancer `produce`.
 3. **Objectif : ≥ 90 % des points mesurables, et une planche contact propre.**

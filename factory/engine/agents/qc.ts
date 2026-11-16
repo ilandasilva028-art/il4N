@@ -28,7 +28,7 @@ export function textStats(log: TextFrameLog[], fps: number) {
   return { maxWords, maxAt, items, tooShort, hookWords };
 }
 
-export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, expect: { durationSec?: number; hasVoice?: boolean; textLog?: TextFrameLog[]; fps?: number } = {}): QcReport {
+export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, expect: { durationSec?: number; hasVoice?: boolean; textLog?: TextFrameLog[]; fps?: number; hasMusic?: boolean; targetLufs?: number } = {}): QcReport {
   const c: Check[] = [];
   const add = (criterion: string, item: string, max: number, k: number | null, measured: string, rule: string, fix?: string) =>
     c.push({ criterion, item, max, points: k === null ? null : Math.round(max * k * 10) / 10, measured, rule, fix });
@@ -55,7 +55,8 @@ export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, 
   add('Montage et fluidité', 'Coupes calées sur la musique', 3, out.audio.cutsOnBeatPct === null ? null : Math.min(1, out.audio.cutsOnBeatPct / Math.max(40, ref?.audio.cutsOnBeatPct ?? 40)), `${out.audio.cutsOnBeatPct ?? 'n/d'} % (réf. ${ref?.audio.cutsOnBeatPct ?? 'n/d'} %)`, '≥ max(40 %, référence)', 'caler les coupes sur les temps');
 
   // Audio et voix (15)
-  add('Audio et voix', 'Loudness −14 LUFS ±1', 5, out.audio.integratedLufs === null ? 0 : lin(Math.abs(out.audio.integratedLufs + 14), 1, 4), `${out.audio.integratedLufs} LUFS`, '−15 à −13 LUFS', 'renormaliser');
+  const tl = expect.targetLufs ?? -14;
+  add('Audio et voix', `Loudness ${tl} LUFS ±1`, 5, out.audio.integratedLufs === null ? 0 : lin(Math.abs(out.audio.integratedLufs - tl), 1, 4), `${out.audio.integratedLufs} LUFS`, `${tl - 1} à ${tl + 1} LUFS`, 'renormaliser');
   add('Audio et voix', 'Crête vraie ≤ −1 dBTP', 3, out.audio.truePeakDbtp === null ? 0 : out.audio.truePeakDbtp <= -0.9 ? 1 : 0, `${out.audio.truePeakDbtp} dBTP`, '≤ −1 dBTP', 'limiteur plus bas');
   // Tempo : comparé à la plage des tempos mesurés par fenêtres de 20 s sur la référence (octave ×2 / ×½ tolérée).
   const refT = (ref?.audio.tempoWindows || []).filter((w) => w.bpm && w.confidence >= 0.3).map((w) => w.bpm as number);
@@ -66,9 +67,15 @@ export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, 
     const dist = Math.min(...[1, 2, 0.5].map((m) => { const x = ot * m; return x >= lo && x <= hi ? 0 : Math.min(Math.abs(x - lo) / lo, Math.abs(x - hi) / hi); }));
     tempoK = lin(dist, 0, 0.2); refTxt = `${Math.round(Math.min(...refT))}–${Math.round(Math.max(...refT))}`;
   }
+  if (expect.hasMusic === false) {
+    // Bruitages seuls : chaque accent visuel doit avoir son son (≥ 1 attaque toutes les 1,5 s).
+    const d = out.audio.onsetsPerSec;
+    add('Audio et voix', 'Bruitages réguliers (sans musique)', 4, Math.min(1, d / 0.67), `${d} attaques/s`, '≥ 0,67 attaque/s', 'ajouter des bruitages aux accents visuels');
+  } else {
   add('Audio et voix', 'Tempo dans la plage de la référence', 4, tempoK, `${ot ?? 'n/d'} BPM (réf. ${refTxt})`, 'dans la plage ±6 % (octave tolérée)', 'changer le BPM');
+  }
   const wantVoice = expect.hasVoice ?? R?.hasVoice ?? false;
-  add('Audio et voix', wantVoice ? 'Voix présente' : 'Pas de voix (comme la référence)', 3, (out.style.hasVoice === wantVoice) ? 1 : 0, out.style.hasVoice ? 'voix détectée' : 'aucune voix', wantVoice ? 'voix attendue' : 'aucune voix attendue');
+  add('Audio et voix', wantVoice ? 'Voix présente' : 'Pas de voix (comme la référence)', 3, out.style.hasVoice === null ? null : (out.style.hasVoice === wantVoice) ? 1 : 0, out.style.hasVoice === null ? 'non vérifiable (Whisper absent : npm run setup:python)' : out.style.hasVoice ? 'voix détectée (Whisper)' : 'aucune voix (Whisper)', wantVoice ? 'voix attendue' : 'aucune voix attendue');
 
   // Narration et accroche (15)
   add('Narration et accroche', 'Ouverture au moins aussi animée que le reste', 4, Math.min(1, out.hook.motionFirst3sRatio / 1.0), `×${out.hook.motionFirst3sRatio}`, '≥ ×1,0', 'plus de mouvement dans les 3 premières secondes');
