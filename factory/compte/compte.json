@@ -1,0 +1,24 @@
+{
+ "nom": "Toi contre toi",
+ "handles": [
+  "toicontretoi",
+  "toi.contre.toi",
+  "toicontretoi.fr"
+ ],
+ "bio": "Pas de motivation. Un système.\nUne règle de discipline par jour 🔴",
+ "photo": "photo-profil-B.png",
+ "palette": {
+  "fond": "#050505",
+  "texte": "#f1f1f1",
+  "gris": "#8c8c8e",
+  "accent": "#e3342c"
+ },
+ "epingles": [
+  "livraisons/2026-11-16-systeme/systeme.mp4",
+  "livraisons/discipline/toi-contre-toi_v2.mp4",
+  "livraisons/2026-11-16-telephone/telephone.mp4"
+ ],
+ "hashtag_serie": "#toicontretoi",
+ "statut": "à créer par l'utilisateur — handle non vérifié",
+ "publie": false
+}
