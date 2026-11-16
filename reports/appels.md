@@ -71,3 +71,27 @@ Un seul message vocal, une seule relance. Sans réponse, on passe au suivant.
 | Pizza Folie's | 16/11/2026 | Pas intéressé | **Ne plus contacter** |
 | AGORA | | | |
 | Dames de Lune | | | |
+
+---
+
+## Lot 2 — infos en ligne incohérentes (16/11/2026)
+
+Angle : leurs horaires ou leurs infos ne sont pas les mêmes d'un site à l'autre. C'est un vrai problème pour leurs clients, et un site à jour + une fiche Google à jour le règlent.
+**Vérifier soi-même avant l'appel** (taper le nom sur Google) : la session n'a pas pu ouvrir leurs sites.
+
+| Entreprise | Ville | Numéro | Problème observé | Sources |
+|---|---|---|---|---|
+| Italia King | Carpentras | 04 90 37 36 70 | Horaires contradictoires : Provence Guide = midi et soir sauf lundi ; Facebook = du mercredi au dimanche ; autre fiche = soir seulement, fermé lundi et mardi | provenceguide.com, facebook.com/p/Italia-King-100063791103047, sluurpy |
+| Bistrot La Place | Carpentras | 04 90 61 37 54 | Horaires contradictoires : office de tourisme = du lundi au samedi, fermé dimanche ; Sluurpy = fermé samedi, ouvert dimanche | provence-alpes-cotedazur.com, sluurpy.fr |
+| La Petite Fontaine | Carpentras | 04 90 60 77 83 | Adresse différente selon les sites (13, 17 ou 13/17 place du Colonel Mouret) ; réservation uniquement par téléphone | provenceguide.com, tripaligner, keskeces |
+
+Script type :
+> Bonjour, je suis Ilan, je crée et je gère des sites web pour les commerces du coin, IL4N STUDIO, à Sarrians. Vous avez deux minutes ?
+> En cherchant vos horaires sur internet, je suis tombé sur des infos différentes selon les sites : [détail]. Du coup, un client peut se déplacer pour rien.
+> Je m'occupe justement de mettre à jour les sites et les fiches Google des commerces, pour que les infos soient les mêmes partout. Je peux vous montrer gratuitement ce que je ferais, sans engagement. Ça vous intéresse ?
+
+| Entreprise | Date | Résultat | Prochaine étape |
+|---|---|---|---|
+| Italia King | | | |
+| Bistrot La Place | | | |
+| La Petite Fontaine | | | |
