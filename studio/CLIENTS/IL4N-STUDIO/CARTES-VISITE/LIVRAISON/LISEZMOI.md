@@ -1,3 +1,21 @@
+# ⭐ v11 « CALENDRIER 2027 » A6 — recto « l'année en 365 points » (16/11/2026) — remplace la v10
+Demande d'Ilan : retravailler la partie noire pour qu'elle soit plus originale.
+- **Le fond nuit = l'année 2027 entière en 365 points** : 1 rangée = 1 mois (janvier en haut, décembre en bas), 1 point = 1 jour.
+  Points ton sur ton (presque invisibles de loin), dimanches un peu plus clairs, **les 11 jours fériés en or** (comme le point du logo il4n.).
+  Les fins de mois « dentelées » (28, 30, 31 jours) trahissent le calendrier quand on regarde de près.
+- Chaque ligne de texte est posée **entre deux rangées de points** ; les points qui touchent une lettre sont retirés (mesure au pixel),
+  et un contrôle bloque l'export si un jour férié était caché.
+- Légende discrète en bas : « 2027 en 365 points · ● jours fériés · calendrier au dos ». Verso inchangé (calendrier lisible A6).
+- Contrôles : CMJN, encre max 240 %, 100 % vectoriel, polices incorporées, QR testé, textes dans la zone de sécurité, aucun liseré.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_calendrier-A6_v11_print_CMJN.pdf` | **Imprimeur en ligne** : flyer A6 recto-verso, 148 × 105 mm paysage, fond perdu 3 mm. |
+| `IL4N_calendrier-A6_v11_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+Sources : `SOURCES/fond_points_v11.py` (génère le recto), `SOURCES/calendrier_v10.py` (verso) ; régénérer avec `bash SOURCES/build_v11.sh`.
+
+---
 # 📅 v10 « CALENDRIER 2027 » — FORMAT A6 (16/11/2026) — remplace la v9
 Retour d'Ilan sur la v9 (85 × 55) : **calendrier trop petit, illisible** (chiffres de 1,5 mm) et fond noir trop plat.
 - **Format A6 paysage 148 × 105 mm** (format standard « flyer A6 » / « carte postale » chez les imprimeurs) : chiffres ≈ 2,6 mm de haut, 1,8 × plus gros.
