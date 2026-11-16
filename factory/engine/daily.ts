@@ -46,7 +46,7 @@ if (cmd === 'next') {
   const n = fs.existsSync(base) ? fs.readdirSync(base).filter((x) => /^v\d+$/.test(x)).length + 1 : 1;
   if (n > 3) { console.log(JSON.stringify({ error: 'Maximum de 3 itérations atteint pour ce film : livrer la meilleure version ou demander une décision.' })); process.exit(2); }
   const r = await produceFilm({ film, outDir: path.join(base, `v${n}`), referenceAnalysis: REF, log });
-  console.log(JSON.stringify({ version: `v${n}`, score: r.qc.score, max: r.qc.measurableMax, pct: r.qc.scorePct, defauts: r.qc.defects.map((d) => `${d.severity} : ${d.item} (${d.measured})`), planche: path.join(base, `v${n}`, 'analyse', 'contact.jpg') }, null, 2));
+  console.log(JSON.stringify({ version: `v${n}`, score: r.qc.score, max: r.qc.measurableMax, pct: r.qc.scorePct, defauts: r.qc.defects.map((d) => `${d.severity} : ${d.item} (${d.measured})`), scenario: ((r.qc as any).scenario || []).filter((c: any) => !c.ok).map((c: any) => `à revoir : ${c.item} (${c.detail})`), planche: path.join(base, `v${n}`, 'analyse', 'contact.jpg') }, null, 2));
 } else if (cmd === 'deliver') {
   if (!film || !visionId) throw new Error('Usage : deliver <film> <visionId>');
   const v = vision(visionId);

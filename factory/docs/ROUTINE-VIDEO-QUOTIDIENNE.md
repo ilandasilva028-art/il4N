@@ -114,9 +114,23 @@ Modèle vitrine : **`films/j20261116-foule.js`**. Chaque vidéo doit avoir **au 
 - **Cadence** : `export const FPS = 60` (comme la référence). Le rendu est environ 2 fois plus long : compter 15 à 25 min dans le cloud.
 - **Sons d'ambiance** : `rain` (pluie, `len`) et `applause` (applaudissements, `len`), en plus des bruitages d'action.
 
+## 1 octies. Personnage, décors, scénario (demande d'Ilan, 16/11/2026)
+Modèle : **`films/j20261116-foule2.js`**.
+- **Le héros a une identité fixe** : `band: COLORS.red` (bandeau rouge), mains et chaussures, liseré de lumière (`rim: ±1`) du côté de la source. Il porte ce bandeau dans **toutes** les vidéos : c'est la mascotte du compte.
+- **Expressions** :
+  - `mouth` : `grit` (effort), `smirk` (sûr de lui), `open` (surprise), `sad`, `happy` ;
+  - `brows` : sourcils.
+- **Décors vivants**, jamais statiques :
+  - rue : néon qui grésille, voitures qui passent, flaques, vapeur ;
+  - chambre : pluie sur la vitre, poussière dans le rayon de lune, plante, cadre ;
+  - salle : sac de frappe qui se balance, miroir, poussière dans les projecteurs ;
+  - scène : rideaux, plancher, brume dans les faisceaux.
+- **Scénario** : écrire d'abord le `SCRIPT`, en suivant **`docs/SCENARIO.md`** (7 temps, dialogues en bulles avec `bubble()`, obstacle, retournement, chute qui rappelle l'accroche). `produce` affiche les points de méthode à revoir (champ `scenario`) : les corriger avant de livrer.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
-- **`films/j20261116-foule.js`** : le modèle actuel (décors, lumière, foules, 60 i/s), à suivre en priorité ;
+- **`films/j20261116-foule2.js`** : le modèle actuel (scénario 7 temps, héros au bandeau, décors vivants, bulles), à suivre en priorité ;
+- `films/j20261116-foule.js` : décors, lumière, foules, 60 i/s ;
 - `films/j20261116-systeme4.js` : modèle « règles numérotées » ;
 - `films/discipline.js` ;
 - `films/j20261116-telephone.js`.

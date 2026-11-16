@@ -32,7 +32,7 @@ export function servePlayer(): Promise<{ url: string; close: () => void }> {
 }
 
 export interface TextFrame { t: number; texts: string[] }
-export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any; textLog: TextFrame[]; fps: number }
+export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any; textLog: TextFrame[]; fps: number; script: any }
 
 export async function renderFilm(film: string, out: string, opts: { fps?: number; crf?: number; log?: Logger; onProgress?: (p: number) => void; from?: number; to?: number; variant?: string } = {}): Promise<RenderResult> {
   let fps = opts.fps ?? 30;
@@ -47,7 +47,7 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     await page.goto(`${srv.url}/index.html?film=${film}&render=1${opts.fps ? `&fps=${opts.fps}` : ''}&v=${opts.variant || 'a'}`);
     await page.waitForFunction('window.filmReady === true', null, { timeout: 60000 });
     const textLog: TextFrame[] = [];
-    const meta = await page.evaluate('({ d: window.DURATION, hits: window.HITS, music: window.MUSIC, fps: window.FPS })') as { d: number; hits: any[]; music: any; fps: number | null };
+    const meta = await page.evaluate('({ d: window.DURATION, hits: window.HITS, music: window.MUSIC, fps: window.FPS, script: window.SCRIPT })') as { d: number; hits: any[]; music: any; fps: number | null; script: any };
     // Le film peut imposer sa cadence (ex. FPS = 60, comme la référence) sauf si l'appelant la force.
     if (opts.fps === undefined && meta.fps) fps = meta.fps;
     const from = opts.from ?? 0, to = Math.min(opts.to ?? meta.d, meta.d);
@@ -69,7 +69,7 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     }
     ff.stdin.end();
     await done;
-    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music, textLog, fps };
+    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music, textLog, fps, script: meta.script };
   } finally {
     await browser.close();
     srv.close();

@@ -65,7 +65,14 @@ function limb(ctx, x, y, a1, l1, a2, l2, w, face) {
   const x2 = x1 + Math.sin((a1 + a2) * D) * l2 * face, y2 = y1 + Math.cos((a1 + a2) * D) * l2;
   ctx.lineWidth = w;
   ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-  return [x2, y2];
+  return [x2, y2, (a1 + a2) * D];
+}
+// Main : petite boule au bout de l'avant-bras. Pied : chaussure arrondie orientée vers l'avant.
+function hand(ctx, p, w) { ctx.beginPath(); ctx.arc(p[0], p[1], w * 0.62, 0, Math.PI * 2); ctx.fill(); }
+function shoe(ctx, p, w, face) {
+  ctx.save(); ctx.translate(p[0], p[1]);
+  ctx.beginPath(); ctx.ellipse(face * w * 0.42, w * 0.18, w * 0.95, w * 0.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
 }
 
 function shade(hex, k) {
@@ -75,7 +82,7 @@ function shade(hex, k) {
 }
 
 // Dessine le bonhomme ; retourne la position du haut de la tête (pour poser une étiquette).
-export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0, eyes = false, t = 0, squash = 0, ground = null } = {}) {
+export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0, eyes = false, t = 0, squash = 0, ground = null, hands = true, feet = true, band = null, rim = 0 } = {}) {
   const B = BODY;
   if (ground !== null) {
     // ombre portée au sol : plus petite et plus claire quand le personnage est en l'air
@@ -96,9 +103,11 @@ export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, sca
   const sx = nx * 0.9, sy = ny * 0.9;
   const back = shade(color, 0.78);
   // membres arrière
-  ctx.strokeStyle = back;
-  limb(ctx, sx, sy, pose.armB[0] + pose.lean, B.upper, pose.armB[1], B.fore, B.wArm, face);
-  limb(ctx, 0, 0, pose.legB[0], B.thigh, pose.legB[1], B.shin, B.wLeg, face);
+  ctx.strokeStyle = back; ctx.fillStyle = back;
+  const hB = limb(ctx, sx, sy, pose.armB[0] + pose.lean, B.upper, pose.armB[1], B.fore, B.wArm, face);
+  const fB = limb(ctx, 0, 0, pose.legB[0], B.thigh, pose.legB[1], B.shin, B.wLeg, face);
+  if (hands) hand(ctx, hB, B.wArm);
+  if (feet) shoe(ctx, fB, B.wLeg, face);
   // tronc
   ctx.strokeStyle = color; ctx.lineWidth = B.wTorso;
   ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(nx, ny); ctx.stroke();
@@ -116,16 +125,38 @@ export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, sca
       else { ctx.beginPath(); ctx.ellipse(hx + dx * face, hy - 6, 4.5, 7, 0, 0, Math.PI * 2); ctx.fill(); }
     }
   }
+  if (band) {
+    // bandeau (signe distinctif du héros) : bande sur le front + deux pans qui flottent derrière
+    ctx.save(); ctx.beginPath(); ctx.arc(hx, hy, B.head, 0, Math.PI * 2); ctx.clip();
+    ctx.fillStyle = band; ctx.fillRect(hx - B.head, hy - B.head * 0.62, B.head * 2, B.head * 0.36); ctx.restore();
+    ctx.strokeStyle = band; ctx.lineWidth = 9; ctx.lineCap = 'round';
+    const kx = hx - face * B.head * 0.9, ky = hy - B.head * 0.45, wv = Math.sin(t * 9) * 8;
+    for (const [len, dy] of [[46, -4], [38, 10]]) { ctx.beginPath(); ctx.moveTo(kx, ky); ctx.quadraticCurveTo(kx - face * len * 0.5, ky + dy + wv, kx - face * len, ky + dy * 2 - wv); ctx.stroke(); }
+  }
   if (mouth) {
-    ctx.strokeStyle = '#111'; ctx.lineWidth = 5; ctx.beginPath();
-    if (mouth === 'sad') ctx.arc(hx + 8 * face, hy + 22, 12, Math.PI * 1.15, Math.PI * 1.85);
-    else ctx.arc(hx + 8 * face, hy + 4, 12, Math.PI * 0.15, Math.PI * 0.85);
-    ctx.stroke();
+    ctx.strokeStyle = '#111'; ctx.fillStyle = '#111'; ctx.lineWidth = 5; ctx.beginPath();
+    const mx = hx + 14 * face, my = hy + 16;
+    if (mouth === 'sad') { ctx.arc(mx, my + 8, 11, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke(); }
+    else if (mouth === 'open') { ctx.ellipse(mx, my, 7, 10, 0, 0, Math.PI * 2); ctx.fill(); }          // surprise / cri
+    else if (mouth === 'grit') { ctx.moveTo(mx - 10, my); ctx.lineTo(mx + 10, my); ctx.stroke(); } // effort, dents serrées
+    else if (mouth === 'smirk') { ctx.moveTo(mx - 9, my + 2); ctx.quadraticCurveTo(mx + 2, my + 4, mx + 11, my - 4); ctx.stroke(); }
+    else { ctx.arc(mx, my - 6, 12, Math.PI * 0.15, Math.PI * 0.85); ctx.stroke(); }
   }
   // membres avant
-  ctx.strokeStyle = color;
-  limb(ctx, 0, 0, pose.legF[0], B.thigh, pose.legF[1], B.shin, B.wLeg, face);
-  limb(ctx, sx, sy, pose.armF[0] + pose.lean, B.upper, pose.armF[1], B.fore, B.wArm, face);
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  const fF = limb(ctx, 0, 0, pose.legF[0], B.thigh, pose.legF[1], B.shin, B.wLeg, face);
+  if (feet) shoe(ctx, fF, B.wLeg, face);
+  const hF = limb(ctx, sx, sy, pose.armF[0] + pose.lean, B.upper, pose.armF[1], B.fore, B.wArm, face);
+  if (hands) hand(ctx, hF, B.wArm);
+  if (rim) {
+    // liseré de lumière du côté de la source (rim = -1 : lumière à gauche, +1 : à droite)
+    ctx.save();
+    ctx.strokeStyle = `rgba(255,255,255,${0.55 * Math.abs(rim)})`; ctx.lineWidth = 7;
+    ctx.beginPath(); ctx.arc(hx, hy, B.head - 3, rim > 0 ? -Math.PI / 2.2 : Math.PI / 1.8, rim > 0 ? Math.PI / 2.4 : Math.PI * 1.45); ctx.stroke();
+    const off = Math.sign(rim) * (B.wTorso / 2 - 4);
+    ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(off, 0); ctx.lineTo(nx + off, ny + 10); ctx.stroke();
+    ctx.restore();
+  }
   ctx.restore();
   return { headX: x + hx * scale, headY: y + (hy - B.head) * scale };
 }

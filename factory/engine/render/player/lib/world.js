@@ -87,6 +87,63 @@ export function reflect(ctx, ground, drawFn, a = 0.18) {
   drawFn(ctx); ctx.restore();
 }
 
+// Poussière en suspension dans un faisceau (polygone approximé par un rectangle incliné).
+export function motes(ctx, t, { x = 540, y = 600, w = 400, h = 700, n = 40, skew = 0, a = 0.5, seed = 1 } = {}) {
+  for (let i = 0; i < n; i++) {
+    const u = hash(seed * 50 + i), v = (hash(seed * 70 + i) + t * (0.02 + 0.04 * hash(i + 3))) % 1;
+    const px = x - w / 2 + u * w + skew * v + Math.sin(t * 0.8 + i) * 12, py = y + v * h;
+    const tw = 0.5 + 0.5 * Math.sin(t * 2 + i * 1.7);
+    ctx.fillStyle = `rgba(255,255,255,${(a * tw * (0.3 + 0.7 * hash(i + 9))).toFixed(3)})`;
+    ctx.fillRect(px, py, 3, 3);
+  }
+}
+// Enseigne néon qui grésille (accent rouge).
+export function neon(ctx, text, x, y, t, { size = 46, color = '227,52,44', seed = 1 } = {}) {
+  const flick = hash(Math.floor(t * 12) + seed * 100) > 0.93 ? 0.25 : 1;
+  ctx.save(); ctx.font = `900 ${size}px Display`; ctx.textAlign = 'center'; ctx.letterSpacing = '4px';
+  ctx.shadowColor = `rgba(${color},${0.9 * flick})`; ctx.shadowBlur = 30;
+  ctx.fillStyle = `rgba(${color},${flick})`; ctx.fillText(text, x, y);
+  ctx.shadowBlur = 0; ctx.fillStyle = `rgba(255,230,230,${0.6 * flick})`; ctx.fillText(text, x, y);
+  ctx.restore();
+  glow(ctx, x, y - size / 3, size * 4, color, 0.12 * flick);
+}
+// Bulle de dialogue (logguée pour le contrôle de lisibilité via le callback log).
+export function bubble(ctx, text, x, y, tl, t0, { tail = 'down', dx = 0, size = 38, dark = false, log = null } = {}) {
+  const k = Math.min(1, Math.max(0, (tl - t0) / 0.22));
+  if (k <= 0) return;
+  const e = 1 + 2.7 * (k - 1) ** 3 + 1.7 * (k - 1) ** 2;
+  // Projection du point d'ancrage à l'écran : la bulle garde une taille fixe (lisible même en plan serré)
+  // et reste dans la zone sûre ; seule la pointe vise le personnage.
+  const p = ctx.getTransform().transformPoint(new DOMPoint(x + dx, y));
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.font = `900 ${size}px Display`; ctx.letterSpacing = '1px';
+  const w = ctx.measureText(text).width + 56, h = size + 40;
+  const bx = Math.min(Math.max(p.x, 72 + w / 2), 930 - w / 2), by = Math.min(Math.max(p.y, 300 + h), 1480);
+  const tx = Math.max(-w / 2 + 30, Math.min(w / 2 - 30, p.x - bx));
+  ctx.translate(bx, by); ctx.scale(e, e);
+  ctx.fillStyle = dark ? '#1c1c21' : '#f4f4f4'; ctx.strokeStyle = dark ? '#f4f4f4' : '#111'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.roundRect(-w / 2, -h, w, h, 22);
+  ctx.moveTo(tx - 14, 0); ctx.lineTo(tx + (tail === 'down' ? -12 : 12), 30); ctx.lineTo(tx + 14, 0);
+  ctx.fill(); ctx.stroke();
+  ctx.fillStyle = dark ? '#f4f4f4' : '#111'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 0, -h / 2 + 2);
+  ctx.restore();
+  if (log && k >= 0.6) log(text);
+}
+// Effet « rembobinage » (VHS) : lignes, décalages horizontaux, icône ◀◀ et horodatage.
+export function rewind(ctx, t, k = 1) {
+  ctx.save();
+  for (let y = 0; y < H; y += 6) { ctx.fillStyle = `rgba(0,0,0,${0.22 * k})`; ctx.fillRect(0, y, W, 2); }
+  for (let i = 0; i < 6; i++) {
+    const y = (hash(Math.floor(t * 30) + i * 7) * H) | 0, h = 20 + hash(i + Math.floor(t * 30)) * 60;
+    const img = ctx.getImageData(0, y, W, Math.min(h, H - y));
+    ctx.putImageData(img, (hash(i * 3 + Math.floor(t * 30)) - 0.5) * 80 * k, y);
+  }
+  ctx.globalAlpha = k; ctx.fillStyle = '#f1f1f1';
+  ctx.beginPath(); for (const ox of [0, 46]) { ctx.moveTo(130 + ox, 300); ctx.lineTo(90 + ox, 325); ctx.lineTo(130 + ox, 350); } ctx.fill();
+  ctx.font = '700 36px Display'; ctx.fillText('REW', 200, 338);
+  ctx.restore();
+}
+
 // ------------------------------------------------------------------ décors complets
 export function bedroom(ctx, t, { night = true, alarm = null } = {}) {
   const wall = cached('bedroomWall', W, H, (g) => {
@@ -103,10 +160,27 @@ export function bedroom(ctx, t, { night = true, alarm = null } = {}) {
     g.fillStyle = '#22232a'; g.fillRect(80, 1160, 470, 140); g.fillStyle = '#2e3038'; g.fillRect(80, 1130, 470, 50); g.fillStyle = '#3c3e48'; g.fillRect(100, 1100, 140, 46);
     g.fillStyle = '#1a1b20'; g.fillRect(80, 1040, 26, 260);
     g.fillStyle = '#26272e'; g.fillRect(580, 1180, 120, 120);
+    // rideaux
+    g.fillStyle = '#1b1c24'; g.fillRect(585, 500, 40, 520); g.fillRect(945, 500, 40, 520);
+    for (const x0 of [585, 945]) for (let k = 0; k < 4; k++) { g.fillStyle = 'rgba(255,255,255,0.03)'; g.fillRect(x0 + 6 + k * 9, 500, 3, 520); }
+    // cadre au mur (photo floue d'une montagne : l'objectif)
+    g.fillStyle = '#23242c'; g.fillRect(180, 640, 230, 170); g.fillStyle = '#2f313b'; g.fillRect(194, 654, 202, 142);
+    g.fillStyle = '#3d404c'; g.beginPath(); g.moveTo(200, 790); g.lineTo(280, 690); g.lineTo(330, 745); g.lineTo(360, 715); g.lineTo(392, 790); g.fill();
+    // plante
+    g.fillStyle = '#26272e'; g.fillRect(960, 1220, 70, 80);
+    for (let k = 0; k < 7; k++) { g.save(); g.translate(995, 1222); g.rotate(-1.1 + k * 0.36); g.fillStyle = '#2b3b33'; g.beginPath(); g.ellipse(0, -60, 16, 60, 0, 0, Math.PI * 2); g.fill(); g.restore(); }
+    // tapis
+    g.fillStyle = '#1b1b21'; g.beginPath(); g.ellipse(720, 1420, 330, 50, 0, 0, Math.PI * 2); g.fill();
   });
   ctx.drawImage(wall, 0, 0);
-  // lumière froide de la fenêtre au sol
+  // pluie sur la vitre
+  if (night) for (let i = 0; i < 14; i++) {
+    const x = 632 + hash(i) * 305, v = (hash(i + 20) + t * (0.15 + hash(i + 40) * 0.2)) % 1, y = 530 + v * 440;
+    ctx.fillStyle = 'rgba(180,200,240,0.35)'; ctx.fillRect(x, y, 3, 14); ctx.fillStyle = 'rgba(180,200,240,0.12)'; ctx.fillRect(x + 1, y - 40, 1, 40);
+  }
+  // lumière froide de la fenêtre au sol + poussière dans le faisceau
   ctx.fillStyle = 'rgba(140,160,220,0.07)'; ctx.beginPath(); ctx.moveTo(620, 990); ctx.lineTo(950, 990); ctx.lineTo(1020, 1460); ctx.lineTo(560, 1460); ctx.fill();
+  motes(ctx, t, { x: 790, y: 980, w: 330, h: 460, n: 26, skew: 60, a: 0.45, seed: 2 });
   // réveil à LED rouge
   if (alarm) {
     const on = alarm.blink ? Math.floor(t * 4) % 2 === 0 : true;
@@ -125,17 +199,44 @@ export function gym(ctx, t) {
     g.fillStyle = '#2a2a30'; g.fillRect(700, 1060, 300, 16); g.fillRect(720, 1076, 14, 224); g.fillRect(966, 1076, 14, 224);
     for (let i = 0; i < 5; i++) { g.fillStyle = '#3a3a42'; g.beginPath(); g.arc(750 + i * 52, 1040, 20 + i * 2, 0, 7); g.fill(); }
     g.fillStyle = '#d0d0d4'; g.font = '900 64px Display'; g.globalAlpha = 0.06; g.fillText('NO EXCUSES', 80, 640); g.globalAlpha = 1;
+    // miroir (reflet sombre) + disques au sol + tapis de sol
+    g.fillStyle = '#121218'; g.fillRect(60, 760, 300, 440); g.strokeStyle = '#2a2a30'; g.lineWidth = 10; g.strokeRect(60, 760, 300, 440);
+    g.fillStyle = 'rgba(255,255,255,0.04)'; g.beginPath(); g.moveTo(80, 780); g.lineTo(170, 780); g.lineTo(90, 1180); g.lineTo(80, 1180); g.fill();
+    for (let i = 0; i < 3; i++) { g.fillStyle = '#26262c'; g.beginPath(); g.ellipse(840 + i * 26, 1288 - i * 4, 18, 60, 0, 0, Math.PI * 2); g.fill(); }
+    g.fillStyle = '#18181d'; g.fillRect(330, 1302, 420, 22);
   });
   ctx.drawImage(bgc, 0, 0);
+  // sac de frappe qui se balance doucement
+  const sw = Math.sin(t * 1.6) * 0.05;
+  ctx.save(); ctx.translate(980, 420); ctx.rotate(sw);
+  ctx.strokeStyle = '#4a4a52'; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, 140); ctx.stroke();
+  ctx.fillStyle = '#5a1f1c'; ctx.beginPath(); ctx.roundRect(-48, 140, 96, 300, 30); ctx.fill();
+  ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.fillRect(-48, 200, 96, 10); ctx.fillRect(-48, 370, 96, 10);
+  ctx.restore();
   for (const x of [270, 810]) lightCone(ctx, x, 250, 1300, 520, { a: 0.07 + 0.01 * Math.sin(t * 50 + x) });
+  motes(ctx, t, { x: 270, y: 300, w: 300, h: 950, n: 22, a: 0.35, seed: 5 });
+  motes(ctx, t, { x: 810, y: 300, w: 300, h: 950, n: 22, a: 0.35, seed: 6 });
 }
 
-export function stage(ctx, t, { on = 1 } = {}) {
+export function stage(ctx, t, { on = 1, sweep = 20 } = {}) {
   skyGrad(ctx, '#040406', '#0b0b10');
-  ctx.fillStyle = '#121216'; ctx.fillRect(0, 1300, W, 620);
+  // rideaux de scène (plis) + lambrequin
+  const cur = cached('curtains', W, 1320, (g) => {
+    for (const [x0, x1] of [[0, 170], [910, W]]) for (let x = x0; x < x1; x += 34) {
+      const gr = g.createLinearGradient(x, 0, x + 34, 0); gr.addColorStop(0, '#1a0c0d'); gr.addColorStop(0.5, '#331416'); gr.addColorStop(1, '#1a0c0d');
+      g.fillStyle = gr; g.fillRect(x, 0, 34, 1320);
+    }
+    g.fillStyle = '#2a1112'; for (let x = 0; x < W; x += 90) { g.beginPath(); g.ellipse(x + 45, 150, 60, 70, 0, 0, Math.PI); g.fill(); }
+    g.fillRect(0, 0, W, 150);
+  });
+  ctx.drawImage(cur, 0, 0);
+  // plancher en lames avec reflets
+  ctx.fillStyle = '#151317'; ctx.fillRect(0, 1300, W, 620);
+  for (let y = 1300; y < H; y += 34) { ctx.fillStyle = 'rgba(255,255,255,0.025)'; ctx.fillRect(0, y, W, 2); }
   ctx.fillStyle = '#1d1d23'; ctx.fillRect(0, 1300, W, 18);
-  for (const [x, sk] of [[180, 220], [540, 0], [900, -220]]) lightCone(ctx, x, 200, 1300, 360, { a: 0.12 * on, wTop: 30, skew: sk + Math.sin(t * 0.7 + x) * 20 });
+  for (const [x, sk] of [[180, 220], [540, 0], [900, -220]]) lightCone(ctx, x, 200, 1300, 360, { a: 0.12 * on, wTop: 30, skew: sk + Math.sin(t * (sweep > 20 ? 1.6 : 0.7) + x) * sweep });
   glow(ctx, 540, 1290, 380, '255,255,255', 0.18 * on);
+  motes(ctx, t, { x: 540, y: 220, w: 500, h: 1080, n: 50, a: 0.4 * on, seed: 8 });
 }
 
 export function street(ctx, camX, t, { wet = true } = {}) {
@@ -156,6 +257,63 @@ export function street(ctx, camX, t, { wet = true } = {}) {
   // bande de trottoir
   ctx.fillStyle = 'rgba(255,255,255,0.04)';
   for (let x = -((camX % 140) + 140) % 140; x < W; x += 140) ctx.fillRect(x, 1340, 70, 6);
+  // enseigne néon sur une façade (parallaxe 0,7)
+  for (let k = Math.floor((camX * 0.7 - 400) / 1400); k < Math.floor((camX * 0.7 + W) / 1400) + 1; k++) {
+    const x = k * 1400 - camX * 0.7 + 700;
+    ctx.fillStyle = '#121318'; ctx.fillRect(x - 170, 840, 340, 120);
+    neon(ctx, 'OUVERT 24H', x, 920, t, { size: 44, seed: k + 3 });
+  }
+  // flaques qui reflètent les réverbères
+  if (wet) for (let k = Math.floor((camX - 300) / 460); k < Math.floor((camX + W) / 460) + 2; k++) {
+    const x = k * 460 - camX + 260 + hash(k) * 80, w = 120 + hash(k + 9) * 140;
+    ctx.save(); ctx.translate(x, 1395 + hash(k + 4) * 60); ctx.scale(1, 0.16);
+    ctx.fillStyle = 'rgba(40,44,58,0.9)'; ctx.beginPath(); ctx.arc(0, 0, w, 0, Math.PI * 2); ctx.fill();
+    glow(ctx, 0, 0, w * 0.9, '255,220,170', 0.22 + 0.05 * Math.sin(t * 3 + k));
+    ctx.restore();
+  }
+  // voiture qui passe au loin : phares qui balaient la rue toutes les ~6 s
+  const ph = (t % 6) / 6;
+  if (ph < 0.35) {
+    const cx = -300 + ph / 0.35 * (W + 600);
+    ctx.fillStyle = '#0d0e12'; ctx.beginPath(); ctx.roundRect(cx - 150, 1215, 300, 70, 20); ctx.fill(); ctx.beginPath(); ctx.roundRect(cx - 90, 1170, 170, 60, 20); ctx.fill();
+    glow(ctx, cx + 150, 1250, 260, '255,245,220', 0.35); glow(ctx, cx - 150, 1250, 60, '227,52,44', 0.5);
+    lightCone(ctx, cx + 300, 1250, 1320, 420, { color: '255,245,220', a: 0.07, wTop: 20 });
+  }
+  // vapeur d'une bouche d'égout
+  for (let i = 0; i < 8; i++) {
+    const v = (t * 0.25 + i / 8) % 1, x = 640 - camX * 1 % 2000 + 900 + Math.sin(t + i) * 30 + v * 40;
+    const xx = ((x % (W + 400)) + W + 400) % (W + 400) - 200;
+    ctx.fillStyle = `rgba(200,205,215,${(0.08 * (1 - v)).toFixed(3)})`; ctx.beginPath(); ctx.arc(xx, 1300 - v * 300, 40 + v * 90, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+// Confettis (Matter.js) : feuilles qui tombent en voletant (forte résistance de l'air).
+export function confettiBake({ n = 40, seed = 4, duration = 6, colors = ['#f1f1f1', '#e3342c', '#9a9a9c'] } = {}) {
+  const M = globalThis.Matter; let s = seed;
+  const rnd = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+  const engine = M.Engine.create(); engine.gravity.y = 0.35;
+  const items = Array.from({ length: n }, (_, i) => {
+    const w = 14 + rnd() * 12, h = 8 + rnd() * 6;
+    const body = M.Bodies.rectangle(rnd() * W, -40 - rnd() * 900, w, h, { frictionAir: 0.045 + rnd() * 0.03 });
+    M.Body.setVelocity(body, { x: (rnd() - 0.5) * 6, y: rnd() * 2 }); M.Body.setAngularVelocity(body, (rnd() - 0.5) * 0.4);
+    return { body, w, h, color: colors[i % colors.length], ph: rnd() * 6 };
+  });
+  M.Composite.add(engine.world, items.map((i) => i.body));
+  const fps = 60, N = Math.ceil(duration * fps), frames = [];
+  for (let f = 0; f <= N; f++) {
+    // voletage : petite force latérale sinusoïdale, propre à chaque feuille
+    items.forEach((it) => M.Body.applyForce(it.body, it.body.position, { x: Math.sin(f / 9 + it.ph) * 0.00004 * it.w, y: 0 }));
+    frames.push(items.map((it) => [it.body.position.x, it.body.position.y, it.body.angle]));
+    M.Engine.update(engine, 1000 / fps);
+  }
+  return { at(t) { const fr = frames[Math.min(N, Math.max(0, Math.round(t * fps)))]; return items.map((it, k) => ({ x: fr[k][0], y: fr[k][1], a: fr[k][2], item: it })); } };
+}
+export function drawConfetti(ctx, frame) {
+  for (const p of frame) {
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.scale(1, Math.cos(p.a * 3)); // retournement de la feuille
+    ctx.fillStyle = p.item.color; ctx.fillRect(-p.item.w / 2, -p.item.h / 2, p.item.w, p.item.h);
+    ctx.restore();
+  }
 }
 
 // ------------------------------------------------------------------ personnages

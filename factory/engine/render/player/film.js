@@ -27,6 +27,7 @@ window.seek = (t) => {
 };
 window.DURATION = mod.DURATION;
 window.FPS = mod.FPS || null;
+window.SCRIPT = mod.SCRIPT || null;
 window.HITS = mod.HITS || [];
 window.MUSIC = mod.MUSIC || null;
 window.seek(0);

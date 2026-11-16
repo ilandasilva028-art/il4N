@@ -75,3 +75,12 @@ test('cinématique inverse : le pied atteint exactement la cible', async () => {
   const footX = (g: any) => { const [a1, a2] = g.pose.legF; return g.x + Math.sin(a1 * D) * 80 + Math.sin((a1 + a2) * D) * 78; };
   if (g1.plantedF && g2.plantedF) assert.ok(Math.abs(footX(g1) - footX(g2)) < 1.5, 'le pied ne glisse pas');
 });
+
+test('contrôle de scénario : repère ce qui manque', async () => {
+  const { checkScript } = await import('../engine/agents/scriptCheck.ts');
+  const good = checkScript({ accroche: ['JOUR 180.', 'ILS APPLAUDISSENT.'], structure: ['ouverture', 'conflit', 'obstacle', 'chute'], dialogues: ['TOI ? SPORTIF ?', 'J’AI PAS ARRÊTÉ.'], conseils: ['NOTE CHAQUE SÉANCE.', 'JOURS SANS : 5 MINUTES.'], details: ['5 H 00', 'JOUR 63', 'banc'], chute: ['LAISSE-LES RIRE.', 'CONTINUE.'] });
+  assert.ok(good.every((c) => c.ok), good.filter((c) => !c.ok).map((c) => c.item).join(', '));
+  const bad = checkScript({ accroche: ['Il faut toujours être motivé chaque jour de sa vie'], structure: ['chute'], chute: ['Bravo'] });
+  assert.ok(bad.filter((c) => !c.ok).length >= 5);
+  assert.equal(checkScript(null)[0].ok, false);
+});

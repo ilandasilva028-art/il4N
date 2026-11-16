@@ -11,6 +11,7 @@ import { TOOLS } from '../core/config.ts';
 import { analyzeVideo, type AnalysisReport } from '../analysis/report.ts';
 import { qualityControl, qcMarkdown, type QcReport } from '../agents/qc.ts';
 import { readJson, writeJson, writeText } from '../core/store.ts';
+import { checkScript, scriptMarkdown } from '../agents/scriptCheck.ts';
 import type { Logger } from '../core/log.ts';
 
 export interface FilmJob { variant?: string; film: string; outDir: string; referenceAnalysis?: string; fps?: number; crf?: number; seed?: number; musicDb?: number; sfxDb?: number; log?: Logger }
@@ -37,6 +38,9 @@ export async function produceFilm(j: FilmJob): Promise<{ final: string; qc: QcRe
   writeJson(path.join(j.outDir, 'textes.json'), r.textLog);
   const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: r.fps, hasMusic: withMusic, targetLufs: target });
   writeJson(path.join(j.outDir, 'qc.json'), qc);
-  writeText(path.join(j.outDir, 'qc.md'), qcMarkdown(qc, j.film));
+  const sc = checkScript(r.script);
+  writeJson(path.join(j.outDir, 'scenario.json'), { script: r.script, checks: sc });
+  writeText(path.join(j.outDir, 'qc.md'), qcMarkdown(qc, j.film) + '\n' + scriptMarkdown(sc));
+  (qc as any).scenario = sc;
   return { final, qc, analysis };
 }
