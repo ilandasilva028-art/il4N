@@ -70,7 +70,7 @@ if (cmd === 'next') {
     `- Fichier : \`${v.id}.mp4\` (${dur}) · couverture : \`couverture.jpg\``,
     `- Concept : ${v.metaphore}`,
     `- Score mesuré : **${best.qc.score} / ${best.qc.measurableMax}** (${best.qc.scorePct} %) sur ${versions.length} itération(s) — ${best.qc.manualMax} points à noter par toi (message, lisibilité).`, '',
-    '## Publication proposée', '', '```', caption, '', [...v.hashtags, '#motivation'].slice(0, 5).join(' '), '```', '',
+    '## Publication proposée', '', '```', caption, '', [...new Set([...v.hashtags, '#motivation'])].slice(0, 5).join(' '), '```', '',
     'Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt jour 1 ou un jour ? »).',
     '', '## Itérations', '', ...scored.map((s) => `- ${s.x} : ${s.qc.score} / ${s.qc.measurableMax}${s.x === best.x ? ' ← livrée' : ''}`), '',
     '_Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._', '',

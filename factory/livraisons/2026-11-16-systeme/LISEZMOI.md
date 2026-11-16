@@ -11,7 +11,7 @@
 ```
 Tu n'as pas un problème de motivation. Tu as un problème de système. Petit. Facile. Tous les jours. C'est ça, la discipline.
 
-#discipline #habitudes #motivation #developpementpersonnel #motivation
+#discipline #habitudes #motivation #developpementpersonnel
 ```
 
 Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt jour 1 ou un jour ? »).
