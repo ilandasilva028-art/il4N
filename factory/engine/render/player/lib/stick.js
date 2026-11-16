@@ -17,6 +17,12 @@ export const POSES = {
   victory: { lean: -4, head: -16, armB: [160, 20], armF: [-160, -20], legB: [8, -2], legF: [-8, -2] },
   punch: { lean: 14, head: 0, armB: [40, 110], armF: [96, 0], legB: [-24, -10], legF: [20, -24] },
   kneel: { lean: 8, head: 20, armB: [10, 20], armF: [40, 60], legB: [-60, -110], legF: [86, -86] },
+  phone: { lean: 4, head: 28, armB: [40, 100], armF: [36, 104], legB: [6, -4], legF: [-6, -4] },
+  carry: { lean: 18, head: 10, armB: [150, 30], armF: [-150, -30], legB: [-14, -20], legF: [16, -26] },
+  think: { lean: 2, head: 14, armB: [8, 8], armF: [30, 150], legB: [6, -4], legF: [-6, -4] },
+  crouch: { lean: 30, head: 30, armB: [60, 40], armF: [70, 30], legB: [80, -130], legF: [70, -120] },
+  lie: { lean: -88, head: 0, armB: [10, 10], armF: [-10, 10], legB: [-2, 0], legF: [2, 0] },
+  pull: { lean: -26, head: -6, armB: [70, 10], armF: [80, 0], legB: [-30, -10], legF: [22, -20] },
 };
 
 export function lerpPose(a, b, k) {

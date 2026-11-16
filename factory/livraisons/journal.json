@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-11-16",
+    "vision": "discipline",
+    "film": "discipline",
+    "version": "v2",
+    "score": 91,
+    "max": 91,
+    "file": "livraisons/discipline/toi-contre-toi_v2.mp4"
+  },
+  {
+    "date": "2026-11-16",
+    "vision": "telephone",
+    "film": "j20261116-telephone",
+    "version": "v2",
+    "score": 87.6,
+    "max": 91,
+    "file": "livraisons/2026-11-16-telephone/telephone.mp4"
+  }
+]

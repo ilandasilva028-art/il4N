@@ -14,7 +14,9 @@
     "analyze": "tsx engine/cli.ts analyze",
     "produce": "tsx engine/cli.ts produce",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "tsx --test tests/*.test.ts",
+    "daily": "tsx engine/daily.ts",
+    "setup": "npm ci && npx playwright install chromium"
   },
   "engines": {
     "node": ">=20"
