@@ -1,3 +1,14 @@
+# Planche v4 (16/11/2026) — corrections après critique
+- **Lisibilité** : plus aucun texte sous 5 pt (marchés 5,1 pt sur 3 colonnes, bonus 5 pt, numéros 5 pt, noms piste B 5,4 pt) ; « 5 DOUCEUR » → un grand « 5 ».
+- **Téléphone en haut à droite** de chaque verso (+ « envoi ou retrait sur place ») pour libérer le pied, qui ne garde que les 6 marchés.
+- **Contrastes** : pictos des ronds piste A foncés ; piste B textes en or foncé #86592a (au lieu de l'or clair sur rose, 2,4:1) ;
+  piste C « PELLEGRINO » en encre sur une étiquette crème (au lieu du crème sur kraft, 1,6:1).
+- **Marque unifiée** « Les gourmandises Pellegrino » sur les 3 pistes.
+- **Ronds de 10,5 mm** (tampon encreur courant 10–12 mm : à vérifier avec celui d'Alex).
+- Bonus raccourcis : « Un ami amené : +1 chacun », « Page Facebook suivie : +1 », « Parrainage : +1 tampon chacun » ; piste B : « Un tampon par gourmandise goûtée ».
+Fichiers : `planche-v4.png` · source `../SOURCES/planche_v4.py`.
+
+---
 # Cartes de fidélité · Les gourmandises Pellegrino — planche v3 (16/11/2026)
 Client : Alex (Don) Pellegrino. Statut : **maquettes à montrer à Alex**, rien d'imprimé.
 
