@@ -53,7 +53,7 @@ export interface PlanScene {
   wordTimes: SubWord[];    // mots de la voix pendant ce plan
 }
 
-export interface Hit { t: number; sfx: 'whoosh' | 'pop' | 'impact' | 'tick' | 'riser' | 'ding' | 'step' | 'thud' | 'door' | 'alarm' | 'type' | 'shatter' | 'swish' | 'click' | 'boing'; gain?: number; len?: number }
+export interface Hit { t: number; sfx: 'whoosh' | 'pop' | 'impact' | 'tick' | 'riser' | 'ding' | 'step' | 'thud' | 'door' | 'alarm' | 'type' | 'shatter' | 'swish' | 'click' | 'boing' | 'rain' | 'applause'; gain?: number; len?: number }
 
 export interface FilmPlan {
   version: 1; w: number; h: number; fps: number; duration: number; bpm: number; seed: number;

@@ -32,10 +32,10 @@ export function servePlayer(): Promise<{ url: string; close: () => void }> {
 }
 
 export interface TextFrame { t: number; texts: string[] }
-export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any; textLog: TextFrame[] }
+export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any; textLog: TextFrame[]; fps: number }
 
 export async function renderFilm(film: string, out: string, opts: { fps?: number; crf?: number; log?: Logger; onProgress?: (p: number) => void; from?: number; to?: number; variant?: string } = {}): Promise<RenderResult> {
-  const fps = opts.fps ?? 30;
+  let fps = opts.fps ?? 30;
   const { chromium } = await import('playwright');
   const srv = await servePlayer();
   const browser = await chromium.launch(launchOpts(['--force-color-profile=srgb']));
@@ -44,10 +44,12 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     page.on('pageerror', (e) => opts.log?.error(`Lecteur : ${e.message}`));
     page.on('console', (m) => { if (m.type() === 'error') opts.log?.error(`Lecteur : ${m.text()}`); });
-    await page.goto(`${srv.url}/index.html?film=${film}&render=1&fps=${fps}&v=${opts.variant || 'a'}`);
+    await page.goto(`${srv.url}/index.html?film=${film}&render=1${opts.fps ? `&fps=${opts.fps}` : ''}&v=${opts.variant || 'a'}`);
     await page.waitForFunction('window.filmReady === true', null, { timeout: 60000 });
     const textLog: TextFrame[] = [];
-    const meta = await page.evaluate('({ d: window.DURATION, hits: window.HITS, music: window.MUSIC })') as { d: number; hits: any[]; music: any };
+    const meta = await page.evaluate('({ d: window.DURATION, hits: window.HITS, music: window.MUSIC, fps: window.FPS })') as { d: number; hits: any[]; music: any; fps: number | null };
+    // Le film peut imposer sa cadence (ex. FPS = 60, comme la référence) sauf si l'appelant la force.
+    if (opts.fps === undefined && meta.fps) fps = meta.fps;
     const from = opts.from ?? 0, to = Math.min(opts.to ?? meta.d, meta.d);
     const n = Math.round((to - from) * fps);
     fs.mkdirSync(path.dirname(out), { recursive: true });
@@ -67,7 +69,7 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     }
     ff.stdin.end();
     await done;
-    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music, textLog };
+    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music, textLog, fps };
   } finally {
     await browser.close();
     srv.close();

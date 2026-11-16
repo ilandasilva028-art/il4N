@@ -92,9 +92,32 @@ Modèle à suivre : **`films/j20261116-systeme4.js`**.
   - `ik2()` : poser une main ou un pied sur une cible (barreau, objet, bouton).
   - **Toujours `gait` au lieu de `walk`** pour un personnage qui se déplace au sol.
 
+## 1 septies. Niveau « production » (`lib/world.js`, 16/11/2026)
+Modèle vitrine : **`films/j20261116-foule.js`**. Chaque vidéo doit avoir **au moins 3 décors différents**, et **jamais de fond noir vide** sauf pour la carte définition et le mot géant.
+- **Décors** :
+  - `street(ctx, camX, t)` : ville de nuit en parallaxe, avec réverbères et brouillard ;
+  - `bedroom(ctx, t, {alarm})` : chambre, fenêtre, lune, réveil à LED ;
+  - `gym(ctx, t)` : salle de sport avec projecteurs ;
+  - `stage(ctx, t)` : scène avec 3 projecteurs.
+  - **Nouveau décor** : le construire dans `world.js`, sur le même principe (canvas en cache + lumières dynamiques).
+- **Lumière et atmosphère** :
+  - `lightCone` (projecteur, réverbère), `glow` (halo), `fog` (brouillard) ;
+  - `rain` (pluie) + `reflect` (reflets sur sol mouillé) ;
+  - `parallax` + `blurred` : profondeur de champ (arrière-plans flous).
+- **Foules** :
+  - `makeCrowd(n, seed)` crée des personnages variés (taille, teinte, décalage de temps) ;
+  - `drawCrowd(ctx, foule, t, 'laugh' | 'point' | 'phone' | 'clap' | 'watch' | 'sit', { blur })` les anime. Une foule floue au premier plan donne de la profondeur.
+- **Expressions** :
+  - `brows(ctx, x, y, pose, { mood: 'determined' | 'angry' | 'sad' })` : sourcils ;
+  - `sweat()` : sueur pendant l'effort.
+- **Transitions** : `whip()` (panoramique filé avec flou de bougé, `samples` à 4) entre les scènes d'une même progression. Coupe franche + flash pour les ruptures.
+- **Cadence** : `export const FPS = 60` (comme la référence). Le rendu est environ 2 fois plus long : compter 15 à 25 min dans le cloud.
+- **Sons d'ambiance** : `rain` (pluie, `len`) et `applause` (applaudissements, `len`), en plus des bruitages d'action.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
-- **`films/j20261116-systeme4.js`** : le modèle actuel, à suivre en priorité ;
+- **`films/j20261116-foule.js`** : le modèle actuel (décors, lumière, foules, 60 i/s), à suivre en priorité ;
+- `films/j20261116-systeme4.js` : modèle « règles numérotées » ;
 - `films/discipline.js` ;
 - `films/j20261116-telephone.js`.
 

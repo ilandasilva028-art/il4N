@@ -13,7 +13,7 @@ if (mod.init) await mod.init();
 const ctx = canvas.getContext('2d', { alpha: false });
 const buf = document.createElement('canvas'); buf.width = W; buf.height = H;
 const bctx = buf.getContext('2d', { alpha: false });
-const fps = Number(params.get('fps') || 30);
+const fps = Number(params.get('fps') || mod.FPS || 30);
 const paint = (c, t) => { c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.filter = 'none'; mod.draw(c, t); c.restore(); };
 
 window.seek = (t) => {
@@ -26,6 +26,7 @@ window.seek = (t) => {
   if (mod.post) { ctx.save(); mod.post(ctx, t); ctx.restore(); }
 };
 window.DURATION = mod.DURATION;
+window.FPS = mod.FPS || null;
 window.HITS = mod.HITS || [];
 window.MUSIC = mod.MUSIC || null;
 window.seek(0);

@@ -98,6 +98,24 @@ export function synthSfx(hits: Hit[], durationSec: number, seed = 7): [Float32Ar
         put(h.t, 0.35, 0, (t) => { ph += (300 + 180 * Math.sin(t * 40) * Math.exp(-t / 0.15)) / SR; return g * 0.35 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.12); });
         break;
       }
+      case 'rain': {
+        // ambiance de pluie : bruit filtré + gouttes, fondu d'entrée/sortie (h.len = durée)
+        const len = h.len ?? 4; const lp = new Biquad().set('lp', 3500, 0.7), hp = new Biquad().set('hp', 400, 0.7);
+        put(h.t, len, 0, (t, i) => { const env = Math.min(1, t / 0.4, (len - t) / 0.4); return g * 0.22 * env * hp.tick(lp.tick(noise[i % SR])); });
+        for (let k = 0; k < len * 18; k++) { const tk = h.t + rnd() * len, f = 3000 + rnd() * 3000; put(tk, 0.02, (rnd() - 0.5) * 1.4, (t) => g * 0.12 * Math.sin(2 * Math.PI * f * t) * Math.exp(-t / 0.004)); }
+        break;
+      }
+      case 'applause': {
+        // applaudissements : nombreux claquements courts aléatoires, densité qui monte puis retombe
+        const len = h.len ?? 2.5;
+        for (let k = 0; k < len * 90; k++) {
+          const u = rnd(), tk = h.t + u * len, bp = new Biquad().set('bp', 1200 + rnd() * 1800, 1.2);
+          const dens = Math.sin(Math.PI * u);
+          if (rnd() > dens) continue;
+          put(tk, 0.04, (rnd() - 0.5) * 1.6, (t, i) => g * 0.5 * bp.tick(noise[(i * 11) % SR]) * Math.exp(-t / 0.008));
+        }
+        break;
+      }
       case 'ding': {
         const f = 1320;
         put(h.t, 1.2, 0.1, (t) => g * 0.25 * Math.exp(-t / 0.35) * (Math.sin(2 * Math.PI * f * t) + 0.4 * Math.sin(2 * Math.PI * f * 2.76 * t) * Math.exp(-t / 0.1)));

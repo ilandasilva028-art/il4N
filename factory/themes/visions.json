@@ -121,8 +121,8 @@
    "id": "foule",
    "titre": "Ceux qui rient",
    "accroche": [
-    "ILS RIAIENT",
-    "AU JOUR 1."
+    "Ils vont rire.",
+    "Laisse-les."
    ],
    "metaphore": "Une foule grise rit (HA HA) pendant que le héros s'entraîne seul ; la foule rétrécit à chaque saison, il finit sous un projecteur.",
    "scenes": [
@@ -133,8 +133,8 @@
     "projecteur, foule silencieuse"
    ],
    "chute": [
-    "LAISSE-LES RIRE. ",
-    "CONTINUE."
+    "Laisse-les rire. ",
+    "Continue."
    ],
    "mot": "CONTINUE.",
    "hashtags": [
@@ -142,7 +142,13 @@
     "#mentalite",
     "#perseverance",
     "#motivation"
-   ]
+   ],
+   "accrocheB": [
+    "Ils rient de toi ?",
+    "Parfait."
+   ],
+   "lecon": "1. N'annonce pas tes plans. 2. Note chaque séance. 3. Compare-toi à toi d'hier.",
+   "serie": "TOI CONTRE TOI · #2"
   },
   {
    "id": "sac",

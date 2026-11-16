@@ -88,7 +88,7 @@ if (cmd === 'next') {
   if (!entry) throw new Error('Livrer d’abord la version A (deliver).');
   const vdir = path.join(base, entry.version);
   const { renderFilm } = await import('./render/render.ts');
-  const r = await renderFilm(film, path.join(vdir, 'video_b.mp4'), { fps: 30, crf: 12, variant: 'b', log });
+  const r = await renderFilm(film, path.join(vdir, 'video_b.mp4'), { crf: 12, variant: 'b', log });
   const out = path.join(ROOT, path.dirname(entry.file));
   const mp4 = path.join(out, `${v.id}_accroche-B.mp4`);
   await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', '-i', path.join(vdir, 'video_b.mp4'), '-i', path.join(vdir, 'mix.wav'), '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-tune', 'animation', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', mp4]);

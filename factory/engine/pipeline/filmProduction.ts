@@ -19,7 +19,7 @@ export async function produceFilm(j: FilmJob): Promise<{ final: string; qc: QcRe
   const log = j.log;
   fs.mkdirSync(j.outDir, { recursive: true });
   log?.info(`Rendu image du film « ${j.film} »…`);
-  const r = await renderFilm(j.film, path.join(j.outDir, 'video.mp4'), { fps: j.fps ?? 30, crf: j.crf ?? 12, variant: j.variant, log, onProgress: (p) => log?.info(`rendu ${Math.round(p * 100)} %`) });
+  const r = await renderFilm(j.film, path.join(j.outDir, 'video.mp4'), { fps: j.fps, crf: j.crf ?? 12, variant: j.variant, log, onProgress: (p) => log?.info(`rendu ${Math.round(p * 100)} %`) });
   log?.info(`${r.frames} images en ${r.seconds} s.`);
   // Sans musique (MUSIC = null dans le film) : bruitages seuls, plus bas (-16 LUFS) pour laisser la place
   // au son que l'utilisateur ajoute dans TikTok.
@@ -35,7 +35,7 @@ export async function produceFilm(j: FilmJob): Promise<{ final: string; qc: QcRe
   const analysis = await analyzeVideo(final, path.join(j.outDir, 'analyse'), { log, transcribe: true });
   const ref = j.referenceAnalysis && fs.existsSync(j.referenceAnalysis) ? readJson<AnalysisReport>(j.referenceAnalysis) : null;
   writeJson(path.join(j.outDir, 'textes.json'), r.textLog);
-  const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: j.fps ?? 30, hasMusic: withMusic, targetLufs: target });
+  const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: r.fps, hasMusic: withMusic, targetLufs: target });
   writeJson(path.join(j.outDir, 'qc.json'), qc);
   writeText(path.join(j.outDir, 'qc.md'), qcMarkdown(qc, j.film));
   return { final, qc, analysis };
