@@ -13,8 +13,8 @@ Préparés le 16/11/2026. **Aucun mail envoyé.** Tu relis, tu valides, puis tu 
 
 | # | Entreprise | Ville | Envoyer à | Statut |
 |---|---|---|---|---|
-| 1 | Domaine Dames de Lune | Sarrians | domainedamesdelune@orange.fr ✅ | À valider |
-| 2 | La Petite Fontaine | Carpentras | lapetitefontaine84@gmail.com ✅ | À valider |
+| 1 | Domaine Dames de Lune | Sarrians | domainedamesdelune@orange.fr ✅ | **Envoyé 16/11 (Gmail) — relance 23/11** |
+| 2 | La Petite Fontaine | Carpentras | lapetitefontaine84@gmail.com ✅ | **Envoyé 16/11 (Gmail) — relance 23/11** |
 | 3 | La Perle d'Asie | Carpentras | Formulaire sur laperledasie-carpentras-56.webself.net | À valider |
 | 4 | Restaurant Le 1700 | Carpentras | Formulaire sur restaurantle1700.eatbu.com | À valider |
 | 5 | Petit Japon | Carpentras | Formulaire sur petit-japon.eatbu.com | À valider |
