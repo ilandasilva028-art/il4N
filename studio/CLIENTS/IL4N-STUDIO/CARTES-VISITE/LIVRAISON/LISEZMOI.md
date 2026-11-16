@@ -1,3 +1,21 @@
+# 📅 v10 « CALENDRIER 2027 » — FORMAT A6 (16/11/2026) — remplace la v9
+Retour d'Ilan sur la v9 (85 × 55) : **calendrier trop petit, illisible** (chiffres de 1,5 mm) et fond noir trop plat.
+- **Format A6 paysage 148 × 105 mm** (format standard « flyer A6 » / « carte postale » chez les imprimeurs) : chiffres ≈ 2,6 mm de haut, 1,8 × plus gros.
+- **Fond noir travaillé** : cercles concentriques ton sur ton (nuit à peine éclaircie) centrés derrière le QR code, presque invisibles, qui donnent de la profondeur.
+- Recto : logo, « Faites bonne impression. », nom, métier, téléphone, Instagram, e-mail, site, QR « Mes tarifs », pastille « 2027 — calendrier au dos ».
+- Verso : calendrier 2027 (lundi → dimanche, dimanches en gris, 11 jours fériés en or), téléphone en haut.
+- Contrôles : CMJN, encre max 240 %, chiffres en noir pur, 100 % vectoriel, polices incorporées, QR testé, zone de sécurité 5 mm respectée, aucun liseré blanc.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_calendrier-A6_v10_print_CMJN.pdf` | **Imprimeur en ligne** : 2 pages (recto, verso), 148 × 105 mm paysage, fond perdu 3 mm. |
+| `IL4N_calendrier-A6_v10_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+À la commande : **flyer A6 recto-verso** (ou « carte postale A6 »), orientation **paysage**, papier **mat 350 g** (rigide, on peut écrire dessus).
+Sources : `SOURCES/cal_recto_v10.html`, `SOURCES/calendrier_v10.py` ; régénérer avec `bash SOURCES/build_v10.sh`.
+La v9 (85 × 55) reste dans le dossier mais **n'est pas conseillée** (trop petite).
+
+---
 # 📅 NOUVELLE — v9 « CALENDRIER 2027 » (16/11/2026)
 Statut : **BAT à valider par Ilan**. 85 × 55 mm horizontal, CMJN, 100 % vectoriel, polices TrueType incorporées,
 QR code testé → il4nstudio.netlify.app, tout dans la zone de sécurité (4 mm).
