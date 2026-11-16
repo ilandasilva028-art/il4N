@@ -33,7 +33,7 @@ Lot n°1 · préparé le 14/11/2026 · zone : Sarrians, Carpentras, Orange, Avig
 
 | # | Entreprise | Ville | Secteur | Besoin principal | Canal vérifié | Statut |
 |---|---|---|---|---|---|---|
-| 1 | Pizza Folie's | Sarrians | Pizzeria à emporter | Menu / flyer + mini-site | Mobile + Facebook | À valider |
+| 1 | Pizza Folie's | Sarrians | Pizzeria à emporter | Menu / flyer + mini-site | Mobile + Facebook | **Opposé — ne plus contacter** (appel 16/11) |
 | 2 | Le Relais des Mers | Sarrians | Poissonnerie | Mini-site commandes + flyer fêtes | À trouver (sur place) | À valider |
 | 3 | Restaurant Le Pressoir | Sarrians | Brasserie | Affiches de soirées + réseaux | Fixe | À valider |
 | 4 | Domaine Dames de Lune | Sarrians | Domaine viticole bio | Visuels d'événements | Mobile + site | À valider |
@@ -69,7 +69,7 @@ Ensuite 5, 10, 2, 6 et 9, une fois le canal confirmé.
 > Est-ce que ça vous parlerait ?
 > *(Si vous ne souhaitez pas être recontacté, dites-le-moi simplement, je n'insisterai pas.)*
 
-- **Statut :** À valider · **Doublon vérifié :** oui (Gmail : aucun échange ; pas de CRM)
+- **Statut :** **Opposé — ne plus contacter.** Appel le 16/11/2026, pas intéressé. · **Doublon vérifié :** oui (Gmail : aucun échange ; pas de CRM)
 - **Suivi :** relance unique à J+7 si lu sans réponse, sinon passage en boutique avec la maquette imprimée.
 
 ---

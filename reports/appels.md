@@ -68,6 +68,6 @@ Un seul message vocal, une seule relance. Sans réponse, on passe au suivant.
 | Entreprise | Date | Résultat | Prochaine étape |
 |---|---|---|---|
 | Le Pressoir | | | |
-| Pizza Folie's | | | |
+| Pizza Folie's | 16/11/2026 | Pas intéressé | **Ne plus contacter** |
 | AGORA | | | |
 | Dames de Lune | | | |
