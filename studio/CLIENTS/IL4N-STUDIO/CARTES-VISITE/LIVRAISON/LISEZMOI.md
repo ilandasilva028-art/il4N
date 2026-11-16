@@ -1,3 +1,20 @@
+# ⭐ v12 — A6 « 365 points » + verso INFOS & TARIFS (16/11/2026) — remplace v10/v11
+Demande d'Ilan : au verso, plus de calendrier, juste toutes les infos bien présentées.
+- Recto (inchangé, v11) : fond nuit = l'année 2027 en 365 points, jours fériés en or ; légende « 2027 en 365 points · ● jours fériés ».
+- Verso (papier) : logo + nom/métier ; **Imprimés** (Flyer Start 21 €, Pro 35 €, Prestige 49 €, carte de visite 25 €, menu 39 €, affiche A3/A2 39 €,
+  plaquette 45 €) ; **Réseaux & identité** (visuel réseaux 15 € · 5 pour 59 €, Pack Lancement 360° 97 €, Pack Artisan 129 €, Social Media Kit
+  et Identité de marque sur devis) ; bloc noir **Site internet 290 €** + option tranquillité 100 €/an ; méthode en 3 étapes (textes du site) ;
+  bandeau contact ; mention « Tarifs affichés sur il4nstudio.netlify.app en novembre 2026, à confirmer selon votre demande avant commande ».
+- Tarifs **copiés du site le 16/11/2026** (prix normaux, sans l'offre de Noël temporaire). ⚠️ Si un prix change sur le site, modifier
+  `SOURCES/infos_verso_v12.html` puis `bash SOURCES/build_v12.sh`.
+- Contrôles : CMJN, encre max 240 %, petits textes sur une seule encre, 100 % vectoriel, polices incorporées, QR testé, zone de sécurité OK.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_carte-A6_v12_print_CMJN.pdf` | **Imprimeur en ligne** : flyer A6 recto-verso, 148 × 105 mm paysage, fond perdu 3 mm. |
+| `IL4N_carte-A6_v12_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+---
 # ⭐ v11 « CALENDRIER 2027 » A6 — recto « l'année en 365 points » (16/11/2026) — remplace la v10
 Demande d'Ilan : retravailler la partie noire pour qu'elle soit plus originale.
 - **Le fond nuit = l'année 2027 entière en 365 points** : 1 rangée = 1 mois (janvier en haut, décembre en bas), 1 point = 1 jour.

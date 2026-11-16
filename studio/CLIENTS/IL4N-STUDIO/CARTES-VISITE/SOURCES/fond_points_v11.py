@@ -55,7 +55,7 @@ def page(masque):
   .legende em {{ font-style: normal; color: #d6a96a; }}
 </style>'''
     s = s.replace('</style>', css, 1)
-    s = s.replace('<div class="qr">', '<div class="legende">2027 en 365 points · <b></b>jours fériés · <em>calendrier au dos</em></div>\n    <div class="qr">')
+    s = s.replace('<div class="qr">', '<div class="legende">2027 en 365 points · <b></b>jours fériés</div>\n    <div class="qr">')
     open(os.path.join(D, 'cal_recto_v11.html'), 'w').write(s)
     return perdus
 
