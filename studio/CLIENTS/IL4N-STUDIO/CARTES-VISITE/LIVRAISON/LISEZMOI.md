@@ -1,3 +1,23 @@
+# 📅 NOUVELLE — v9 « CALENDRIER 2027 » (16/11/2026)
+Statut : **BAT à valider par Ilan**. 85 × 55 mm horizontal, CMJN, 100 % vectoriel, polices TrueType incorporées,
+QR code testé → il4nstudio.netlify.app, tout dans la zone de sécurité (4 mm).
+
+**L'idée :** une carte qu'on garde toute l'année à côté de la caisse.
+- Recto (fond nuit) : logo, « Faites bonne impression. », nom, métier, téléphone, Instagram, e-mail, site, QR « Mes tarifs », pastille « 2027 — calendrier au dos ».
+- Verso (papier) : calendrier 2027 complet, semaines du lundi au dimanche, dimanches en gris, **11 jours fériés** (France métropolitaine) en pastilles or :
+  1/01, lundi de Pâques 29/03, 1/05, 8/05, Ascension 6/05, lundi de Pentecôte 17/05, 14/07, 15/08, 1/11, 11/11, 25/12. Téléphone rappelé en haut.
+- Chiffres du calendrier en **noir pur** (corps 4,2 pt, nets à l'impression) ; noir riche 240 % uniquement pour le fond du recto.
+- Idéal à distribuer de **début décembre à fin janvier**. Après janvier 2027, revenir à la v8 ou faire une v2028.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_calendrier_v9_print_CMJN.pdf` | **Imprimeur en ligne** : 2 pages (recto, verso), 85 × 55 **horizontal**, fond perdu 3 mm. |
+| `IL4N_calendrier_v9_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+À la commande : carte de visite recto-verso, **85 × 55 paysage**, papier **mat 350 g** (on écrit dessus au stylo si besoin), quantité à ton choix.
+Sources : `SOURCES/cal_recto_v9.html`, `SOURCES/calendrier_v9.py` (génère le verso) ; régénérer avec `bash SOURCES/build_v9.sh`.
+
+---
 # ⭐ NOUVELLE — v8 « LE BAT » (16/11/2026) — concept unique
 Statut : **BAT à valider par Ilan**. 85 × 55 mm horizontal, CMJN (encre max 240 %), 100 % vectoriel, polices TrueType incorporées,
 QR code testé → il4nstudio.netlify.app, tout dans la zone de sécurité (4 mm).
