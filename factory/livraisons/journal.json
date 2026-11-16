@@ -16,5 +16,14 @@
     "score": 87.6,
     "max": 91,
     "file": "livraisons/2026-11-16-telephone/telephone.mp4"
+  },
+  {
+    "date": "2026-11-16",
+    "vision": "systeme",
+    "film": "j20261116-systeme",
+    "version": "v3",
+    "score": 88.2,
+    "max": 91,
+    "file": "livraisons/2026-11-16-systeme/systeme.mp4"
   }
 ]

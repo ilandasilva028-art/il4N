@@ -1,25 +1,575 @@
 {
-  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
-  "visions": [
-    { "id": "telephone", "titre": "Le téléphone", "accroche": ["TU PENSES SCROLLER.", "IL TE SCROLLE."], "metaphore": "Le héros rapetisse à mesure qu'il scrolle, jusqu'à être aspiré dans l'écran géant ; il pose le téléphone et reprend sa taille.", "scenes": ["héros pose 'phone' qui rétrécit, compteur d'heures d'écran", "écran géant lumineux qui l'aspire", "définition 'Distraction'", "montage : RÉVEIL, SCROLL, SCROLL, MINUIT, SCROLL", "il pose le téléphone, la lumière s'éteint, il se relève grand"], "chute": ["TON TEMPS, ", "C'EST TA VIE."], "mot": "TEMPS.", "hashtags": ["#discipline", "#mentalite", "#ecran", "#productivite"] },
-    { "id": "miroir", "titre": "Les deux toi", "accroche": ["TOI AUJOURD'HUI", "CONTRE TOI DANS 1 AN."], "metaphore": "Deux versions du héros face à face de part et d'autre d'un miroir : AUJOURD'HUI (gris) et DANS 1 AN (blanc) ; chaque choix fait grandir l'un ou l'autre.", "scenes": ["miroir vertical au centre, deux héros", "choix ENCORE 5 MIN / SE LEVER, la version blanche grandit", "définition 'Choix'", "montage de choix rapides", "la version grise se fond dans la blanche"], "chute": ["CHAQUE CHOIX ", "VOTE POUR L'UN DES DEUX."], "mot": "CHOISIS.", "hashtags": ["#discipline", "#mentalite", "#choix", "#evolution"] },
-    { "id": "sablier", "titre": "Le sablier", "accroche": ["LE TEMPS", "NE T'ATTEND PAS."], "metaphore": "Un sablier géant rouge s'écoule pendant que le héros hésite ; il court quand il comprend.", "scenes": ["héros assis 'think' devant un sablier", "le sable tombe, labels DEMAIN / LUNDI / L'AN PROCHAIN", "mot géant 'MAINTENANT.'", "course 'run' sur la route, compteur", "il retourne le sablier"], "chute": ["PLUS TARD ", "DEVIENT JAMAIS."], "mot": "MAINTENANT.", "hashtags": ["#discipline", "#mentalite", "#procrastination", "#temps"] },
-    { "id": "foule", "titre": "Ceux qui rient", "accroche": ["ILS RIAIENT", "AU JOUR 1."], "metaphore": "Une foule grise rit (HA HA) pendant que le héros s'entraîne seul ; la foule rétrécit à chaque saison, il finit sous un projecteur.", "scenes": ["foule 'crowd laugh' + héros qui s'entraîne", "saisons qui passent (JOUR 30, 90, 200)", "définition 'Persévérance'", "montage d'entraînement", "projecteur, foule silencieuse"], "chute": ["LAISSE-LES RIRE. ", "CONTINUE."], "mot": "CONTINUE.", "hashtags": ["#discipline", "#mentalite", "#perseverance", "#motivation"] },
-    { "id": "sac", "titre": "Le sac", "accroche": ["CE QUE TU PORTES", "TE RALENTIT."], "metaphore": "Le héros traîne un énorme sac étiqueté REGRETS, PASSÉ, AVIS DES AUTRES ; il le pose et se met à courir.", "scenes": ["héros 'carry' courbé, sac énorme", "les étiquettes apparaissent une à une", "définition 'Lâcher prise'", "il pose le sac, il se redresse", "course libre"], "chute": ["POSE-LE. ", "AVANCE."], "mot": "LÉGER.", "hashtags": ["#mentalite", "#lacherprise", "#developpementpersonnel", "#discipline"] },
-    { "id": "portes", "titre": "Les deux portes", "accroche": ["DEUX PORTES.", "UNE SEULE TE CHANGE."], "metaphore": "Porte CONFORT (lumineuse, foule devant) et porte EFFORT (sombre, vide) ; le héros prend la sombre qui mène à la lumière.", "scenes": ["deux portes, foule devant CONFORT", "héros hésite 'think'", "mot géant 'EFFORT.'", "il ouvre la porte sombre, escalier dans le noir", "sortie dans la lumière, drapeau rouge"], "chute": ["LE CONFORT ", "NE T'A JAMAIS RIEN APPRIS."], "mot": "EFFORT.", "hashtags": ["#discipline", "#mentalite", "#confort", "#croissance"] },
-    { "id": "reveil", "titre": "Encore 5 minutes", "accroche": ["ENCORE", "5 MINUTES ?"], "metaphore": "Chaque 'snooze' fait apparaître un mur de briques entre le lit et un drapeau ; le jour où il se lève, il passe par-dessus.", "scenes": ["héros 'lie' sur le lit, réveil 6 H 00", "SNOOZE x3, un mur pousse à chaque fois", "définition 'Habitude'", "il se lève, monte le mur", "drapeau au sommet"], "chute": ["CHAQUE 'ENCORE 5 MIN' ", "A UN PRIX."], "mot": "DEBOUT.", "hashtags": ["#discipline", "#matin", "#routine", "#mentalite"] },
-    { "id": "graine", "titre": "La graine", "accroche": ["RIEN NE POUSSE", "PENDANT 90 JOURS."], "metaphore": "Le héros arrose une graine chaque jour sans résultat (JOUR 1… JOUR 89) ; au JOUR 90, un arbre rouge jaillit.", "scenes": ["héros arrose un petit monticule", "compteur de jours, foule qui se moque", "mot 'PATIENCE.'", "montage des jours qui se répètent", "arbre géant qui jaillit d'un coup"], "chute": ["LES RÉSULTATS ", "ARRIVENT EN SILENCE."], "mot": "PATIENCE.", "hashtags": ["#discipline", "#patience", "#mentalite", "#resultats"] },
-    { "id": "pont", "titre": "Le pont", "accroche": ["ILS ATTENDENT LE PONT.", "IL LE CONSTRUIT."], "metaphore": "Une foule attend au bord d'un ravin ; le héros pose une planche par jour et traverse seul.", "scenes": ["ravin, foule assise 'sit'", "héros pose des planches une à une", "définition 'Initiative'", "montage planche par planche sur le beat", "il atteint l'autre côté, drapeau"], "chute": ["PERSONNE NE VIENDRA ", "LE FAIRE À TA PLACE."], "mot": "AGIS.", "hashtags": ["#discipline", "#initiative", "#mentalite", "#entrepreneur"] },
-    { "id": "seau", "titre": "Le seau", "accroche": ["CEUX QUI TE TIRENT", "VERS LE BAS."], "metaphore": "Des silhouettes grises tirent ('pull') le héros dans un seau à chaque tentative de sortie ; il change d'entourage.", "scenes": ["héros grimpe le bord d'un seau géant", "mains grises qui le tirent : 'T'Y ARRIVERAS PAS'", "mot 'ENTOURAGE.'", "il saute hors du seau", "nouveau groupe blanc qui l'aide à monter"], "chute": ["CHOISIS CEUX ", "QUI TE TIRENT VERS LE HAUT."], "mot": "ENTOURAGE.", "hashtags": ["#mentalite", "#entourage", "#discipline", "#amitie"] },
-    { "id": "ombre", "titre": "L'ombre", "accroche": ["TON OMBRE", "EST PLUS GRANDE QUE TOI."], "metaphore": "Sous un projecteur, l'ombre rouge du héros est gigantesque et étiquetée TON POTENTIEL ; à chaque effort, il grandit vers elle.", "scenes": ["projecteur, petite silhouette, ombre géante rouge", "label TON POTENTIEL", "définition 'Potentiel'", "montage d'efforts, il grandit", "il atteint la taille de l'ombre"], "chute": ["DEVIENS ", "CE QUE TU POURRAIS ÊTRE."], "mot": "DEVIENS.", "hashtags": ["#potentiel", "#mentalite", "#discipline", "#confiance"] },
-    { "id": "un-pourcent", "titre": "1 % par jour", "accroche": ["1 % MIEUX", "CHAQUE JOUR."], "metaphore": "Une marche minuscule par jour : au début on ne voit rien, puis l'escalier devient une montagne (1,01 puissance 365 ≈ 37,8 : fait mathématique, pas une promesse).", "scenes": ["héros sur une marche minuscule", "compteur JOUR 1 → 365 avec 1,01^n", "définition 'Constance'", "zoom arrière : montagne de marches", "drapeau au sommet"], "chute": ["PETIT ", "MAIS TOUS LES JOURS."], "mot": "×37.", "hashtags": ["#discipline", "#constance", "#mentalite", "#progres"] },
-    { "id": "chaines", "titre": "Les chaînes", "accroche": ["TES HABITUDES", "SONT TES CHAÎNES."], "metaphore": "Le héros est retenu par des chaînes étiquetées SCROLL, EXCUSES, PLUS TARD ; chaque bonne action en brise une.", "scenes": ["héros enchaîné à un bloc", "étiquettes des chaînes", "mot 'LIBRE.'", "montage : chaque action brise une chaîne (impact)", "il marche libre"], "chute": ["CASSE-LES ", "UNE PAR UNE."], "mot": "LIBRE.", "hashtags": ["#habitudes", "#discipline", "#mentalite", "#liberte"] },
-    { "id": "batterie", "titre": "La batterie", "accroche": ["POURQUOI", "TU ES TOUJOURS VIDE ?"], "metaphore": "Une jauge géante au-dessus du héros se vide (SCROLL, PLAINTES, NUITS COURTES) puis se recharge (SPORT, SOMMEIL, LECTURE).", "scenes": ["jauge rouge qui se vide", "étiquettes qui la vident", "définition 'Énergie'", "montage recharge", "jauge pleine, héros qui court"], "chute": ["PROTÈGE ", "TON ÉNERGIE."], "mot": "ÉNERGIE.", "hashtags": ["#energie", "#mentalite", "#discipline", "#routine"] },
-    { "id": "iceberg", "titre": "L'iceberg", "accroche": ["ILS VOIENT", "LA RÉUSSITE."], "metaphore": "Au-dessus de l'eau, le héros sur un sommet ; sous l'eau, un immense bloc rempli de nuits de travail, échecs, recommencements.", "scenes": ["sommet visible, foule qui applaudit", "la caméra plonge sous la ligne d'eau", "étiquettes : ÉCHECS, NUITS, DOUTES, RECOMMENCER", "mot 'INVISIBLE.'", "remontée au sommet"], "chute": ["PERSONNE NE VOIT ", "CE QUI EST SOUS L'EAU."], "mot": "INVISIBLE.", "hashtags": ["#reussite", "#travail", "#mentalite", "#discipline"] },
-    { "id": "boss", "titre": "Le boss final", "accroche": ["NIVEAU 1.", "BOSS : TOI."], "metaphore": "La vie comme un jeu de plateforme : barres de vie, niveaux, et un boss final rouge géant nommé PROCRASTINATION.", "scenes": ["HUD de jeu : NIVEAU 1, barre de vie", "le héros saute des obstacles", "boss géant PROCRASTINATION", "montage de coups sur le beat", "NIVEAU SUIVANT"], "chute": ["LE SEUL BOSS ", "C'EST TOI."], "mot": "NIVEAU 2.", "hashtags": ["#discipline", "#gaming", "#mentalite", "#procrastination"] },
-    { "id": "cage", "titre": "La cage ouverte", "accroche": ["LA PORTE", "ÉTAIT OUVERTE."], "metaphore": "Le héros vit dans une cage dont la porte est ouverte depuis le début ; il ne l'a jamais testée.", "scenes": ["cage, héros assis 'sit'", "il regarde dehors, la porte bouge à peine", "mot 'OSE.'", "il pousse : la porte s'ouvre", "il sort, le monde s'éclaire"], "chute": ["CE QUI T'ENFERME, ", "C'EST TA TÊTE."], "mot": "OSE.", "hashtags": ["#mentalite", "#peur", "#discipline", "#oser"] },
-    { "id": "calendrier", "titre": "Un jour / Jour un", "accroche": ["« UN JOUR »", "OU « JOUR UN » ?"], "metaphore": "Deux calendriers : les pages de 'UN JOUR' s'envolent sans rien, celles de 'JOUR UN' s'empilent en escalier sous les pieds du héros.", "scenes": ["deux calendriers géants", "pages qui s'envolent à gauche", "pages qui deviennent des marches à droite", "mot 'AUJOURD'HUI.'", "héros en haut de la pile"], "chute": ["DÉCIDE ", "AUJOURD'HUI."], "mot": "JOUR 1.", "hashtags": ["#discipline", "#jour1", "#mentalite", "#objectifs"] },
-    { "id": "banc", "titre": "Le banc", "accroche": ["TU REGARDES", "OU TU JOUES ?"], "metaphore": "Le héros assis sur un banc regarde les autres jouer sur un terrain ; il se lève, entre sur le terrain.", "scenes": ["banc de touche, héros assis", "joueurs qui courent", "définition 'Spectateur'", "il se lève, entre", "il marque, flash rouge"], "chute": ["PERSONNE NE GAGNE ", "DEPUIS LE BANC."], "mot": "JOUE.", "hashtags": ["#mentalite", "#discipline", "#action", "#sport"] },
-    { "id": "tempete", "titre": "La tempête", "accroche": ["ILS PARLERONT", "QUOI QUE TU FASSES."], "metaphore": "Le héros marche contre un vent de mots gris (CRITIQUES, T'ES PAS CAPABLE…) qui le repoussent ; il avance penché jusqu'au calme.", "scenes": ["vent de mots qui traversent l'écran", "héros penché 'push' contre le vent", "mot 'AVANCE.'", "les mots se brisent sur lui", "ciel calme, il est debout"], "chute": ["LE BRUIT PASSE. ", "TOI, TU RESTES."], "mot": "AVANCE.", "hashtags": ["#critiques", "#mentalite", "#discipline", "#confiance"] }
-  ]
+ "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
+ "visions": [
+  {
+   "id": "systeme",
+   "titre": "Le système (4 règles)",
+   "accroche": [
+    "Tu n'as pas un problème de motivation.",
+    "Tu as un problème de système."
+   ],
+   "metaphore": "Jauge de motivation qui clignote ; 4 règles visuelles : l'envie ondule / l'habitude monte en escalier, le mur « 1 h de sport » contre la marche « 5 pompes », le sac prêt la veille, le calendrier qui ne rate jamais deux fois.",
+   "lecon": "Ne pas compter sur l'envie, rendre l'action minuscule, décider la veille, ne jamais rater deux fois.",
+   "scenes": [
+    "jauge MOTIVATION qui monte et s'effondre",
+    "RÈGLE 1 graphique envie vs habitude",
+    "RÈGLE 2 mur vs petites marches",
+    "RÈGLE 3 sac prêt la veille, 6 h sans négocier",
+    "RÈGLE 4 calendrier avec un seul raté",
+    "montage d'actions minuscules",
+    "escalier de petites marches + drapeau"
+   ],
+   "chute": [
+    "Petit. Facile. Tous les jours. ",
+    "C'est ça, la discipline."
+   ],
+   "mot": "SYSTÈME.",
+   "hashtags": [
+    "#discipline",
+    "#habitudes",
+    "#motivation",
+    "#developpementpersonnel"
+   ]
+  },
+  {
+   "id": "telephone",
+   "titre": "Le téléphone",
+   "accroche": [
+    "TU PENSES SCROLLER.",
+    "IL TE SCROLLE."
+   ],
+   "metaphore": "Le héros rapetisse à mesure qu'il scrolle, jusqu'à être aspiré dans l'écran géant ; il pose le téléphone et reprend sa taille.",
+   "scenes": [
+    "héros pose 'phone' qui rétrécit, compteur d'heures d'écran",
+    "écran géant lumineux qui l'aspire",
+    "définition 'Distraction'",
+    "montage : RÉVEIL, SCROLL, SCROLL, MINUIT, SCROLL",
+    "il pose le téléphone, la lumière s'éteint, il se relève grand"
+   ],
+   "chute": [
+    "TON TEMPS, ",
+    "C'EST TA VIE."
+   ],
+   "mot": "TEMPS.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#ecran",
+    "#productivite"
+   ]
+  },
+  {
+   "id": "miroir",
+   "titre": "Les deux toi",
+   "accroche": [
+    "TOI AUJOURD'HUI",
+    "CONTRE TOI DANS 1 AN."
+   ],
+   "metaphore": "Deux versions du héros face à face de part et d'autre d'un miroir : AUJOURD'HUI (gris) et DANS 1 AN (blanc) ; chaque choix fait grandir l'un ou l'autre.",
+   "scenes": [
+    "miroir vertical au centre, deux héros",
+    "choix ENCORE 5 MIN / SE LEVER, la version blanche grandit",
+    "définition 'Choix'",
+    "montage de choix rapides",
+    "la version grise se fond dans la blanche"
+   ],
+   "chute": [
+    "CHAQUE CHOIX ",
+    "VOTE POUR L'UN DES DEUX."
+   ],
+   "mot": "CHOISIS.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#choix",
+    "#evolution"
+   ]
+  },
+  {
+   "id": "sablier",
+   "titre": "Le sablier",
+   "accroche": [
+    "LE TEMPS",
+    "NE T'ATTEND PAS."
+   ],
+   "metaphore": "Un sablier géant rouge s'écoule pendant que le héros hésite ; il court quand il comprend.",
+   "scenes": [
+    "héros assis 'think' devant un sablier",
+    "le sable tombe, labels DEMAIN / LUNDI / L'AN PROCHAIN",
+    "mot géant 'MAINTENANT.'",
+    "course 'run' sur la route, compteur",
+    "il retourne le sablier"
+   ],
+   "chute": [
+    "PLUS TARD ",
+    "DEVIENT JAMAIS."
+   ],
+   "mot": "MAINTENANT.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#procrastination",
+    "#temps"
+   ]
+  },
+  {
+   "id": "foule",
+   "titre": "Ceux qui rient",
+   "accroche": [
+    "ILS RIAIENT",
+    "AU JOUR 1."
+   ],
+   "metaphore": "Une foule grise rit (HA HA) pendant que le héros s'entraîne seul ; la foule rétrécit à chaque saison, il finit sous un projecteur.",
+   "scenes": [
+    "foule 'crowd laugh' + héros qui s'entraîne",
+    "saisons qui passent (JOUR 30, 90, 200)",
+    "définition 'Persévérance'",
+    "montage d'entraînement",
+    "projecteur, foule silencieuse"
+   ],
+   "chute": [
+    "LAISSE-LES RIRE. ",
+    "CONTINUE."
+   ],
+   "mot": "CONTINUE.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#perseverance",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "sac",
+   "titre": "Le sac",
+   "accroche": [
+    "CE QUE TU PORTES",
+    "TE RALENTIT."
+   ],
+   "metaphore": "Le héros traîne un énorme sac étiqueté REGRETS, PASSÉ, AVIS DES AUTRES ; il le pose et se met à courir.",
+   "scenes": [
+    "héros 'carry' courbé, sac énorme",
+    "les étiquettes apparaissent une à une",
+    "définition 'Lâcher prise'",
+    "il pose le sac, il se redresse",
+    "course libre"
+   ],
+   "chute": [
+    "POSE-LE. ",
+    "AVANCE."
+   ],
+   "mot": "LÉGER.",
+   "hashtags": [
+    "#mentalite",
+    "#lacherprise",
+    "#developpementpersonnel",
+    "#discipline"
+   ]
+  },
+  {
+   "id": "portes",
+   "titre": "Les deux portes",
+   "accroche": [
+    "DEUX PORTES.",
+    "UNE SEULE TE CHANGE."
+   ],
+   "metaphore": "Porte CONFORT (lumineuse, foule devant) et porte EFFORT (sombre, vide) ; le héros prend la sombre qui mène à la lumière.",
+   "scenes": [
+    "deux portes, foule devant CONFORT",
+    "héros hésite 'think'",
+    "mot géant 'EFFORT.'",
+    "il ouvre la porte sombre, escalier dans le noir",
+    "sortie dans la lumière, drapeau rouge"
+   ],
+   "chute": [
+    "LE CONFORT ",
+    "NE T'A JAMAIS RIEN APPRIS."
+   ],
+   "mot": "EFFORT.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#confort",
+    "#croissance"
+   ]
+  },
+  {
+   "id": "reveil",
+   "titre": "Encore 5 minutes",
+   "accroche": [
+    "ENCORE",
+    "5 MINUTES ?"
+   ],
+   "metaphore": "Chaque 'snooze' fait apparaître un mur de briques entre le lit et un drapeau ; le jour où il se lève, il passe par-dessus.",
+   "scenes": [
+    "héros 'lie' sur le lit, réveil 6 H 00",
+    "SNOOZE x3, un mur pousse à chaque fois",
+    "définition 'Habitude'",
+    "il se lève, monte le mur",
+    "drapeau au sommet"
+   ],
+   "chute": [
+    "CHAQUE 'ENCORE 5 MIN' ",
+    "A UN PRIX."
+   ],
+   "mot": "DEBOUT.",
+   "hashtags": [
+    "#discipline",
+    "#matin",
+    "#routine",
+    "#mentalite"
+   ]
+  },
+  {
+   "id": "graine",
+   "titre": "La graine",
+   "accroche": [
+    "RIEN NE POUSSE",
+    "PENDANT 90 JOURS."
+   ],
+   "metaphore": "Le héros arrose une graine chaque jour sans résultat (JOUR 1… JOUR 89) ; au JOUR 90, un arbre rouge jaillit.",
+   "scenes": [
+    "héros arrose un petit monticule",
+    "compteur de jours, foule qui se moque",
+    "mot 'PATIENCE.'",
+    "montage des jours qui se répètent",
+    "arbre géant qui jaillit d'un coup"
+   ],
+   "chute": [
+    "LES RÉSULTATS ",
+    "ARRIVENT EN SILENCE."
+   ],
+   "mot": "PATIENCE.",
+   "hashtags": [
+    "#discipline",
+    "#patience",
+    "#mentalite",
+    "#resultats"
+   ]
+  },
+  {
+   "id": "pont",
+   "titre": "Le pont",
+   "accroche": [
+    "ILS ATTENDENT LE PONT.",
+    "IL LE CONSTRUIT."
+   ],
+   "metaphore": "Une foule attend au bord d'un ravin ; le héros pose une planche par jour et traverse seul.",
+   "scenes": [
+    "ravin, foule assise 'sit'",
+    "héros pose des planches une à une",
+    "définition 'Initiative'",
+    "montage planche par planche sur le beat",
+    "il atteint l'autre côté, drapeau"
+   ],
+   "chute": [
+    "PERSONNE NE VIENDRA ",
+    "LE FAIRE À TA PLACE."
+   ],
+   "mot": "AGIS.",
+   "hashtags": [
+    "#discipline",
+    "#initiative",
+    "#mentalite",
+    "#entrepreneur"
+   ]
+  },
+  {
+   "id": "seau",
+   "titre": "Le seau",
+   "accroche": [
+    "CEUX QUI TE TIRENT",
+    "VERS LE BAS."
+   ],
+   "metaphore": "Des silhouettes grises tirent ('pull') le héros dans un seau à chaque tentative de sortie ; il change d'entourage.",
+   "scenes": [
+    "héros grimpe le bord d'un seau géant",
+    "mains grises qui le tirent : 'T'Y ARRIVERAS PAS'",
+    "mot 'ENTOURAGE.'",
+    "il saute hors du seau",
+    "nouveau groupe blanc qui l'aide à monter"
+   ],
+   "chute": [
+    "CHOISIS CEUX ",
+    "QUI TE TIRENT VERS LE HAUT."
+   ],
+   "mot": "ENTOURAGE.",
+   "hashtags": [
+    "#mentalite",
+    "#entourage",
+    "#discipline",
+    "#amitie"
+   ]
+  },
+  {
+   "id": "ombre",
+   "titre": "L'ombre",
+   "accroche": [
+    "TON OMBRE",
+    "EST PLUS GRANDE QUE TOI."
+   ],
+   "metaphore": "Sous un projecteur, l'ombre rouge du héros est gigantesque et étiquetée TON POTENTIEL ; à chaque effort, il grandit vers elle.",
+   "scenes": [
+    "projecteur, petite silhouette, ombre géante rouge",
+    "label TON POTENTIEL",
+    "définition 'Potentiel'",
+    "montage d'efforts, il grandit",
+    "il atteint la taille de l'ombre"
+   ],
+   "chute": [
+    "DEVIENS ",
+    "CE QUE TU POURRAIS ÊTRE."
+   ],
+   "mot": "DEVIENS.",
+   "hashtags": [
+    "#potentiel",
+    "#mentalite",
+    "#discipline",
+    "#confiance"
+   ]
+  },
+  {
+   "id": "un-pourcent",
+   "titre": "1 % par jour",
+   "accroche": [
+    "1 % MIEUX",
+    "CHAQUE JOUR."
+   ],
+   "metaphore": "Une marche minuscule par jour : au début on ne voit rien, puis l'escalier devient une montagne (1,01 puissance 365 ≈ 37,8 : fait mathématique, pas une promesse).",
+   "scenes": [
+    "héros sur une marche minuscule",
+    "compteur JOUR 1 → 365 avec 1,01^n",
+    "définition 'Constance'",
+    "zoom arrière : montagne de marches",
+    "drapeau au sommet"
+   ],
+   "chute": [
+    "PETIT ",
+    "MAIS TOUS LES JOURS."
+   ],
+   "mot": "×37.",
+   "hashtags": [
+    "#discipline",
+    "#constance",
+    "#mentalite",
+    "#progres"
+   ]
+  },
+  {
+   "id": "chaines",
+   "titre": "Les chaînes",
+   "accroche": [
+    "TES HABITUDES",
+    "SONT TES CHAÎNES."
+   ],
+   "metaphore": "Le héros est retenu par des chaînes étiquetées SCROLL, EXCUSES, PLUS TARD ; chaque bonne action en brise une.",
+   "scenes": [
+    "héros enchaîné à un bloc",
+    "étiquettes des chaînes",
+    "mot 'LIBRE.'",
+    "montage : chaque action brise une chaîne (impact)",
+    "il marche libre"
+   ],
+   "chute": [
+    "CASSE-LES ",
+    "UNE PAR UNE."
+   ],
+   "mot": "LIBRE.",
+   "hashtags": [
+    "#habitudes",
+    "#discipline",
+    "#mentalite",
+    "#liberte"
+   ]
+  },
+  {
+   "id": "batterie",
+   "titre": "La batterie",
+   "accroche": [
+    "POURQUOI",
+    "TU ES TOUJOURS VIDE ?"
+   ],
+   "metaphore": "Une jauge géante au-dessus du héros se vide (SCROLL, PLAINTES, NUITS COURTES) puis se recharge (SPORT, SOMMEIL, LECTURE).",
+   "scenes": [
+    "jauge rouge qui se vide",
+    "étiquettes qui la vident",
+    "définition 'Énergie'",
+    "montage recharge",
+    "jauge pleine, héros qui court"
+   ],
+   "chute": [
+    "PROTÈGE ",
+    "TON ÉNERGIE."
+   ],
+   "mot": "ÉNERGIE.",
+   "hashtags": [
+    "#energie",
+    "#mentalite",
+    "#discipline",
+    "#routine"
+   ]
+  },
+  {
+   "id": "iceberg",
+   "titre": "L'iceberg",
+   "accroche": [
+    "ILS VOIENT",
+    "LA RÉUSSITE."
+   ],
+   "metaphore": "Au-dessus de l'eau, le héros sur un sommet ; sous l'eau, un immense bloc rempli de nuits de travail, échecs, recommencements.",
+   "scenes": [
+    "sommet visible, foule qui applaudit",
+    "la caméra plonge sous la ligne d'eau",
+    "étiquettes : ÉCHECS, NUITS, DOUTES, RECOMMENCER",
+    "mot 'INVISIBLE.'",
+    "remontée au sommet"
+   ],
+   "chute": [
+    "PERSONNE NE VOIT ",
+    "CE QUI EST SOUS L'EAU."
+   ],
+   "mot": "INVISIBLE.",
+   "hashtags": [
+    "#reussite",
+    "#travail",
+    "#mentalite",
+    "#discipline"
+   ]
+  },
+  {
+   "id": "boss",
+   "titre": "Le boss final",
+   "accroche": [
+    "NIVEAU 1.",
+    "BOSS : TOI."
+   ],
+   "metaphore": "La vie comme un jeu de plateforme : barres de vie, niveaux, et un boss final rouge géant nommé PROCRASTINATION.",
+   "scenes": [
+    "HUD de jeu : NIVEAU 1, barre de vie",
+    "le héros saute des obstacles",
+    "boss géant PROCRASTINATION",
+    "montage de coups sur le beat",
+    "NIVEAU SUIVANT"
+   ],
+   "chute": [
+    "LE SEUL BOSS ",
+    "C'EST TOI."
+   ],
+   "mot": "NIVEAU 2.",
+   "hashtags": [
+    "#discipline",
+    "#gaming",
+    "#mentalite",
+    "#procrastination"
+   ]
+  },
+  {
+   "id": "cage",
+   "titre": "La cage ouverte",
+   "accroche": [
+    "LA PORTE",
+    "ÉTAIT OUVERTE."
+   ],
+   "metaphore": "Le héros vit dans une cage dont la porte est ouverte depuis le début ; il ne l'a jamais testée.",
+   "scenes": [
+    "cage, héros assis 'sit'",
+    "il regarde dehors, la porte bouge à peine",
+    "mot 'OSE.'",
+    "il pousse : la porte s'ouvre",
+    "il sort, le monde s'éclaire"
+   ],
+   "chute": [
+    "CE QUI T'ENFERME, ",
+    "C'EST TA TÊTE."
+   ],
+   "mot": "OSE.",
+   "hashtags": [
+    "#mentalite",
+    "#peur",
+    "#discipline",
+    "#oser"
+   ]
+  },
+  {
+   "id": "calendrier",
+   "titre": "Un jour / Jour un",
+   "accroche": [
+    "« UN JOUR »",
+    "OU « JOUR UN » ?"
+   ],
+   "metaphore": "Deux calendriers : les pages de 'UN JOUR' s'envolent sans rien, celles de 'JOUR UN' s'empilent en escalier sous les pieds du héros.",
+   "scenes": [
+    "deux calendriers géants",
+    "pages qui s'envolent à gauche",
+    "pages qui deviennent des marches à droite",
+    "mot 'AUJOURD'HUI.'",
+    "héros en haut de la pile"
+   ],
+   "chute": [
+    "DÉCIDE ",
+    "AUJOURD'HUI."
+   ],
+   "mot": "JOUR 1.",
+   "hashtags": [
+    "#discipline",
+    "#jour1",
+    "#mentalite",
+    "#objectifs"
+   ]
+  },
+  {
+   "id": "banc",
+   "titre": "Le banc",
+   "accroche": [
+    "TU REGARDES",
+    "OU TU JOUES ?"
+   ],
+   "metaphore": "Le héros assis sur un banc regarde les autres jouer sur un terrain ; il se lève, entre sur le terrain.",
+   "scenes": [
+    "banc de touche, héros assis",
+    "joueurs qui courent",
+    "définition 'Spectateur'",
+    "il se lève, entre",
+    "il marque, flash rouge"
+   ],
+   "chute": [
+    "PERSONNE NE GAGNE ",
+    "DEPUIS LE BANC."
+   ],
+   "mot": "JOUE.",
+   "hashtags": [
+    "#mentalite",
+    "#discipline",
+    "#action",
+    "#sport"
+   ]
+  },
+  {
+   "id": "tempete",
+   "titre": "La tempête",
+   "accroche": [
+    "ILS PARLERONT",
+    "QUOI QUE TU FASSES."
+   ],
+   "metaphore": "Le héros marche contre un vent de mots gris (CRITIQUES, T'ES PAS CAPABLE…) qui le repoussent ; il avance penché jusqu'au calme.",
+   "scenes": [
+    "vent de mots qui traversent l'écran",
+    "héros penché 'push' contre le vent",
+    "mot 'AVANCE.'",
+    "les mots se brisent sur lui",
+    "ciel calme, il est debout"
+   ],
+   "chute": [
+    "LE BRUIT PASSE. ",
+    "TOI, TU RESTES."
+   ],
+   "mot": "AVANCE.",
+   "hashtags": [
+    "#critiques",
+    "#mentalite",
+    "#discipline",
+    "#confiance"
+   ]
+  }
+ ]
 }

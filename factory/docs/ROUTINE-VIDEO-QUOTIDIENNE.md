@@ -17,6 +17,14 @@ Sur le Mac : `npm run setup` (installe Chromium pour Playwright), puis la variab
 - **Banque épuisée** (`vision: null`) : inventer 10 nouvelles visions dans le même format, puis les ajouter au fichier. Chacune doit avoir une métaphore visuelle originale, une accroche de 2 lignes et une chute.
 - **Jamais deux fois la même métaphore.** Lire le journal `livraisons/journal.json` pour vérifier.
 
+## 1 bis. Pertinence (demande d'Ilan, 16/11/2026)
+Chaque vidéo doit **apprendre quelque chose de concret et applicable** : pas seulement une métaphore ou un slogan.
+- Exemple validé : `films/j20261116-systeme.js`. Message : « Tu n'as pas un problème de motivation, tu as un problème de système », suivi de 4 règles numérotées (RÈGLE 1…4).
+- Chaque règle est rendue **visible par une image**, pas seulement écrite : graphique envie/habitude, mur contre petites marches, sac prêt la veille, calendrier avec un seul raté.
+- Avant d'écrire, formuler la **leçon** en une phrase (champ `lecon` de la vision ; l'ajouter s'il manque). Si la vision n'a qu'un slogan, y ajouter 2 à 4 conseils pratiques précis : quoi faire, quand, comment.
+- Conseils de bon sens et reconnus (petites actions, préparation la veille, environnement, sommeil, ne pas rater deux fois…). **Jamais de statistiques ni d'« études » inventées.**
+- Alterner les formats : « N règles », « l'erreur que tout le monde fait », « avant / après », métaphore pure. Le format « règles » est le plus enregistré et partagé : au moins 3 vidéos sur 7.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
 - `films/discipline.js` ;
