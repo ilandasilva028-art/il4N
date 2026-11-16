@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte IL4N v14 A6 paysage 148×105 — RECTO (face noire), version épurée : le point du logo « il4n. » devient un grand rond or
+     (avec le QR « Mes tarifs ») entouré d'ondes ton sur ton. Verso : calendrier 2027 (cal_verso_v10.html). -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 148mm; --h: 105mm; --bleed: 3mm; --safe: 5mm; --bg: #111018; --or: #d6a96a; }
+  html, body { height: 112mm; width: 155mm; }
+  .bleed { background: #111018; }
+  .bleed svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trim { font-family: Inter, sans-serif; color: #fffdf8; }
+  .logo { position: absolute; left: 9.6mm; top: 9mm; font-size: 50pt; font-weight: 900; letter-spacing: -.09em; line-height: 1; white-space: nowrap; }
+  .logo b { display: inline-block; width: 4.3mm; height: 4.3mm; border-radius: 50%; background: var(--or); margin-left: 1.1mm; }
+  .slogan { position: absolute; left: 10.2mm; top: 29.5mm; font-family: Accent; font-size: 15pt; color: var(--or); white-space: nowrap; }
+  .nom { position: absolute; left: 10.2mm; top: 44mm; font-size: 17pt; font-weight: 900; letter-spacing: -.01em; white-space: nowrap; }
+  .metier { position: absolute; left: 10.2mm; top: 52.4mm; font-size: 8.6pt; font-weight: 800; letter-spacing: .05em; color: var(--or); white-space: nowrap; }
+  .contacts { position: absolute; left: 10.2mm; top: 61mm; display: grid; row-gap: 2.3mm; font-size: 10.5pt; font-weight: 700; }
+  .contacts div { display: flex; align-items: center; gap: 2.4mm; white-space: nowrap; }
+  .contacts svg { width: 4.2mm; height: 4.2mm; flex: none; }
+  .dos { position: absolute; left: 10.2mm; bottom: 6.2mm; font-size: 6.6pt; font-weight: 800; letter-spacing: .07em; color: #8f899a; white-space: nowrap; }
+  .dos b { color: var(--or); font-weight: 800; }
+  .qr { position: absolute; left: 110mm; top: 49.8mm; width: 22mm; text-align: center; }
+  .qr .fond { background: #fffdf8; border-radius: 2mm; padding: 1.2mm; }
+  .qr img { display: block; width: 100%; }
+  .qr span { display: block; font-size: 8pt; font-weight: 900; letter-spacing: .06em; color: #111018; margin-top: 1.3mm; white-space: nowrap; }
+</style></head>
+<body><div class="page">
+  <div class="bleed">
+    <!-- ondes ton sur ton autour du grand point or (le « . » du logo il4n.) -->
+    <svg viewBox="0 0 154 111">
+      <g fill="none" stroke-width=".7">
+        <circle cx="124" cy="66" r="44" stroke="#1d1a27"/>
+        <circle cx="124" cy="66" r="54" stroke="#1a1824"/>
+        <circle cx="124" cy="66" r="65" stroke="#181621"/>
+        <circle cx="124" cy="66" r="77" stroke="#16141e"/>
+      </g>
+      <circle cx="124" cy="66" r="34" fill="#d6a96a"/>
+    </svg>
+  </div>
+  <div class="trim">
+    <div class="logo">il4n<b></b></div>
+    <div class="slogan">Faites bonne impression.</div>
+    <div class="nom">Ilan Da Silva</div>
+    <div class="metier">GRAPHISTE &amp; SITES WEB · SARRIANS</div>
+    <div class="contacts"><div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 10 55 71 25</div><div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#d6a96a"/></svg>@il4n_studio</div><div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ilandasilva028@gmail.com</div><div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>il4nstudio.netlify.app</div></div>
+    <div class="dos">AU DOS : <b>LE CALENDRIER 2027</b></div>
+    <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div><span>MES TARIFS</span></div>
+  </div>
+</div></body></html>

@@ -1,3 +1,20 @@
+# ✅ v14 — CARTE-CALENDRIER A6 : face noire ÉPURÉE + grand point or, verso = calendrier 2027 (16/11/2026) — VERSION À IMPRIMER
+Retour d'Ilan sur la v13 : trop d'infos sur la face noire.
+- **Face noire** : seulement l'essentiel — logo il4n., « Faites bonne impression. », Ilan Da Silva, « Graphiste & sites web · Sarrians »,
+  téléphone, Instagram, e-mail, site, « Au dos : le calendrier 2027 ».
+- **L'élément graphique** : le point doré du logo « il4n. » devient un **grand rond or** (coupé par le bord droit) qui porte le QR « Mes tarifs »,
+  entouré de **4 ondes ton sur ton** presque invisibles (la « bonne impression » qui se propage).
+- **Verso** : calendrier 2027 lisible (A6), jours fériés en or.
+- Contrôles : CMJN, encre max 240 %, 100 % vectoriel, polices incorporées, QR testé, textes dans la zone de sécurité, aucun liseré.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_carte-calendrier-A6_v14_print_CMJN.pdf` | **Imprimeur en ligne** : flyer A6 recto-verso, 148 × 105 mm paysage, fond perdu 3 mm. |
+| `IL4N_carte-calendrier-A6_v14_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+Sources : `SOURCES/epure_recto_v14.html`, `SOURCES/calendrier_v10.py` ; régénérer avec `bash SOURCES/build_v14.sh`.
+
+---
 # ✅ v13 — CARTE-CALENDRIER A6 : face noire = toutes les infos, verso = calendrier 2027 (16/11/2026) — VERSION À IMPRIMER
 Retour d'Ilan : garder le calendrier, améliorer la face noire (« à l'avant pas de calendrier, juste toutes les infos bien présentées »).
 - **Face noire (recto)** : logo il4n. + « Faites bonne impression. », nom/métier, pastille « Calendrier 2027 au dos », QR « Mes tarifs » (16,5 mm) ;
