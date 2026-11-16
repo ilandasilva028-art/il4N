@@ -79,6 +79,23 @@ if (cmd === 'next') {
   j.push({ date, vision: v.id, film, version: best.x, score: best.qc.score, max: best.qc.measurableMax, file: path.relative(ROOT, mp4) });
   writeJson(JOURNAL, j);
   console.log(JSON.stringify({ livre: path.relative(ROOT, out), version: best.x, score: best.qc.score }));
+} else if (cmd === 'variant') {
+  // Variante d'accroche B (?v=b) : même film, mêmes sons, seule l'ouverture change → test A/B à la publication.
+  if (!film || !visionId) throw new Error('Usage : variant <film> <visionId>  (après deliver)');
+  const v = vision(visionId);
+  const base = path.join(DIRS.projects, film);
+  const entry = journal().filter((e) => e.film === film).pop();
+  if (!entry) throw new Error('Livrer d’abord la version A (deliver).');
+  const vdir = path.join(base, entry.version);
+  const { renderFilm } = await import('./render/render.ts');
+  const r = await renderFilm(film, path.join(vdir, 'video_b.mp4'), { fps: 30, crf: 12, variant: 'b', log });
+  const out = path.join(ROOT, path.dirname(entry.file));
+  const mp4 = path.join(out, `${v.id}_accroche-B.mp4`);
+  await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', '-i', path.join(vdir, 'video_b.mp4'), '-i', path.join(vdir, 'mix.wav'), '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-tune', 'animation', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', mp4]);
+  const hookB = [...new Set(r.textLog.filter((f) => f.t < 3).flatMap((f) => f.texts))].join(' / ');
+  const readme = path.join(out, 'LISEZMOI.md');
+  fs.appendFileSync(readme, `\n## Test A/B de l'accroche\n\n- **A** : \`${path.basename(entry.file)}\`\n- **B** : \`${path.basename(mp4)}\` — accroche : « ${hookB} »\n\nPublie A, puis B à un autre jour (ou sur un autre créneau). Compare dans les statistiques TikTok le **taux de rétention à 3 s** et le **visionnage complet**, puis dis-moi laquelle gagne : la routine adoptera ce style d'accroche.\n`);
+  console.log(JSON.stringify({ variante: path.relative(ROOT, mp4), accrocheB: hookB }));
 } else {
-  console.log('Commandes : next | produce <film> <visionId> | deliver <film> <visionId>');
+  console.log('Commandes : next | produce <film> <visionId> | deliver <film> <visionId> | variant <film> <visionId>');
 }

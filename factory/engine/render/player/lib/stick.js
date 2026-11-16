@@ -75,10 +75,12 @@ function shade(hex, k) {
 }
 
 // Dessine le bonhomme ; retourne la position du haut de la tête (pour poser une étiquette).
-export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0 } = {}) {
+export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, scale = 1, alpha = 1, mouth = null, glow = 0, eyes = false, t = 0, squash = 0 } = {}) {
   const B = BODY;
   ctx.save();
-  ctx.translate(x, y); ctx.scale(scale, scale);
+  // squash > 0 : écrasé (atterrissage), < 0 : étiré (saut) ; volume conservé, ancré aux pieds
+  const foot = (B.thigh + B.shin) * scale;
+  ctx.translate(x, y + foot); ctx.scale(scale * (1 + squash * 0.5), scale * (1 - squash)); ctx.translate(0, -foot / scale);
   ctx.globalAlpha *= alpha;
   ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   if (glow) { ctx.shadowColor = color; ctx.shadowBlur = glow; }
@@ -98,6 +100,15 @@ export function drawStick(ctx, x, y, pose, { color = COLORS.white, face = 1, sca
   const hx = nx + Math.sin(ha) * B.neck, hy = ny - Math.cos(ha) * B.neck;
   ctx.fillStyle = color;
   ctx.beginPath(); ctx.arc(hx, hy, B.head, 0, Math.PI * 2); ctx.fill();
+  if (eyes) {
+    // deux yeux tournés vers l'avant, clignement toutes les ~3 s (déterministe)
+    const ph = (t * 0.33 + x * 0.0013) % 1, closed = ph > 0.965;
+    ctx.fillStyle = '#111';
+    for (const dx of [6, 24]) {
+      if (closed) ctx.fillRect(hx + dx * face - 5, hy - 6, 10, 3);
+      else { ctx.beginPath(); ctx.ellipse(hx + dx * face, hy - 6, 4.5, 7, 0, 0, Math.PI * 2); ctx.fill(); }
+    }
+  }
   if (mouth) {
     ctx.strokeStyle = '#111'; ctx.lineWidth = 5; ctx.beginPath();
     if (mouth === 'sad') ctx.arc(hx + 8 * face, hy + 22, 12, Math.PI * 1.15, Math.PI * 1.85);

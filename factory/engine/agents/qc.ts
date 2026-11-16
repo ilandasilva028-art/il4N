@@ -10,7 +10,25 @@ export interface QcReport { score: number; measurableMax: number; manualMax: num
 const lin = (v: number, good: number, bad: number) => Math.max(0, Math.min(1, (bad - v) / (bad - good)));
 const ratioScore = (r: number, lo: number, hi: number) => (r >= lo && r <= hi ? 1 : r < lo ? Math.max(0, r / lo) : Math.max(0, 1 - (r - hi) / hi));
 
-export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, expect: { durationSec?: number; hasVoice?: boolean } = {}): QcReport {
+export interface TextFrameLog { t: number; texts: string[] }
+const wc = (s: string) => s.split(/\s+/).filter((w) => /[\p{L}\d]/u.test(w)).length;
+
+// Lisibilité : mots visibles en même temps, et temps d'affichage de chaque texte (0,3 s par mot + 0,3 s).
+export function textStats(log: TextFrameLog[], fps: number) {
+  let maxWords = 0, maxAt = 0;
+  const seen = new Map<string, number>();
+  for (const f of log) {
+    const w = f.texts.reduce((a, s) => a + wc(s), 0);
+    if (w > maxWords) { maxWords = w; maxAt = f.t; }
+    for (const s of f.texts) seen.set(s, (seen.get(s) || 0) + 1 / fps);
+  }
+  const items = [...seen.entries()].map(([s, sec]) => ({ s, words: wc(s), sec: Math.round(sec * 100) / 100, need: Math.round((0.3 + 0.3 * wc(s)) * 100) / 100 }));
+  const tooShort = items.filter((x) => x.sec < x.need);
+  const hookWords = Math.max(0, ...log.filter((f) => f.t < 1.5).map((f) => f.texts.reduce((a, s) => a + wc(s), 0)));
+  return { maxWords, maxAt, items, tooShort, hookWords };
+}
+
+export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, expect: { durationSec?: number; hasVoice?: boolean; textLog?: TextFrameLog[]; fps?: number } = {}): QcReport {
   const c: Check[] = [];
   const add = (criterion: string, item: string, max: number, k: number | null, measured: string, rule: string, fix?: string) =>
     c.push({ criterion, item, max, points: k === null ? null : Math.round(max * k * 10) / 10, measured, rule, fix });
@@ -54,12 +72,15 @@ export function qualityControl(out: AnalysisReport, ref: AnalysisReport | null, 
 
   // Narration et accroche (15)
   add('Narration et accroche', 'Ouverture au moins aussi animée que le reste', 4, Math.min(1, out.hook.motionFirst3sRatio / 1.0), `×${out.hook.motionFirst3sRatio}`, '≥ ×1,0', 'plus de mouvement dans les 3 premières secondes');
-  add('Narration et accroche', 'Durée proche de la cible', 4, expect.durationSec ? lin(Math.abs(out.style.durationSec - expect.durationSec) / expect.durationSec, 0.1, 0.4) : null, `${out.style.durationSec} s (cible ${expect.durationSec ?? 'n/d'})`, '±10 %');
+  const ts = expect.textLog?.length ? textStats(expect.textLog, expect.fps || 30) : null;
+  add('Narration et accroche', 'Accroche ≤ 6 mots dans la 1,5 s', 2, ts ? (ts.hookWords <= 6 ? 1 : ts.hookWords <= 9 ? 0.5 : 0) : null, ts ? `${ts.hookWords} mots` : 'journal des textes absent', '≤ 6 mots', 'raccourcir l’accroche');
+  add('Narration et accroche', 'Durée proche de la cible', 2, expect.durationSec ? lin(Math.abs(out.style.durationSec - expect.durationSec) / expect.durationSec, 0.1, 0.4) : null, `${out.style.durationSec} s (cible ${expect.durationSec ?? 'n/d'})`, '±10 %');
   add('Narration et accroche', 'Fin qui boucle sur le début', 3, out.ending.loopSimilarity === null ? null : lin(1 - out.ending.loopSimilarity, 0.12, 0.4), `similarité ${out.ending.loopSimilarity}`, '≥ 0,88', 'finir sur une image proche de l’ouverture');
   add('Narration et accroche', 'Force du message et de la chute', 4, null, 'jugement humain', 'à noter par vous');
 
   // Sous-titres (5)
-  add('Sous-titres', 'Lisibilité et synchronisation du texte', 5, null, 'pas d’OCR : à vérifier sur la planche contact', 'à noter par vous');
+  add('Sous-titres', 'Mots visibles en même temps ≤ 12', 2.5, ts ? (ts.maxWords <= 12 ? 1 : ts.maxWords <= 16 ? 0.5 : 0) : null, ts ? `max ${ts.maxWords} mots (à ${ts.maxAt} s)` : 'journal des textes absent', '≤ 12 mots à l’écran', 'moins de texte par écran');
+  add('Sous-titres', 'Temps de lecture suffisant', 2.5, ts ? Math.max(0, 1 - ts.tooShort.length / Math.max(1, ts.items.length) * 2) : null, ts ? (ts.tooShort.length ? `${ts.tooShort.length} texte(s) trop court(s) : ${ts.tooShort.slice(0, 3).map((x) => `« ${x.s} » ${x.sec}/${x.need} s`).join(', ')}` : `${ts.items.length} textes, tous lisibles`) : 'journal des textes absent', '≥ 0,3 s + 0,3 s par mot', 'afficher plus longtemps');
 
   // Qualité technique (10)
   add('Qualité technique', 'H.264 High, yuv420p', 3, v.codec === 'h264' && /yuv420p/.test(v.pixFmt) ? 1 : 0, `${v.codec} ${v.profile} ${v.pixFmt}`, 'h264 / yuv420p');

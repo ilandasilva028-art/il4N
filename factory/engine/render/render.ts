@@ -24,9 +24,10 @@ export function servePlayer(): Promise<{ url: string; close: () => void }> {
   }));
 }
 
-export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any }
+export interface TextFrame { t: number; texts: string[] }
+export interface RenderResult { file: string; frames: number; seconds: number; duration: number; hits: any[]; music: any; textLog: TextFrame[] }
 
-export async function renderFilm(film: string, out: string, opts: { fps?: number; crf?: number; log?: Logger; onProgress?: (p: number) => void; from?: number; to?: number } = {}): Promise<RenderResult> {
+export async function renderFilm(film: string, out: string, opts: { fps?: number; crf?: number; log?: Logger; onProgress?: (p: number) => void; from?: number; to?: number; variant?: string } = {}): Promise<RenderResult> {
   const fps = opts.fps ?? 30;
   const { chromium } = await import('playwright');
   const srv = await servePlayer();
@@ -36,8 +37,9 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     page.on('pageerror', (e) => opts.log?.error(`Lecteur : ${e.message}`));
     page.on('console', (m) => { if (m.type() === 'error') opts.log?.error(`Lecteur : ${m.text()}`); });
-    await page.goto(`${srv.url}/index.html?film=${film}&render=1&fps=${fps}`);
+    await page.goto(`${srv.url}/index.html?film=${film}&render=1&fps=${fps}&v=${opts.variant || 'a'}`);
     await page.waitForFunction('window.filmReady === true', null, { timeout: 60000 });
+    const textLog: TextFrame[] = [];
     const meta = await page.evaluate('({ d: window.DURATION, hits: window.HITS, music: window.MUSIC })') as { d: number; hits: any[]; music: any };
     const from = opts.from ?? 0, to = Math.min(opts.to ?? meta.d, meta.d);
     const n = Math.round((to - from) * fps);
@@ -50,13 +52,15 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
     const done = new Promise<void>((res, rej) => ff.on('close', (c) => (c === 0 ? res() : rej(new Error(`FFmpeg (encodage) : ${ffErr.slice(-400)}`)))));
     for (let i = 0; i < n; i++) {
       const t = from + i / fps;
-      const b64 = await page.evaluate((tt) => { (window as any).seek(tt); return (document.getElementById('film') as HTMLCanvasElement).toDataURL('image/jpeg', 0.95).slice(23); }, t) as string;
+      const res = await page.evaluate((tt) => { const w = window as any; w.seek(tt); return { b64: (document.getElementById('film') as HTMLCanvasElement).toDataURL('image/jpeg', 0.95).slice(23), texts: w.__frameTexts ? [...new Set(w.__frameTexts() as string[])] : [] }; }, t) as { b64: string; texts: string[] };
+      const b64 = res.b64;
+      textLog.push({ t: Math.round(t * 1000) / 1000, texts: res.texts });
       if (!ff.stdin.write(Buffer.from(b64, 'base64'))) await new Promise((r) => ff.stdin.once('drain', r));
       if (i % fps === 0) opts.onProgress?.(i / n);
     }
     ff.stdin.end();
     await done;
-    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music };
+    return { file: out, frames: n, seconds: Math.round((Date.now() - t0) / 100) / 10, duration: to - from, hits: meta.hits, music: meta.music, textLog };
   } finally {
     await browser.close();
     srv.close();
@@ -64,13 +68,13 @@ export async function renderFilm(film: string, out: string, opts: { fps?: number
 }
 
 // Une image fixe (contrôle rapide d'un plan).
-export async function stills(film: string, times: number[], outDir: string): Promise<string[]> {
+export async function stills(film: string, times: number[], outDir: string, variant = 'a'): Promise<string[]> {
   const { chromium } = await import('playwright');
   const srv = await servePlayer();
   const browser = await chromium.launch(launchOpts());
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-    await page.goto(`${srv.url}/index.html?film=${film}&render=1`);
+    await page.goto(`${srv.url}/index.html?film=${film}&render=1&v=${variant}`);
     await page.waitForFunction('window.filmReady === true');
     fs.mkdirSync(outDir, { recursive: true });
     const files: string[] = [];

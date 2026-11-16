@@ -2,14 +2,14 @@
 
 **Rien n’est publié.** À regarder, écouter, puis publier toi-même si elle te plaît.
 
-- Fichier : `systeme.mp4` (30.00 s) · couverture : `couverture.jpg`
+- Fichier : `systeme.mp4` (31.93 s) · couverture : `couverture.jpg`
 - Concept : Jauge de motivation qui clignote ; 4 règles visuelles : l'envie ondule / l'habitude monte en escalier, le mur « 1 h de sport » contre la marche « 5 pompes », le sac prêt la veille, le calendrier qui ne rate jamais deux fois.
-- Score mesuré : **88.2 / 91** (96.9 %) sur 3 itération(s) — 9 points à noter par toi (message, lisibilité).
+- Score mesuré : **94.7 / 96** (98.6 %) sur 2 itération(s) — 4 points à noter par toi (message, lisibilité).
 
 ## Publication proposée
 
 ```
-Tu n'as pas un problème de motivation. Tu as un problème de système. Petit. Facile. Tous les jours. C'est ça, la discipline.
+La motivation est un piège. 4 règles : n'attends pas l'envie, rends-le minuscule, décide la veille, jamais deux fois. Petit. Facile. Tous les jours.
 
 #discipline #habitudes #motivation #developpementpersonnel
 ```
@@ -18,8 +18,14 @@ Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heur
 
 ## Itérations
 
-- v3 : 88.2 / 91 ← livrée
-- v2 : 85.7 / 91
-- v1 : 85.3 / 91
+- v2 : 94.7 / 96 ← livrée
+- v1 : 93.3 / 96
 
 _Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._
+
+## Test A/B de l'accroche
+
+- **A** : `systeme.mp4`
+- **B** : `systeme_accroche-B.mp4` — accroche : « ARRÊTE D’ATTENDRE / L’ENVIE. / 4 RÈGLES POUR T’EN PASSER »
+
+Publie A, puis B à un autre jour (ou sur un autre créneau). Compare dans les statistiques TikTok le **taux de rétention à 3 s** et le **visionnage complet**, puis dis-moi laquelle gagne : la routine adoptera ce style d'accroche.

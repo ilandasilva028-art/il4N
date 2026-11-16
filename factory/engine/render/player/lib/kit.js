@@ -115,7 +115,11 @@ export function crowd(ctx, x, y, n, t, { laugh = false, color = '#5a5a5d', scale
 }
 
 // ------------------------------------------------------------------ texte
+// Journal des textes visibles à chaque image (lu par le rendu pour contrôler la lisibilité).
+export const TEXTLOG = { frame: [] };
+if (typeof window !== 'undefined') window.__frameTexts = () => TEXTLOG.frame;
 export function caption(ctx, parts, y, size = 64, alpha = 1, k = 1) {
+  if (alpha >= 0.5) TEXTLOG.frame.push(parts.map(([s]) => s).join('').trim());
   ctx.save(); ctx.globalAlpha = clamp(alpha);
   ctx.font = `900 ${size}px Display`; ctx.letterSpacing = '3px'; ctx.textBaseline = 'alphabetic';
   const total = parts.reduce((a, [s]) => a + ctx.measureText(s).width, 0);
@@ -163,6 +167,7 @@ export function bigWord(ctx, tl, word, sub = null) {
 // ------------------------------------------------------------------ assemblage, post, sons
 // scenes : [[début, fn(ctx, tempsLocal)], ...] ; ajoute pulsation sur le temps, secousse + flash aux coupes.
 export function compose(ctx, t, scenes, { B, pulseFrom = 0, noPulse = [] } = {}) {
+  TEXTLOG.frame = [];
   let k = 0;
   for (let i = 0; i < scenes.length; i++) if (t >= scenes[i][0]) k = i;
   const [t0, fn] = scenes[k];
@@ -192,6 +197,44 @@ export function grainVignette(ctx, t) {
   const v = ctx.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 0.75);
   v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.55)');
   ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+}
+
+// Paramètres d'URL du lecteur : ?v=b → variante d'accroche B.
+export const VARIANT = typeof location !== 'undefined' ? (new URLSearchParams(location.search).get('v') || 'a') : 'a';
+
+// Caméra : zoom + décalage + légère rotation autour d'un point.
+export function camera(ctx, { zoom = 1, x = W / 2, y = H / 2, dx = 0, dy = 0, rot = 0 } = {}) {
+  ctx.translate(x + dx, y + dy); ctx.rotate(rot); ctx.scale(zoom, zoom); ctx.translate(-x, -y);
+}
+
+// Étiquette de série (en haut à gauche, zone sûre) : « LES RÈGLES · #1 ».
+export function seriesTag(ctx, text, alpha = 1) {
+  ctx.save(); ctx.globalAlpha = clamp(alpha);
+  ctx.font = '800 26px Display'; ctx.letterSpacing = '4px';
+  const w = ctx.measureText(text).width + 40;
+  ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.beginPath(); ctx.roundRect(72, 262, w, 46, 23); ctx.fill();
+  ctx.fillStyle = '#d0d0d2'; ctx.textBaseline = 'middle'; ctx.fillText(text, 92, 286);
+  ctx.restore();
+}
+
+// Carte de fin : abonnement + teaser de la suite. handle = '@…' confirmé, sinon texte générique.
+export function endCard(ctx, tl, { teaser = 'LA RÈGLE DE DEMAIN', handle = null, series = null, t = 0 } = {}) {
+  bg(ctx, '#050505');
+  const k = pop(tl, 0, 0.3);
+  ctx.save(); ctx.globalAlpha = clamp(k);
+  const r = 150 + 8 * Math.sin(tl * 6);
+  ctx.fillStyle = COLORS.red; ctx.beginPath(); ctx.arc(W / 2, 760, r, 0, Math.PI * 2); ctx.fill();
+  drawStick(ctx, W / 2, 790, { lean: 0, head: -6, armB: [140 + 10 * Math.sin(tl * 8), 0], armF: [-140 - 10 * Math.sin(tl * 8), 0], legB: [20, 0], legF: [-20, 0] }, { scale: 0.8, eyes: true, t });
+  ctx.restore();
+  caption(ctx, [['ABONNE-TOI', '#f1f1f1']], 1040, 78, pop(tl, 0.2), 0.8 + 0.2 * pop(tl, 0.2));
+  caption(ctx, [['POUR ', '#9a9a9c'], [teaser, '#f1f1f1']], 1120, 44, pop(tl, 0.45), 1);
+  if (handle) caption(ctx, [[handle, COLORS.red]], 1200, 50, pop(tl, 0.7), 1);
+  if (series) seriesTag(ctx, series, pop(tl, 0.1));
+  // flèche qui pulse vers le bouton « suivre » (côté droit de l'interface TikTok)
+  ctx.save(); ctx.globalAlpha = clamp(pop(tl, 0.9)); ctx.strokeStyle = COLORS.red; ctx.lineWidth = 14; ctx.lineCap = 'round';
+  const ax = 860 + 14 * Math.sin(tl * 9);
+  ctx.beginPath(); ctx.moveTo(ax - 90, 1300); ctx.lineTo(ax, 1300); ctx.moveTo(ax - 30, 1260); ctx.lineTo(ax, 1300); ctx.lineTo(ax - 30, 1340); ctx.stroke();
+  ctx.restore();
 }
 
 export { drawStick, POSES, label, COLORS };

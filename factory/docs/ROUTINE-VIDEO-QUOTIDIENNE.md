@@ -25,10 +25,34 @@ Chaque vidéo doit **apprendre quelque chose de concret et applicable** : pas se
 - Conseils de bon sens et reconnus (petites actions, préparation la veille, environnement, sommeil, ne pas rater deux fois…). **Jamais de statistiques ni d'« études » inventées.**
 - Alterner les formats : « N règles », « l'erreur que tout le monde fait », « avant / après », métaphore pure. Le format « règles » est le plus enregistré et partagé : au moins 3 vidéos sur 7.
 
+## 1 ter. Règles de rétention (obligatoires depuis le 16/11/2026)
+Exemple de référence : `films/j20261116-systeme2.js`. Le contrôle qualité mesure désormais ces points grâce au journal des textes du rendu.
+1. **Accroche choc** :
+   - mouvement fort dès l'image 0 : caméra qui « claque » (zoom 1,35 → 1), objet qui explose, chute, flash ;
+   - **6 mots maximum** dans la 1,5 s, en deux lignes, avec le mot clé en rouge sur le 2ᵉ temps.
+2. **Texte** :
+   - **12 mots maximum visibles en même temps** ;
+   - chaque texte affiché **au moins 0,3 s + 0,3 s par mot** ;
+   - titres de règle sur **une seule ligne** de 4 mots maximum.
+3. **Promesse de structure** dans l'accroche (« 4 RÈGLES POUR T'EN PASSER ») : on reste pour voir la suite.
+4. **Personnage vivant** :
+   - `eyes: true, t` (yeux qui clignent), `mouth` pour l'émotion ;
+   - `squash` à chaque atterrissage ;
+   - caméra qui bouge (`camera()`), pas de plan figé.
+5. **Série** :
+   - `seriesTag(ctx, 'LES RÈGLES · #N')` dans l'accroche, en numérotant à partir du journal ;
+   - autre nom de série pour les métaphores, par exemple « TOI CONTRE TOI · #N ».
+6. **Carte de fin** : `endCard()` sur les 5 derniers temps (« ABONNE-TOI POUR LA RÈGLE DE DEMAIN »), avec le @ seulement quand `compte/compte.json` le marque confirmé. Le tout dernier temps reprend l'image d'ouverture (boucle).
+7. **Test A/B** :
+   - écrire une 2ᵉ accroche (variable `VARIANT === 'b'`, champ `accrocheB` de la vision) ;
+   - après `deliver`, lancer `npx tsx engine/daily.ts variant <film> <visionId>`.
+8. Durée cible : 24 à 32 s.
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
+- **`films/j20261116-systeme2.js`** : le modèle actuel, à suivre en priorité ;
 - `films/discipline.js` ;
-- `films/j20261116-telephone.js` (utilise le kit).
+- `films/j20261116-telephone.js`.
 
 Outils disponibles :
 - **`lib/kit.js`** :
@@ -69,7 +93,9 @@ Cette commande enchaîne : rendu 1080×1920 30 i/s, musique originale, bruitages
 ## 4. Livrer
 `npx tsx engine/daily.ts deliver <film> <visionId>`
 
-Cette commande crée `livraisons/AAAA-MM-JJ-<vision>/` : MP4 léger, couverture, contrôle qualité, `LISEZMOI.md` (légende et hashtags). Elle met aussi à jour `livraisons/journal.json`.
+Lancer ensuite `npx tsx engine/daily.ts variant <film> <visionId>` (accroche B).
+
+`deliver` crée `livraisons/AAAA-MM-JJ-<vision>/` : MP4 léger, couverture, contrôle qualité, `LISEZMOI.md` (légende et hashtags). Elle met aussi à jour `livraisons/journal.json`.
 
 Ensuite, commiter :
 - le film `.js` ;

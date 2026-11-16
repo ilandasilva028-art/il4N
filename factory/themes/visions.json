@@ -5,8 +5,8 @@
    "id": "systeme",
    "titre": "Le système (4 règles)",
    "accroche": [
-    "Tu n'as pas un problème de motivation.",
-    "Tu as un problème de système."
+    "La motivation",
+    "est un piège."
    ],
    "metaphore": "Jauge de motivation qui clignote ; 4 règles visuelles : l'envie ondule / l'habitude monte en escalier, le mur « 1 h de sport » contre la marche « 5 pompes », le sac prêt la veille, le calendrier qui ne rate jamais deux fois.",
    "lecon": "Ne pas compter sur l'envie, rendre l'action minuscule, décider la veille, ne jamais rater deux fois.",
@@ -20,8 +20,8 @@
     "escalier de petites marches + drapeau"
    ],
    "chute": [
-    "Petit. Facile. Tous les jours. ",
-    "C'est ça, la discipline."
+    "4 règles : n'attends pas l'envie, rends-le minuscule, décide la veille, jamais deux fois. ",
+    "Petit. Facile. Tous les jours."
    ],
    "mot": "SYSTÈME.",
    "hashtags": [
@@ -29,7 +29,12 @@
     "#habitudes",
     "#motivation",
     "#developpementpersonnel"
-   ]
+   ],
+   "accrocheB": [
+    "Arrête d'attendre",
+    "l'envie."
+   ],
+   "serie": "LES RÈGLES · #1"
   },
   {
    "id": "telephone",
