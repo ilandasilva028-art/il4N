@@ -95,3 +95,22 @@ Script type :
 | Italia King | | | |
 | Bistrot La Place | | | |
 | La Petite Fontaine | | | |
+
+---
+
+## Lot 3 — France entière : site « en construction » (16/11/2026)
+
+Repérés via la recherche web : la page d'accueil (ou une page) de leur site affiche « site en construction ».
+**Ouvrir leur site avant d'appeler** pour confirmer que c'est toujours le cas (l'index de recherche peut dater).
+
+| Entreprise | Ville | Numéro | Problème observé | Sources |
+|---|---|---|---|---|
+| Restaurant Terres Gourmandes | La Bresse (88) | 03 29 28 68 68 | Page « Site en construction » sur restaurantterresgourmandes.fr ; réservation obligatoire la veille pour le midi | restaurantterresgourmandes.fr/site-en-cours-de-construction, labresse.net, francevelotourisme.com |
+| Fromagerie Origine | Montpellier (34) | 04 67 66 17 32 | Accueil de fromagerie-origine.fr = « Site en cours de construction », les clients doivent appeler ; plateaux de fromages sur commande | fromagerie-origine.fr, GaultMillau, gillespudlowski.com |
+| GSM 47 | Villeneuve-sur-Lot (47), à confirmer | 05 53 41 87 33 | gsm47.fr en construction, « achats pas encore disponibles » | gsm47.fr |
+
+| Entreprise | Date | Résultat | Prochaine étape |
+|---|---|---|---|
+| Terres Gourmandes | | | |
+| Fromagerie Origine | | | |
+| GSM 47 | | | |
