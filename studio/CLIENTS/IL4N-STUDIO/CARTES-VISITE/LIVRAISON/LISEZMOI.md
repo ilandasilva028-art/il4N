@@ -1,3 +1,22 @@
+# ✅ v13 — CARTE-CALENDRIER A6 : face noire = toutes les infos, verso = calendrier 2027 (16/11/2026) — VERSION À IMPRIMER
+Retour d'Ilan : garder le calendrier, améliorer la face noire (« à l'avant pas de calendrier, juste toutes les infos bien présentées »).
+- **Face noire (recto)** : logo il4n. + « Faites bonne impression. », nom/métier, pastille « Calendrier 2027 au dos », QR « Mes tarifs » (16,5 mm) ;
+  **Imprimés** (Flyer Start 21 €, Pro 35 €, Prestige 49 €, carte de visite 25 €, menu 39 €, affiche A3/A2 39 €, plaquette 45 €) ;
+  **Réseaux & identité** (visuel 15 € · 5 pour 59 €, Pack Lancement 360° 97 €, Pack Artisan 129 €, Social Media Kit / Identité de marque sur devis) ;
+  carte claire **Site internet 290 €** + option tranquillité 100 €/an ; méthode en 3 étapes ; bandeau contact ; mention « tarifs à confirmer ».
+  Fond : cercles ton sur ton à peine visibles (bas-droite et coin haut-gauche).
+- **Verso** : calendrier 2027 lisible (A6), jours fériés en or (identique v10).
+- Tarifs copiés du site le 16/11/2026 (prix normaux, hors offre de Noël). Si un prix change : `SOURCES/infos_recto_v13.html` puis `bash SOURCES/build_v13.sh`.
+- Contrôles : CMJN, encre max 240 %, petits textes sur une seule encre, 100 % vectoriel, polices incorporées, QR testé, zone de sécurité OK, aucun liseré.
+
+| Fichier | Usage |
+|---|---|
+| `IL4N_carte-calendrier-A6_v13_print_CMJN.pdf` | **Imprimeur en ligne** : flyer A6 recto-verso, 148 × 105 mm paysage, fond perdu 3 mm. |
+| `IL4N_carte-calendrier-A6_v13_apercu.png` | Aperçu fidèle des couleurs imprimées. |
+
+Les v10 à v12 restent dans le dossier comme étapes de travail (non conseillées).
+
+---
 # ⭐ v12 — A6 « 365 points » + verso INFOS & TARIFS (16/11/2026) — remplace v10/v11
 Demande d'Ilan : au verso, plus de calendrier, juste toutes les infos bien présentées.
 - Recto (inchangé, v11) : fond nuit = l'année 2027 en 365 points, jours fériés en or ; légende « 2027 en 365 points · ● jours fériés ».

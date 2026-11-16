@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Carte IL4N v13 A6 paysage 148×105 — RECTO (face noire) : toutes les infos (prestations + tarifs du site au 16/11/2026, méthode, contact, QR).
+     Le verso est le calendrier 2027 (cal_verso_v10.html).
+     Tarifs copiés de il4nstudio.netlify.app le 16/11/2026 (hors offre de Noël temporaire). Si un prix change sur le site : le changer ici. -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-600.ttf); font-weight: 600; }
+  @font-face { font-family: Accent; src: url(fonts/Gelasio-Italic-400.ttf); font-weight: 400; }
+  :root { --w: 148mm; --h: 105mm; --bleed: 3mm; --safe: 5mm; --bg: #111018; --or: #d6a96a; --encre: #fffdf8; --gris: #a39dad; }
+  .bleed { background: #111018; }
+  .bleed svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trim { font-family: Inter, sans-serif; color: var(--encre); }
+
+  .tete { position: absolute; left: 8mm; right: 8mm; top: 7.4mm; display: flex; justify-content: space-between; align-items: flex-end;
+          padding-bottom: 2.2mm; border-bottom: .3mm solid #3a3546; }
+  .tete .logo { font-size: 30pt; font-weight: 900; letter-spacing: -.08em; line-height: .8; }
+  .tete .logo b { display: inline-block; width: 2.6mm; height: 2.6mm; border-radius: 50%; background: var(--or); margin-left: .5mm; }
+  .tete .qui { text-align: right; line-height: 1.25; }
+  .tete .qui b { display: block; font-size: 10pt; font-weight: 900; }
+  .tete .qui span { font-size: 6.6pt; font-weight: 800; letter-spacing: .06em; color: var(--or); }
+
+  .cols { position: absolute; left: 8mm; right: 8mm; top: 23mm; display: grid; grid-template-columns: 1fr 1fr 39mm; column-gap: 6mm; }
+  h3 { font-size: 6.6pt; font-weight: 900; letter-spacing: .1em; color: var(--or); margin-bottom: 1.6mm; }
+  .liste div { display: flex; align-items: baseline; gap: 1mm; font-size: 7.6pt; font-weight: 700; line-height: 1; margin-bottom: 2.15mm; white-space: nowrap; }
+  .liste div i { flex: 1; border-bottom: .3mm dotted #4a4457; transform: translateY(-.5mm); }
+  .liste div b { font-weight: 900; }
+  .liste small { display: block; font-size: 5.8pt; font-weight: 600; color: var(--gris); margin-top: -1.3mm; margin-bottom: 2.15mm; }
+
+  .site { background: #f4f0e8; color: #17131d; border-radius: 2.4mm; padding: 3.4mm 3.4mm 3.2mm; }
+  .site h3 { color: #b8853f; margin-bottom: 1.2mm; }
+  .site .prix { white-space: nowrap; font-size: 22pt; font-weight: 900; letter-spacing: -.03em; line-height: 1; }
+  .site .prix span { font-size: 7pt; font-weight: 700; letter-spacing: 0; color: #6f6a73; margin-left: .8mm; }
+  .site p { font-size: 6.4pt; font-weight: 600; line-height: 1.35; color: #6f6a73; margin-top: 1.6mm; }
+  .site .opt { margin-top: 2.6mm; padding-top: 2.2mm; border-top: .3mm solid #d8d1c4; }
+  .site .opt b { display: block; font-size: 8pt; font-weight: 900; color: #b8853f; }
+  .site .opt span { display: block; font-size: 6.2pt; font-weight: 600; line-height: 1.35; color: #6f6a73; margin-top: .8mm; }
+
+  .etapes { position: absolute; left: 8mm; right: 8mm; top: 73.6mm; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 6mm;
+            border-top: .3mm solid #3a3546; padding-top: 2.6mm; }
+  .etapes > div { display: flex; gap: 2mm; align-items: flex-start; }
+  .etapes em { font-style: normal; font-size: 12pt; font-weight: 900; color: var(--or); line-height: 1; }
+  .etapes b { display: block; font-size: 7.4pt; font-weight: 900; line-height: 1.1; }
+  .etapes span { display: block; font-size: 6pt; font-weight: 600; color: var(--gris); line-height: 1.3; margin-top: .5mm; }
+
+  .contact { position: absolute; left: 8mm; right: 8mm; top: 86.2mm; height: 8.8mm; background: #1e1b29; border-radius: 2mm;
+             display: flex; align-items: center; justify-content: space-between; padding: 0 3.6mm; font-size: 7pt; font-weight: 700; white-space: nowrap; }
+  .contact .tel { font-size: 10.5pt; font-weight: 900; }
+  .contact div { display: flex; align-items: center; gap: 1.3mm; }
+  .contact svg { width: 3.2mm; height: 3.2mm; flex: none; }
+  .mention { position: absolute; left: 8mm; right: 8mm; top: 96.2mm; font-size: 5.4pt; font-weight: 600; color: var(--gris); text-align: center; }
+  .tete { top: 6.6mm !important; }
+  .tete .marque { margin-right: auto; }
+  .tete .logo { white-space: nowrap; }
+  .tete .slogan { font-family: Accent; font-size: 10.5pt; color: var(--or); margin-top: 2.2mm; white-space: nowrap; }
+  .tete .qui { margin-right: 4mm; }
+  .tete .qui em { display: block; font-style: normal; font-size: 5.6pt; font-weight: 800; letter-spacing: .06em; color: #111018; background: var(--or);
+                  border-radius: 1mm; padding: .6mm 1.4mm .5mm; margin-top: 1.2mm; display: inline-block; }
+  .tete .qr { width: 16.5mm; text-align: center; }
+  .tete .qr .fond { background: #fffdf8; border-radius: 1.2mm; padding: .6mm; }
+  .tete .qr img { display: block; width: 100%; }
+  .tete .qr span { display: block; white-space: nowrap; font-size: 5.6pt; font-weight: 800; letter-spacing: .05em; color: var(--or); margin-top: .7mm; }
+  .cols { top: 32mm !important; }
+  .liste div { margin-bottom: 1.85mm !important; }
+  .liste small { margin-bottom: 1.85mm !important; }
+  .etapes { top: 76mm !important; }
+  .site { padding: 2.8mm 3.2mm 2.6mm !important; }
+  .site p { margin-top: 1.1mm !important; }
+  .site .opt { margin-top: 1.9mm !important; padding-top: 1.7mm !important; }
+  .contact { top: 87.2mm !important; }
+  .mention { top: 97mm !important; }
+</style></head>
+<body><div class="page">
+  <div class="bleed">
+    <!-- cercles ton sur ton (nuit à peine éclaircie), coupés par le bord : profondeur discrète -->
+    <svg viewBox="0 0 154 111">
+      <circle cx="150" cy="104" r="58" fill="#15131d"/>
+      <circle cx="150" cy="104" r="40" fill="#191622"/>
+      <circle cx="150" cy="104" r="74" fill="none" stroke="#17151f" stroke-width=".6"/>
+      <circle cx="-6" cy="-8" r="34" fill="none" stroke="#17151f" stroke-width=".6"/>
+    </svg>
+  </div>
+  <div class="trim">
+    <div class="tete">
+      <div class="marque"><div class="logo">il4n<b></b></div><div class="slogan">Faites bonne impression.</div></div>
+      <div class="qui"><b>Ilan Da Silva</b><span>GRAPHISTE &amp; SITES WEB · SARRIANS</span><em>CALENDRIER 2027 AU DOS</em></div>
+      <div class="qr"><div class="fond"><img src="qr.svg" alt=""></div><span>MES TARIFS</span></div>
+    </div>
+
+    <div class="cols">
+      <div class="liste">
+        <h3>IMPRIMÉS</h3>
+        <div>Flyer Start<i></i><b>21 €</b></div>
+        <div>Flyer Pro<i></i><b>35 €</b></div>
+        <div>Flyer Prestige<i></i><b>49 €</b></div>
+        <div>Carte de visite<i></i><b>25 €</b></div>
+        <div>Menu de restaurant<i></i><b>39 €</b></div>
+        <div>Affiche A3 ou A2<i></i><b>39 €</b></div>
+        <div>Plaquette<i></i><b>45 €</b></div>
+      </div>
+      <div class="liste">
+        <h3>RÉSEAUX &amp; IDENTITÉ</h3>
+        <div>Visuel réseaux sociaux<i></i><b>15 €</b></div>
+        <small>5 visuels pour 59 €</small>
+        <div>Pack Lancement 360°<i></i><b>97 €</b></div>
+        <div>Pack Artisan<i></i><b>129 €</b></div>
+        <small>logo + cartes de visite + plaquette</small>
+        <div>Social Media Kit<i></i><b>sur devis</b></div>
+        <div>Identité de marque<i></i><b>sur devis</b></div>
+      </div>
+      <div class="site">
+        <h3>SITE INTERNET</h3>
+        <div class="prix">290 €<span>création</span></div>
+        <p>Sur mobile et ordinateur, jusqu’à la mise en ligne.</p>
+        <div class="opt"><b>+ 100 € / an</b><span>Option tranquillité : hébergement, domaine .fr, mises à jour.</span></div>
+      </div>
+    </div>
+
+    <div class="etapes">
+      <div><em>01</em><div><b>Vous racontez</b><span>votre activité, vos idées.</span></div></div>
+      <div><em>02</em><div><b>On définit ensemble</b><span>style, format, contenu, tarif.</span></div></div>
+      <div><em>03</em><div><b>Votre projet prend forme</b><span>vous validez avant de payer.</span></div></div>
+    </div>
+
+    <div class="contact">
+      <div class="tel"><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 10 55 71 25</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="#d6a96a"/></svg>@il4n_studio</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>ilandasilva028@gmail.com</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="#d6a96a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>il4nstudio.netlify.app</div>
+    </div>
+    <div class="mention">Tarifs affichés sur il4nstudio.netlify.app en novembre 2026, à confirmer selon votre demande avant commande.</div>
+  </div>
+</div></body></html>
