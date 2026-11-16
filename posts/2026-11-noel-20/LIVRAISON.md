@@ -24,7 +24,7 @@ Maquette gratuite, vous validez avant de payer. Écrivez-moi en privé ↗
 **À améliorer**
 1. Les cartes de flyers sont petites sur la story : les visuels se reconnaissent, mais leurs textes ne se lisent pas.
 2. Publier avant le 25/11. Après le 26/11, la date de fin devient fausse : il faudra une version « offre de décembre ».
-3. Le site affiche 17 € pour le Flyer Start dans le tableau « Quel flyer choisir ? » et 16 € sur la carte : corriger le site avant publication.
+3. ~~Le site affiche 17 € pour le Flyer Start dans le tableau~~ — **corrigé** (vérifié en ligne le 16/11/2026 : 16 € partout).
 
 ## 2. Site −10 %
 **Légende Facebook**

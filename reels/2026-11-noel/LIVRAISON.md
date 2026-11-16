@@ -58,4 +58,4 @@ Je crée votre site. Et je le gère pour vous. 💻 Pour Noël : 261 € au lieu
 ---
 
 ## Points à corriger sur le site avant publication
-- Tableau « Quel flyer choisir ? » : **Flyer Start 17 €**, alors que la carte affiche **16 €** (offre de Noël). Les vidéos et visuels utilisent 16 €, comme le brief.
+- ~~Tableau « Quel flyer choisir ? » : Flyer Start 17 € au lieu de 16 €~~ — **corrigé** (vérifié en ligne le 16/11/2026 : 16 € / 28 € / 39 €, identique aux vidéos).

@@ -4,7 +4,7 @@
 
 > Tu reprends le travail d'IL4N STUDIO (Ilan Da Silva, graphiste à Sarrians, il4nstudio.netlify.app, budget 0 €).
 > Lis d'abord `docs/REPRISE.md`, `docs/REFERENCE-REEL.md` et `docs/ROUTINE-QUOTIDIENNE.md` du dépôt il4N.
-> Branche de travail : `claude/awesome-johnson-7m7st3`. Ne publie et n'envoie rien sans mon accord. Aucun prix ni chiffre inventé.
+> Branche de travail : `claude/festive-gauss-x63hqm` (contient tout `claude/awesome-johnson-7m7st3`). Ne publie et n'envoie rien sans mon accord. Aucun prix ni chiffre inventé.
 
 ## Ce qui existe
 | Sujet | Où | État |
@@ -21,7 +21,7 @@
 Numéros de suivi des cartes déjà attribués : 0001-0024 (billet), 0025-0051 (tickets), 0052-0078 (gagnant), 0079-0114 (maxi à gratter), 0115-0141 (maxi carte). Prochain numéro libre : **0142**.
 
 ## À faire (par ordre)
-1. **Site** : corriger le tableau « Quel flyer choisir ? » (Flyer Start affiche 17 €, la carte 16 €) — avant de publier la vidéo flyers.
+1. ~~**Site** : corriger le tableau « Quel flyer choisir ? »~~ — **fait** : vérifié en ligne le 16/11/2026, le tableau affiche Start 21 € → 16 €, Pro 35 € → 28 €, Prestige 49 € → 39 €, comme les cartes.
 2. Publier le reel « Noël −20 % flyers » (légende dans `reels/2026-11-noel/LIVRAISON.md`) avant le 25/11 ; variante « offre de décembre » à prévoir après.
 3. Choisir la carte de visite et imprimer (planche A4 maison ou imprimeur).
 4. Faire les 10 appels de prospection et remplir `suivi.csv` ; bilan après 10 jours (≥ 2 intéressés = on continue).
