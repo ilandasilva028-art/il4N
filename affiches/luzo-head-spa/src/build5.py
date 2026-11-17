@@ -72,7 +72,6 @@ html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head S
 <div><div class="card c3"><h4>SAUNA DÔME • +25€ en complément <small>(sauf Footspa)</small> • En solo 38€ / 30 min</h4></div>
 <div class="bul">Détox • chaleur enveloppante • détente musculaire • sommeil amélioré</div>
 <div class="warn">Contre-indications : femme enceinte • problèmes cardiaques • hypertension • pacemaker • fièvre • plaies ouvertes • avis médical si doute</div></div>
-<div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div>
 <div><div class="sc">ça commence à la racine</div><div class="end">Votre moment de détente.</div></div>
 </div></body></html>'''
 open(out,'w',encoding='utf-8').write(html)

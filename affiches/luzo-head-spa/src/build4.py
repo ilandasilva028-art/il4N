@@ -76,7 +76,6 @@ html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head S
 <div class="bul"><span>•</span> Détox profonde • élimine toxines &nbsp; <span>•</span> Brûle 300 à 600 kcal<br><span>•</span> Soulage douleurs &amp; tensions &nbsp; <span>•</span> Peau éclatante • sommeil amélioré</div>
 <div class="warn">Femme enceinte • problèmes cardiaques • hypertension • pacemaker • fièvre • plaies ouvertes • avis médical si doute</div>
 <div class="tiny">ça commence à la racine • LUZOheadspa</div></div>
-<div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div>
 <div><div class="sc">ça commence à la racine</div><div class="end">Luzoheadspa bien plus qu'un Soin un Rituel</div><div class="end2">Votre moment de détente.</div></div>
 </div></body></html>'''
 open(out,'w',encoding='utf-8').write(html)
