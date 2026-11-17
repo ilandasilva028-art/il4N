@@ -5,12 +5,12 @@ def s(x): return f'{x*F:.3f}cm'
 Fh=F*0.9
 def sh(x): return f'{x*Fh:.3f}cm'
 css=f'''
-@font-face{{font-family:Inter;font-weight:400;src:url(Inter-Regular.otf)}}
-@font-face{{font-family:Inter;font-weight:500;src:url(Inter-Medium.otf)}}
-@font-face{{font-family:Inter;font-weight:600;src:url(Inter-SemiBold.otf)}}
-@font-face{{font-family:Inter;font-weight:700;src:url(Inter-Bold.otf)}}
-@font-face{{font-family:Inter;font-weight:800;src:url(Inter-ExtraBold.otf)}}
-@font-face{{font-family:Script;font-style:italic;src:url(accent.woff2)}}
+@font-face{{font-family:Inter;font-weight:400;src:url(Inter-Regular.ttf)}}
+@font-face{{font-family:Inter;font-weight:500;src:url(Inter-Medium.ttf)}}
+@font-face{{font-family:Inter;font-weight:600;src:url(Inter-SemiBold.ttf)}}
+@font-face{{font-family:Inter;font-weight:700;src:url(Inter-Bold.ttf)}}
+@font-face{{font-family:Inter;font-weight:800;src:url(Inter-ExtraBold.ttf)}}
+@font-face{{font-family:Script;font-style:italic;src:url(accent.ttf)}}
 @page{{size:{W}cm {H}cm;margin:0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html,body{{width:{W}cm;height:{H}cm}}
