@@ -16,14 +16,14 @@ css=f'''
 html,body{{width:{W}cm;height:{H}cm}}
 body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden}}
 .b{{position:absolute;z-index:0}}
-.pg{{position:absolute;inset:0;padding:1.6cm {1.9*k}cm 1.2cm {1.9*k}cm;z-index:1;display:flex;flex-direction:column}}
+.pg{{position:absolute;inset:0;padding:1.3cm {1.7*k}cm 1.1cm {1.7*k}cm;z-index:1;display:flex;flex-direction:column}}
 .head{{display:flex;align-items:center;gap:1.4cm}}
-.logo{{height:{4.9*v}cm;flex:none}}
+.logo{{height:{3.9*v}cm;flex:none}}
 .ttl{{flex:1;text-align:center}}
 h1{{font-weight:400;font-size:{2.2*1.12:.3f}cm;white-space:nowrap;letter-spacing:.06em;line-height:1;color:#2b2830}}
 .sub{{color:#a58fb4;font-weight:500;font-size:{s(.74)};margin-top:.35cm}}
-.cols{{display:flex;gap:{2.0*k}cm;margin-top:.9cm;align-items:flex-start}}
-.mcw{{margin-top:.2cm}}.mcw .mc p{{margin-top:.12cm}}.bottom{{margin-top:auto}}
+.cols{{display:flex;gap:{2.0*k}cm;margin-top:.6cm;align-items:flex-start}}
+.mcw{{margin-top:.2cm}}.mcw .mc p{{margin-top:.12cm}}.bottom{{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:1.2cm}}.sig{{text-align:center;flex:1}}
 .col{{flex:1;display:flex;flex-direction:column}}.col:first-child{{flex:1.12}}
 .rit{{margin-top:.5cm}}.rit:first-child{{margin-top:0}}
 .rit h2{{font-weight:700;font-size:{sh(.64)};line-height:1.2}}
@@ -44,9 +44,9 @@ li:before{{content:"";position:absolute;left:.2cm;top:.52em;width:.2cm;height:.2
 .ul2 li{{font-size:{s(.52)}}}
 .warn{{background:#f2d7de;border-radius:.6cm;text-align:center;font-weight:600;font-size:{s(.5)};line-height:1.38;padding:.28cm .6cm;margin-top:.5cm}}
 .tiny{{text-align:center;font-weight:600;font-size:{s(.4)};margin-top:.15cm}}
-.addr{{background:#eee8df;border:.04cm solid #cfc7bb;border-radius:.5cm;text-align:center;padding:.32cm .6cm;margin:.5cm auto 0;width:{27*k}cm}}
-.addr b{{font-weight:700;font-size:{sh(.72)}}}.addr span{{display:block;font-weight:500;font-size:{sh(.44)};margin-top:.05cm}}
-.sc{{font-family:Script;font-style:italic;text-align:center;font-size:{sh(.95)};margin-top:.4cm;color:#3a343c}}
+.addr{{background:#eee8df;border:.04cm solid #cfc7bb;border-radius:.5cm;text-align:center;padding:.4cm .7cm;margin:.3cm 0 0;flex:none;width:{19.5*k}cm}}
+.addr b{{font-weight:700;white-space:nowrap;font-size:{sh(.6)}}}.addr span{{display:block;font-weight:500;font-size:{sh(.44)};margin-top:.05cm}}
+.sc{{font-family:Script;font-style:italic;text-align:center;font-size:{sh(.95)};margin-top:0;color:#3a343c}}
 .end{{text-align:center;font-weight:700;font-size:{sh(.8)};margin-top:.08cm}}
 .end2{{text-align:center;font-weight:600;font-size:{s(.46)};margin-top:.05cm}}
 '''
@@ -83,8 +83,6 @@ html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head S
 <p>30 min - 25€ : massage crânien relaxant, stimulation et détente du cuir chevelu, relâche tensions.</p>
 <p>40 min - 30€ : massage crânien + massage visage, détente visage et cuir chevelu, soin visage relaxant.</p>
 <p>50 min - 40€ : massage crânien + visage &amp; épaules, expérience complète, détente épaules, nuque et visage pour lâcher-prise total.</p></div></div>
-<div class="bottom"><div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div>
-<div class="sc">ça commence à la racine</div>
-<div class="end">Luzoheadspa bien plus qu'un Soin un Rituel</div><div class="end2">Votre moment de détente.</div></div>
+<div class="bottom"><div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div><div class="sig"><div class="sc">ça commence à la racine</div><div class="end">Luzoheadspa bien plus qu'un Soin un Rituel</div><div class="end2">Votre moment de détente.</div></div></div>
 </div></body></html>'''
 open(out,'w',encoding='utf-8').write(html)
