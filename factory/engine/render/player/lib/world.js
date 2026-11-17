@@ -146,7 +146,7 @@ export function rewind(ctx, t, k = 1) {
 
 // ------------------------------------------------------------------ vie en arrière-plan
 // Silhouettes lointaines qui marchent (passants), cycliques, en parallaxe ; teinte sombre = profondeur.
-export function passersby(ctx, t, camX, { n = 6, depth = 0.6, ground = 1296, scale = 0.5, color = '#2b2c34', seed = 7, span = 2600 } = {}) {
+export function passersby(ctx, t, camX, { n = 9, depth = 0.6, ground = 1296, scale = 0.52, color = '#3a3b46', seed = 7, span = 2600 } = {}) {
   for (let i = 0; i < n; i++) {
     const dir = hash(seed + i) > 0.5 ? 1 : -1, sp = 70 + hash(seed + i + 9) * 60, sc = scale * (0.85 + hash(i + seed * 3) * 0.3);
     const raw = hash(seed * 7 + i) * span + dir * sp * t - camX * depth;
@@ -162,11 +162,11 @@ export function farTraffic(ctx, t, { y = 1190, n = 7, seed = 2 } = {}) {
     const dir = i % 2 ? 1 : -1, sp = 160 + hash(seed + i) * 140;
     const x = (((hash(seed * 5 + i) * 1800 + dir * sp * t) % 1800) + 1800) % 1800 - 360;
     const c = dir > 0 ? '255,240,210' : '227,52,44';
-    glow(ctx, x, y + (i % 2) * 14, 26, c, 0.55); glow(ctx, x + 22 * dir, y + (i % 2) * 14, 26, c, 0.55);
+    glow(ctx, x, y + (i % 2) * 14, 40, c, 0.7); glow(ctx, x + 26 * dir, y + (i % 2) * 14, 40, c, 0.7);
   }
 }
 // Train aérien qui traverse au loin toutes les `period` secondes.
-export function farTrain(ctx, t, camX, { y = 1010, period = 9, offset = 2 } = {}) {
+export function farTrain(ctx, t, camX, { y = 1010, period = 6, offset = 2 } = {}) {
   ctx.fillStyle = '#101117'; ctx.fillRect(0, y + 46, W, 10);
   for (let x = -((camX * 0.25) % 180); x < W; x += 180) ctx.fillRect(x, y + 56, 10, 120);
   const ph = ((t + offset) % period) / period;
@@ -175,7 +175,8 @@ export function farTrain(ctx, t, camX, { y = 1010, period = 9, offset = 2 } = {}
   for (let c = 0; c < 5; c++) {
     const x = head - c * 190;
     ctx.fillStyle = '#16171e'; ctx.fillRect(x, y, 180, 44);
-    for (let w = 0; w < 6; w++) { ctx.fillStyle = 'rgba(255,236,190,0.55)'; ctx.fillRect(x + 12 + w * 28, y + 10, 16, 14); }
+    for (let w = 0; w < 6; w++) { ctx.fillStyle = 'rgba(255,236,190,0.8)'; ctx.fillRect(x + 12 + w * 28, y + 10, 16, 14); }
+    glow(ctx, x + 90, y + 20, 120, '255,236,190', 0.12);
   }
   glow(ctx, head + 180, y + 22, 90, '255,245,220', 0.4);
 }
@@ -189,6 +190,18 @@ export function blinkingWindows(ctx, t, camX, { n = 18, depth = 0.4, seed = 4, y
     ctx.fillStyle = 'rgba(255,220,160,0.55)'; ctx.fillRect(x, y, 14, 22);
     glow(ctx, x + 7, y + 11, 30, '255,220,160', 0.12);
   }
+}
+// Passant au premier plan : grande silhouette floue qui traverse devant la caméra (profondeur de cinéma).
+// À dessiner APRÈS les personnages. Passe toutes les `period` secondes, dure ~1,1 s.
+export function foregroundPasser(ctx, t, { period = 6.5, offset = 1.2, dir = 1, seed = 1 } = {}) {
+  const ph = ((t + offset) % period);
+  if (ph > 1.1) return;
+  const k = ph / 1.1, x = dir > 0 ? -400 + k * (W + 800) : W + 400 - k * (W + 800);
+  const g = gait(ph, { x0: 0, speed: 900, ground: 2150, scale: 2.6, face: dir });
+  ctx.save(); ctx.filter = 'blur(10px)'; ctx.globalAlpha = 0.92;
+  drawStick(ctx, x, g.y, g.pose, { color: '#070709', scale: 2.6, face: dir, hands: false, feet: false });
+  ctx.restore();
+  void seed;
 }
 // Avion : feu clignotant qui traverse lentement le ciel.
 export function airplane(ctx, t, { y = 330, speed = 40 } = {}) {

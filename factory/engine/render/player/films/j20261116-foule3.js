@@ -3,7 +3,7 @@
 import { W, H, timeline, topBand, grainVignette, POSES, COLORS, clamp, prog, ease, pop, lerp, noise, VARIANT, seriesTag, endCard, camera, dust, impactRing, kinetic, TEXTLOG } from '../lib/kit.js';
 import { drawStick, lerpPose, breathe } from '../lib/stick.js';
 import { choreo, bake, drawBaked, gait, gaitSteps, ik2 } from '../lib/anim.js';
-import { bedroom, stage, street, rain, reflect, glow, lightCone, makeCrowd, drawCrowd, brows, sweat, whip, bubble, rewind, confettiBake, drawConfetti } from '../lib/world.js';
+import { bedroom, stage, street, rain, reflect, glow, lightCone, makeCrowd, drawCrowd, brows, sweat, whip, bubble, rewind, confettiBake, drawConfetti, foregroundPasser } from '../lib/world.js';
 
 export { W, H };
 export const FPS = 60;
@@ -93,6 +93,7 @@ function conflit(ctx, tl) {
   drawCrowd(ctx, MOCKERS, tl, tl < 1.4 ? 'point' : 'laugh', { face: 1 });
   hero(ctx);
   rain(ctx, tl, { n: 160 });
+  foregroundPasser(ctx, tl, { period: 9, offset: 6.6, dir: 1 });
   bubble(ctx, 'TOI ? SPORTIF ?', 300, 920, tl, 0.25, { log });
   bubble(ctx, 'T’ARRÊTERAS LUNDI.', 380, 790, tl, 1.4, { tail: 'up', log });
   ctx.restore();
@@ -170,6 +171,7 @@ function jour112(ctx, tl) {
   drawStick(ctx, g.x - camX, g.y, g.pose, { ...HERO, t: tl, ground: 1300, mouth: 'grit', rim: 0.7 });
   brows(ctx, g.x - camX, g.y, g.pose, { mood: 'determined' });
   rain(ctx, tl + 3, { n: 170, angle: 0.3 });
+  foregroundPasser(ctx, tl, { period: 9, offset: 6.3, dir: -1 });
   ctx.restore();
   title(ctx, tl, [['JOUR ', '#f1f1f1'], ['112', RED]]);
   tip(ctx, 3, 'NOTE CHAQUE SÉANCE.', tl, 0.7);

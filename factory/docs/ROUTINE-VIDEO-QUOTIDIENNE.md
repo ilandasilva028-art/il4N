@@ -137,6 +137,8 @@ Le fond ne doit **jamais être immobile** : au moins 3 éléments qui bougent en
 - **salle** : ventilateur, télé, deux sportifs en silhouette (tapis de course, haltère), sac de frappe.
 - **scène** : mur LED qui pulse, brume qui dérive, téléphones levés et flashs photo dans le public.
 
+- **Premier plan** : `foregroundPasser(ctx, t, { period, offset, dir })`, dessiné APRÈS les personnages. Une grande silhouette floue traverse devant la caméra dans les scènes de rue, environ une fois par scène. C'est l'effet de profondeur le plus fort.
+
 Pour un nouveau décor : utiliser ces fonctions, ou en écrire d'autres sur le même principe (fonction pure du temps, silhouettes sombres, cycles décalés avec `hash`).
 
 ## 2. Écrire le film
