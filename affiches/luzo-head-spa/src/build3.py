@@ -16,15 +16,15 @@ css=f'''
 html,body{{width:{W}cm;height:{H}cm}}
 body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden}}
 .b{{position:absolute;z-index:0}}
-.pg{{position:absolute;inset:0;padding:1.3cm {1.7*k}cm 1.1cm {1.7*k}cm;z-index:1;display:flex;flex-direction:column}}
+.pg{{position:absolute;inset:0;padding:1.5cm {1.7*k}cm 1.7cm {1.7*k}cm;z-index:1;display:flex;flex-direction:column}}
 .head{{display:flex;align-items:center;gap:1.4cm}}
 .logo{{height:{3.9*v}cm;flex:none}}
 .ttl{{flex:1;text-align:center}}
 h1{{font-weight:400;font-size:{2.2*1.12:.3f}cm;white-space:nowrap;letter-spacing:.06em;line-height:1;color:#2b2830}}
 .sub{{color:#a58fb4;font-weight:500;font-size:{s(.74)};margin-top:.35cm}}
-.cols{{display:flex;gap:{2.0*k}cm;margin-top:.6cm;align-items:flex-start}}
-.mcw{{margin-top:.2cm}}.mcw .mc p{{margin-top:.12cm}}.bottom{{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:1.2cm}}.sig{{text-align:center;flex:1}}
-.col{{flex:1;display:flex;flex-direction:column}}.col:first-child{{flex:1.0}}
+.cols{{display:flex;gap:{2.0*k}cm;margin-top:.7cm;align-items:stretch;flex:1;min-height:0}}
+.mcw{{margin-top:.5cm}}.mcw .mc p{{margin-top:.12cm}}.bottom{{margin-top:.6cm;display:flex;align-items:center;justify-content:space-between;gap:1.2cm}}.sig{{text-align:center;flex:1}}
+.col{{flex:1;display:flex;flex-direction:column;justify-content:space-between}}.col:first-child{{flex:1.0}}
 .rit{{margin-top:.5cm}}.rit:first-child{{margin-top:0}}
 .rit h2{{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;column-gap:.6cm;font-weight:800;font-size:{sh(.62)};line-height:1.2}}.rit h2 span:first-child{{white-space:nowrap}}.rit h2 .m{{white-space:nowrap;color:#6b4a8a;font-weight:700}}
 .rit p{{font-weight:600;font-size:{s(.5)};line-height:1.36;margin-top:.08cm;color:#25222a}}
