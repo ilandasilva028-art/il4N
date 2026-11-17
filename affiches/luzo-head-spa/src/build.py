@@ -1,7 +1,8 @@
 import sys
 W=float(sys.argv[1]); H=float(sys.argv[2]); out=sys.argv[3]
 k=W/40.0                       # échelle par rapport au 40 cm
-F=1.04
+F=float(sys.argv[4]) if len(sys.argv)>4 else 1.04
+v=H/70.0
 css=f'''
 @font-face{{font-family:Inter;font-weight:400;src:url(Inter-Regular.otf)}}
 @font-face{{font-family:Inter;font-weight:500;src:url(Inter-Medium.otf)}}
@@ -14,8 +15,8 @@ css=f'''
 html,body{{width:{W}cm;height:{H}cm}}
 body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden}}
 .b{{position:absolute;z-index:0}}
-.pg{{position:absolute;inset:0;padding:{2.2}cm {3.4*k}cm 1.6cm {3.4*k}cm;z-index:1}}
-.logo{{display:block;margin:0 0 0 {1.6*k}cm;height:6.9cm;align-self:flex-start}}
+.pg{{position:absolute;inset:0;padding:{2.2*v}cm {3.4*k}cm 1.6cm {3.4*k}cm;z-index:1}}
+.logo{{display:block;margin:0 0 0 {1.6*k}cm;height:{6.9*v}cm;align-self:flex-start}}
 h1{{font-weight:400;font-size:2.35cm;letter-spacing:.06em;text-align:center;margin-top:.9cm;line-height:1;color:#2b2830}}
 .sub{{text-align:center;color:#a58fb4;font-weight:500;font-size:.78cm;margin-top:.45cm}}
 .rit{{margin-top:.62cm}}
@@ -47,11 +48,11 @@ li:before{{content:"";position:absolute;left:.25cm;top:.5em;width:.2cm;height:.2
 '''
 blobs=f'''
 <div class="b" style="right:-{4*k}cm;top:-{3*k}cm;width:{26*k}cm;height:{18*k}cm;background:#ceb6ce;border-radius:60% 40% 55% 45%/55% 50% 50% 45%;transform:rotate(-14deg)"></div>
-<div class="b" style="left:-{3.5*k}cm;top:{15.3}cm;width:{7*k}cm;height:{7*k}cm;background:#ad86b5;border-radius:50%"></div>
-<div class="b" style="left:-{3.3*k}cm;top:{29}cm;width:{9*k}cm;height:{9*k}cm;background:#dfc7dc;border-radius:50%"></div>
-<div class="b" style="right:-{5*k}cm;top:{23}cm;width:{15*k}cm;height:{9.5*k}cm;background:#b5bead;border-radius:50% 45% 52% 48%/55% 50% 50% 45%"></div>
-<div class="b" style="right:-{5*k}cm;top:{44.5}cm;width:{13*k}cm;height:{11*k}cm;background:#dcc6dc;border-radius:50%"></div>
-<div class="b" style="right:-{6*k}cm;top:{53.5}cm;width:{12*k}cm;height:{9*k}cm;background:#b9c3b1;border-radius:50%"></div>
+<div class="b" style="left:-{3.5*k}cm;top:{15.3*v}cm;width:{7*k}cm;height:{7*k}cm;background:#ad86b5;border-radius:50%"></div>
+<div class="b" style="left:-{3.3*k}cm;top:{29*v}cm;width:{9*k}cm;height:{9*k}cm;background:#dfc7dc;border-radius:50%"></div>
+<div class="b" style="right:-{5*k}cm;top:{23*v}cm;width:{15*k}cm;height:{9.5*k}cm;background:#b5bead;border-radius:50% 45% 52% 48%/55% 50% 50% 45%"></div>
+<div class="b" style="right:-{5*k}cm;top:{44.5*v}cm;width:{13*k}cm;height:{11*k}cm;background:#dcc6dc;border-radius:50%"></div>
+<div class="b" style="right:-{6*k}cm;top:{53.5*v}cm;width:{12*k}cm;height:{9*k}cm;background:#b9c3b1;border-radius:50%"></div>
 <div class="b" style="left:-{6*k}cm;bottom:-{4}cm;width:{18*k}cm;height:{13*k}cm;background:#e4ebe0;border-radius:50%"></div>
 '''
 import re as _re
