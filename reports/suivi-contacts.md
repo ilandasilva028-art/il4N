@@ -13,7 +13,7 @@ Statuts : à vérifier → contacté → réponse → maquette demandée → maq
 ## Vague e-mail du 2-13 novembre (relevée dans Gmail le 15/11)
 | Commerce | Offre proposée | Statut |
 |----------|----------------|--------|
-| LuZo Head Spa | Dépliant (+ site en janvier) | **CLIENT** : dépliant et facture envoyés le 14/11, paiement à vérifier, avis demandé |
+| LuZo Head Spa | Dépliant (+ site en janvier) | **CLIENT** : dépliant + FA-2026-002 (21 €) **payée**, avis demandé |
 | Tonic Pilates | Flyer séance découverte | relance finale envoyée le 13/11, pas de réponse |
 | CrossFit (Élodie) | Flyer séance d'essai | relance finale 13/11, pas de réponse |
 | SE Dalmas | Flyer contrat d'entretien | relance finale 13/11, pas de réponse |
@@ -37,4 +37,4 @@ Statuts : à vérifier → contacté → réponse → maquette demandée → maq
 | La Petite Fontaine (restaurant) | Site web créé et géré | e-mail envoyé le 16/11 « Votre adresse sur internet », pas de réponse |
 | Domaine des Dames de Lune | Visuels soirées « L'Instant » | e-mail envoyé le 16/11, pas de réponse |
 | LuZo Head Spa | Affiche 40×60 (complète + légère) + facture FA-2026-003 | **15 € payés le 17/11** (facture acquittée), affiches à envoyer |
-| LuZo Head Spa | Facture FA-2026-002 (21 €) | due le 13/12, paiement à vérifier |
+| LuZo Head Spa | Facture FA-2026-002 (21 €) | **payée** |
