@@ -36,5 +36,5 @@ Statuts : à vérifier → contacté → réponse → maquette demandée → maq
 |----------|-------|--------|
 | La Petite Fontaine (restaurant) | Site web créé et géré | e-mail envoyé le 16/11 « Votre adresse sur internet », pas de réponse |
 | Domaine des Dames de Lune | Visuels soirées « L'Instant » | e-mail envoyé le 16/11, pas de réponse |
-| LuZo Head Spa | Affiche 40×70 et 50×70 + facture FA-2026-003 (15 €, due le 17/12) | brouillon Gmail prêt, **pas encore envoyé** d'après Gmail |
+| LuZo Head Spa | Affiche 40×60 (complète + légère) + facture FA-2026-003 | **15 € payés le 17/11** (facture acquittée), affiches à envoyer |
 | LuZo Head Spa | Facture FA-2026-002 (21 €) | due le 13/12, paiement à vérifier |
