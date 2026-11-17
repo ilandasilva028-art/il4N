@@ -1,5 +1,6 @@
 import sys
-W=float(sys.argv[1]); H=float(sys.argv[2]); out=sys.argv[3]; F=float(sys.argv[4])
+W0=float(sys.argv[1]); H0=float(sys.argv[2]); out=sys.argv[3]; F=float(sys.argv[4]); BL=float(sys.argv[5]) if len(sys.argv)>5 else 0.0
+W=W0+2*BL; H=H0+2*BL
 def s(x): return f'{x*F:.3f}cm'
 css=f'''
 @font-face{{font-family:Inter;font-weight:400;src:url(Inter-Regular.ttf)}}
@@ -14,7 +15,7 @@ html,body{{width:{W}cm;height:{H}cm;overflow:hidden}}
 .bg{{position:absolute;left:0;top:0;width:{W}cm;height:{H}cm;overflow:hidden;z-index:0}}
 body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden;text-align:center}}
 .b{{position:absolute;z-index:0}}
-.pg{{position:absolute;inset:0;padding:1.4cm 2cm 1.4cm 2cm;z-index:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}}
+.pg{{position:absolute;inset:0;padding:{1.4+BL:.2f}cm {2+BL:.2f}cm {1.4+BL:.2f}cm {2+BL:.2f}cm;z-index:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}}
 .pg>*{{width:100%}}
 .logo{{height:{s(3.2)};display:block;margin:0 auto}}
 h1{{font-weight:400;font-size:{s(1.55)};letter-spacing:.08em;line-height:1;color:#2b2830;margin-top:.15cm}}
