@@ -53,7 +53,9 @@ if (cmd === 'next') {
   const base = path.join(DIRS.projects, film);
   const versions = fs.readdirSync(base).filter((x) => /^v\d+$/.test(x));
   const scored = versions.map((x) => ({ x, qc: readJson<QcReport>(path.join(base, x, 'qc.json')) })).sort((a, b) => b.qc.score - a.qc.score || Number(b.x.slice(1)) - Number(a.x.slice(1))) // à score égal : la version la plus récente (corrigée);
-  const best = scored[0];
+  // 4e argument optionnel : forcer une version (ex. v2) quand un choix éditorial prime sur un écart de score minime.
+  const forced = process.argv[5];
+  const best = forced ? (scored.find((v) => v.x === forced) ?? scored[0]) : scored[0];
   const date = today();
   const out = path.join(LIV, `${date}-${v.id}`);
   fs.mkdirSync(out, { recursive: true });
@@ -72,7 +74,7 @@ if (cmd === 'next') {
     `- Score mesuré : **${best.qc.score} / ${best.qc.measurableMax}** (${best.qc.scorePct} %) sur ${versions.length} itération(s) — ${best.qc.manualMax} points à noter par toi (message, lisibilité).`, '',
     '## Publication proposée', '', '```', caption, '', [...new Set([...v.hashtags, '#motivation'])].slice(0, 5).join(' '), '```', '',
     'Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt jour 1 ou un jour ? »).',
-    '', '## Itérations', '', ...scored.map((s) => `- ${s.x} : ${s.qc.score} / ${s.qc.measurableMax}${s.x === best.x ? ' ← livrée' : ''}`), '',
+    '', '## Itérations', '', ...scored.map((s) => `- ${s.x} : ${s.qc.score} / ${s.qc.measurableMax}${s.x === best.x ? ' ← livrée' : ''}`), ...(forced && best.x !== scored[0].x ? [`- Version ${best.x} livrée sur choix éditorial (arrière-plans plus animés), malgré un score légèrement inférieur.`] : []), '',
     '_Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._', '',
   ].join('\n'));
   const j = journal().filter((e) => !(e.date === date && e.vision === v.id));
