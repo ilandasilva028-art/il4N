@@ -22,10 +22,11 @@ body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:rel
 .ttl{{flex:1;text-align:center}}
 h1{{font-weight:400;font-size:{2.2*1.12:.3f}cm;white-space:nowrap;letter-spacing:.06em;line-height:1;color:#2b2830}}
 .sub{{color:#a58fb4;font-weight:500;font-size:{s(.74)};margin-top:.35cm}}
-.cols{{display:flex;gap:{2.0*k}cm;margin-top:.9cm;flex:1;align-items:flex-start}}
-.col{{flex:1;display:flex;flex-direction:column}}.col:first-child{{flex:1.16}}
+.cols{{display:flex;gap:{2.0*k}cm;margin-top:.9cm;align-items:flex-start}}
+.mcw{{margin-top:.2cm}}.mcw .mc p{{margin-top:.12cm}}.bottom{{margin-top:auto}}
+.col{{flex:1;display:flex;flex-direction:column}}.col:first-child{{flex:1.12}}
 .rit{{margin-top:.5cm}}.rit:first-child{{margin-top:0}}
-.rit h2{{font-weight:700;font-size:{sh(.69)};line-height:1.2}}
+.rit h2{{font-weight:700;font-size:{sh(.64)};line-height:1.2}}
 .rit p{{font-weight:600;font-size:{s(.56)};line-height:1.36;margin-top:.08cm;color:#25222a}}
 hr{{border:0;height:.1cm;background:#b5bea6;opacity:.85;margin:.6cm 0 .45cm}}
 .mc h2{{font-weight:700;font-size:{sh(.7)};line-height:1.25}}
@@ -66,11 +67,7 @@ html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head S
 <div class="rit"><h2>RITUEL FOOTSPA • 45 min • 45€</h2><p>Gommage pieds &amp; demi-jambes, bain sel d'Himalaya &amp; huile aromatique, massage demi-jambes &amp; pieds, massage cuir chevelu.</p></div>
 <div class="rit"><h2>RITUEL DÉTENTE • 30 min • 45€</h2><p>Massage cuir chevelu, gommage, shampooings, massage nuque / buste / bras / mains.</p></div>
 <div class="rit"><h2>RITUEL REVITALISANT • 45 min • 60€</h2><p>Massage cuir chevelu, gommage, argile, shampooings, massage nuque / buste / bras / mains.</p><p>Massage cuir chevelu, gommage, argile, shampooings.</p></div>
-<hr>
-<div class="mc"><h2>MASSAGE CRÂNIEN • 30 min • 25€ / 40 min • 30€ / 50 min • 40€</h2>
-<p>30 min - 25€ : massage crânien relaxant, stimulation et détente du cuir chevelu, relâche tensions.</p>
-<p>40 min - 30€ : massage crânien + massage visage, détente visage et cuir chevelu, soin visage relaxant.</p>
-<p>50 min - 40€ : massage crânien + visage &amp; épaules, expérience complète, détente épaules, nuque et visage pour lâcher-prise total.</p></div>
+
 </div><div class="col">
 <div class="ens"><h3>FORMULES ENFANTS &amp; ADOS</h3><div class="s2">Réservé 5 à 13 ans - doux &amp; adapté</div>
 <div class="card c1"><h4>RITUEL DOUCEUR • 25€ • 30 MIN</h4><p>Gommage + Shampooing + Soin<br>douceur cuir chevelu sensible</p></div>
@@ -82,8 +79,12 @@ html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head S
 <div class="warn">Femme enceinte • problèmes cardiaques • hypertension • pacemaker • fièvre • plaies ouvertes • avis médical si doute</div>
 <div class="tiny">ça commence à la racine • LUZOheadspa</div>
 </div></div>
-<div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div>
+<div class="mcw"><hr><div class="mc"><h2>MASSAGE CRÂNIEN • 30 min • 25€ / 40 min • 30€ / 50 min • 40€</h2>
+<p>30 min - 25€ : massage crânien relaxant, stimulation et détente du cuir chevelu, relâche tensions.</p>
+<p>40 min - 30€ : massage crânien + massage visage, détente visage et cuir chevelu, soin visage relaxant.</p>
+<p>50 min - 40€ : massage crânien + visage &amp; épaules, expérience complète, détente épaules, nuque et visage pour lâcher-prise total.</p></div></div>
+<div class="bottom"><div class="addr"><b>3 rue du Midi • 13550 Noves • 06 61 07 66 36</b><span>LUZO Head Spa • Sur rendez-vous -</span></div>
 <div class="sc">ça commence à la racine</div>
-<div class="end">Luzoheadspa bien plus qu'un Soin un Rituel</div><div class="end2">Votre moment de détente.</div>
+<div class="end">Luzoheadspa bien plus qu'un Soin un Rituel</div><div class="end2">Votre moment de détente.</div></div>
 </div></body></html>'''
 open(out,'w',encoding='utf-8').write(html)
