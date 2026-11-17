@@ -144,6 +144,66 @@ export function rewind(ctx, t, k = 1) {
   ctx.restore();
 }
 
+// ------------------------------------------------------------------ vie en arrière-plan
+// Silhouettes lointaines qui marchent (passants), cycliques, en parallaxe ; teinte sombre = profondeur.
+export function passersby(ctx, t, camX, { n = 6, depth = 0.6, ground = 1296, scale = 0.5, color = '#2b2c34', seed = 7, span = 2600 } = {}) {
+  for (let i = 0; i < n; i++) {
+    const dir = hash(seed + i) > 0.5 ? 1 : -1, sp = 70 + hash(seed + i + 9) * 60, sc = scale * (0.85 + hash(i + seed * 3) * 0.3);
+    const raw = hash(seed * 7 + i) * span + dir * sp * t - camX * depth;
+    const x = ((raw % span) + span) % span - 300;
+    if (x < -150 || x > W + 150) continue;
+    const g = gait(t + i * 0.37, { x0: 0, speed: sp, ground, scale: sc, face: dir });
+    drawStick(ctx, x, g.y, g.pose, { color, scale: sc, face: dir, hands: false, feet: false });
+  }
+}
+// Petites lumières de circulation au loin (paires de phares / feux arrière).
+export function farTraffic(ctx, t, { y = 1190, n = 7, seed = 2 } = {}) {
+  for (let i = 0; i < n; i++) {
+    const dir = i % 2 ? 1 : -1, sp = 160 + hash(seed + i) * 140;
+    const x = (((hash(seed * 5 + i) * 1800 + dir * sp * t) % 1800) + 1800) % 1800 - 360;
+    const c = dir > 0 ? '255,240,210' : '227,52,44';
+    glow(ctx, x, y + (i % 2) * 14, 26, c, 0.55); glow(ctx, x + 22 * dir, y + (i % 2) * 14, 26, c, 0.55);
+  }
+}
+// Train aérien qui traverse au loin toutes les `period` secondes.
+export function farTrain(ctx, t, camX, { y = 1010, period = 9, offset = 2 } = {}) {
+  ctx.fillStyle = '#101117'; ctx.fillRect(0, y + 46, W, 10);
+  for (let x = -((camX * 0.25) % 180); x < W; x += 180) ctx.fillRect(x, y + 56, 10, 120);
+  const ph = ((t + offset) % period) / period;
+  if (ph > 0.45) return;
+  const head = -900 + (ph / 0.45) * (W + 1800);
+  for (let c = 0; c < 5; c++) {
+    const x = head - c * 190;
+    ctx.fillStyle = '#16171e'; ctx.fillRect(x, y, 180, 44);
+    for (let w = 0; w < 6; w++) { ctx.fillStyle = 'rgba(255,236,190,0.55)'; ctx.fillRect(x + 12 + w * 28, y + 10, 16, 14); }
+  }
+  glow(ctx, head + 180, y + 22, 90, '255,245,220', 0.4);
+}
+// Fenêtres qui s'allument et s'éteignent sur la couche de ville moyenne.
+export function blinkingWindows(ctx, t, camX, { n = 18, depth = 0.4, seed = 4, y0 = 450, y1 = 1150 } = {}) {
+  for (let i = 0; i < n; i++) {
+    const on = hash(seed * 11 + i * 7 + Math.floor((t + hash(i) * 5) / (2.5 + hash(i + 2) * 3))) > 0.45;
+    if (!on) continue;
+    const x = (((hash(seed + i * 3) * 2160 - camX * depth) % 2160) + 2160) % 2160 - 40;
+    const y = y0 + hash(seed + i * 5) * (y1 - y0);
+    ctx.fillStyle = 'rgba(255,220,160,0.55)'; ctx.fillRect(x, y, 14, 22);
+    glow(ctx, x + 7, y + 11, 30, '255,220,160', 0.12);
+  }
+}
+// Avion : feu clignotant qui traverse lentement le ciel.
+export function airplane(ctx, t, { y = 330, speed = 40 } = {}) {
+  const x = ((t * speed) % (W + 200)) - 100;
+  if (Math.floor(t * 1.5) % 2 === 0) glow(ctx, x, y + Math.sin(t * 0.2) * 10, 20, '227,52,44', 0.9);
+  ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fillRect(x - 2, y - 1 + Math.sin(t * 0.2) * 10, 4, 2);
+}
+// Éclair : bref flash bleuté (toutes les ~`period` s), à dessiner après le décor.
+export function lightning(ctx, t, { period = 7.3, offset = 3 } = {}) {
+  const ph = (t + offset) % period;
+  const f = ph < 0.08 ? 1 : ph > 0.16 && ph < 0.22 ? 0.6 : 0;
+  if (f) { ctx.fillStyle = `rgba(190,205,255,${0.16 * f})`; ctx.fillRect(0, 0, W, 1300); }
+  return f > 0;
+}
+
 // ------------------------------------------------------------------ décors complets
 export function bedroom(ctx, t, { night = true, alarm = null } = {}) {
   const wall = cached('bedroomWall', W, H, (g) => {
@@ -181,6 +241,30 @@ export function bedroom(ctx, t, { night = true, alarm = null } = {}) {
   // lumière froide de la fenêtre au sol + poussière dans le faisceau
   ctx.fillStyle = 'rgba(140,160,220,0.07)'; ctx.beginPath(); ctx.moveTo(620, 990); ctx.lineTo(950, 990); ctx.lineTo(1020, 1460); ctx.lineTo(560, 1460); ctx.fill();
   motes(ctx, t, { x: 790, y: 980, w: 330, h: 460, n: 26, skew: 60, a: 0.45, seed: 2 });
+  // phares d'une voiture dehors : la lumière balaie le plafond et le mur toutes les ~5 s
+  const ph = (t % 5.2) / 5.2;
+  if (ph < 0.4) {
+    const k = ph / 0.4, x = 1100 - k * 1400;
+    const g = ctx.createLinearGradient(x - 160, 0, x + 160, 0); g.addColorStop(0, 'rgba(255,240,210,0)'); g.addColorStop(0.5, 'rgba(255,240,210,0.08)'); g.addColorStop(1, 'rgba(255,240,210,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x - 120, 120); ctx.lineTo(x + 200, 120); ctx.lineTo(x + 80, 520); ctx.lineTo(x - 220, 520); ctx.fill();
+  }
+  // rideaux qui ondulent légèrement (courant d'air)
+  for (const [x0, sgn] of [[585, 1], [945, -1]]) {
+    ctx.fillStyle = 'rgba(10,10,14,0.55)';
+    ctx.beginPath(); ctx.moveTo(x0, 500);
+    for (let y = 500; y <= 1020; y += 20) ctx.lineTo(x0 + sgn * (6 + 8 * Math.sin(t * 1.3 + y / 60)) , y);
+    ctx.lineTo(x0, 1020); ctx.fill();
+  }
+  // téléphone posé sur le lit : notification toutes les ~4 s
+  const nt = t % 4.1;
+  ctx.fillStyle = '#0b0b0e'; ctx.fillRect(250, 1118, 44, 14);
+  if (nt < 0.9) { const a = nt < 0.1 ? nt / 0.1 : 1 - (nt - 0.1) / 0.8; glow(ctx, 272, 1118, 120, '150,180,255', 0.45 * a); ctx.fillStyle = `rgba(200,215,255,${0.9 * a})`; ctx.fillRect(252, 1119, 40, 10); }
+  // ombres des gouttes de la vitre projetées au sol dans le faisceau de lune
+  for (let i = 0; i < 16; i++) {
+    const v = (hash(i + 70) + t * (0.12 + hash(i + 90) * 0.15)) % 1;
+    const x = 600 + hash(i + 60) * 380 + v * 70, y = 1010 + v * 430;
+    ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.beginPath(); ctx.ellipse(x, y, 5, 9, 0.3, 0, Math.PI * 2); ctx.fill();
+  }
   // réveil à LED rouge
   if (alarm) {
     const on = alarm.blink ? Math.floor(t * 4) % 2 === 0 : true;
@@ -216,6 +300,21 @@ export function gym(ctx, t) {
   for (const x of [270, 810]) lightCone(ctx, x, 250, 1300, 520, { a: 0.07 + 0.01 * Math.sin(t * 50 + x) });
   motes(ctx, t, { x: 270, y: 300, w: 300, h: 950, n: 22, a: 0.35, seed: 5 });
   motes(ctx, t, { x: 810, y: 300, w: 300, h: 950, n: 22, a: 0.35, seed: 6 });
+  // ventilateur au plafond
+  ctx.save(); ctx.translate(540, 290); ctx.fillStyle = '#26262c';
+  for (let b = 0; b < 3; b++) { ctx.save(); ctx.rotate(t * 7 + b * 2.094); ctx.scale(1, 0.25); ctx.beginPath(); ctx.ellipse(70, 0, 70, 16, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+  ctx.fillRect(-4, -40, 8, 40); ctx.restore();
+  // télé murale (images qui changent)
+  ctx.fillStyle = '#0a0a0d'; ctx.fillRect(400, 560, 230, 140);
+  const ch = Math.floor(t * 0.8);
+  ctx.fillStyle = `rgba(${120 + hash(ch) * 80},${130 + hash(ch + 1) * 60},${170 + hash(ch + 2) * 60},${0.18 + 0.05 * Math.sin(t * 20)})`; ctx.fillRect(408, 568, 214, 124);
+  glow(ctx, 515, 630, 160, '150,170,220', 0.08);
+  // deux sportifs en arrière-plan (silhouettes sombres) : course sur tapis + curl d'haltère
+  const run1 = gait(t, { x0: 0, speed: 300, ground: 1240, scale: 0.55, run: true });
+  ctx.fillStyle = '#1d1d22'; ctx.fillRect(110, 1240, 200, 16); ctx.fillRect(290, 1120, 10, 120);
+  drawStick(ctx, 200, run1.y, run1.pose, { color: '#2a2a31', scale: 0.55, hands: false, feet: false });
+  const curl = 0.5 - 0.5 * Math.cos(t * 3.2);
+  drawStick(ctx, 930, 1240 - 158 * 0.55, { ...POSES.stand, armF: [10 + 110 * curl, -140 * curl], armB: [6, 10] }, { color: '#2a2a31', scale: 0.55, face: -1, hands: false, feet: false });
 }
 
 export function stage(ctx, t, { on = 1, sweep = 20 } = {}) {
@@ -229,6 +328,11 @@ export function stage(ctx, t, { on = 1, sweep = 20 } = {}) {
     g.fillStyle = '#2a1112'; for (let x = 0; x < W; x += 90) { g.beginPath(); g.ellipse(x + 45, 150, 60, 70, 0, 0, Math.PI); g.fill(); }
     g.fillRect(0, 0, W, 150);
   });
+  // mur LED derrière la scène : barres verticales qui pulsent (lumière très discrète)
+  for (let i = 0; i < 18; i++) {
+    const x = 190 + i * 40, h = 220 + 160 * (0.5 + 0.5 * Math.sin(t * 2.2 + i * 0.7));
+    ctx.fillStyle = `rgba(227,52,44,${(0.1 + 0.06 * Math.sin(t * 3 + i)).toFixed(3)})`; ctx.fillRect(x, 1290 - h, 24, h);
+  }
   ctx.drawImage(cur, 0, 0);
   // plancher en lames avec reflets
   ctx.fillStyle = '#151317'; ctx.fillRect(0, 1300, W, 620);
@@ -237,14 +341,33 @@ export function stage(ctx, t, { on = 1, sweep = 20 } = {}) {
   for (const [x, sk] of [[180, 220], [540, 0], [900, -220]]) lightCone(ctx, x, 200, 1300, 360, { a: 0.12 * on, wTop: 30, skew: sk + Math.sin(t * (sweep > 20 ? 1.6 : 0.7) + x) * sweep });
   glow(ctx, 540, 1290, 380, '255,255,255', 0.18 * on);
   motes(ctx, t, { x: 540, y: 220, w: 500, h: 1080, n: 50, a: 0.4 * on, seed: 8 });
+  // brume qui dérive
+  for (let i = 0; i < 5; i++) {
+    const x = ((hash(i + 30) * 1600 + t * (20 + i * 8)) % 1600) - 260, y = 900 + hash(i + 40) * 300;
+    glow(ctx, x, y, 260, '200,200,215', 0.05 * on);
+  }
+  // téléphones levés dans le public + flashs photo
+  for (let i = 0; i < 9; i++) {
+    const x = 60 + i * 120 + Math.sin(t * 1.2 + i) * 14, y = 1390 + hash(i + 3) * 70 + Math.sin(t * 0.9 + i * 2) * 10;
+    if (hash(i + 11) > 0.45) { ctx.fillStyle = 'rgba(210,225,255,0.55)'; ctx.fillRect(x - 9, y - 16, 18, 30); glow(ctx, x, y, 50, '160,190,255', 0.25); }
+  }
+  const fl = Math.floor(t * 5);
+  if (hash(fl + 77) > 0.86) { const x = 80 + hash(fl) * 920, y = 1520 + hash(fl + 5) * 260; glow(ctx, x, y, 140, '255,255,255', 0.55); }
 }
 
 export function street(ctx, camX, t, { wet = true } = {}) {
   skyGrad(ctx, '#05060a', '#141623', 0, 1300);
   const far = skyline(1, { h: 900, base: '#0f1016', win: '#262833', lit: 0.18 });
   const mid = skyline(2, { h: 1000, base: '#15161c', win: '#5a5c6a', lit: 0.22, minH: 280, maxH: 880, bw: [160, 300] });
-  parallax(ctx, [{ canvas: blurred('farSky', far, 4), depth: 0.15, y: 420 }, { canvas: blurred('midSky', mid, 1.5), depth: 0.4, y: 330 }], camX);
-  fog(ctx, 950, 400, 0.35);
+  airplane(ctx, t);
+  parallax(ctx, [{ canvas: blurred('farSky', far, 4), depth: 0.15, y: 420 }], camX);
+  farTrain(ctx, t, camX);
+  parallax(ctx, [{ canvas: blurred('midSky', mid, 1.5), depth: 0.4, y: 330 }], camX);
+  blinkingWindows(ctx, t, camX);
+  fog(ctx, 950, 400, 0.35 + 0.08 * Math.sin(t * 0.4));
+  farTraffic(ctx, t);
+  if (wet) lightning(ctx, t);
+  passersby(ctx, t, camX);
   ctx.fillStyle = '#18191f'; ctx.fillRect(0, 1300, W, 620);
   ctx.fillStyle = wet ? '#23252e' : '#202126'; ctx.fillRect(0, 1300, W, 12);
   // réverbères (premier plan, parallaxe 1)

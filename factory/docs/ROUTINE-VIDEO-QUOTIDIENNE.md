@@ -127,6 +127,18 @@ Modèle : **`films/j20261116-foule2.js`**.
   - scène : rideaux, plancher, brume dans les faisceaux.
 - **Scénario** : écrire d'abord le `SCRIPT`, en suivant **`docs/SCENARIO.md`** (7 temps, dialogues en bulles avec `bubble()`, obstacle, retournement, chute qui rappelle l'accroche). `produce` affiche les points de méthode à revoir (champ `scenario`) : les corriger avant de livrer.
 
+## 1 nonies. Arrière-plans animés (demande d'Ilan, 17/11/2026)
+Le fond ne doit **jamais être immobile** : au moins 3 éléments qui bougent en permanence derrière l'action, discrets (sombres, peu contrastés) pour ne pas voler la vedette au héros. Ils sont déjà intégrés aux décors de `world.js` :
+- **rue** :
+  - passants lointains (`passersby`), circulation au loin (`farTraffic`), train aérien (`farTrain`) ;
+  - fenêtres qui s'allument (`blinkingWindows`), avion (`airplane`), éclairs (`lightning`) ;
+  - en plus : néon, voitures, flaques, vapeur.
+- **chambre** : phares qui balaient le plafond, rideaux qui ondulent, téléphone qui s'allume (notifications), ombres des gouttes au sol.
+- **salle** : ventilateur, télé, deux sportifs en silhouette (tapis de course, haltère), sac de frappe.
+- **scène** : mur LED qui pulse, brume qui dérive, téléphones levés et flashs photo dans le public.
+
+Pour un nouveau décor : utiliser ces fonctions, ou en écrire d'autres sur le même principe (fonction pure du temps, silhouettes sombres, cycles décalés avec `hash`).
+
 ## 2. Écrire le film
 Créer `engine/render/player/films/<film>.js`. Exemples validés, à lire avant d'écrire :
 - **`films/j20261116-foule2.js`** : le modèle actuel (scénario 7 temps, héros au bandeau, décors vivants, bulles), à suivre en priorité ;
