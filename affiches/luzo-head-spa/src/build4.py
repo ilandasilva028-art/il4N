@@ -10,7 +10,8 @@ css=f'''
 @font-face{{font-family:Script;font-style:italic;src:url(accent.ttf)}}
 @page{{size:{W}cm {H}cm;margin:0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
-html,body{{width:{W}cm;height:{H}cm}}
+html,body{{width:{W}cm;height:{H}cm;overflow:hidden}}
+.bg{{position:absolute;left:0;top:0;width:{W}cm;height:{H}cm;overflow:hidden;z-index:0}}
 body{{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden;text-align:center}}
 .b{{position:absolute;z-index:0}}
 .pg{{position:absolute;inset:0;padding:1.4cm 2cm 1.4cm 2cm;z-index:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}}
@@ -51,7 +52,7 @@ blobs=f'''
 <div class="b" style="right:-6cm;top:40cm;width:11cm;height:10cm;background:#dcc6dc;border-radius:50%"></div>
 <div class="b" style="left:-7cm;bottom:-5cm;width:16cm;height:12cm;background:#e4ebe0;border-radius:50%"></div>
 '''
-html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head Spa — Nos prestations {W:g}x{H:g} cm</title><style>{css}</style><body>{blobs}
+html=f'''<!doctype html><html lang="fr"><meta charset="utf-8"><title>LUZO Head Spa — Nos prestations {W:g}x{H:g} cm</title><style>{css}</style><body><div class="bg">{blobs}</div>
 <div class="pg">
 <div><img class="logo" src="logo.png" alt="LUZO Head Spa"><h1>NOS PRESTATIONS</h1><div class="sub">Nos rituels - moments de bien-être &amp; détente</div></div>
 <div class="rit"><h2>RITUEL DÉCOUVERTE • 50 min • 75€</h2><p>Gommage cuir chevelu, shampooing, soins, massage shiatsu, luminothérapie, arche de pluie, bain vapeur, massage visage / nuque / buste / bras / mains, brushing</p></div>

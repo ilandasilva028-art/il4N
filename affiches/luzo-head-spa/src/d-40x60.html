@@ -7,7 +7,8 @@
 @font-face{font-family:Script;font-style:italic;src:url(accent.ttf)}
 @page{size:40.0cm 60.0cm;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:40.0cm;height:60.0cm}
+html,body{width:40.0cm;height:60.0cm;overflow:hidden}
+.bg{position:absolute;left:0;top:0;width:40.0cm;height:60.0cm;overflow:hidden;z-index:0}
 body{background:#f7efef;color:#1d1a1f;font-family:Inter,sans-serif;position:relative;overflow:hidden;text-align:center}
 .b{position:absolute;z-index:0}
 .pg{position:absolute;inset:0;padding:1.4cm 2cm 1.4cm 2cm;z-index:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
@@ -39,14 +40,14 @@ hr{border:0;height:.08cm;background:#b5bea6;width:60%;margin:0 auto}
 .sc{font-family:Script;font-style:italic;font-size:1.029cm;color:#3a343c}
 .end{font-weight:700;font-size:0.863cm}
 .end2{font-weight:600;font-size:0.564cm}
-</style><body>
+</style><body><div class="bg">
 <div class="b" style="right:-5cm;top:-4cm;width:22cm;height:15cm;background:#ceb6ce;border-radius:60% 40% 55% 45%/55% 50% 50% 45%;transform:rotate(-14deg)"></div>
 <div class="b" style="left:-5.5cm;top:13cm;width:8cm;height:8cm;background:#ad86b5;border-radius:50%"></div>
 <div class="b" style="right:-6cm;top:20cm;width:11cm;height:8cm;background:#b5bead;border-radius:50% 45% 52% 48%/55% 50% 50% 45%"></div>
 <div class="b" style="left:-6cm;top:29cm;width:10cm;height:10cm;background:#dfc7dc;border-radius:50%"></div>
 <div class="b" style="right:-6cm;top:40cm;width:11cm;height:10cm;background:#dcc6dc;border-radius:50%"></div>
 <div class="b" style="left:-7cm;bottom:-5cm;width:16cm;height:12cm;background:#e4ebe0;border-radius:50%"></div>
-
+</div>
 <div class="pg">
 <div><img class="logo" src="logo.png" alt="LUZO Head Spa"><h1>NOS PRESTATIONS</h1><div class="sub">Nos rituels - moments de bien-être &amp; détente</div></div>
 <div class="rit"><h2>RITUEL DÉCOUVERTE • 50 min • 75€</h2><p>Gommage cuir chevelu, shampooing, soins, massage shiatsu, luminothérapie, arche de pluie, bain vapeur, massage visage / nuque / buste / bras / mains, brushing</p></div>
