@@ -38,7 +38,7 @@ export async function produceFilm(j: FilmJob): Promise<{ final: string; qc: QcRe
   writeJson(path.join(j.outDir, 'textes.json'), r.textLog);
   const qc = qualityControl(analysis, ref, { durationSec: r.duration, hasVoice: false, textLog: r.textLog, fps: r.fps, hasMusic: withMusic, targetLufs: target });
   writeJson(path.join(j.outDir, 'qc.json'), qc);
-  const sc = checkScript(r.script);
+  const sc = checkScript(r.script, r.hits);
   writeJson(path.join(j.outDir, 'scenario.json'), { script: r.script, checks: sc });
   writeText(path.join(j.outDir, 'qc.md'), qcMarkdown(qc, j.film) + '\n' + scriptMarkdown(sc));
   (qc as any).scenario = sc;

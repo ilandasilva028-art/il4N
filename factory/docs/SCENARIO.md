@@ -17,6 +17,9 @@ automatique (`engine/agents/scriptCheck.ts`) vérifie la structure : indicatif, 
 | **Progression + conseil 3** | 3-4 s | Le résultat de la constance, pendant que les autres n'ont pas bougé | Course de nuit ; eux scrollent sur un banc |
 | **Retournement + chute** | 4-5 s | Ceux du conflit reviennent, la situation s'inverse ; la chute **rappelle l'accroche** | Le même moqueur : « COMMENT T'AS FAIT ? » — « J'AI PAS ARRÊTÉ. » |
 
+## 1 bis. Première seconde (règle obligatoire)
+Une action dès l'image 0 : chute, occasion ratée, temps perdu ou obstacle. Pas d'intro, pas de logo. Le champ `premiere` du `SCRIPT` indique laquelle.
+
 ## 2. Règles d'écriture
 - **Accroche ≤ 6 mots**, qui crée une question : contradiction, chiffre, provocation ou fin montrée d'abord.
 - **Spécificité** : une heure (« 5 H 00 »), un jour (« JOUR 63 »), un objet (réveil, banc, barre), une réplique entendue en vrai. Le spécifique fait vrai ; le vague fait « citation Pinterest ».
@@ -29,6 +32,7 @@ automatique (`engine/agents/scriptCheck.ts`) vérifie la structure : indicatif, 
 ## 3. Format de `SCRIPT` (exporté par chaque film)
 ```js
 export const SCRIPT = {
+  premiere: 'chute',   // chute | raté | perte de temps | obstacle
   accroche: ['JOUR 180.', 'ILS APPLAUDISSENT.'],
   structure: ['ouverture', 'retour', 'conflit', 'effort', 'obstacle', 'progression', 'retournement', 'chute'],
   dialogues: ['TOI ? SPORTIF ?', 'T’ARRÊTERAS LUNDI.', 'COMMENT T’AS FAIT ?', 'J’AI PAS ARRÊTÉ.'],

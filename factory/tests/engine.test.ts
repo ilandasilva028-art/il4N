@@ -78,9 +78,20 @@ test('cinématique inverse : le pied atteint exactement la cible', async () => {
 
 test('contrôle de scénario : repère ce qui manque', async () => {
   const { checkScript } = await import('../engine/agents/scriptCheck.ts');
-  const good = checkScript({ accroche: ['JOUR 180.', 'ILS APPLAUDISSENT.'], structure: ['ouverture', 'conflit', 'obstacle', 'chute'], dialogues: ['TOI ? SPORTIF ?', 'J’AI PAS ARRÊTÉ.'], conseils: ['NOTE CHAQUE SÉANCE.', 'JOURS SANS : 5 MINUTES.'], details: ['5 H 00', 'JOUR 63', 'banc'], chute: ['LAISSE-LES RIRE.', 'CONTINUE.'] });
+  const good = checkScript({ accroche: ['JOUR 180.', 'ILS APPLAUDISSENT.'], structure: ['ouverture', 'conflit', 'obstacle', 'chute'], dialogues: ['TOI ? SPORTIF ?', 'J’AI PAS ARRÊTÉ.'], conseils: ['NOTE CHAQUE SÉANCE.', 'JOURS SANS : 5 MINUTES.'], details: ['5 H 00', 'JOUR 63', 'banc'], chute: ['LAISSE-LES RIRE.', 'CONTINUE.'], premiere: 'chute' }, [{ t: 0, sfx: 'impact' }]);
   assert.ok(good.every((c) => c.ok), good.filter((c) => !c.ok).map((c) => c.item).join(', '));
   const bad = checkScript({ accroche: ['Il faut toujours être motivé chaque jour de sa vie'], structure: ['chute'], chute: ['Bravo'] });
   assert.ok(bad.filter((c) => !c.ok).length >= 5);
   assert.equal(checkScript(null)[0].ok, false);
+});
+
+test('première seconde : action obligatoire', async () => {
+  const { checkScript } = await import('../engine/agents/scriptCheck.ts');
+  const base = { accroche: ['JOUR 180.', 'ILS APPLAUDISSENT.'], structure: ['ouverture', 'conflit', 'obstacle', 'chute'], dialogues: ['TOI ? SPORTIF ?', 'J’AI PAS ARRÊTÉ.'], conseils: ['NOTE CHAQUE SÉANCE.', 'JOURS SANS : 5 MINUTES.'], details: ['5 H 00', 'JOUR 63', 'banc'], chute: ['LAISSE-LES RIRE.', 'CONTINUE.'] };
+  const hitsOk = [{ t: 0, sfx: 'impact' }];
+  const hitsKo = [{ t: 2.5, sfx: 'impact' }];
+  assert.ok(checkScript({ ...base, premiere: 'chute' }, hitsOk).find((c) => c.item.startsWith('Action dans'))!.ok);
+  assert.ok(!checkScript({ ...base, premiere: 'chute' }, hitsKo).find((c) => c.item.startsWith('Action dans'))!.ok);
+  assert.ok(!checkScript({ ...base }, hitsOk).find((c) => c.item.startsWith('Première seconde'))!.ok);
+  assert.ok(checkScript({ ...base, premiere: 'raté' }, hitsOk).find((c) => c.item.startsWith('Première seconde'))!.ok);
 });

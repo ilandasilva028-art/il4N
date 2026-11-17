@@ -114,6 +114,13 @@ Modèle vitrine : **`films/j20261116-foule.js`**. Chaque vidéo doit avoir **au 
 - **Cadence** : `export const FPS = 60` (comme la référence). Le rendu est environ 2 fois plus long : compter 15 à 25 min dans le cloud.
 - **Sons d'ambiance** : `rain` (pluie, `len`) et `applause` (applaudissements, `len`), en plus des bruitages d'action.
 
+## 1 decies. Première seconde = action (règle d'Ilan, 17/11/2026)
+- **Dès l'image 0 et dans la 1re seconde** : une action. Le personnage tombe, rate une occasion, perd son temps ou affronte un obstacle. **Pas d'introduction, pas de logo, pas de titre seul, pas de fondu d'ouverture.**
+- Dans `SCRIPT`, le champ **`premiere`** doit valoir `'chute'`, `'raté'`, `'perte de temps'` ou `'obstacle'`.
+- Dans `HITS`, au moins un bruitage d'action (`impact`, `thud`, `swish`, `whoosh`, `shatter`, `step`, `door`, `alarm`) avant 1 s.
+- `produce` vérifie les deux points (« Action dans la 1re seconde », « Première seconde = … »). Les corriger avant de livrer.
+- La marque (série, bandeau, titre) arrive **après** l'action, jamais avant.
+
 ## 1 octies. Personnage, décors, scénario (demande d'Ilan, 16/11/2026)
 Modèle : **`films/j20261116-foule2.js`**.
 - **Le héros a une identité fixe** : `band: COLORS.red` (bandeau rouge), mains et chaussures, liseré de lumière (`rim: ±1`) du côté de la source. Il porte ce bandeau dans **toutes** les vidéos : c'est la mascotte du compte.

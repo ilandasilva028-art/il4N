@@ -2,15 +2,22 @@
 // Indicatif : il ne note pas la qualité d'écriture, il signale ce qui manque.
 import { normalizeWords } from '../analysis/transcribe.ts';
 
-export interface FilmScript { accroche: string[]; structure: string[]; dialogues?: string[]; conseils?: string[]; details?: string[]; chute: string[] }
+export interface FilmScript { accroche: string[]; structure: string[]; dialogues?: string[]; conseils?: string[]; details?: string[]; chute: string[]; premiere?: string }
+export const PREMIERE_TYPES = ['chute', 'raté', 'perte de temps', 'obstacle'] as const;
 export interface ScriptCheck { item: string; ok: boolean; detail: string }
 
 const STOP = new Set(['le', 'la', 'les', 'un', 'une', 'des', 'de', 'du', 'et', 'a', 'tu', 'te', 't', 'l', 'd', 'j', 'ne', 'pas', 'plus', 'ce', 'c', 'est', 'ils', 'il', 'toi']);
 const words = (s: string) => normalizeWords(s);
 
-export function checkScript(s: FilmScript | null | undefined): ScriptCheck[] {
+// Hits = bruitages du film [{ t, sfx }] : la première seconde doit contenir une action (son d'impact ou de mouvement).
+export function checkScript(s: FilmScript | null | undefined, hits: { t: number; sfx: string }[] = []): ScriptCheck[] {
   if (!s) return [{ item: 'SCRIPT exporté par le film', ok: false, detail: 'absent : ajouter export const SCRIPT (docs/SCENARIO.md)' }];
   const out: ScriptCheck[] = [];
+  // Règle d'Ilan : une action dès la première seconde (chute, occasion ratée, temps perdu, obstacle) ; pas d'intro ni de logo.
+  const early = hits.filter((h) => h.t < 1.0 && ['impact', 'thud', 'swish', 'whoosh', 'shatter', 'boing', 'step', 'door', 'alarm'].includes(h.sfx));
+  out.push({ item: 'Action dans la 1re seconde (son d’action)', ok: early.length > 0, detail: early.length ? `${early.length} bruitage(s) d’action avant 1 s` : 'aucun bruitage d’action avant 1 s' });
+  const types = PREMIERE_TYPES as readonly string[];
+  out.push({ item: 'Première seconde = chute, raté, perte de temps ou obstacle', ok: !!s.premiere && types.includes(s.premiere), detail: s.premiere ? `type : ${s.premiere}` : `absent (valeurs : ${types.join(', ')})` });
   const hookW = words(s.accroche.join(' '));
   out.push({ item: 'Accroche ≤ 6 mots', ok: hookW.length <= 6, detail: `${hookW.length} mots : « ${s.accroche.join(' ')} »` });
   const tension = /\?|\d|jamais|pas|plus|rire|piege|arrete|faux|stop|personne/i.test(s.accroche.join(' ').normalize('NFD').replace(/[̀-ͯ]/g, ''));
