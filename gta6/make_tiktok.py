@@ -842,6 +842,9 @@ def main(argv=None):
     ap.add_argument("--punch", type=float, help="zoom à chaque coupe (0.07 = +7 %%, 0 = off)")
     ap.add_argument("--crop-shift", type=float, help="décale le cadrage : -1 gauche ... 1 droite")
     ap.add_argument("--no-progress", action="store_true", help="sans barre de progression")
+    ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
+    ap.add_argument("--music-from", type=float, help="musique continue prise à ce temps de la source (montage de plans)")
+    ap.add_argument("--hook-dur", type=float, help="durée d'affichage de l'accroche (défaut : 1er morceau)")
     ap.add_argument("--crop-bottom", type=int, help="px retirés en bas de la source (sous-titres incrustés du jeu)")
     ap.add_argument("--out", default=None, help="dossier de sortie (défaut ./sorties)")
     ap.add_argument("--analyse-only", action="store_true", help="propose la découpe sans rendre")
@@ -867,7 +870,7 @@ def main(argv=None):
         cfg.update(json.loads(side.read_text(encoding="utf-8")))
         log("réglages lus dans", side.name)
     for k in ("hook", "title", "cta", "caption", "tags", "target", "segments", "hook_at", "exclude", "subs",
-              "subs_mode", "lang", "model", "ending", "cta_dur", "punch", "crop_shift", "crop_bottom"):
+              "subs_mode", "lang", "model", "ending", "cta_dur", "punch", "crop_shift", "crop_bottom", "music_from", "hook_dur"):
         v = getattr(args, k)
         if v is not None:
             cfg[k] = v
@@ -875,9 +878,13 @@ def main(argv=None):
         cfg["progress"] = False
     if args.no_subs:
         cfg["no_subs"] = True
+    if args.panel_h:
+        STYLE["panel_h"] = int(args.panel_h) // 2 * 2
+        STYLE["focus_aspect"] = W / STYLE["panel_h"]
+        STYLE["panel_y"] = min(STYLE["panel_y"], 1360 - STYLE["panel_h"])
     cfg["hook"], cfg["title"], cfg["cta"] = split2(cfg["hook"]), split2(cfg["title"]), split2(cfg["cta"])
 
-    name = slug(cfg.get("name") or src.stem)
+    name = slug(cfg.get("name") or Path(args.video).stem)  # nom du lien, pas de sa cible
     out_root = Path(args.out or cfg.get("out") or Path.cwd() / "sorties").expanduser().resolve()
     out_dir = out_root / name
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -918,7 +925,7 @@ def main(argv=None):
         seg_list = choose(units, float(cfg["target"]), hook_range, hcands)
     seg_list = [(max(0.0, a), min(info["duration"], b)) for a, b in seg_list if b - a > 0.2]
     total = sum(b - a for a, b in seg_list)
-    hook_t = seg_list[0][1] - seg_list[0][0]
+    hook_t = float(cfg["hook_dur"]) if cfg.get("hook_dur") else seg_list[0][1] - seg_list[0][0]
     log(f"découpe : {len(seg_list)} morceaux, {total:.1f} s (accroche {hook_t:.1f} s)")
     (out_dir / f"{name}_montage.json").write_text(json.dumps(
         {"source": str(src), "segments": [[round(a, 2), round(b, 2)] for a, b in seg_list]}, indent=1))
@@ -952,6 +959,15 @@ def main(argv=None):
         joined, crop = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
                                      float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)))
         total = probe(joined)["duration"]
+        if cfg.get("music_from") is not None and info["audio"]:
+            # montage de plans : une seule piste continue au lieu de bouts de musique recollés
+            mf = float(cfg["music_from"])
+            log(f"musique continue depuis {mf:.1f} s de la source")
+            jm = work / "joined_music.mp4"
+            run(["ffmpeg", "-v", "error", "-y", "-i", str(joined), "-ss", f"{mf:.3f}", "-t", f"{total:.3f}",
+                 "-i", str(src), "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "afade=t=in:d=0.05",
+                 "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2", str(jm)])
+            joined = jm
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list)
         ass = work / "overlay.ass"

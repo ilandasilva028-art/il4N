@@ -1,0 +1,10 @@
+Montage « beaux plans » de la capture 99 s (ouverture du jeu). Génériques Rockstar exclus image par image.
+python make_tiktok.py capture.mov --no-subs --panel-h 860 \
+ --segments "42.17-43.37,9.07-11.0,11.03-12.85,15.68-16.8,16.86-18.2,20.8-21.86,21.93-23.1,27.06-28.4,28.46-29.4,29.46-30.6,37.6-39.6,43.6-45.9,49.0-51.3,51.36-53.03,53.1-55.5,63.3-67.6" \
+ --music-from 9.07 --hook-dur 3.0 --punch 0.05 \
+ --hook "C'EST PAS UN FILM.|C'EST GTA 6." --title "GTA 6|VICE CITY" \
+ --cta "TU FAIS QUOI EN PREMIER ?|PLAGE, BOÎTE OU OCÉAN ?" --cta-dur 4.5
+Plans : hydravion sur la côte (accroche), skyline au crépuscule, voiture de nuit, resort, tailleur rose, néon rose, piscine, club, danse, néons, pilote, bateau, fonds marins, phare, Lucia en tenue orange.
+Légende :
+Dites-moi que c'est pas un film 😮‍💨 Tu fais quoi en premier : plage, boîte ou océan ? 👇
+#gta6 #gtavi #vicecity #gta6trailer #gamingfr
