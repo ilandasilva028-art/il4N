@@ -779,7 +779,7 @@ def make_caption(cfg):
     hook = " ".join(x for x in cfg["hook"] if x)
     q = cfg["cta"][0] if cfg["cta"] and cfg["cta"][0] else "Tu en penses quoi ?"
     line = f"{sentence_case(hook)} 🎬 {sentence_case(q)} 👇"
-    tags = cfg.get("tags") or ["#gta6", "#gta", "#gaming", "#rockstargames"]
+    tags = cfg.get("tags") or ["#gta6", "#gtavi", "#vicecity", "#rockstargames", "#gamingfr"]
     if isinstance(tags, str):
         tags = tags.split()
     tags = [t if t.startswith("#") else "#" + t for t in tags]
@@ -799,6 +799,24 @@ def split2(s):
         return (s + ["", ""])[:2]
     p = s.split("|")
     return (p + ["", ""])[:2]
+
+
+PLANS_DEFAULTS = {
+    "hook": "C'EST PAS UN FILM.|C'EST GTA 6.",
+    "title": "GTA 6|VICE CITY",
+    "cta": "TON PLAN PRÉFÉRÉ ?|DIS-LE EN COMMENTAIRE",
+    "target": 28.0,
+    "punch": 0.05,
+    "hook_dur": 3.0,
+    "cta_dur": 4.5,
+}
+
+
+def json_keys(side: Path):
+    try:
+        return set(json.loads(side.read_text(encoding="utf-8"))) if side.exists() else set()
+    except Exception:
+        return set()
 
 
 DEFAULTS = {
@@ -848,6 +866,8 @@ def main(argv=None):
     ap.add_argument("--crop-bottom", type=int, help="px retirés en bas de la source (sous-titres incrustés du jeu)")
     ap.add_argument("--out", default=None, help="dossier de sortie (défaut ./sorties)")
     ap.add_argument("--analyse-only", action="store_true", help="propose la découpe sans rendre")
+    ap.add_argument("--mode", choices=["auto", "plans"],
+                    help="auto = moments forts + dialogues (défaut) ; plans = montage des plus beaux plans en musique")
     ap.add_argument("--doctor", action="store_true", help="vérifie l'installation")
     args = ap.parse_args(argv)
 
@@ -874,6 +894,17 @@ def main(argv=None):
         v = getattr(args, k)
         if v is not None:
             cfg[k] = v
+    if args.mode:
+        cfg["mode"] = args.mode
+    plans_mode = cfg.get("mode") == "plans"
+    if plans_mode:
+        # réglages validés sur le clip « beaux plans » du 18/11/2026 (voir PREFERENCES.md)
+        for k, v in PLANS_DEFAULTS.items():
+            if getattr(args, k, None) is None and k not in json_keys(side):
+                cfg[k] = v
+        cfg["no_subs"] = True
+        if not args.panel_h:
+            args.panel_h = 860
     if args.no_progress:
         cfg["progress"] = False
     if args.no_subs:
@@ -899,7 +930,7 @@ def main(argv=None):
     if cfg.get("subs"):
         words_src = parse_srt(Path(cfg["subs"]).expanduser())
         log(f"sous-titres lus : {cfg['subs']} ({len(words_src)} mots)")
-    if not cfg.get("no_subs") and info["audio"]:
+    if (not cfg.get("no_subs") or plans_mode) and info["audio"]:
         key = f"{slug(src.stem)}_{int(src.stat().st_size)}_{cfg['model']}_{cfg['lang']}.json"
         tr = transcribe(src, cfg["model"], cfg["lang"], cache_dir / key)
         if not words_src:
@@ -918,6 +949,30 @@ def main(argv=None):
     mt, ms = motion_scores(src)
     cuts = shot_cuts(mt, ms)
     units = []
+    shots_report = []
+    if seg_list is None and plans_mode:
+        import plans
+        speech = [(sg["s"], sg["e"]) for sg in tr["segments"] if sg.get("nsp", 0) < 0.6]
+        log("recherche des plus beaux plans (génériques et textes incrustés écartés) …")
+        shots = [sh for sh in plans.find_shots(src, info["duration"], speech)
+                 if not overlaps(sh.a, sh.b, exclude)]
+        names = plans.credit_names(src, shots)
+        if not plans.get_ocr():
+            log("⚠️ OCR absent (pip install rapidocr-onnxruntime) : textes incrustés non vérifiés")
+        picked = plans.choose_shots(shots, float(cfg["target"]),
+                                    check=lambda sh: plans.clean_text(src, sh, names), log=log)
+        if not picked:
+            die("aucun plan exploitable trouvé")
+        est = sum(b - a for a, b, _ in picked)
+        if cfg.get("music_from") is None:
+            cfg["music_from"] = plans.music_window(src, est, info["duration"], speech, env)
+        beats = plans.onsets(src, float(cfg["music_from"]), est + 1.0) if info["audio"] else []
+        seg_list = plans.snap_to_beats(picked, beats)
+        log(f"{sum(1 for sh in shots if sh.kind == 'plan')} plans propres, {len(seg_list)} gardés, "
+            f"{len(beats)} temps forts, musique à {float(cfg['music_from']):.1f} s")
+        for sh in shots:
+            shots_report.append(f"- `{sh.a:.2f}-{sh.b:.2f}` {sh.kind}"
+                                + (f" score {sh.score:+.2f}" if sh.kind == "plan" else ""))
     if seg_list is None:
         units = score_units(build_units(info["duration"], tr, cuts, exclude), env, 0.1, mt, ms, cuts)
         hcands = score_units(phrase_windows(all_words(tr), info["duration"], exclude), env, 0.1, mt, ms, cuts)
@@ -944,6 +999,8 @@ def main(argv=None):
         for u in units:
             report.append(f"- `{u.a:.1f}-{u.b:.1f}` score {u.score:+.2f} {'voix' if u.speech else ''}"
                           f"{' — ' + u.text[:80] if u.text else ''}")
+    if shots_report:
+        report += ["", "## Plans analysés", ""] + shots_report
     report += ["", f"Changements de plan détectés : {len(cuts)}", ""]
 
     if args.analyse_only:

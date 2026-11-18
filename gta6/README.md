@@ -45,6 +45,16 @@ Le `|` sépare les deux lignes.
   "exclude": "40-44,48-52", "tags": "#gta6 #gta #jasonetlucia", "caption": "…" }
 ```
 
+**Deux modes :**
+- `--mode plans` : **montage des plus beaux plans en musique**. C'est le mode qu'Ilan préfère pour les cinématiques et les bandes-annonces. L'outil trouve seul les plans, écarte les génériques (plein écran ou incrustés, lus par OCR) et les sous-titres du jeu, garde une musique continue sans dialogue, cale les coupes sur la musique et finit sur le plus beau plan long.
+  ```bash
+  ./.venv/bin/python make_tiktok.py ~/Movies/capture.mov --mode plans
+  ```
+  Dans `a_traiter/`, ajoute un `capture.json` contenant `{"mode": "plans"}`.
+- mode normal (par défaut) : moments forts et dialogues, avec sous-titres Whisper.
+
+Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres TikTok.
+
 ## 3. Corriger une vidéo
 
 | Problème | Solution |
@@ -56,6 +66,8 @@ Le `|` sépare les deux lignes.
 | La voix est en anglais | Le rapport le signale. Traduis le `.srt` (ou demande à Claude de le faire), puis `--subs` |
 | Vidéo trop longue ou trop courte | `--target 25` |
 | Cadrage décentré | `--crop-shift -0.5` (vers la gauche) ou `0.5` (vers la droite) |
+| Un générique est passé quand même | `--exclude "a-b"`, et signale-le pour qu'on ajuste `plans.py` |
+| Sous-titres du jeu dans l'image | `--crop-bottom 260` |
 | Tu préfères l'ancien style | `--subs-mode classic --ending fade --punch 0 --no-progress` |
 
 La transcription est gardée en cache : relancer avec d'autres réglages prend peu de temps.
