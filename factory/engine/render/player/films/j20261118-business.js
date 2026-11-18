@@ -144,13 +144,18 @@ const headTop = (a, who) => [a[who].seat[0], a[who].seat[1] - scOf(a) * 330];
 // ------------------------------------------------------------------ 1. ouverture : l'enseigne s'écrase
 const HOOK = VARIANT === 'b' ? [[['QUI VEND', '#f1f1f1']], [['VRAIMENT ?', RED]]] : [[['4 BUSINESS.', '#f1f1f1']], [['1 SEUL ', '#f1f1f1'], ['SURVIT.', RED]]];
 function ouverture(ctx, tl) {
-  const push = 1.04 + 0.05 * ease.out(prog(tl, 0, 3));
+  const push = 1.04 + 0.16 * ease.inOut(prog(tl, 0.3, 3.2));
   ctx.save();
-  const a = plate(ctx, 'ego', { z: push, x: 540, y: 1000 });
+  const a = plate(ctx, 'ego', { z: push, x: 520 + 40 * Math.sin(tl * 0.9), y: 1000 + 20 * Math.sin(tl * 1.3) });
   screen(ctx, a.ego.monitor, (x, y, w, h) => scrZero(ctx, x, y, w, h, tl));
   const hit = neon(ctx, a, tl);
   const back = ease.out(prog(tl, 0.12, 0.45));
-  member(ctx, a, 'ego', { ...selfie, lean: lerp(-10, -38, back), armF: [lerp(150, 120, back), 30], armB: [lerp(40, 150, back), 20] }, { t: tl, mouth: back > 0.2 ? 'open' : 'smirk', mood: back > 0.2 ? 'sad' : null });
+  const tug = tl > 1.1 ? Math.sin((tl - 1.1) * 11) : 0, panic = tl > 0.5 && tl < 1.1 ? Math.sin(tl * 26) : 0;
+  const egoPose = tl < 1.1
+    ? { ...selfie, lean: lerp(-10, -38, back), armF: [lerp(150, 120, back) + panic * 30, 30], armB: [lerp(40, 150, back) - panic * 30, 20] }
+    : { ...POSES.sit, lean: 30 + tug * 8, head: 10, armF: [95 + tug * 12, 20], armB: [100 + tug * 12, 14] };
+  member(ctx, a, 'ego', egoPose, { t: tl, mouth: back > 0.2 ? (tl > 1.1 ? 'grit' : 'open') : 'smirk', mood: back > 0.2 ? 'sad' : null });
+  if (tl > 0.4) for (let i = 0; i < 3; i++) { const ph = (tl * 1.7 + i / 3) % 1, k = hash(i + Math.floor(tl * 1.7 + i / 3) * 7); if (k > 0.5) { ctx.fillStyle = `rgba(255,220,120,${(1 - ph).toFixed(2)})`; ctx.beginPath(); ctx.arc(hit.x + (k - 0.75) * 300 + ph * 40, hit.y - 20 - ph * 90 + ph * ph * 160, 5, 0, 7); ctx.fill(); } }
   const t1 = 0.05 + Math.sqrt(Math.max(1, hit.y - (a.ego.monitor[1] - (a.ego.monitor[2] - a.ego.monitor[0]) * 0.34)) / 2600);
   dust(ctx, hit.x, hit.y + 30, tl, t1, { n: 16, spread: 360, color: '255,210,120' });
   impactRing(ctx, hit.x, hit.y, tl, t1, { r: 260, color: '#ffc94a' });
@@ -175,7 +180,8 @@ function bills(ctx, a, tl) {
 }
 function jour1(ctx, tl) {
   ctx.save();
-  const a = plate(ctx, 'large_nuit', { z: 1.32, x: 540, y: 1010 });
+  const aw = A.large_nuit, pan = ease.inOut(prog(tl, 0.2, 4.2)), z1 = 1.75;
+  const a = plate(ctx, 'large_nuit', { z: z1, x: lerp(aw.ego.seat[0] + 120, aw.discipline.seat[0] + 40, pan), y: 1040 });
   screen(ctx, a.ego.monitor, (x, y, w, h) => scrZero(ctx, x, y, w, h, tl));
   screen(ctx, a.obsession.monitor, (x, y, w, h) => scrTabs(ctx, x, y, w, h, tl, Math.min(10, 1 + Math.floor(tl * 2.6))));
   screen(ctx, a.chance.monitor, () => {}, 1);
@@ -259,9 +265,9 @@ function nuit(ctx, tl) {
 
 // ------------------------------------------------------------------ 5. jour 180 : l'aube
 function aube(ctx, tl, extra = 0) {
-  const T = tl + extra, z = 1.32 + 0.4 * ease.inOut(prog(T, 2.2, 3.8));
+  const T = tl + extra, z = 1.5 + 0.35 * ease.inOut(prog(T, 0.2, 3.8));
   ctx.save();
-  const a0 = A.large_aube, fx = lerp(540, a0.discipline.seat[0] + 80, ease.inOut(prog(T, 2.2, 3.8)));
+  const a0 = A.large_aube, fx = lerp(a0.ego.seat[0] + 160, a0.discipline.seat[0] + 80, ease.inOut(prog(T, 0.2, 3.8)));
   const a = plate(ctx, 'large_aube', { z, x: fx, y: 1010 });
   screen(ctx, a.ego.monitor, () => {}, 1);
   screen(ctx, a.obsession.monitor, () => {}, 1);
