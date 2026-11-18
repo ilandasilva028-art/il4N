@@ -1,0 +1,4 @@
+# Un lien YouTube par ligne. UNIQUEMENT tes propres vidéos (ta chaîne, tes captures).
+# Pousser ce fichier lance l'action « Télécharger une vidéo (chiffrée) ».
+# Test : court-métrage libre de droits (CC-BY, Blender Foundation).
+https://www.youtube.com/watch?v=aqz-KE-bpKQ

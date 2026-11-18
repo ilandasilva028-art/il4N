@@ -1,0 +1,68 @@
+# Télécharge les vidéos listées dans gta6/telechargement/liens.txt, les CHIFFRE avec
+# gta6/telechargement/cle_publique.pem et les pousse sur la branche « captures-chiffrees ».
+# Le dépôt est public : rien n'y est jamais stocké en clair. Seule la session Claude qui
+# détient la clé privée peut déchiffrer.
+# À n'utiliser QUE pour les vidéos d'Ilan (sa chaîne, ses captures).
+name: Télécharger une vidéo (chiffrée)
+
+on:
+  push:
+    branches: ["claude/**"]
+    paths: ["gta6/telechargement/liens.txt"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telecharger-video
+  cancel-in-progress: false
+
+jobs:
+  telecharger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer yt-dlp
+        run: |
+          python3 -m pip install --quiet --upgrade yt-dlp
+          ffmpeg -version | head -1
+
+      - name: Télécharger (720p max)
+        run: |
+          mkdir -p dl out
+          grep -vE '^\s*(#|$)' gta6/telechargement/liens.txt | while read -r url; do
+            echo "::group::$url"
+            yt-dlp --no-playlist --no-progress \
+              -f 'bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[height<=720][ext=mp4]/b[height<=720]/b' \
+              --merge-output-format mp4 -o 'dl/%(id)s.%(ext)s' "$url" 2>&1 | tee -a out/journal.txt || true
+            echo "::endgroup::"
+          done
+          ls -la dl
+
+      - name: Chiffrer et découper
+        run: |
+          cd dl
+          for f in *.mp4; do
+            [ -f "$f" ] || continue
+            k=$(openssl rand -hex 32)
+            openssl enc -aes-256-cbc -pbkdf2 -salt -pass "pass:$k" -in "$f" -out "../out/$f.enc"
+            printf '%s' "$k" | openssl pkeyutl -encrypt -pubin -inkey ../gta6/telechargement/cle_publique.pem \
+              -pkeyopt rsa_padding_mode:oaep -out "../out/$f.cle"
+            sha256sum "$f" | cut -d' ' -f1 > "../out/$f.sha256"
+            (cd ../out && split -b 45M -d "$f.enc" "$f.enc.part" && rm "$f.enc")
+            rm "$f"
+          done
+          ls -la ../out
+
+      - name: Pousser sur la branche captures-chiffrees
+        run: |
+          cd out
+          git init -q -b captures-chiffrees
+          git config user.name "telechargement-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -qm "Vidéos chiffrées (${GITHUB_SHA::7})"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" captures-chiffrees
