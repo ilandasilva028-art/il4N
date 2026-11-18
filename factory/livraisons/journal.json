@@ -52,5 +52,14 @@
     "score": 93.8,
     "max": 96,
     "file": "livraisons/2026-11-18-quatre/quatre.mp4"
+  },
+  {
+    "date": "2026-11-18",
+    "vision": "tempete",
+    "film": "j20261118-tempete",
+    "version": "v3",
+    "score": 90.5,
+    "max": 96,
+    "file": "livraisons/2026-11-18-tempete/tempete.mp4"
   }
 ]

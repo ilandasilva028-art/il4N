@@ -32,7 +32,8 @@ export async function mix(o: MixOptions, log?: Logger): Promise<{ lufs: number |
   const graph = [...parts, `${labels.join('')}amix=inputs=${labels.length}:normalize=0:duration=longest,atrim=0:${o.durationSec.toFixed(3)},alimiter=limit=0.95:level=false[out]`].join(';');
   await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', ...inputs, '-filter_complex', graph, '-map', '[out]', '-ar', '48000', pre], { log });
 
-  // Normalisation EBU R128 en deux passes (mesure puis correction linéaire).
+  // Normalisation EBU R128 en deux passes (mesure puis correction linéaire), puis limiteur à −2,5 dBFS :
+  // l'encodage AAC ajoute des crêtes entre échantillons, il faut garder ~1,5 dB de marge sous −1 dBTP.
   const m = await run(TOOLS.ffmpeg, ['-v', 'info', '-nostats', '-i', pre, '-af', `loudnorm=I=${o.targetLufs}:TP=${o.truePeak}:LRA=11:print_format=json`, '-f', 'null', '-'], { log });
   const js = m.stderr.slice(m.stderr.lastIndexOf('{'), m.stderr.lastIndexOf('}') + 1);
   let filter = `loudnorm=I=${o.targetLufs}:TP=${o.truePeak}:LRA=11`;
@@ -40,7 +41,7 @@ export async function mix(o: MixOptions, log?: Logger): Promise<{ lufs: number |
     const j = JSON.parse(js);
     filter = `loudnorm=I=${o.targetLufs}:TP=${o.truePeak}:LRA=11:measured_I=${j.input_i}:measured_TP=${j.input_tp}:measured_LRA=${j.input_lra}:measured_thresh=${j.input_thresh}:offset=${j.target_offset}:linear=true`;
   } catch { log?.warn('Mesure loudnorm illisible : normalisation en une passe.'); }
-  await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', '-i', pre, '-af', `${filter},aresample=48000`, '-ar', '48000', o.out], { log });
+  await runOk(TOOLS.ffmpeg, ['-v', 'error', '-y', '-i', pre, '-af', `${filter},aresample=48000,alimiter=limit=-2.5dB:level=false:attack=1:release=60`, '-ar', '48000', o.out], { log });
   const v = await run(TOOLS.ffmpeg, ['-v', 'info', '-nostats', '-i', o.out, '-af', 'ebur128=peak=true', '-f', 'null', '-'], { log });
   const sum = v.stderr.split('Summary:').pop() || '';
   const I = sum.match(/I:\s+(-?[\d.]+) LUFS/), P = sum.match(/Peak:\s+(-?[\d.]+) dBFS/);
