@@ -27,6 +27,9 @@
 | L'eau de Leonida (muet) | L'EAU DE GTA 6 / EST IRRÉELLE | PLUS BEAU QUE LA VRAIE VIE ? | à recevoir |
 | Peinture — A/B (A) | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
 | Peinture — A/B (B) | DES ANNÉES D'ATTENTE / POUR REPEINDRE UN MUR | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
+| L'interrupteur (comédie) | NE TOUCHE JAMAIS / À CET INTERRUPTEUR | TU APPUIES OU PAS ? | à recevoir |
+| Sortie de prison (romance) | ELLE SORT DE PRISON / DEPUIS 10 MINUTES | COUPLE DE L'ANNÉE ? | à recevoir |
+| La maison pourrie (mème) | bandeau : QUAND TON APPART EST NUL / MAIS QU'ELLE SORT / DE 9 MOIS DE PRISON | (dans la légende) | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags
@@ -76,6 +79,13 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - [ ] Le moment clé est au **ralenti** (`:slow`), souvent en accroche.
 - [ ] Sons de transition (impact + souffles) et étalonnage laissés activés, sauf s'il y a une raison de les couper.
 - [ ] Pas deux plans de suite avec le même cadrage et la même vitesse.
+
+### Varier les formats (une capture = plusieurs clips différents)
+- **Comédie** : karaoké, ralenti sur le geste, gros plan plein écran sur la réaction, sons de transition.
+- **Romance / cinéma** : plein écran, sous-titres classiques, sans zoom ni sons ajoutés (`--punch 0 --no-sfx`), fondu final (`--ending fade`).
+- **Mème** : `--meme "L1|L2|L3"` (bandeau blanc, texte noir, 3 lignes max), pas de titre, question seulement dans la légende (`--cta ""`).
+- **Satisfaisant** : accéléré, sans dialogue, son du jeu ou son TikTok.
+- **Beaux plans** : `--mode plans`, musique continue.
 
 ### Fin et rétention
 - [ ] Durée 20 à 30 s pour du gameplay, 22 à 30 s pour les beaux plans.

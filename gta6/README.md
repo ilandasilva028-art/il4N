@@ -62,6 +62,7 @@ Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres
 - `full` : plein écran vertical, pour les gros plans (visage, objet, rouleau). Alterner avec la bande crée du rythme.
 - `x1.5`, `x2`, `x3`, `x4` : accéléré, pour les passages répétitifs (au lieu de couper).
 - `slow` : ralenti ×0,5, pour le moment clé (souvent l'accroche).
+- `--meme "LIGNE 1|LIGNE 2|LIGNE 3"` : format mème (bandeau blanc en haut, texte noir), à la place de l'accroche et du titre.
 - Ajoutés automatiquement : **impact** sonore sur l'accroche, **souffle** à chaque coupe franche (sons synthétisés, sans droits), **étalonnage** (contraste et saturation). Pour les retirer : `--no-sfx`, `--no-grade`.
 
 ## 3. Corriger une vidéo

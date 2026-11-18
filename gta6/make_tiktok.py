@@ -827,7 +827,7 @@ def sub_events(words, total, cta_t, mode):
     return ev
 
 
-def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False):
+def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False, meme=None):
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -843,6 +843,16 @@ Style: Default,{ANTON},80,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,10
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     ev = []
+    if meme and any(meme):
+        # format mème : bandeau blanc en haut, texte noir, du début à la fin (remplace accroche et titre)
+        ev.append(f"Dialogue: 0,{ass_time(0)},{ass_time(total)},Default,,0,0,0,,"
+                  r"{\an7\pos(0,0)\p1\bord0\shad0\c&HFFFFFF&}m 0 225 l 1080 225 l 1080 505 l 0 505{\p0}")
+        lines = [x for x in meme if x][:3]
+        ys = {1: [345], 2: [300, 395], 3: [262, 347, 432]}[len(lines)]
+        for txt, y in zip(lines, ys):
+            ev.append(ass_line(txt, ARCHIVO, "000000", 66, y, 0, total, 0, pop=False, layer=1,
+                               extra=r"\shad0"))
+        hook, title = ["", ""], ["", ""]
     # Accroche : visible dès l'image 0, 2e ligne qui claque juste après
     for i, (txt, (col, em, y)) in enumerate(zip(hook, STYLE["hook"])):
         if txt:
@@ -1016,6 +1026,7 @@ def main(argv=None):
     ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
     ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
+    ap.add_argument("--meme", help="format mème : bandeau blanc en haut, texte noir « LIGNE 1|LIGNE 2 »")
     ap.add_argument("--no-sfx", action="store_true", help="sans les sons de transition (souffles, impact)")
     ap.add_argument("--no-grade", action="store_true", help="sans l'étalonnage (contraste, saturation)")
     ap.add_argument("--mute", action="store_true", help="sans le son du jeu (ajouter un son TikTok à la publication)")
@@ -1067,6 +1078,8 @@ def main(argv=None):
         cfg["mute"] = True
     if args.cta_top:
         cfg["cta_top"] = True
+    if args.meme:
+        cfg["meme"] = args.meme
     if args.no_sfx:
         cfg["sfx"] = False
     if args.no_grade:
@@ -1218,8 +1231,10 @@ def main(argv=None):
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list, seg_fx)
         ass = work / "overlay.ass"
+        if not any(cfg["cta"]):
+            cta_t = total  # pas de question finale : les sous-titres vont jusqu'au bout
         build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
-                  bool(cfg.get("cta_top")))
+                  bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None)
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")

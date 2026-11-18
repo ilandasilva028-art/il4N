@@ -1,0 +1,19 @@
+Capture cinématique 177 s, 720p30 : Jason & Lucia (course de nuit, plage, maison de Jason, interrupteur, « 9 mois », réveil). Sous-titres du jeu en bas : --crop-bottom 110.
+Trois clips volontairement différents :
+
+1. L'interrupteur (comédie : karaoké, ralenti sur le geste, gros plan plein écran, sons)
+python make_tiktok.py capture.mp4 --subs st_interrupteur.srt --crop-bottom 110 --cta-top \
+ --segments "100.4-105.3,105.7-112.4,112.6-115.2,115.2-117.4:slow,117.4-119.0,119.9-121.4:full" \
+ --hook "NE TOUCHE JAMAIS|À CET INTERRUPTEUR" --title "GTA 6|JASON & LUCIA" --cta "TU APPUIES OU PAS ?|DIS-LE EN COMMENTAIRE" --cta-dur 4.5
+Légende : Elle a appuyé. Évidemment. 💀 Toi, tu appuies ou pas ? 👇  #gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr
+
+2. Sortie de prison (romance : plein écran, sous-titres classiques, sans zoom ni sons, fondu final)
+python make_tiktok.py capture.mp4 --subs st_prison.srt --subs-mode classic --crop-bottom 110 --punch 0 --no-sfx --ending fade \
+ --segments "27.0-30.5:full,33.8-39.6,39.8-44.2,51.0-53.4:full,161.6-167.0,172.0-176.3:full" --hook-dur 3.5 \
+ --hook "ELLE SORT DE PRISON|DEPUIS 10 MINUTES" --title "GTA 6|JASON & LUCIA" --cta "COUPLE DE L'ANNÉE ?|OUI OU NON EN COMMENTAIRE" --cta-dur 4.0 --cta-top
+Légende : 9 mois de prison, 10 minutes de liberté 🌙 Couple de l'année ou pas ? 👇  #gta6 #gtavi #jasonetlucia #gta6trailer #gamingfr
+
+3. La maison pourrie (mème : bandeau blanc, texte noir, pas de titre ni de question à l'écran)
+python make_tiktok.py capture.mp4 --subs st_maison.srt --subs-mode classic --crop-bottom 110 --cta "" --cta-dur 0 \
+ --segments "79.5-84.4,97.0-100.5,137.9-146.4" --meme "QUAND TON APPART EST NUL|MAIS QU'ELLE SORT|DE 9 MOIS DE PRISON"
+Légende : Les critères sont bas mais l'amour est là 😂 Tu l'aurais suivi dans cet appart ? 👇  #gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr
