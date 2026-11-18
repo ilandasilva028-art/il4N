@@ -114,6 +114,18 @@ Modèle vitrine : **`films/j20261116-foule.js`**. Chaque vidéo doit avoir **au 
 - **Cadence** : `export const FPS = 60` (comme la référence). Le rendu est environ 2 fois plus long : compter 15 à 25 min dans le cloud.
 - **Sons d'ambiance** : `rain` (pluie, `len`) et `applause` (applaudissements, `len`), en plus des bruitages d'action.
 
+## 1 undecies. Décor sous-marin (`lib/ocean.js`, 18/11/2026)
+Modèle : **`films/j20261118-profondeur.js`**. `ocean(ctx, t, camD)` dessine l'eau à la profondeur de caméra `camD`, en mètres :
+- surface au coucher du soleil vue d'en dessous, rayons de lumière, caustiques ;
+- bancs de poissons, algues, parois de canyon en parallaxe, méduses violettes, neige marine ;
+- assombrissement progressif jusqu'à l'abîme.
+Autres outils :
+- `yOf(profondeur, camD)` convertit une profondeur en position à l'écran ;
+- `diver()` dessine le héros qui nage, avec `angle: Math.PI` pour plonger tête la première ;
+- `bubbles()` fait monter des bulles, `jellyfish()` dessine une méduse ;
+- sons : `splash` (éclaboussure), `blub` (bulle), `underwater` (ambiance).
+Ce décor est une création originale. Ne jamais reprendre le scénario, les personnages ou les textes d'une vidéo existante (par exemple la vidéo de plongeurs nommés MOTIVATION / EGO / TALENT / OBSESSION d'un autre créateur).
+
 ## 1 decies. Première seconde = action (règle d'Ilan, 17/11/2026)
 - **Dès l'image 0 et dans la 1re seconde** : une action. Le personnage tombe, rate une occasion, perd son temps ou affronte un obstacle. **Pas d'introduction, pas de logo, pas de titre seul, pas de fondu d'ouverture.**
 - Dans `SCRIPT`, le champ **`premiere`** doit valoir `'chute'`, `'raté'`, `'perte de temps'` ou `'obstacle'`.

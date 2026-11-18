@@ -2,6 +2,41 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
+   "id": "profondeur",
+   "titre": "La profondeur",
+   "accroche": [
+    "30 secondes",
+    "et tu remontes."
+   ],
+   "accrocheB": [
+    "Qui te tient",
+    "en surface ?"
+   ],
+   "metaphore": "Plongée : les notifications te ramènent sans cesse à la surface ; la concentration (une perle rouge) se trouve en profondeur.",
+   "lecon": "Coupe les notifications, 25 minutes sur une seule tâche, téléphone dans une autre pièce.",
+   "scenes": [
+    "notification qui le fait remonter",
+    "surface pleine de téléphones",
+    "il lâche les téléphones et plonge",
+    "−20 m : envie de remonter, minuteur 25 min",
+    "descente dans le canyon",
+    "perle rouge à −80 m",
+    "remontée avec la perle"
+   ],
+   "chute": [
+    "Ce qui compte ",
+    "est en profondeur."
+   ],
+   "mot": "PROFONDEUR.",
+   "serie": "TOI CONTRE TOI · #4",
+   "hashtags": [
+    "#concentration",
+    "#discipline",
+    "#productivite",
+    "#mentalite"
+   ]
+  },
+  {
    "id": "systeme",
    "titre": "Le système (4 règles)",
    "accroche": [

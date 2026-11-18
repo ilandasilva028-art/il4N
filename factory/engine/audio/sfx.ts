@@ -116,6 +116,26 @@ export function synthSfx(hits: Hit[], durationSec: number, seed = 7): [Float32Ar
         }
         break;
       }
+      case 'splash': {
+        // éclaboussure : souffle large + gouttelettes aiguës
+        const bp = new Biquad().set('bp', 1800, 0.6);
+        put(h.t, 0.7, 0, (t, i) => g * 0.7 * bp.tick(noise[i % SR]) * Math.exp(-t / 0.12) * Math.min(1, t / 0.01));
+        for (let k = 0; k < 14; k++) { const f = 1500 + rnd() * 2500, tk = h.t + 0.05 + rnd() * 0.5; put(tk, 0.06, (rnd() - 0.5) * 1.2, (t) => g * 0.15 * Math.sin(2 * Math.PI * f * (1 + t * 8) * t) * Math.exp(-t / 0.015)); }
+        break;
+      }
+      case 'blub': {
+        // bulle : sinus dont la hauteur monte vite (son d'eau)
+        let ph = 0; const f0 = 300 + rnd() * 300;
+        put(h.t, 0.12, (rnd() - 0.5) * 0.6, (t) => { ph += (f0 * (1 + 6 * t)) / SR; return g * 0.4 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.04); });
+        break;
+      }
+      case 'underwater': {
+        // ambiance sous-marine : grondement grave filtré + bulles lointaines (h.len = durée)
+        const len = h.len ?? 4; const lp = new Biquad().set('lp', 380, 0.7), lp2 = new Biquad().set('lp', 380, 0.7);
+        put(h.t, len, 0, (t, i) => { const env = Math.min(1, t / 0.5, (len - t) / 0.5); return g * 0.5 * env * lp2.tick(lp.tick(noise[(i * 3) % SR])) * (0.8 + 0.2 * Math.sin(t * 0.7)); });
+        for (let k = 0; k < len * 3; k++) { let ph = 0; const f0 = 200 + rnd() * 400, tk = h.t + rnd() * len; put(tk, 0.1, (rnd() - 0.5) * 1.4, (t) => { ph += (f0 * (1 + 5 * t)) / SR; return g * 0.12 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.035); }); }
+        break;
+      }
       case 'ding': {
         const f = 1320;
         put(h.t, 1.2, 0.1, (t) => g * 0.25 * Math.exp(-t / 0.35) * (Math.sin(2 * Math.PI * f * t) + 0.4 * Math.sin(2 * Math.PI * f * 2.76 * t) * Math.exp(-t / 0.1)));
