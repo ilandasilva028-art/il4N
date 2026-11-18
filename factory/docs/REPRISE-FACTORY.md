@@ -53,6 +53,12 @@
 6. Accroche B pour faire des tests A/B.
 7. Publication manuelle par Ilan.
 
+## Mises à jour du 17-18/11
+- **Règle de la première seconde** : une action dès l'image 0, sans intro ni logo. Champ `premiere` du SCRIPT, contrôlé par `produce`.
+- **Décor sous-marin original** (`lib/ocean.js`) + film « La profondeur » (`films/j20261118-profondeur.js`, 95,1 %) : la concentration se trouve en profondeur ; conseils : couper les notifs, 25 min une tâche, téléphone ailleurs. Livré dans `livraisons/2026-11-18-profondeur/` (A + B).
+- **Refusé** : la copie plan par plan d'une vidéo d'un autre créateur (4 plongeurs nommés MOTIVATION / EGO / TALENT / OBSESSION). Seule la technique s'en inspire ; le kit `reference_nutriclip/` n'a jamais été fourni.
+- **Routine** : le lancement du 18/11 (« Les deux toi », 97,6 %) n'a **pas pu pousser**, car le dépôt n'est pas une source de la session de la routine. Ses 3 commits sont dans `miroir-20261118.bundle`, envoyé à Ilan : à récupérer avec `git fetch <bundle> claude/tiktok-ai-video-factory-b4nmd9 && git merge FETCH_HEAD`. **À corriger par Ilan** : ajouter `ilandasilva028-art/il4N` (écriture) aux sources de la routine sur claude.ai. Une étape `add_repo` a été ajoutée aux instructions, mais elle n'a pas suffi à cette session.
+
 ## Pièges connus
 - `deliver` date la livraison **du jour**. Refaire un essai un autre jour crée une entrée qui bloque la routine du jour : la ranger avec les essais du 16/11 et corriger `journal.json`.
 - Le rendu prend environ 20-25 min par version à 60 i/s (plus encore sur le Mac Intel 8 Go d'Ilan). Le lancer en arrière-plan.

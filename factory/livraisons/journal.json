@@ -34,5 +34,14 @@
     "score": 93,
     "max": 96,
     "file": "livraisons/2026-11-16-foule/foule.mp4"
+  },
+  {
+    "date": "2026-11-18",
+    "vision": "profondeur",
+    "film": "j20261118-profondeur",
+    "version": "v2",
+    "score": 91.3,
+    "max": 96,
+    "file": "livraisons/2026-11-18-profondeur/profondeur.mp4"
   }
 ]

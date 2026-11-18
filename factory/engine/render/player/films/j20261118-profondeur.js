@@ -3,6 +3,7 @@
 // Conseils : couper les notifications · 25 min, une seule tâche · téléphone dans une autre pièce.
 import { W, H, timeline, topBand, grainVignette, COLORS, clamp, prog, ease, pop, lerp, noise, VARIANT, seriesTag, endCard, camera, impactRing, kinetic, TEXTLOG } from '../lib/kit.js';
 import { brows, bubble, glow } from '../lib/world.js';
+import { label } from '../lib/stick.js';
 import { ocean, diver, bubbles, jellyfish, yOf, PX } from '../lib/ocean.js';
 import { choreo } from '../lib/anim.js';
 
@@ -49,6 +50,16 @@ function tip(ctx, n, text, tl, t0) {
   if (k >= 0.5) log(text);
 }
 function title(ctx, tl, parts, t0 = 0.05, size = 86) { topBand(ctx); kinetic(ctx, parts, 420, size, tl, t0, { stagger: 0.1, rise: 50 }); }
+// Jauge de profondeur (indicateur d'interface, pas une phrase à lire) : réglette + valeur, côté droit.
+function depthGauge(ctx, d) {
+  ctx.save(); ctx.globalAlpha = 0.9;
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(900, 640); ctx.lineTo(900, 1240); ctx.stroke();
+  for (let k = 0; k <= 10; k++) { ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.fillRect(892, 640 + k * 60, k % 5 ? 10 : 18, 3); }
+  const y = 640 + Math.min(1, d / 90) * 600;
+  ctx.fillStyle = RED; ctx.beginPath(); ctx.moveTo(886, y); ctx.lineTo(866, y - 12); ctx.lineTo(866, y + 12); ctx.fill();
+  ctx.restore();
+  label(ctx, `−${Math.round(d)} M`, 820, y + 10, { size: 30, color: '#f1f1f1', track: 2 });
+}
 const headOf = (x, y, angle, s = 0.9) => [x + Math.sin(angle) * 162 * s, y - Math.cos(angle) * 162 * s];
 
 // ------------------------------------------------------------------ 1. ouverture : une notification le fait remonter
@@ -121,7 +132,8 @@ function effort(ctx, tl) {
   const [hx, hy] = headOf(x, y, lerp(0.1, Math.PI, turn));
   bubbles(ctx, tl, hx, hy, { n: 10, rate: 1.2, seed: 5 });
   ctx.restore();
-  title(ctx, tl, [['−', '#f1f1f1'], [String(Math.max(2, Math.round(camD))), RED], [' M', '#f1f1f1']], 0.05, 96);
+  depthGauge(ctx, camD);
+  title(ctx, tl, [['LÂCHE-', '#f1f1f1'], ['LE.', RED]], 0.05, 96);
   tip(ctx, 1, 'COUPE LES NOTIFS.', tl, 0.5);
 }
 
@@ -157,7 +169,8 @@ function progression(ctx, tl) {
   const [hx, hy] = headOf(x, y, Math.PI);
   bubbles(ctx, tl, hx, hy, { n: 8, rate: 1, seed: 9 });
   ctx.restore();
-  title(ctx, tl, [['−', '#f1f1f1'], [String(Math.round(camD)), RED], [' M', '#f1f1f1']], 0.05, 96);
+  depthGauge(ctx, camD);
+  title(ctx, tl, [['PLUS ', '#f1f1f1'], ['PROFOND.', RED]], 0.05, 96);
   tip(ctx, 3, 'TÉLÉPHONE DANS UNE AUTRE PIÈCE.', tl, 0.4);
 }
 
@@ -186,6 +199,7 @@ function retournement(ctx, tl) {
   jellyfish(ctx, 200, yOf(76.5 + Math.sin(tl * 0.6) * 0.3, camD), tl, 1.1, 3);
   ctx.restore();
   bubble(ctx, 'PLUS TARD.', 470, yOf(77, camD) - 40, tl, 3.0, { dark: true, log });
+  depthGauge(ctx, 80);
   title(ctx, tl, [['−80 M', RED]], 0.05, 96);
 }
 
