@@ -425,24 +425,24 @@ function look(t) {
 
 export const HITS = [
   // ouverture : foudre sur la tour à l'image 0
-  { t: 0, sfx: 'impact', gain: 1 }, { t: 0.02, sfx: 'shatter', gain: 0.8 }, { t: 0.05, sfx: 'thud', gain: 0.9 }, { t: 0, sfx: 'rain', gain: 0.6, len: 7 * B },
-  { t: 0.9, sfx: 'thud', gain: 0.6 }, { t: 2 * B, sfx: 'pop', gain: 0.6 }, { t: 1.4, sfx: 'impact', gain: 0.35 }, { t: 7 * B - 0.5, sfx: 'riser', gain: 0.5, len: 0.5 },
+  { t: 0, sfx: 'impact', gain: 0.6 }, { t: 0.02, sfx: 'shatter', gain: 0.48 }, { t: 0.12, sfx: 'thud', gain: 0.59 }, { t: 0, sfx: 'rain', gain: 0.6, len: 7 * B },
+  { t: 0.9, sfx: 'thud', gain: 0.39 }, { t: 2 * B, sfx: 'pop', gain: 0.6 }, { t: 1.4, sfx: 'impact', gain: 0.21 }, { t: 7 * B - 0.5, sfx: 'riser', gain: 0.5, len: 0.5 },
   // jour 1 : pinceau, briques empilées, brique posée
   { t: S.jour1, sfx: 'whoosh', gain: 0.6 }, { t: S.jour1 + 0.1, sfx: 'swish', gain: 0.4 }, { t: S.jour1 + 0.8, sfx: 'swish', gain: 0.4 }, { t: S.jour1 + 1.3, sfx: 'pop', gain: 0.6 },
   ...Array.from({ length: 14 }, (_, i) => ({ t: S.jour1 + 0.1 + i * 0.28, sfx: 'click', gain: 0.3 })),
   ...Array.from({ length: 4 }, (_, i) => ({ t: S.jour1 + 0.5 + i * 0.95, sfx: 'tick', gain: 0.7 })), { t: S.jour1 + 2.1, sfx: 'pop', gain: 0.6 },
   // jour 60 : selfies, tente qui se déplie, briques
-  { t: S.jour60, sfx: 'impact', gain: 0.5 }, { t: S.jour60 + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.jour60 + 1.9, sfx: 'boing', gain: 0.6 }, { t: S.jour60 + 2.2, sfx: 'pop', gain: 0.6 }, { t: S.jour60 + 2.4, sfx: 'pop', gain: 0.5 },
+  { t: S.jour60, sfx: 'impact', gain: 0.3 }, { t: S.jour60 + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.jour60 + 1.9, sfx: 'boing', gain: 0.6 }, { t: S.jour60 + 2.2, sfx: 'pop', gain: 0.6 }, { t: S.jour60 + 2.4, sfx: 'pop', gain: 0.5 },
   ...Array.from({ length: 6 }, (_, i) => ({ t: S.jour60 + 0.4 + i * 0.7, sfx: 'tick', gain: 0.6 })), { t: S.jour60 + 0.4, sfx: 'click', gain: 0.5 }, { t: S.jour60 + 1.2, sfx: 'click', gain: 0.5 },
   // 22 h : alerte, la pluie commence, la fissure rebouchée
   { t: S.alerte, sfx: 'alarm', gain: 0.45, len: 0.8 }, { t: S.alerte, sfx: 'rain', gain: 0.35, len: 6 * B }, { t: S.alerte + 0.8, sfx: 'pop', gain: 0.5 }, { t: S.alerte + 1.2, sfx: 'swish', gain: 0.5 }, { t: S.alerte + 1.6, sfx: 'swish', gain: 0.5 },
   // tempête : tente envolée, façade qui tombe, foudre sur la tour
-  { t: S.tempete, sfx: 'rain', gain: 0.8, len: 10 * B }, { t: S.tempete, sfx: 'impact', gain: 0.6 }, { t: S.tempete + 0.4, sfx: 'whoosh', gain: 0.8, len: 1 }, { t: S.tempete + 0.5, sfx: 'boing', gain: 0.4 },
+  { t: S.tempete, sfx: 'rain', gain: 0.8, len: 10 * B }, { t: S.tempete, sfx: 'impact', gain: 0.36 }, { t: S.tempete + 0.4, sfx: 'whoosh', gain: 0.8, len: 1 }, { t: S.tempete + 0.5, sfx: 'boing', gain: 0.4 },
   ...gaitSteps(S.tempete + 0.5, S.tempete + 1.7, { speed: 520, scale: SC, run: true }).map((h) => ({ ...h, sfx: 'step' })),
-  { t: S.tempete + 1.2, sfx: 'whoosh', gain: 0.6 }, { t: S.tempete + 1.7, sfx: 'thud', gain: 0.9 }, { t: S.tempete + 1.6, sfx: 'pop', gain: 0.5 },
-  { t: S.tempete + STRIKE, sfx: 'impact', gain: 1 }, { t: S.tempete + STRIKE + 0.02, sfx: 'shatter', gain: 0.8 }, { t: S.tempete + STRIKE + 0.9, sfx: 'thud', gain: 0.7 },
+  { t: S.tempete + 1.2, sfx: 'whoosh', gain: 0.6 }, { t: S.tempete + 1.7, sfx: 'thud', gain: 0.59 }, { t: S.tempete + 1.6, sfx: 'pop', gain: 0.5 },
+  { t: S.tempete + STRIKE, sfx: 'impact', gain: 0.6 }, { t: S.tempete + STRIKE + 0.02, sfx: 'shatter', gain: 0.48 }, { t: S.tempete + STRIKE + 0.9, sfx: 'thud', gain: 0.45 },
   // refuge : la porte s'ouvre, ils entrent
   { t: S.refuge, sfx: 'rain', gain: 0.5, len: 11 * B }, { t: S.refuge + 0.2, sfx: 'door', gain: 0.8 }, ...gaitSteps(S.refuge + 0.5, S.refuge + 2.9, { speed: 420, scale: SC }).map((h) => ({ ...h, gain: 0.4 })),
-  { t: S.chute + 0.1, sfx: 'impact', gain: 0.7 }, { t: S.chute + 0.8, sfx: 'impact', gain: 1 },
-  { t: S.outro, sfx: 'impact', gain: 0.7 }, { t: S.outro + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.end - 2 * B, sfx: 'impact', gain: 0.7 },
+  { t: S.chute + 0.1, sfx: 'impact', gain: 0.42 }, { t: S.chute + 0.8, sfx: 'impact', gain: 0.6 },
+  { t: S.outro, sfx: 'impact', gain: 0.42 }, { t: S.outro + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.end - 2 * B, sfx: 'impact', gain: 0.42 },
 ];
