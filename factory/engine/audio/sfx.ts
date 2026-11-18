@@ -136,6 +136,54 @@ export function synthSfx(hits: Hit[], durationSec: number, seed = 7): [Float32Ar
         for (let k = 0; k < len * 3; k++) { let ph = 0; const f0 = 200 + rnd() * 400, tk = h.t + rnd() * len; put(tk, 0.1, (rnd() - 0.5) * 1.4, (t) => { ph += (f0 * (1 + 5 * t)) / SR; return g * 0.12 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.035); }); }
         break;
       }
+      case 'room': {
+        // ambiance continue : bruit brun filtré (ventilation, ville lointaine) + ronflement électrique discret
+        const len = h.len ?? 10; const lp = new Biquad().set('lp', 380, 0.7), lp2 = new Biquad().set('lp', 900, 0.5); let b = 0, b2 = 0, ph = 0;
+        put(h.t, len, 0, (t, i) => { b = 0.985 * b + 0.05 * noise[i % SR]; b2 = 0.995 * b2 + 0.02 * noise[(i * 3 + 777) % SR]; ph += 100 / SR; const env = Math.min(1, t / 0.4, (len - t) / 0.4); const swell = 0.7 + 0.3 * Math.sin(2 * Math.PI * t / 6.3); return g * env * (1.1 * lp.tick(b) * swell + 0.5 * lp2.tick(b2) + 0.012 * Math.sin(2 * Math.PI * ph)); });
+        break;
+      }
+      case 'sub': {
+        // boum grave (« drop ») : sinus qui descend de 90 à 38 Hz
+        let ph = 0;
+        put(h.t, 1.4, 0, (t) => { ph += (38 + 52 * Math.exp(-t / 0.12)) / SR; return g * 0.95 * Math.sin(2 * Math.PI * ph) * Math.exp(-t / 0.5) * Math.min(1, t / 0.004); });
+        break;
+      }
+      case 'notif': {
+        // notification de téléphone : deux notes claires
+        const f1 = 1046 * (h.len ?? 1), f2 = 1568 * (h.len ?? 1);
+        put(h.t, 0.5, (rnd() - 0.5) * 0.5, (t) => { const a = t < 0.09 ? Math.sin(2 * Math.PI * f1 * t) * Math.exp(-t / 0.06) : Math.sin(2 * Math.PI * f2 * t) * Math.exp(-(t - 0.09) / 0.12); return g * 0.3 * a * Math.min(1, t / 0.002); });
+        break;
+      }
+      case 'cash': {
+        // tiroir-caisse : clochette métallique + cliquetis
+        const hp = new Biquad().set('hp', 4000, 0.7);
+        put(h.t, 1.0, 0.15, (t, i) => g * (0.22 * Math.exp(-t / 0.35) * (Math.sin(2 * Math.PI * 2093 * t) + 0.6 * Math.sin(2 * Math.PI * 2637 * t) + 0.3 * Math.sin(2 * Math.PI * 5274 * t)) + (t < 0.08 ? 0.4 * hp.tick(noise[(i * 7) % SR]) * Math.exp(-t / 0.02) : 0)));
+        break;
+      }
+      case 'heart': {
+        // battement de cœur : deux coups sourds
+        const lp = new Biquad().set('lp', 120, 0.8);
+        put(h.t, 0.6, 0, (t, i) => { const k = Math.exp(-t / 0.05) + 0.7 * (t > 0.22 ? Math.exp(-(t - 0.22) / 0.05) : 0); return g * 1.6 * k * (Math.sin(2 * Math.PI * 52 * t) + 0.5 * lp.tick(noise[i % SR])); });
+        break;
+      }
+      case 'buzz': {
+        // buzzer « éliminé » : onde carrée grave filtrée
+        const lp = new Biquad().set('lp', 1400, 0.8);
+        put(h.t, 0.55, 0, (t) => { const sq = Math.sign(Math.sin(2 * Math.PI * 110 * t)) + 0.5 * Math.sign(Math.sin(2 * Math.PI * 116.5 * t)); return g * 0.18 * lp.tick(sq) * Math.min(1, t / 0.01, (0.55 - t) / 0.06); });
+        break;
+      }
+      case 'glitch': {
+        // bug numérique : rafales de bruit hachées + bips
+        const len = h.len ?? 0.3; const gate = Array.from({ length: 24 }, () => rnd() > 0.45);
+        put(h.t - len / 2, len, (rnd() - 0.5) * 0.8, (t, i) => { const k = gate[Math.floor((t / len) * 24) % 24] ? 1 : 0; const crush = Math.round(noise[(i >> 3) % SR] * 4) / 4; return g * 0.35 * k * (0.7 * crush + 0.3 * Math.sign(Math.sin(2 * Math.PI * (600 + 1800 * (t / len)) * t))); });
+        break;
+      }
+      case 'whip': {
+        // balayage rapide (transition) : bruit filtré dont la fréquence monte puis descend, court et percutant
+        const len = h.len ?? 0.22; const bp = new Biquad();
+        put(h.t - len * 0.55, len, (rnd() - 0.5) * 0.8, (t, i) => { const p = t / len; bp.set('bp', 600 + 6000 * Math.sin(Math.PI * p) ** 2, 0.9); return g * 1.1 * Math.sin(Math.PI * p) ** 3 * bp.tick(noise[i % SR]); });
+        break;
+      }
       case 'ding': {
         const f = 1320;
         put(h.t, 1.2, 0.1, (t) => g * 0.25 * Math.exp(-t / 0.35) * (Math.sin(2 * Math.PI * f * t) + 0.4 * Math.sin(2 * Math.PI * f * 2.76 * t) * Math.exp(-t / 0.1)));
