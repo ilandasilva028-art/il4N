@@ -14,6 +14,8 @@ const TYPES: Record<string, string> = { '.html': 'text/html', '.js': 'text/javas
 const VENDOR: Record<string, string> = {
   '/vendor/gsap.js': path.join(ROOT, 'node_modules', 'gsap', 'dist', 'gsap.min.js'),
   '/vendor/matter.js': path.join(ROOT, 'node_modules', 'matter-js', 'build', 'matter.min.js'),
+  // Bruit simplex 3D en GLSL (Ashima Arts / Stefan Gustavson, MIT) pour le brouillard de lib/light.js.
+  '/vendor/simplex3d.glsl': path.join(ROOT, 'node_modules', 'glsl-noise', 'simplex', '3d.glsl'),
 };
 
 export function servePlayer(): Promise<{ url: string; close: () => void }> {

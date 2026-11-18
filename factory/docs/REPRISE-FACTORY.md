@@ -61,6 +61,8 @@
 
 - **Distribution « traits de caractère »** (`lib/cast.js`, `drawMember`) : DISCIPLINE (bandeau rouge), L'EGO (couronne, lunettes), L'OBSESSION (cernes, cheveux en bataille), LA CHANCE (trèfle). Film « Les quatre » (`films/j20261118-quatre.js`) : course, salle, mur, nuit 23 h / 3 h, sommet ; seul Discipline arrive.
 
+- **Lumière** (`lib/light.js`, WebGL2 + `glsl-noise` MIT) : bloom sur les sources colorées, rayons, brouillard animé, étalonnage. À utiliser dans tous les nouveaux films via `post = cinema(...)`.
+
 ## Pièges connus
 - `deliver` date la livraison **du jour**. Refaire un essai un autre jour crée une entrée qui bloque la routine du jour : la ranger avec les essais du 16/11 et corriger `journal.json`.
 - Le rendu prend environ 20-25 min par version à 60 i/s (plus encore sur le Mac Intel 8 Go d'Ilan). Le lancer en arrière-plan.

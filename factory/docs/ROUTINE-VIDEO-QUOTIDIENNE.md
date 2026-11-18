@@ -238,3 +238,13 @@ Rappeler que rien n'est publié.
 - `lib/cast.js` : `drawMember(ctx, 'discipline'|'ego'|'obsession'|'chance', x, y, pose, opts)` dessine un trait de caractère avec son accessoire et son nom.
 - Garder 150 px minimum entre deux personnages et décaler les noms voisins (`labelDy`).
 - Chaque personnage a un comportement constant : l'Ego cherche le regard, l'Obsession s'épuise, la Chance profite puis tombe, Discipline avance au même rythme.
+
+## 1 terdecies. Lumière (WebGL2, gratuit)
+- `lib/light.js` : passe appliquée à l'image finie. Dans le film : `import { cinema } from '../lib/light.js'; export const post = cinema((t) => ({ ... }));` (remplace `grainVignette`, qu'elle inclut).
+- Réglages par scène (pixels 1080 × 1920) :
+  - `bloom` (0,6-1,1) et `threshold` : seules les sources **colorées** brillent (néons, phares, accent rouge) ; les personnages blancs et les bulles restent nets ;
+  - `rays: { x, y, strength, color, radius }` : rayons de lumière depuis une lampe, la lune, un projecteur ; les formes claires les coupent ;
+  - `fog: { density, height, color, speed }` : brume animée (bruit simplex GLSL, paquet `glsl-noise`, MIT), plus dense en bas ;
+  - `contrast`, `sat`, `warm` (ombres froides / lumières chaudes), `exposure`, `ca` (aberration chromatique des bords).
+- Coût : environ +0,2 s par image dans le cloud (WebGL logiciel), beaucoup moins sur une vraie carte graphique.
+- Avant / après : `docs/lumiere-avant-apres.jpg`.
