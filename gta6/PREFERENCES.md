@@ -25,12 +25,15 @@
 | Beaux plans | C'EST PAS UN FILM. / C'EST GTA 6. | TU FAIS QUOI EN PREMIER ? PLAGE, BOÎTE OU OCÉAN ? | « pas mal » |
 | Pas assez payés (gameplay) | ILS DEVAIENT JUSTE / SURVEILLER… | TU Y VAS OU TU RENTRES ? | à recevoir |
 | L'eau de Leonida (muet) | L'EAU DE GTA 6 / EST IRRÉELLE | PLUS BEAU QUE LA VRAIE VIE ? | à recevoir |
+| Peinture — A/B (A) | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
+| Peinture — A/B (B) | DES ANNÉES D'ATTENTE / POUR REPEINDRE UN MUR | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
 
 ## Hashtags
 5 maximum : `#gta6 #gtavi #vicecity` + 1 sur le sujet (`#gta6trailer`, `#jasonetlucia`…) + `#gamingfr` pour le public français.
 Pas encore comparés aux tendances : vidIQ n'a presque plus de crédits.
 
 ## Captures : conseils à Ilan
+- Envoi dans le chat : moins de 25 Mo (au-delà, le fichier arrive tronqué). Google Drive : le connecteur ne prend que les fichiers de moins de 10 Mo.
 - Couper les sous-titres du jeu avant d'enregistrer : l'image reste entière.
 - 60 i/s si possible.
 
@@ -59,6 +62,7 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - [ ] 7 mots maximum, une seule idée, texte visible dès l'image 0.
 - [ ] Les 2 premières secondes sont en mouvement (pas de fondu, pas de plan fixe).
 - [ ] Deux accroches candidates notées avant le rendu, pour un test A/B (voir « Tests » plus bas).
+- [ ] Chaque ligne d'accroche tient sans rétrécir (≈ 20 caractères max pour la 2ᵉ ligne rose) : sinon, rééquilibrer les deux lignes.
 
 ### Rythme
 - [ ] Un changement visuel toutes les 2 s environ (coupe ou zoom).

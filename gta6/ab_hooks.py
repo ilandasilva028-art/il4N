@@ -23,6 +23,7 @@ horaire, sinon le test mesure le moment et pas l'accroche.
 """
 import argparse
 import csv
+import shlex
 import shutil
 import subprocess
 import sys
@@ -56,6 +57,8 @@ def render(src: Path, variant: str, hook_rng, hook_txt, body, args, out: Path):
                       ("--subs", args.subs), ("--caption", args.caption), ("--tags", args.tags)):
         if val not in (None, ""):
             cmd += [flag, str(val)]
+    if args.extra:
+        cmd += shlex.split(args.extra)
     if args.cta_top:
         cmd.append("--cta-top")
     if args.mute:
@@ -94,6 +97,7 @@ def main():
     ap.add_argument("--mute", action="store_true")
     ap.add_argument("--caption", help="légende commune aux deux variantes")
     ap.add_argument("--tags")
+    ap.add_argument("--extra", help="options passées telles quelles à make_tiktok.py, ex. \"--panel-h 860 --punch 0.05\"")
     ap.add_argument("--out", help="dossier de sortie (défaut : <capture>_ab à côté de la capture)")
     args = ap.parse_args()
 

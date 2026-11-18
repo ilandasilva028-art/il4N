@@ -1,0 +1,13 @@
+Capture gameplay 102 s, 720p30 : Jason repeint sa chambre au rouleau (après-midi -> soir). Aucun dialogue.
+Format : « détail satisfaisant », coupes de 2 s façon accéléré, son du jeu (rouleau), pièce finie à la fin.
+Test A/B (pas de sous-titres : le test ne mesure que l'accroche) :
+python ab_hooks.py capture.mp4 --no-subs \
+ --hook-a "62.0-64.4|DANS GTA 6, TU PEUX|REPEINDRE TA MAISON" \
+ --hook-b "96.2-99.4|DES ANNÉES D'ATTENTE|POUR REPEINDRE UN MUR" \
+ --body "2.0-4.0,18.0-20.0,20.2-22.0,28.0-30.5,36.0-38.0,50.0-52.5,58.0-60.0,64.6-66.6,70.0-72.0,78.0-80.0,90.0-92.0,96.2-100.0" \
+ --title "GTA 6|DÉCO" --cta "TU REPEINS EN QUELLE COULEUR ?|DIS-LE EN COMMENTAIRE" --cta-dur 4.0 --hook-dur 2.8 \
+ --extra "--panel-h 860 --punch 0.05"
+Évités : invites de touche au centre de l'écran (6-14 s). Interface en haut et en bas à droite : enlevée par le cadrage centré.
+Légende : Rockstar a mis un simulateur de peinture dans GTA 6 🎨 Tu repeins en quelle couleur ? 👇
+#gta6 #gtavi #gta6gameplay #jason #gamingfr
+Note : la capture complète (102 Mo sur Drive) n'a pas pu être téléchargée (connecteur limité à 10 Mo, Drive bloqué par le réseau) : seule la partie 2 envoyée dans le chat a servi.
