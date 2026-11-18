@@ -61,5 +61,14 @@
     "score": 90.5,
     "max": 96,
     "file": "livraisons/2026-11-18-tempete/tempete.mp4"
+  },
+  {
+    "date": "2026-11-18",
+    "vision": "tempete2",
+    "film": "j20261118-tempete2",
+    "version": "v2",
+    "score": 92.9,
+    "max": 96,
+    "file": "livraisons/2026-11-18-tempete2/tempete2.mp4"
   }
 ]
