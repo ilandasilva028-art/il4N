@@ -248,3 +248,28 @@ Rappeler que rien n'est publié.
   - `contrast`, `sat`, `warm` (ombres froides / lumières chaudes), `exposure`, `ca` (aberration chromatique des bords).
 - Coût : environ +0,2 s par image dans le cloud (WebGL logiciel), beaucoup moins sur une vraie carte graphique.
 - Avant / après : `docs/lumiere-avant-apres.jpg`.
+
+## 1 quaterdecies. Rétention, transitions, son (demande d'Ilan : « super important »)
+**Rétention**
+- Une **question visible à l'écran pendant toute la vidéo** : par exemple un compteur d'élimination (4 têtes, une croix rouge et un buzzer à chaque échec) qui répond à l'accroche (« 4 business. 1 seul survit. »).
+- **Pas de carte de fin longue.** Les dernières secondes rejouent le moment juste avant l'image 0 (« boucle parfaite ») : la vidéo repart sans coupure visible. Un « ABONNE-TOI » bref (moins de 1,5 s) peut s'y glisser.
+- Un plan nouveau toutes les **2 secondes environ**, une caméra qui bouge toujours (travelling, poussée), aucun plan figé de plus de 1,2 s.
+- Durée cible : **24 à 27 s**.
+
+**Transitions** (`lib/trans.js`) : `transition(ctx, t, renderAt, CUTS)` dans `draw()`. Les types :
+- `whip` : balayage avec flou, à alterner gauche / droite ;
+- `zoom` : traversée, pour le héros et les temps forts ;
+- `glitch` : saut dans le temps ;
+- `drop` : noir bref.
+
+À chaque coupe son bruitage : `whip`, `glitch`, ou `whoosh` + `sub`.
+
+**Son** (`audio/sfx.ts`)
+- Toujours une ambiance continue `room` sur toute la durée : le silence entre deux bruits fait décrocher.
+- Les temps forts reçoivent un `sub` (boum grave).
+- Bruitages qui racontent :
+  - `notif` : notifications en cascade (le paramètre `len` règle la hauteur, à faire monter) ;
+  - `cash` : vente ;
+  - `heart` : tension ;
+  - `buzz` : élimination.
+- Le mixeur limite la crête à −4 dBFS (−1,5 à −2 dBTP après AAC).

@@ -63,6 +63,9 @@
 
 - **Lumière** (`lib/light.js`, WebGL2 + `glsl-noise` MIT) : bloom sur les sources colorées, rayons, brouillard animé, étalonnage. À utiliser dans tous les nouveaux films via `post = cinema(...)`.
 
+- **Blender** (`engine/blender/bureaux.py`, bpy 5.3 en module Python, Cycles CPU) : décors 3D rendus en plaques + `anchors.json` (positions à l'écran). Plaques du bureau dans `player/plates/business/`, réutilisables. Installation : `uv venv .venv-blender --python 3.13 && VIRTUAL_ENV=.venv-blender uv pip install bpy==5.3.0` (~1 Go). Environ 6 min par plaque à 1080×1920.
+- **Rétention / transitions / son** : voir ROUTINE § 1 quaterdecies (film modèle : `j20261118-business2.js`).
+
 ## Pièges connus
 - `deliver` date la livraison **du jour**. Refaire un essai un autre jour crée une entrée qui bloque la routine du jour : la ranger avec les essais du 16/11 et corriger `journal.json`.
 - Le rendu prend environ 20-25 min par version à 60 i/s (plus encore sur le Mac Intel 8 Go d'Ilan). Le lancer en arrière-plan.
