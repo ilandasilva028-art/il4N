@@ -43,5 +43,14 @@
     "score": 91.3,
     "max": 96,
     "file": "livraisons/2026-11-18-profondeur/profondeur.mp4"
+  },
+  {
+    "date": "2026-11-18",
+    "vision": "quatre",
+    "film": "j20261118-quatre",
+    "version": "v3",
+    "score": 93.8,
+    "max": 96,
+    "file": "livraisons/2026-11-18-quatre/quatre.mp4"
   }
 ]
