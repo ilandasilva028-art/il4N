@@ -232,3 +232,9 @@ Rappeler que rien n'est publié.
 - Elle ne publie pas sur TikTok et ne crée pas de compte : l'utilisateur publie lui-même après validation.
 - Elle ne garantit pas la viralité. Elle applique ce qui retient l'attention (accroche dès la 1ʳᵉ seconde, rythme sur le beat, contraste, boucle, une seule idée forte) et varie les métaphores chaque jour.
 - Elle n'écoute pas le son : la musique est vérifiée par mesures uniquement.
+
+
+## 1 duodecies. Distribution de personnages
+- `lib/cast.js` : `drawMember(ctx, 'discipline'|'ego'|'obsession'|'chance', x, y, pose, opts)` dessine un trait de caractère avec son accessoire et son nom.
+- Garder 150 px minimum entre deux personnages et décaler les noms voisins (`labelDy`).
+- Chaque personnage a un comportement constant : l'Ego cherche le regard, l'Obsession s'épuise, la Chance profite puis tombe, Discipline avance au même rythme.

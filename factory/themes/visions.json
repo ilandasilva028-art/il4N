@@ -2,6 +2,39 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
+   "id": "quatre",
+   "titre": "Les quatre",
+   "accroche": [
+    "4 personnages.",
+    "1 seul arrive."
+   ],
+   "accrocheB": [
+    "Qui arrive",
+    "en haut ?"
+   ],
+   "metaphore": "Quatre traits de caractère (Discipline, l'Ego, l'Obsession, la Chance) traversent les mêmes épreuves : course, salle, mur, nuit, sommet. Un seul arrive.",
+   "lecon": "Même heure chaque jour, petit mais tous les jours, dormir pour durer.",
+   "scenes": [
+    "course : départ, l'Ego fait un selfie, la Chance prend le bus, l'Obsession sprinte",
+    "salle : l'Obsession s'effondre, l'Ego pose, la Chance dort",
+    "mur : barreau qui casse, l'Ego redescend",
+    "nuit : 23 h / 3 h",
+    "sommet : seul Discipline arrive"
+   ],
+   "chute": [
+    "La chance passe. ",
+    "La discipline reste."
+   ],
+   "mot": "RESTE.",
+   "serie": "TOI CONTRE TOI · #5",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#motivation",
+    "#habitudes"
+   ]
+  },
+  {
    "id": "profondeur",
    "titre": "La profondeur",
    "accroche": [
