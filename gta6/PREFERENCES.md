@@ -50,3 +50,45 @@ Pas encore comparés aux tendances : vidIQ n'a presque plus de crédits.
 - Détection des génériques : plus de 33 % de l'image d'une seule couleur + luminosité ≥ 0,18 (`plans.py`, mesuré sur la capture du 18/11).
 - Textes incrustés : OCR (`rapidocr`). On écarte un texte en bas de l'image, centré et lisible (sous-titre du jeu), ou un nom déjà vu sur un écran de générique. Le texte du décor (panneaux, « INMATE ») est gardé.
 - Accroche : texte visible dès l'image 0, pendant 3 s.
+
+## Checklist avant chaque prochaine vidéo
+Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok et le montage gaming. Les chiffres externes sont des blogs : on les vérifie avec nos propres stats.
+
+### Accroche (3 premières secondes)
+- [ ] La promesse ou la chute est dans l'accroche, pas la mise en place (« Salut tout le monde » et intros de marque : jamais).
+- [ ] 7 mots maximum, une seule idée, texte visible dès l'image 0.
+- [ ] Les 2 premières secondes sont en mouvement (pas de fondu, pas de plan fixe).
+- [ ] Deux accroches candidates notées avant le rendu, pour un test A/B (voir « Tests » plus bas).
+
+### Rythme
+- [ ] Un changement visuel toutes les 2 s environ (coupe ou zoom).
+- [ ] Aucun plan de dialogue ou de conduite de plus de 4 s sans coupe : le découper.
+- [ ] Le moment fort n'est jamais au milieu d'une phrase coupée.
+
+### Fin et rétention
+- [ ] Durée 20 à 30 s pour du gameplay, 22 à 30 s pour les beaux plans.
+- [ ] La question arrive quand la chute tombe, pas seulement en fin de clip (`--cta-top` si les sous-titres doivent rester visibles).
+- [ ] Si possible, la dernière image rejoint la première (boucle).
+- [ ] La question est une question facile à répondre (« oui ou non », « plage ou boîte », « tu y vas ou tu rentres »).
+
+### Sous-titres et son
+- [ ] Sous-titres relus à la main : noms propres (Donnie, Brian, Lucia, Carol), argot, traduction.
+- [ ] Aucune trace de sous-titres ou d'interface du jeu dans le cadre (`--crop-bottom`, `--crop-top`).
+- [ ] Si le son du jeu est peu intéressant ou parlé en anglais : `--mute` et son TikTok ajouté dans l'appli.
+- [ ] Son du clip vérifié (-14 LUFS, pas de clip).
+
+### Détection des moments
+- [ ] Un moment fort = pic audio + changement de plan + (si possible) texte à l'écran. Les moments sans rien de ça sont écartés.
+- [ ] Les génériques, menus pause, mode photo, notifications et plans flous sont écartés, même s'ils sont beaux.
+- [ ] Ne jamais garder un contenu que la capture n'a pas filmé soi-même (sources : captures d'Ilan uniquement).
+
+### Tests
+- [ ] Pour chaque capture, deux accroches différentes sur la même vidéo, publiées à quelques jours d'écart.
+- [ ] Une seule variable change à la fois : l'accroche, ou la question, ou le son.
+- [ ] Résultat noté dans le tableau « Chiffres TikTok » ci-dessus : vues, rétention moyenne, % de vues complètes, moment où les gens décrochent.
+- [ ] Un test est concluant seulement à partir de quelques milliers de vues. En dessous, on ne tire aucune conclusion.
+
+### Ce qu'on ne sait pas encore
+- Le seuil de vues complètes qui fait pousser une vidéo : les sources vont de 35 à 70 %, aucune n'est officielle. On le calera sur nos propres chiffres.
+- Quelle méthode de détection marche le mieux sur GTA : pas de benchmark indépendant trouvé. Une comparaison se fera sur nos captures.
+- Si les relectures comptent vraiment : à vérifier avec les stats (la part de revisionnage est visible dans TikTok Analytics).
