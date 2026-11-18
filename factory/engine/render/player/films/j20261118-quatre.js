@@ -234,7 +234,7 @@ const SCENES = [[S.course, course], [S.salle, salle], [S.mur, mur], [S.nuit, nui
 
 export function draw(ctx, t) {
   TEXTLOG.frame = [];
-  if (t >= S.end - B) { course(ctx, 0); return; }
+  if (t >= S.end - 2 * B) { course(ctx, 0); return; } // 2 temps : la boucle reste visible
   let k = 0;
   for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) k = i;
   const [t0, fn] = SCENES[k];
@@ -261,6 +261,6 @@ export const HITS = [
   // sommet + chute + fin
   { t: S.sommet, sfx: 'whoosh', gain: 0.6 }, { t: S.sommet + 0.3, sfx: 'ding', gain: 0.6 }, { t: S.sommet + 0.3, sfx: 'applause', gain: 0.6, len: 13 * B }, { t: S.sommet + 1.2, sfx: 'pop', gain: 0.6 },
   { t: S.chute, sfx: 'impact', gain: 0.8 }, { t: S.chute + 0.9, sfx: 'impact', gain: 1 },
-  { t: S.outro, sfx: 'impact', gain: 0.7 }, { t: S.outro + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.end - B, sfx: 'whoosh', gain: 0.6 },
+  { t: S.outro, sfx: 'impact', gain: 0.7 }, { t: S.outro + 0.2, sfx: 'pop', gain: 0.6 }, { t: S.end - 2 * B, sfx: 'whoosh', gain: 0.6 },
 ];
 void CAST; void breathe; void rain;
