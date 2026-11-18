@@ -2,30 +2,73 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
-   "id": "tempete2",
-   "titre": "La tempête (visite des maisons)",
+   "id": "maisons2",
+   "titre": "La tempête : 4 maisons (visite des maisons)",
    "accroche": [
-    "ILS PARLERONT",
-    "QUOI QUE TU FASSES."
+    "Une tempête.",
+    "4 maisons."
    ],
-   "metaphore": "Le héros marche contre un vent de mots gris (CRITIQUES, T'ES PAS CAPABLE…) qui le repoussent ; il avance penché jusqu'au calme.",
+   "accrocheB": [
+    "Qui reste",
+    "debout ?"
+   ],
+   "metaphore": "Les quatre traits de caractère construisent chacun leur maison : briques posées une à une (Discipline), façade en carton (l'Ego), tour bancale empilée sans dormir (l'Obsession), tente trouvée (la Chance). L'orage révèle ce qui tient.",
+   "lecon": "Une brique par jour, les fondations avant la déco, réparer les fissures tôt.",
    "scenes": [
-    "vent de mots qui traversent l'écran",
-    "héros penché 'push' contre le vent",
-    "jour 60 : visite des quatre maisons, une par une (nom + trait de caractère)",
-    "les mots se brisent sur lui",
-    "ciel calme, il est debout"
+    "ouverture : la foudre fait tomber la tour",
+    "jour 1 : chacun commence",
+    "jour 60 : visite des quatre maisons, une par une",
+    "22 h : alerte orage",
+    "tempête : tente envolée, façade en carton, tour foudroyée",
+    "refuge : Discipline ouvre sa porte"
    ],
    "chute": [
-    "LE BRUIT PASSE. ",
-    "TOI, TU RESTES."
+    "La tempête ne prévient pas.",
+    "Construis avant."
    ],
-   "mot": "AVANCE.",
+   "mot": "AVANT.",
+   "serie": "TOI CONTRE TOI · #6",
    "hashtags": [
-    "#critiques",
-    "#mentalite",
     "#discipline",
-    "#confiance"
+    "#mentalite",
+    "#habitudes",
+    "#motivation",
+    "#developpementpersonnel"
+   ]
+  },
+  {
+   "id": "maisons",
+   "titre": "La tempête : 4 maisons",
+   "accroche": [
+    "Une tempête.",
+    "4 maisons."
+   ],
+   "accrocheB": [
+    "Qui reste",
+    "debout ?"
+   ],
+   "metaphore": "Les quatre traits de caractère construisent chacun leur maison : briques posées une à une (Discipline), façade en carton (l'Ego), tour bancale empilée sans dormir (l'Obsession), tente trouvée (la Chance). L'orage révèle ce qui tient.",
+   "lecon": "Une brique par jour, les fondations avant la déco, réparer les fissures tôt.",
+   "scenes": [
+    "ouverture : la foudre fait tomber la tour",
+    "jour 1 : chacun commence",
+    "jour 60 : ce qui se voit / ce qui tient",
+    "22 h : alerte orage",
+    "tempête : tente envolée, façade en carton, tour foudroyée",
+    "refuge : Discipline ouvre sa porte"
+   ],
+   "chute": [
+    "La tempête ne prévient pas.",
+    "Construis avant."
+   ],
+   "mot": "AVANT.",
+   "serie": "TOI CONTRE TOI · #6",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#habitudes",
+    "#motivation",
+    "#developpementpersonnel"
    ]
   },
   {

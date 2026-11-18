@@ -3,18 +3,20 @@
 **Rien n’est publié.** À regarder, écouter, puis publier toi-même si elle te plaît.
 
 - Fichier : `tempete.mp4` (27.58 s) · couverture : `couverture.jpg`
-- Concept : Le héros marche contre un vent de mots gris (CRITIQUES, T'ES PAS CAPABLE…) qui le repoussent ; il avance penché jusqu'au calme.
+- Concept : Les quatre traits de caractère construisent chacun leur maison : briques posées une à une (Discipline), façade en carton (l'Ego), tour bancale empilée sans dormir (l'Obsession), tente trouvée (la Chance). L'orage révèle ce qui tient.
 - Score mesuré : **90.5 / 96** (94.3 %) sur 3 itération(s) — 4 points à noter par toi (message, lisibilité).
 
 ## Publication proposée
 
 ```
-Ils parleront quoi que tu fasses. Le bruit passe. Toi, tu restes.
+4 personnages. 4 maisons. Une seule tient quand l'orage arrive 🧱⛈️
+Une brique par jour. Les fondations avant la déco. Répare les fissures tôt.
+Et toi, tu construis quoi : une façade, une tour, une tente… ou une maison ?
 
-#critiques #mentalite #discipline #confiance #motivation
+#discipline #mentalite #habitudes #motivation #developpementpersonnel
 ```
 
-Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt jour 1 ou un jour ? »).
+Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt Discipline, Ego, Obsession ou Chance ? »).
 
 ## Itérations
 

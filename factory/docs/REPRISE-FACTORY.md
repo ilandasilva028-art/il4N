@@ -69,6 +69,8 @@
 - `rm` sur des chemins avec motif est bloqué par la sécurité : déplacer ou écraser plutôt.
 - `data/` (projets, modèles, références) n'est pas versionné ; seules les livraisons légères le sont.
 
+- Avant d'ajouter une vision, vérifier que son `id` n'existe pas déjà dans `themes/visions.json` : sinon `deliver` reprend la légende de l'ancienne vision et la marque comme utilisée (arrivé avec « tempete » → renommé « maisons »).
+
 ## Pas encore fait
 - L'interface web (tableau de bord, import, comparaison, TikTok Studio), demandée au départ.
 - L'installation testée sur le Mac d'Ilan.
