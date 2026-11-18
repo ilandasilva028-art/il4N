@@ -3,6 +3,7 @@
 À lire au début de chaque session avant de toucher à un clip. À compléter après chaque retour d'Ilan ou chaque chiffre TikTok.
 
 ## Règles fixes
+- **Réponses de Claude : style court, « homme des cavernes »** (mots inutiles enlevés). Légendes, descriptions et textes à publier : normaux.
 - **Sources : uniquement les captures d'Ilan.** Pas de clips de streamers ni de vidéos d'autres personnes (lien Xbox d'un tiers refusé le 18/11).
 - Posts en **français**. La légende finit par une question facile à commenter. Jamais de « abonne-toi ».
 - **Rien n'est publié sans la validation d'Ilan.**
