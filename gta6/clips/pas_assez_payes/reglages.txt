@@ -1,0 +1,8 @@
+Capture gameplay 235 s, 720p30 (mission bateau + surveillance aux jumelles), voix anglaise, sous-titres du jeu en bas, boussole en haut.
+python make_tiktok.py capture.mp4 --segments "209.0-213.5,192.0-195.7,195.9-201.0,202.1-208.95,229.4-233.6" \
+ --subs sous-titres_fr.srt --crop-bottom 110 --crop-top 45 --cta-top \
+ --hook "ILS DEVAIENT JUSTE|SURVEILLER…" --title "GTA 6|MISSION" \
+ --cta "TU Y VAS OU TU RENTRES ?|DIS-LE EN COMMENTAIRE" --cta-dur 4.2
+Accroche : « Ils pissent du sang et torturent des bébés animaux ». Fin : « On est pas assez payés pour ça, mec ! »
+Légende : « Ils pissent du sang et torturent des bébés animaux » 💀 Toi, tu y vas ou tu rentres ? 👇
+#gta6 #gtavi #gta6gameplay #rockstargames #gamingfr

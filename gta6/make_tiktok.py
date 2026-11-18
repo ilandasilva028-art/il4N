@@ -510,9 +510,10 @@ def split_on_cuts(segs, cuts, every=3.5):
 # --------------------------------------------------------------------------
 # Rendu
 # --------------------------------------------------------------------------
-def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift, crop_bottom=0):
+def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift, crop_bottom=0, crop_top=0):
     pw, ph = W, STYLE["panel_h"]
-    ch = info["h"] - int(crop_bottom)  # sans le bas : sous-titres incrustés du jeu
+    ch = info["h"] - int(crop_bottom) - int(crop_top)  # sans sous-titres (bas) ni boussole (haut) du jeu
+    ch -= ch % 2
     cw = min(info["w"], int(round(ch * STYLE["focus_aspect"] / 2)) * 2)
     cx = int((info["w"] - cw) / 2 * (1 + max(-1.0, min(1.0, crop_shift))))
     cx = max(0, min(info["w"] - cw, cx))
@@ -523,7 +524,7 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
         z0 = punch if p["hard"] else punch * 0.6  # coupe interne au plan : plus doux
         # zoom : punch-in rapide au début du morceau + légère poussée continue
         zexpr = f"(1+{z0}*max(0\\,1-t/0.22)+{drift}*t/{max(d, 0.1):.3f})"
-        vf = (f"fps={fps_out},crop={cw}:{ch}:{cx}:0,scale={pw}:{ph},setsar=1,"
+        vf = (f"fps={fps_out},crop={cw}:{ch}:{cx}:{int(crop_top)},scale={pw}:{ph},setsar=1,"
               f"scale=w='trunc({pw}*{zexpr}/2)*2':h=-2:eval=frame,crop={pw}:{ph}")
         fo = max(0.0, d - 0.05)
         af = f"afade=t=in:d=0.03,afade=t=out:st={fo:.3f}:d=0.05,aresample=48000"
@@ -674,7 +675,7 @@ def sub_events(words, total, cta_t, mode):
     return ev
 
 
-def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode):
+def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False):
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -697,13 +698,16 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     # Titre fixe ensuite
     for txt, (col, em, y) in zip(title, STYLE["title"]):
         if txt:
-            ev.append(ass_line(txt, ANTON, STYLE[col], em, y, hook_t, total, STYLE["outline_big"], pop=False,
-                               fade_in=120))
-    # Appel à commenter
-    for i, (txt, (col, em, y)) in enumerate(zip(cta, STYLE["cta"])):
+            ev.append(ass_line(txt, ANTON, STYLE[col], em, y, hook_t, cta_t if cta_top else total,
+                               STYLE["outline_big"], pop=False, fade_in=120))
+    # Appel à commenter : en bas (remplace les sous-titres) ou en haut (remplace le titre,
+    # les sous-titres continuent : utile quand la chute est dite à la fin)
+    pos = [(c, e, y) for (c, e, _), y in zip(STYLE["cta"], (STYLE["title"][0][2], STYLE["title"][1][2] - 10))] \
+        if cta_top else STYLE["cta"]
+    for i, (txt, (col, em, y)) in enumerate(zip(cta, pos)):
         if txt:
             ev.append(ass_line(txt, ANTON, STYLE[col], em, y, cta_t + 0.15 * i, total, STYLE["outline_big"], layer=3))
-    ev += sub_events(words, total, cta_t, sub_mode)
+    ev += sub_events(words, total, total if cta_top else cta_t, sub_mode)
     path.write_text(head + "\n".join(ev) + "\n", encoding="utf-8")
 
 
@@ -861,6 +865,9 @@ def main(argv=None):
     ap.add_argument("--crop-shift", type=float, help="décale le cadrage : -1 gauche ... 1 droite")
     ap.add_argument("--no-progress", action="store_true", help="sans barre de progression")
     ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
+    ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
+    ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
+    ap.add_argument("--mute", action="store_true", help="sans le son du jeu (ajouter un son TikTok à la publication)")
     ap.add_argument("--music-from", type=float, help="musique continue prise à ce temps de la source (montage de plans)")
     ap.add_argument("--hook-dur", type=float, help="durée d'affichage de l'accroche (défaut : 1er morceau)")
     ap.add_argument("--crop-bottom", type=int, help="px retirés en bas de la source (sous-titres incrustés du jeu)")
@@ -905,6 +912,12 @@ def main(argv=None):
         cfg["no_subs"] = True
         if not args.panel_h:
             args.panel_h = 860
+    if args.mute:
+        cfg["mute"] = True
+    if args.cta_top:
+        cfg["cta_top"] = True
+    if args.crop_top is not None:
+        cfg["crop_top"] = args.crop_top
     if args.no_progress:
         cfg["progress"] = False
     if args.no_subs:
@@ -1014,9 +1027,17 @@ def main(argv=None):
         pieces = split_on_cuts(seg_list, cuts)
         log(f"rendu de {len(pieces)} plans (punch-in à chaque coupe) …")
         joined, crop = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
-                                     float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)))
+                                     float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)),
+                                     int(cfg.get("crop_top", 0)))
         total = probe(joined)["duration"]
-        if cfg.get("music_from") is not None and info["audio"]:
+        if cfg.get("mute"):
+            # pas de son du jeu : à publier avec un son TikTok ajouté dans l'appli
+            jm = work / "joined_mute.mp4"
+            run(["ffmpeg", "-v", "error", "-y", "-i", str(joined), "-f", "lavfi", "-t", f"{total:.3f}",
+                 "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+                 "-c:a", "aac", "-b:a", "128k", str(jm)])
+            joined = jm
+        elif cfg.get("music_from") is not None and info["audio"]:
             # montage de plans : une seule piste continue au lieu de bouts de musique recollés
             mf = float(cfg["music_from"])
             log(f"musique continue depuis {mf:.1f} s de la source")
@@ -1028,7 +1049,8 @@ def main(argv=None):
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list)
         ass = work / "overlay.ass"
-        build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"])
+        build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
+                  bool(cfg.get("cta_top")))
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")

@@ -23,6 +23,8 @@
 | Jason & Lucia (v1) | CETTE SCÈNE DE GTA 6 / M'A MIS UNE CLAQUE | JASON OU LUCIA ? | publié ? (à compléter) |
 | Chauffeur Ryde | CE CHAUFFEUR SE FAIT VIRER / PAR SES CLIENTS | TU LUI AURAIS MIS QUELLE NOTE ? | « pas ouf » |
 | Beaux plans | C'EST PAS UN FILM. / C'EST GTA 6. | TU FAIS QUOI EN PREMIER ? PLAGE, BOÎTE OU OCÉAN ? | « pas mal » |
+| Pas assez payés (gameplay) | ILS DEVAIENT JUSTE / SURVEILLER… | TU Y VAS OU TU RENTRES ? | à recevoir |
+| L'eau de Leonida (muet) | L'EAU DE GTA 6 / EST IRRÉELLE | PLUS BEAU QUE LA VRAIE VIE ? | à recevoir |
 
 ## Hashtags
 5 maximum : `#gta6 #gtavi #vicecity` + 1 sur le sujet (`#gta6trailer`, `#jasonetlucia`…) + `#gamingfr` pour le public français.
@@ -36,6 +38,13 @@ Pas encore comparés aux tendances : vidIQ n'a presque plus de crédits.
 | Clip | Date | Vues | Rétention moy. | % vues complètes | Décrochage à |
 |---|---|---|---|---|---|
 | | | | | | |
+
+## Captures de gameplay (pas de cinématique) : ce qu'on a appris le 18/11
+- Pas de musique dans le jeu : le mode `plans` en musique ne s'applique pas. Deux clips possibles :
+  1. **Les répliques drôles** de la mission, sous-titrées en français, avec l'action en image. La chute en accroche, la seconde chute à la fin. `--cta-top` met la question en haut pour que le dernier sous-titre reste visible.
+  2. **Les beaux plans sans le son** (`--mute`), pour publier avec un son TikTok tendance ajouté dans l'appli.
+- Masquer l'interface du jeu : `--crop-top 45` (boussole, en 720p) et `--crop-bottom 110` (sous-titres). Le cadrage centré enlève déjà la mini-carte en bas à gauche.
+- À éviter : menus pause et mode photo (image floue), notifications en haut à gauche, plans aux jumelles trop longs.
 
 ## Réglages techniques retenus
 - Détection des génériques : plus de 33 % de l'image d'une seule couleur + luminosité ≥ 0,18 (`plans.py`, mesuré sur la capture du 18/11).

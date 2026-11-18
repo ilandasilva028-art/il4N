@@ -1,0 +1,7 @@
+Même capture. Plans de bateau, SANS le son du jeu : ajouter un son TikTok tendance dans l'appli à la publication.
+python make_tiktok.py capture.mp4 --no-subs --mute --panel-h 860 --punch 0.05 --hook-dur 3.0 --crop-bottom 110 --crop-top 45 \
+ --segments "222.15-224.8,24.0-27.0,14.0-17.5,79.5-83.0,84.0-87.0,88.5-92.0,196.8-198.8,200.0-203.0,228.0-232.5" \
+ --hook "L'EAU DE GTA 6|EST IRRÉELLE" --title "GTA 6|LEONIDA" --cta "PLUS BEAU QUE LA VRAIE VIE ?|OUI OU NON EN COMMENTAIRE" --cta-dur 4.5
+Évités : menu pause / photo (40-56 s, 216-221 s, 225-227 s), notifications en haut à gauche (8-12 s, 36-40 s).
+Légende : Rockstar a codé de la vraie eau ou quoi ? 🌊 Plus beau que la vraie vie, oui ou non ? 👇
+#gta6 #gtavi #leonida #gta6gameplay #gamingfr
