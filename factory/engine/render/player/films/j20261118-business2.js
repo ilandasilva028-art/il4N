@@ -138,20 +138,21 @@ function title(ctx, tl, parts, t0 = 0.05, size = 90) { topBand(ctx); kinetic(ctx
 function card(ctx, who, tag, u) {
   const c = CAST[who]; topBand(ctx);
   kinetic(ctx, [[c.name, c.labelColor]], 430, 92, u, 0.05, { stagger: 0.08, rise: 40 });
-  kinetic(ctx, [[tag, '#f1f1f1']], 525, 52, u, 0.3, { stagger: 0.08 });
+  kinetic(ctx, [[tag, '#f1f1f1']], 525, 52, u, 0.1, { stagger: 0.06 });
 }
 const headTop = (a, who) => [a[who].seat[0], a[who].seat[1] - scOf(a) * 330];
 
 // ------------------------------------------------------------------ 1. ouverture : l'enseigne s'écrase
 const HOOK = VARIANT === 'b' ? [[['QUI VEND', '#f1f1f1']], [['VRAIMENT ?', RED]]] : [[['4 BUSINESS.', '#f1f1f1']], [['1 SEUL ', '#f1f1f1'], ['SURVIT.', RED]]];
 function ouverture(ctx, tl) {
-  const push = 1.04 + 0.16 * ease.inOut(prog(tl, 0.3, 3.2));
+  const push = 1.04 + 0.28 * ease.inOut(prog(tl, 0.3, 3.2)), quake = tl > 0.28 && tl < 0.9 ? 22 * Math.exp(-(tl - 0.28) * 6) : 0;
   ctx.save();
-  const a = plate(ctx, 'ego', { z: push, x: 520 + 40 * Math.sin(tl * 0.9), y: 1000 + 20 * Math.sin(tl * 1.3) });
+  ctx.translate(noise(tl * 70, 3) * quake, noise(tl * 70, 8) * quake);
+  const a = plate(ctx, 'ego', { z: push, x: 520 + 60 * Math.sin(tl * 1.4), y: 1000 + 30 * Math.sin(tl * 1.9) });
   screen(ctx, a.ego.monitor, (x, y, w, h) => scrZero(ctx, x, y, w, h, tl));
   const hit = neon(ctx, a, tl);
   const back = ease.out(prog(tl, 0.12, 0.45));
-  const tug = tl > 1.1 ? Math.sin((tl - 1.1) * 11) : 0, panic = tl > 0.5 && tl < 1.1 ? Math.sin(tl * 26) : 0;
+  const tug = tl > 1.1 ? Math.sin((tl - 1.1) * 14) * 1.6 : 0, panic = tl > 0.5 && tl < 1.1 ? Math.sin(tl * 26) * 1.4 : 0;
   const egoPose = tl < 1.1
     ? { ...selfie, lean: lerp(-10, -38, back) + (tl < 0 ? Math.sin(tl * 3) * 3 : 0), head: -12 + (tl < 0 ? Math.sin(tl * 4) * 5 : 0), armF: [lerp(150, 120, back) + panic * 30 + (tl < 0 ? Math.sin(tl * 5) * 8 : 0), 30], armB: [lerp(40, 150, back) - panic * 30, 20] }
     : { ...POSES.sit, lean: 30 + tug * 8, head: 10, armF: [95 + tug * 12, 20], armB: [100 + tug * 12, 14] };
