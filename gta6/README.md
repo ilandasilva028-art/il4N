@@ -65,6 +65,13 @@ Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres
 - `--meme "LIGNE 1|LIGNE 2|LIGNE 3"` : format mème (bandeau blanc en haut, texte noir), à la place de l'accroche et du titre.
 - Ajoutés automatiquement : **impact** sonore sur l'accroche, **souffle** à chaque coupe franche (sons synthétisés, sans droits), **étalonnage** (contraste et saturation). Pour les retirer : `--no-sfx`, `--no-grade`.
 
+**Depuis un lien (YouTube, TikTok…) : sur le Mac**
+```bash
+./lien.sh https://www.youtube.com/watch?v=XXXX          # mode normal
+./lien.sh https://www.youtube.com/watch?v=XXXX plans    # beaux plans en musique
+```
+Le téléchargement passe par ta connexion (YouTube bloque les serveurs cloud). Le résultat arrive dans `~/GTA6_TikTok/a_valider/`. Uniquement pour tes propres vidéos.
+
 ## 3. Corriger une vidéo
 
 | Problème | Solution |
