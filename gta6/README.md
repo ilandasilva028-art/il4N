@@ -55,6 +55,15 @@ Le `|` sépare les deux lignes.
 
 Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres TikTok.
 
+**Effets de montage (par morceau, dans `--segments`)** :
+```
+--segments "62.0-63.4:full:slow,2.0-4.0,20.2-22.0:full,36.0-40.0:x2,84.0-92.0:x4"
+```
+- `full` : plein écran vertical, pour les gros plans (visage, objet, rouleau). Alterner avec la bande crée du rythme.
+- `x1.5`, `x2`, `x3`, `x4` : accéléré, pour les passages répétitifs (au lieu de couper).
+- `slow` : ralenti ×0,5, pour le moment clé (souvent l'accroche).
+- Ajoutés automatiquement : **impact** sonore sur l'accroche, **souffle** à chaque coupe franche (sons synthétisés, sans droits), **étalonnage** (contraste et saturation). Pour les retirer : `--no-sfx`, `--no-grade`.
+
 ## 3. Corriger une vidéo
 
 | Problème | Solution |

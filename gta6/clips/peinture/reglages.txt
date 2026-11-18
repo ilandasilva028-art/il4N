@@ -11,3 +11,8 @@ python ab_hooks.py capture.mp4 --no-subs \
 Légende : Rockstar a mis un simulateur de peinture dans GTA 6 🎨 Tu repeins en quelle couleur ? 👇
 #gta6 #gtavi #gta6gameplay #jason #gamingfr
 Note : la capture complète (102 Mo sur Drive) n'a pas pu être téléchargée (connecteur limité à 10 Mo, Drive bloqué par le réseau) : seule la partie 2 envoyée dans le chat a servi.
+
+Version dynamique (plein écran sur les gros plans, accéléré, ralenti, sons, étalonnage) :
+python make_tiktok.py capture.mp4 --no-subs --panel-h 860 --punch 0.05 --hook-dur 2.8 \
+ --segments "62.0-63.4:full:slow,2.0-4.0,18.0-20.0,20.2-22.0:full,28.0-30.5,36.0-40.0:x2,50.0-52.5,58.0-60.0:full,64.6-66.6,70.0-74.0:x2,78.0-80.0:full,84.0-92.0:x4,96.2-100.0" \
+ --hook "DANS GTA 6, TU PEUX|REPEINDRE TA MAISON" --title "GTA 6|DÉCO" --cta "TU REPEINS EN QUELLE COULEUR ?|DIS-LE EN COMMENTAIRE" --cta-dur 4.0

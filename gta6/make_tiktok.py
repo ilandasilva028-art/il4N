@@ -354,6 +354,41 @@ def parse_ranges(s):
     return out
 
 
+SPEEDS = {"x1.5": 1.5, "x2": 2.0, "x3": 3.0, "x4": 4.0, "slow": 0.5, "x0.5": 0.5}
+
+
+def parse_segments(s):
+    """« a-b,a-b:full,a-b:x2,a-b:full:slow » -> ([(a, b)], [effets]).
+    full = plein écran vertical (gros plans) ; x1.5/x2/x3/x4 = accéléré ; slow = ralenti x0,5."""
+    if not s:
+        return [], []
+    items = s if isinstance(s, list) else [x for x in re.split(r"[,;\s]+", s.strip()) if x]
+    ranges, fx = [], []
+    for it in items:
+        if isinstance(it, (list, tuple)):
+            ranges.append((float(it[0]), float(it[1])))
+            fx.append(dict(it[2]) if len(it) > 2 and isinstance(it[2], dict) else {})
+            continue
+        parts = it.split(":")
+        a, b = parts[0].split("-")
+        f = {}
+        for flag in parts[1:]:
+            flag = flag.strip().lower()
+            if flag == "full":
+                f["full"] = True
+            elif flag in SPEEDS:
+                f["speed"] = SPEEDS[flag]
+            elif flag:
+                die(f"effet inconnu « {flag} » dans « {it} » (full, x1.5, x2, x3, x4, slow)")
+        ranges.append((float(a), float(b)))
+        fx.append(f)
+    return ranges, fx
+
+
+def seg_out_dur(a, b, f):
+    return (b - a) / float((f or {}).get("speed", 1.0))
+
+
 def overlaps(a, b, ranges):
     return any(a < rb and b > ra for ra, rb in ranges)
 
@@ -510,39 +545,154 @@ def split_on_cuts(segs, cuts, every=3.5):
 # --------------------------------------------------------------------------
 # Rendu
 # --------------------------------------------------------------------------
-def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift, crop_bottom=0, crop_top=0):
-    pw, ph = W, STYLE["panel_h"]
-    ch = info["h"] - int(crop_bottom) - int(crop_top)  # sans sous-titres (bas) ni boussole (haut) du jeu
+GRADE = "eq=contrast=1.06:saturation=1.16:gamma=0.98"
+
+
+def atempo_chain(sp):
+    """atempo n'accepte que 0,5-2 : on enchaîne pour x3, x4."""
+    out, r = [], sp
+    while r > 2.0:
+        out.append("atempo=2.0")
+        r /= 2.0
+    while r < 0.5:
+        out.append("atempo=0.5")
+        r /= 0.5
+    out.append(f"atempo={r:.4f}")
+    return ",".join(out)
+
+
+def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift, crop_bottom=0, crop_top=0,
+                  grade=True):
+    """Chaque plan est rendu au format final 1080x1920 : soit en bande (image 16:9 sur fond
+    flouté), soit en plein écran vertical (« full »), avec zoom, vitesse et étalonnage."""
+    py, ph = STYLE["panel_y"], STYLE["panel_h"]
+    ct = int(crop_top)
+    ch = info["h"] - int(crop_bottom) - ct  # sans sous-titres (bas) ni boussole (haut) du jeu
     ch -= ch % 2
+    shift = max(-1.0, min(1.0, crop_shift))
     cw = min(info["w"], int(round(ch * STYLE["focus_aspect"] / 2)) * 2)
-    cx = int((info["w"] - cw) / 2 * (1 + max(-1.0, min(1.0, crop_shift))))
-    cx = max(0, min(info["w"] - cw, cx))
+    cx = max(0, min(info["w"] - cw, int((info["w"] - cw) / 2 * (1 + shift))))
+    fw = min(info["w"], int(round(ch * 9 / 16 / 2)) * 2)  # plein écran 9:16
+    fxp = max(0, min(info["w"] - fw, int((info["w"] - fw) / 2 * (1 + shift))))
+    g = f",{GRADE}" if grade else ""
     lst = work / "list.txt"
-    names = []
+    names, cut_times, t_out = [], [], 0.0
     for i, p in enumerate(pieces):
-        d = p["b"] - p["a"]
+        f = p.get("fx") or {}
+        sp = float(f.get("speed", 1.0))
+        d_src = p["b"] - p["a"]
+        d = d_src / sp
+        if i > 0 and p["hard"]:
+            cut_times.append(t_out)
         z0 = punch if p["hard"] else punch * 0.6  # coupe interne au plan : plus doux
-        # zoom : punch-in rapide au début du morceau + légère poussée continue
         zexpr = f"(1+{z0}*max(0\\,1-t/0.22)+{drift}*t/{max(d, 0.1):.3f})"
-        vf = (f"fps={fps_out},crop={cw}:{ch}:{cx}:{int(crop_top)},scale={pw}:{ph},setsar=1,"
-              f"scale=w='trunc({pw}*{zexpr}/2)*2':h=-2:eval=frame,crop={pw}:{ph}")
-        fo = max(0.0, d - 0.05)
-        af = f"afade=t=in:d=0.03,afade=t=out:st={fo:.3f}:d=0.05,aresample=48000"
-        out = work / f"p{i:03d}.mp4"
-        cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{p['a']:.3f}", "-i", str(src), "-t", f"{d:.3f}",
-               "-vf", vf]
-        if info["audio"]:
-            cmd += ["-af", af]
+        speed = "" if sp == 1.0 else f"setpts=(PTS-STARTPTS)/{sp},"
+        rate = f"framerate=fps={fps_out}" if sp < 1.0 else f"fps={fps_out}"
+        if f.get("full"):
+            graph = (f"[0:v]{speed}{rate},crop={fw}:{ch}:{fxp}:{ct},scale={W}:{H},setsar=1,"
+                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{H}{g},format=yuv420p[v]")
         else:
-            cmd += ["-f", "lavfi", "-t", f"{d:.3f}", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a"]
-        cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p",
+            graph = (f"[0:v]{speed}{rate},crop={cw}:{ch}:{cx}:{ct},scale={W}:{ph},setsar=1,"
+                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{ph}{g},split[p1][p2];"
+                     f"[p1]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,"
+                     f"eq=brightness=-0.18:saturation=1.2[bg];[bg][p2]overlay=0:{py},format=yuv420p[v]")
+        fo = max(0.0, d - 0.05)
+        af = ("" if sp == 1.0 else atempo_chain(sp) + ",") + \
+            f"afade=t=in:d=0.03,afade=t=out:st={fo:.3f}:d=0.05,aresample=48000"
+        out = work / f"p{i:03d}.mp4"
+        cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{p['a']:.3f}", "-i", str(src)]
+        if info["audio"]:
+            cmd += ["-filter_complex", graph + f";[0:a]{af}[a]", "-map", "[v]", "-map", "[a]"]
+        else:
+            cmd += ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-filter_complex", graph,
+                    "-map", "[v]", "-map", "1:a"]
+        cmd += ["-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p",
                 "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2", str(out)]
         run(cmd)
         names.append(out)
+        t_out += probe(out)["duration"]
     lst.write_text("".join(f"file '{n.name}'\n" for n in names))
     joined = work / "joined.mp4"
     run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(joined)])
-    return joined, (cw, ch, cx)
+    return joined, (cw, ch, cx), cut_times
+
+
+# --------------------------------------------------------------------------
+# Sound design : sons originaux synthétisés (aucun droit d'auteur)
+# --------------------------------------------------------------------------
+SR = 48000
+
+
+def _whoosh(dur=0.42, rng=None):
+    rng = rng or np.random.default_rng(7)
+    n = int(SR * dur)
+    x = rng.standard_normal(n)
+    t = np.linspace(0, 1, n)
+    # filtre passe-bas qui s'ouvre puis se referme (souffle qui passe)
+    cut = 0.03 + 0.35 * np.sin(np.pi * t) ** 2
+    y = np.zeros(n)
+    acc = 0.0
+    for i in range(n):
+        acc += cut[i] * (x[i] - acc)
+        y[i] = acc
+    env = np.sin(np.pi * t) ** 2
+    y = y * env
+    y /= np.abs(y).max() + 1e-9
+    pan = np.linspace(-0.8, 0.8, n)  # de gauche à droite
+    return np.stack([y * (1 - pan) / 2 * 2 ** 0.5, y * (1 + pan) / 2 * 2 ** 0.5], 1)
+
+
+def _impact(dur=0.55):
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    f = 70 * np.exp(-t * 3) + 38  # coup sourd qui descend
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    body = np.sin(ph) * np.exp(-t * 7)
+    rng = np.random.default_rng(3)
+    click = rng.standard_normal(n) * np.exp(-t * 90) * 0.5
+    y = body + click
+    y /= np.abs(y).max() + 1e-9
+    return np.stack([y, y], 1)
+
+
+def add_sfx(joined: Path, work: Path, total, cut_times):
+    """Impact sur l'accroche, souffle à chaque coupe franche, mixés sous le son du jeu."""
+    import wave
+
+    meas = measure_loudness(joined)
+    try:
+        lvl = float(meas["input_i"]) if meas else -24.0
+    except (TypeError, ValueError):
+        lvl = -24.0
+    if not math.isfinite(lvl) or lvl < -60:
+        lvl = -30.0
+    peak = min(0.55, 10 ** ((lvl + 12) / 20))  # environ 12 dB au-dessus du niveau moyen du jeu
+    n = int(SR * (total + 1))
+    mix = np.zeros((n, 2))
+
+    def put(clip, t, gain):
+        i = max(0, int(t * SR))
+        j = min(n, i + len(clip))
+        if j > i:
+            mix[i:j] += clip[: j - i] * gain
+
+    put(_impact(), 0.02, peak * 1.1)
+    w = _whoosh()
+    for k, c in enumerate(cut_times):
+        put(w if k % 2 == 0 else w[:, ::-1], c - 0.24, peak * 0.55)  # sens alterné
+    mix = np.clip(mix, -0.98, 0.98)
+    wav = work / "sfx.wav"
+    with wave.open(str(wav), "wb") as fh:
+        fh.setnchannels(2)
+        fh.setsampwidth(2)
+        fh.setframerate(SR)
+        fh.writeframes((mix * 32767).astype("<i2").tobytes())
+    out = work / "joined_sfx.mp4"
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(joined), "-i", str(wav), "-filter_complex",
+         "[0:a][1:a]amix=inputs=2:normalize=0:duration=first[a]", "-map", "0:v", "-map", "[a]",
+         "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", str(out)])
+    log(f"sons : impact sur l'accroche + {len(cut_times)} souffles aux coupes")
+    return out
 
 
 def ass_color(hex6, alpha="00"):
@@ -612,22 +762,24 @@ def clean_word(w):
     return w
 
 
-def map_words(words, segs):
-    """Mots en temps source -> temps de sortie (en suivant la découpe)."""
+def map_words(words, segs, fx=None):
+    """Mots en temps source -> temps de sortie (en suivant la découpe et la vitesse)."""
     out, off = [], 0.0
-    for a, b in segs:
+    fx = fx or [{} for _ in segs]
+    for (a, b), f in zip(segs, fx):
+        sp = float((f or {}).get("speed", 1.0))
         for w in words:
             mid = (w["s"] + w["e"]) / 2
             if a - 0.02 <= mid <= b + 0.02:
                 nw = dict(w)
-                nw["s"] = off + max(0.0, w["s"] - a)
-                nw["e"] = off + min(b - a, w["e"] - a)
+                nw["s"] = off + max(0.0, w["s"] - a) / sp
+                nw["e"] = off + min(b - a, w["e"] - a) / sp
                 nw["w"] = clean_word(w["w"])
                 if nw["w"]:
                     out.append(nw)
         if out:
             out[-1]["eob"] = True  # jamais un sous-titre à cheval sur une coupe
-        off += b - a
+        off += (b - a) / sp
     return out
 
 
@@ -739,11 +891,8 @@ def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path):
     if progress:
         bar = (f",drawbox=x=0:y={py + ph}:w=iw:h=8:color=black@0.55:t=fill,"
                f"drawbox=x=0:y={py + ph}:w='max(2\\,iw*t/{total:.3f})':h=8:color=0x{STYLE['pink']}:t=fill")
-    graph = (f"[0:v]split[a][b];"
-             f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,"
-             f"eq=brightness=-0.18:saturation=1.2[bg];"
-             f"[bg][b]overlay=0:{py}{bar},ass=filename={ass.name}:fontsdir=fonts{v_end},format=yuv420p[v];"
-             f"[0:a]{ln},aresample=48000,{a_end}[au]")
+    graph = (f"[0:v]null{bar},ass=filename={ass.name}:fontsdir=fonts{v_end},format=yuv420p[v];"
+             f"[0:a]{ln},aresample=48000,alimiter=limit=0.80:level=false,{a_end}[au]")
     (work / "compose.txt").write_text(graph)
     run(["ffmpeg", "-v", "error", "-y", "-i", joined.name, "-filter_complex_script", "compose.txt",
          "-map", "[v]", "-map", "[au]", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
@@ -867,6 +1016,8 @@ def main(argv=None):
     ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
     ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
+    ap.add_argument("--no-sfx", action="store_true", help="sans les sons de transition (souffles, impact)")
+    ap.add_argument("--no-grade", action="store_true", help="sans l'étalonnage (contraste, saturation)")
     ap.add_argument("--mute", action="store_true", help="sans le son du jeu (ajouter un son TikTok à la publication)")
     ap.add_argument("--music-from", type=float, help="musique continue prise à ce temps de la source (montage de plans)")
     ap.add_argument("--hook-dur", type=float, help="durée d'affichage de l'accroche (défaut : 1er morceau)")
@@ -916,6 +1067,10 @@ def main(argv=None):
         cfg["mute"] = True
     if args.cta_top:
         cfg["cta_top"] = True
+    if args.no_sfx:
+        cfg["sfx"] = False
+    if args.no_grade:
+        cfg["grade"] = False
     if args.crop_top is not None:
         cfg["crop_top"] = args.crop_top
     if args.no_progress:
@@ -952,11 +1107,13 @@ def main(argv=None):
 
     # ---- découpe
     exclude = parse_ranges(cfg.get("exclude"))
-    seg_list = None
+    seg_list, seg_fx = None, None
     if args.segments_file:
-        seg_list = [tuple(x) for x in json.loads(Path(args.segments_file).read_text())["segments"]]
+        mj = json.loads(Path(args.segments_file).read_text())
+        seg_list = [tuple(x[:2]) for x in mj["segments"]]
+        seg_fx = mj.get("fx") or [{} for _ in seg_list]
     elif cfg.get("segments"):
-        seg_list = parse_ranges(cfg["segments"])
+        seg_list, seg_fx = parse_segments(cfg["segments"])
     log("analyse du son et des plans …")
     env = audio_envelope(src, 0.1, info["audio"], info["duration"])
     mt, ms = motion_scores(src)
@@ -991,12 +1148,16 @@ def main(argv=None):
         hcands = score_units(phrase_windows(all_words(tr), info["duration"], exclude), env, 0.1, mt, ms, cuts)
         hook_range = parse_ranges(cfg["hook_at"])[0] if cfg.get("hook_at") else None
         seg_list = choose(units, float(cfg["target"]), hook_range, hcands)
-    seg_list = [(max(0.0, a), min(info["duration"], b)) for a, b in seg_list if b - a > 0.2]
-    total = sum(b - a for a, b in seg_list)
-    hook_t = float(cfg["hook_dur"]) if cfg.get("hook_dur") else seg_list[0][1] - seg_list[0][0]
+    if seg_fx is None or len(seg_fx) != len(seg_list):
+        seg_fx = [{} for _ in seg_list]
+    kept = [((max(0.0, a), min(info["duration"], b)), f) for (a, b), f in zip(seg_list, seg_fx) if b - a > 0.2]
+    seg_list, seg_fx = [k[0] for k in kept], [k[1] for k in kept]
+    total = sum(seg_out_dur(a, b, f) for (a, b), f in zip(seg_list, seg_fx))
+    hook_t = float(cfg["hook_dur"]) if cfg.get("hook_dur") else seg_out_dur(*seg_list[0], seg_fx[0])
     log(f"découpe : {len(seg_list)} morceaux, {total:.1f} s (accroche {hook_t:.1f} s)")
     (out_dir / f"{name}_montage.json").write_text(json.dumps(
-        {"source": str(src), "segments": [[round(a, 2), round(b, 2)] for a, b in seg_list]}, indent=1))
+        {"source": str(src), "segments": [[round(a, 2), round(b, 2)] for a, b in seg_list], "fx": seg_fx},
+        indent=1, ensure_ascii=False))
 
     if words_src:
         write_srt(words_src, out_dir / f"{name}_sous-titres.srt")
@@ -1005,7 +1166,9 @@ def main(argv=None):
               f"{info['duration']:.1f} s)", "", "## Découpe (temps source)", ""]
     for i, (a, b) in enumerate(seg_list):
         txt = " ".join(w["w"] for w in words_src if a <= (w["s"] + w["e"]) / 2 <= b)
-        report.append(f"{i + 1}. `{a:.2f}-{b:.2f}` ({b - a:.1f} s){' **ACCROCHE**' if i == 0 else ''}"
+        fxs = " ".join(k if k == "full" else f"x{v:g}" for k, v in seg_fx[i].items())
+        report.append(f"{i + 1}. `{a:.2f}-{b:.2f}` ({b - a:.1f} s){' [' + fxs + ']' if fxs else ''}"
+                      f"{' **ACCROCHE**' if i == 0 else ''}"
                       f"{' — « ' + txt[:120] + ' »' if txt else ''}")
     if units:
         report += ["", "## Tous les moments détectés (score)", ""]
@@ -1025,10 +1188,14 @@ def main(argv=None):
     with tempfile.TemporaryDirectory(prefix="tiktok_") as tmp:
         work = Path(tmp)
         pieces = split_on_cuts(seg_list, cuts)
-        log(f"rendu de {len(pieces)} plans (punch-in à chaque coupe) …")
-        joined, crop = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
-                                     float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)),
-                                     int(cfg.get("crop_top", 0)))
+        for pc in pieces:
+            pc["fx"] = seg_fx[pc["seg"]]
+        log(f"rendu de {len(pieces)} plans (zoom à chaque coupe"
+            f"{', plein écran' if any(f.get('full') for f in seg_fx) else ''}"
+            f"{', vitesse' if any(f.get('speed') for f in seg_fx) else ''}) …")
+        joined, crop, cut_times = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
+                                                float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)),
+                                                int(cfg.get("crop_top", 0)), cfg.get("grade", True))
         total = probe(joined)["duration"]
         if cfg.get("mute"):
             # pas de son du jeu : à publier avec un son TikTok ajouté dans l'appli
@@ -1046,8 +1213,10 @@ def main(argv=None):
                  "-i", str(src), "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "afade=t=in:d=0.05",
                  "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2", str(jm)])
             joined = jm
+        if cfg.get("sfx", True) and not cfg.get("mute"):
+            joined = add_sfx(joined, work, total, cut_times)
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
-        words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list)
+        words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list, seg_fx)
         ass = work / "overlay.ass"
         build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
                   bool(cfg.get("cta_top")))

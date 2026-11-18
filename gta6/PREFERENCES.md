@@ -27,6 +27,7 @@
 | L'eau de Leonida (muet) | L'EAU DE GTA 6 / EST IRRÉELLE | PLUS BEAU QUE LA VRAIE VIE ? | à recevoir |
 | Peinture — A/B (A) | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
 | Peinture — A/B (B) | DES ANNÉES D'ATTENTE / POUR REPEINDRE UN MUR | TU REPEINS EN QUELLE COULEUR ? | test A/B en cours |
+| Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags
 5 maximum : `#gta6 #gtavi #vicecity` + 1 sur le sujet (`#gta6trailer`, `#jasonetlucia`…) + `#gamingfr` pour le public français.
@@ -68,6 +69,13 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - [ ] Un changement visuel toutes les 2 s environ (coupe ou zoom).
 - [ ] Aucun plan de dialogue ou de conduite de plus de 4 s sans coupe : le découper.
 - [ ] Le moment fort n'est jamais au milieu d'une phrase coupée.
+
+### Dynamisme (à appliquer dès la prochaine vidéo)
+- [ ] Au moins 3 gros plans en **plein écran** (`:full`), en alternance avec la bande.
+- [ ] Les passages répétitifs sont **accélérés** (`:x2` à `:x4`) plutôt que coupés.
+- [ ] Le moment clé est au **ralenti** (`:slow`), souvent en accroche.
+- [ ] Sons de transition (impact + souffles) et étalonnage laissés activés, sauf s'il y a une raison de les couper.
+- [ ] Pas deux plans de suite avec le même cadrage et la même vitesse.
 
 ### Fin et rétention
 - [ ] Durée 20 à 30 s pour du gameplay, 22 à 30 s pour les beaux plans.
