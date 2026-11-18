@@ -1,0 +1,124 @@
+{
+ "nom": "cest_un_jeu",
+ "musique": {
+  "src": "../clip2/capture2.mov",
+  "from": 9.07
+ },
+ "plans": [
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 42.2,
+   "b": 43.35,
+   "b_max": 43.35
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 9.1,
+   "b": 11.0,
+   "b_max": 11.0
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 11.05,
+   "b": 12.85,
+   "b_max": 12.85
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 24.0,
+   "b": 26.2,
+   "b_max": 26.8,
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 15.7,
+   "b": 16.8,
+   "b_max": 16.8
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 20.85,
+   "b": 21.85,
+   "b_max": 21.85
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 27.0,
+   "b": 29.5,
+   "b_max": 30.0,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 28.5,
+   "b": 29.35,
+   "b_max": 29.35
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 84.0,
+   "b": 86.2,
+   "b_max": 86.8,
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 49.05,
+   "b": 51.25,
+   "b_max": 51.25
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 51.4,
+   "b": 52.95,
+   "b_max": 52.95
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 222.15,
+   "b": 224.8,
+   "b_max": 224.8,
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 53.15,
+   "b": 55.5,
+   "b_max": 55.5
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 63.3,
+   "b": 66.8,
+   "b_max": 67.3,
+   "fx": "full"
+  }
+ ],
+ "options": [
+  "--panel-h",
+  "860",
+  "--punch",
+  "0.05",
+  "--hook",
+  "C'EST UN JEU VIDÉO.|SÉRIEUSEMENT.",
+  "--hook-dur",
+  "3.0",
+  "--title",
+  "GTA 6|LEONIDA",
+  "--rehook",
+  "ET ÇA C'EST RIEN…",
+  "--rehook-at",
+  "0.5",
+  "--cta",
+  "TON PLAN PRÉFÉRÉ ?|DIS-LE EN COMMENTAIRE",
+  "--cta-dur",
+  "4",
+  "--caption",
+  "Dites-moi que vous voyez la différence avec la vraie vie 🤯 Ton plan préféré ? 👇\n#gta6 #gtavi #leonida #gta6trailer #gamingfr"
+ ]
+}

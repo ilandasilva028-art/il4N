@@ -22,6 +22,7 @@ Lire `PREFERENCES.md` avant tout clip (règles, goûts d'Ilan, checklist, format
 - `make_tiktok.py` : l'outil (découpe, effets, textes, sons, son -14 LUFS, rapport).
 - `plans.py` : mode `--mode plans` (beaux plans, génériques écartés par OCR).
 - `ab_hooks.py` : deux accroches pour un test A/B.
+- `assemble.py` : un clip à partir de plusieurs captures (plan JSON, étiquettes numérotées, musique).
 - `watch.py` : dossier « à traiter » sur le Mac. `lien.sh` : lien de sa vidéo → clips (Mac).
 - `tests/test_rapide.sh` : **à lancer après toute modification du code**.
 - `clips/` : réglages et sous-titres de chaque clip déjà livré.

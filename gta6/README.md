@@ -74,6 +74,8 @@ Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres
 ```
 Le téléchargement passe par ta connexion (YouTube bloque les serveurs cloud). Le résultat arrive dans `~/GTA6_TikTok/a_valider/`. Uniquement pour tes propres vidéos.
 
+**Plusieurs captures dans un même clip** : `assemble.py plan.json` (voir `clips/compilations/`). Chaque passage garde son propre recadrage d'interface et ses sous-titres. Avec `"musique"`, piste continue et coupes sur les temps forts. Avec `"label": "#3|TEXTE"`, liste numérotée (option `--labels` de make_tiktok).
+
 ## 3. Corriger une vidéo
 
 | Problème | Solution |

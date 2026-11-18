@@ -32,6 +32,10 @@
 | Sortie de prison (romance) | ELLE SORT DE PRISON / DEPUIS 10 MINUTES | COUPLE DE L'ANNÉE ? | à recevoir |
 | La maison pourrie (mème) | bandeau : QUAND TON APPART EST NUL / MAIS QU'ELLE SORT / DE 9 MOIS DE PRISON | (dans la légende) | à recevoir |
 | L'interrupteur v2 (mot par mot, relance, boucle) | NE TOUCHE JAMAIS / À CET INTERRUPTEUR + relance ELLE VA APPUYER ? | TU APPUIES OU PAS ? | à comparer avec v1 |
+| Top 5 répliques (compil, liste numérotée) | LES 5 RÉPLIQUES / LES PLUS DRÔLES + relance ATTENDS LA N°1… | LAQUELLE EST LA MEILLEURE ? | à recevoir |
+| C'est un jeu (compil beaux plans, musique) | C'EST UN JEU VIDÉO. / SÉRIEUSEMENT. + relance ET ÇA C'EST RIEN… | TON PLAN PRÉFÉRÉ ? | à recevoir |
+| Il lui avait promis (histoire, 2 captures) | IL LUI AVAIT PROMIS / UNE VRAIE MAISON + relance QUELQUES JOURS PLUS TARD… | IL A ASSURÉ ? | à recevoir |
+| 5 trucs à faire (compil, liste numérotée) | 5 TRUCS À FAIRE / DANS GTA 6 + relance ET LE N°1… | TU FAIS QUOI EN PREMIER ? | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags
@@ -93,6 +97,7 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - **Mème** : `--meme "L1|L2|L3"` (bandeau blanc, texte noir, 3 lignes max), pas de titre, question seulement dans la légende (`--cta ""`).
 - **Satisfaisant** : accéléré, sans dialogue, son du jeu ou son TikTok.
 - **Beaux plans** : `--mode plans`, musique continue.
+- **Compilations** (plusieurs captures, `assemble.py`) : liste numérotée (top 5, « 5 trucs »), beaux plans en musique, histoire qui relie deux captures.
 
 ### Fin et rétention
 - [ ] Durée 20 à 30 s pour du gameplay, 22 à 30 s pour les beaux plans.

@@ -1,0 +1,5 @@
+Plans JSON des 4 clips multi-captures (18/11/2026), à relancer avec :
+  python assemble.py clips/compilations/<plan>.json --out sorties
+Les chemins ../clip2/capture2.mov (ouverture), ../clip3/capture3.mp4 (mission bateau), ../clip4/capture4.mp4 (peinture),
+../clip5/capture5.mp4 (Jason & Lucia nuit) sont ceux de la session : remplacer par l'emplacement des captures.
+Sous-titres : clips/pas_assez_payes/sous-titres_fr.srt (= clip3) et clips/jason_lucia_nuit/st_*.srt (= clip5).

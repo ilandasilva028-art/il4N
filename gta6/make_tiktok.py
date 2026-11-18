@@ -405,6 +405,18 @@ def skip_dark_start(src, a, b, max_skip=1.0, thr=28):
     return a
 
 
+def label_times(segs, fx, total):
+    """(début, fin, ligne 1, ligne 2) en temps de sortie pour chaque plan étiqueté."""
+    out, t = [], 0.0
+    for (a, b), f in zip(segs, fx):
+        d = seg_out_dur(a, b, f)
+        if f.get("label"):
+            l1, l2 = (f["label"].split("|") + [""])[:2]
+            out.append((t, min(total, t + d), l1.strip(), l2.strip()))
+        t += d
+    return out
+
+
 def retention_checks(cfg, segs, fx, cut_times, total, hook_t, rehook):
     """Contrôles de rétention, notés dans le rapport (✅ / ⚠️)."""
     out = []
@@ -559,21 +571,22 @@ def choose(units, target, hook_range=None, hook_cands=None):
 
 
 def split_on_cuts(segs, cuts, every=3.5, fx=None):
-    """Coupe les longs morceaux (sans rien retirer) pour placer un « punch-in »
-    au moins toutes les ~3,5 s : de préférence sur un vrai changement de plan."""
+    """Coupe les longs morceaux (sans rien retirer) en parts égales pour placer un zoom
+    au moins toutes les ~3,5 s (temps de SORTIE : un ralenti dure plus longtemps).
+    Chaque coupure est calée sur un vrai changement de plan s'il y en a un à ±0,6 s."""
     out = []
     for i, (a, b) in enumerate(segs):
         sp = float(((fx or [{}] * len(segs))[i] or {}).get("speed", 1.0))
-        ev = every * sp  # « every » est en temps de SORTIE (un ralenti dure plus longtemps)
-        pieces, t = [], a
-        while b - t > ev * 1.25:
-            win = [c for c in cuts if t + ev * 0.7 <= c <= t + ev * 1.4 and c < b - 1.2 * sp]
-            nxt = win[0] if win else t + ev
-            pieces.append((t, nxt))
-            t = nxt
-        pieces.append((t, b))
-        for j, p in enumerate(pieces):
-            out.append({"a": round(p[0], 3), "b": round(p[1], 3), "hard": j == 0, "seg": i})
+        ev = every * sp
+        n = max(1, math.ceil((b - a) / ev - 1e-6))
+        bounds = [a]
+        for k in range(1, n):
+            x = a + (b - a) * k / n
+            near = [c for c in cuts if abs(c - x) <= 0.6 and bounds[-1] + 0.8 < c < b - 0.8]
+            bounds.append(min(near, key=lambda c: abs(c - x)) if near else x)
+        bounds.append(b)
+        for j, (p0, p1) in enumerate(zip(bounds, bounds[1:])):
+            out.append({"a": round(p0, 3), "b": round(p1, 3), "hard": j == 0, "seg": i})
     return out
 
 
@@ -918,7 +931,7 @@ def hook_events(hook, hook_t):
 
 
 def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False, meme=None,
-              rehook=None):
+              rehook=None, labels=None):
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -953,6 +966,17 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         y = STYLE["panel_y"] + STYLE["panel_h"] // 2 - 55
         ev.append(ass_line(txt, ANTON, STYLE["yellow"], 112, y, t0, min(total, t0 + 1.7), 8, layer=4,
                            extra=r"\fscx150\fscy150\t(0,140,\fscx100\fscy100)\fad(0,180)"))
+    # Étiquettes par plan (liste numérotée) : elles prennent la place du titre
+    if labels:
+        title = ["", ""]
+        end_top = cta_t if cta_top else total
+        for t0, t1, l1, l2 in labels:
+            t0, t1 = max(t0, hook_t), min(t1, end_top)
+            if t1 - t0 < 0.3:
+                continue
+            for txt, (col, em, y) in zip((l1, l2), STYLE["title"]):
+                if txt:
+                    ev.append(ass_line(txt, ANTON, STYLE[col], em, y, t0, t1, STYLE["outline_big"], layer=2))
     # Titre fixe ensuite
     for txt, (col, em, y) in zip(title, STYLE["title"]):
         if txt:
@@ -1017,6 +1041,23 @@ def contact_sheet(video: Path, out: Path, total, n=8):
     run(["ffmpeg", "-v", "error", "-y", "-i", str(video), "-vf",
          f"select='{sel}',scale=270:480,tile={n // 2}x2:padding=6:color=white", "-frames:v", "1",
          "-q:v", "3", str(out)])
+
+
+def fix_loudness(path: Path, target=-14.0, tol=0.6):
+    """Seconde passe si le volume final s'écarte de la cible (ex. limiteur trop sollicité)."""
+    m = measure_loudness(path)
+    try:
+        i = float(m["input_i"])
+    except (TypeError, ValueError, KeyError):
+        return
+    if not math.isfinite(i) or abs(i - target) <= tol:
+        return
+    tmp = path.with_suffix(".tmp.mp4")
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(path), "-c:v", "copy", "-af",
+         f"volume={target - i:.2f}dB,alimiter=limit=0.79:level=false", "-c:a", "aac", "-b:a", "192k",
+         "-ar", "48000", "-movflags", "+faststart", str(tmp)])
+    tmp.replace(path)
+    log(f"volume corrigé : {i:.1f} -> {target:.0f} LUFS")
 
 
 def check_output(path: Path):
@@ -1127,6 +1168,7 @@ def main(argv=None):
     ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
     ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
+    ap.add_argument("--labels", help="étiquette par plan « BADGE|TEXTE;BADGE|TEXTE;… » (liste numérotée, vide = rien)")
     ap.add_argument("--rehook", help="texte de relance au milieu (ex. « ATTENDS LA SUITE… »)")
     ap.add_argument("--rehook-at", type=float, help="position de la relance (0-1, défaut 0.45)")
     ap.add_argument("--meme", help="format mème : bandeau blanc en haut, texte noir « LIGNE 1|LIGNE 2 »")
@@ -1185,6 +1227,8 @@ def main(argv=None):
         cfg["meme"] = args.meme
     if args.rehook:
         cfg["rehook"] = args.rehook
+    if args.labels:
+        cfg["labels"] = args.labels
     if args.rehook_at is not None:
         cfg["rehook_at"] = args.rehook_at
     if args.no_sfx:
@@ -1270,6 +1314,10 @@ def main(argv=None):
         seg_list = choose(units, float(cfg["target"]), hook_range, hcands)
     if seg_fx is None or len(seg_fx) != len(seg_list):
         seg_fx = [{} for _ in seg_list]
+    if cfg.get("labels"):
+        for f, lab in zip(seg_fx, str(cfg["labels"]).split(";")):
+            if lab.strip():
+                f["label"] = lab.strip()
     kept = [((max(0.0, a), min(info["duration"], b)), f) for (a, b), f in zip(seg_list, seg_fx) if b - a > 0.2]
     seg_list, seg_fx = [k[0] for k in kept], [k[1] for k in kept]
     trimmed = skip_dark_start(src, seg_list[0][0], seg_list[0][1])
@@ -1290,7 +1338,7 @@ def main(argv=None):
               f"{info['duration']:.1f} s)", "", "## Découpe (temps source)", ""]
     for i, (a, b) in enumerate(seg_list):
         txt = " ".join(w["w"] for w in words_src if a <= (w["s"] + w["e"]) / 2 <= b)
-        fxs = " ".join(k if k == "full" else f"x{v:g}" for k, v in seg_fx[i].items())
+        fxs = " ".join(k if k == "full" else f"x{v:g}" for k, v in seg_fx[i].items() if k in ("full", "speed"))
         report.append(f"{i + 1}. `{a:.2f}-{b:.2f}` ({b - a:.1f} s){' [' + fxs + ']' if fxs else ''}"
                       f"{' **ACCROCHE**' if i == 0 else ''}"
                       f"{' — « ' + txt[:120] + ' »' if txt else ''}")
@@ -1352,13 +1400,15 @@ def main(argv=None):
         if not any(cfg["cta"]):
             cta_t = total  # pas de question finale : les sous-titres vont jusqu'au bout
         build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
-                  bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None, rehook)
+                  bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None, rehook,
+                  label_times(seg_list, seg_fx, total))
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")
         compose(joined, ass, out_mp4, total, cfg["ending"], cfg["progress"], work)
         retention = retention_checks(cfg, seg_list, seg_fx, bounds, total, hook_t, rehook)
 
+    fix_loudness(out_mp4)
     contact_sheet(out_mp4, out_dir / f"{name}_planche.jpg", total)
     run(["ffmpeg", "-v", "error", "-y", "-ss", f"{min(hook_t * 0.6, total - 0.1):.2f}", "-i", str(out_mp4),
          "-frames:v", "1", "-q:v", "2", str(out_dir / f"{name}_couverture.jpg")])

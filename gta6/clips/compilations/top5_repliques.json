@@ -1,0 +1,73 @@
+{
+ "nom": "top5_repliques",
+ "plans": [
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 108.2,
+   "b": 111.6,
+   "srt": "../clip5/st_interrupteur.srt",
+   "label": "#5|L'INTERRUPTEUR",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 115.2,
+   "b": 118.0,
+   "srt": "../clip5/st_interrupteur.srt",
+   "label": "#5|L'INTERRUPTEUR",
+   "fx": "slow",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 39.8,
+   "b": 44.2,
+   "srt": "../clip5/st_prison.srt",
+   "label": "#4|10 MINUTES DE LIBERTÉ",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 137.9,
+   "b": 143.0,
+   "srt": "../clip5/st_maison.srt",
+   "label": "#3|LES CRITÈRES",
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 209.0,
+   "b": 213.5,
+   "srt": "../clip3/sous-titres_fr.srt",
+   "label": "#2|LES BÉBÉS ANIMAUX",
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 229.4,
+   "b": 234.6,
+   "srt": "../clip3/sous-titres_fr.srt",
+   "label": "#1|PAS ASSEZ PAYÉS",
+   "crop_top": 45,
+   "crop_bottom": 110
+  }
+ ],
+ "options": [
+  "--hook",
+  "LES 5 RÉPLIQUES|LES PLUS DRÔLES",
+  "--hook-dur",
+  "2.8",
+  "--rehook",
+  "ATTENDS LA N°1…",
+  "--rehook-at",
+  "0.62",
+  "--cta",
+  "LAQUELLE EST LA MEILLEURE ?|METS LE NUMÉRO EN COMMENTAIRE",
+  "--cta-dur",
+  "2.6",
+  "--caption",
+  "Le n°1 c'est la vraie vie 😭 Laquelle est la meilleure ? Mets le numéro 👇\n#gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr"
+ ]
+}
