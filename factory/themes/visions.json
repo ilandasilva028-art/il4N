@@ -2,6 +2,33 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
+   "id": "tempete2",
+   "titre": "La tempête (visite des maisons)",
+   "accroche": [
+    "ILS PARLERONT",
+    "QUOI QUE TU FASSES."
+   ],
+   "metaphore": "Le héros marche contre un vent de mots gris (CRITIQUES, T'ES PAS CAPABLE…) qui le repoussent ; il avance penché jusqu'au calme.",
+   "scenes": [
+    "vent de mots qui traversent l'écran",
+    "héros penché 'push' contre le vent",
+    "jour 60 : visite des quatre maisons, une par une (nom + trait de caractère)",
+    "les mots se brisent sur lui",
+    "ciel calme, il est debout"
+   ],
+   "chute": [
+    "LE BRUIT PASSE. ",
+    "TOI, TU RESTES."
+   ],
+   "mot": "AVANCE.",
+   "hashtags": [
+    "#critiques",
+    "#mentalite",
+    "#discipline",
+    "#confiance"
+   ]
+  },
+  {
    "id": "quatre",
    "titre": "Les quatre",
    "accroche": [
