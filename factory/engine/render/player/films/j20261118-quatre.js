@@ -234,7 +234,7 @@ const SCENES = [[S.course, course], [S.salle, salle], [S.mur, mur], [S.nuit, nui
 
 export function draw(ctx, t) {
   TEXTLOG.frame = [];
-  if (t >= S.end - 2 * B) { course(ctx, 0); return; } // 2 temps : la boucle reste visible
+  if (t >= S.end - 2 * B) { course(ctx, 0.12); return; } // 2 temps : la boucle reste visible
   let k = 0;
   for (let i = 0; i < SCENES.length; i++) if (t >= SCENES[i][0]) k = i;
   const [t0, fn] = SCENES[k];
