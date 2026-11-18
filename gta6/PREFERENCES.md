@@ -31,6 +31,7 @@
 | L'interrupteur (comédie) | NE TOUCHE JAMAIS / À CET INTERRUPTEUR | TU APPUIES OU PAS ? | à recevoir |
 | Sortie de prison (romance) | ELLE SORT DE PRISON / DEPUIS 10 MINUTES | COUPLE DE L'ANNÉE ? | à recevoir |
 | La maison pourrie (mème) | bandeau : QUAND TON APPART EST NUL / MAIS QU'ELLE SORT / DE 9 MOIS DE PRISON | (dans la légende) | à recevoir |
+| L'interrupteur v2 (mot par mot, relance, boucle) | NE TOUCHE JAMAIS / À CET INTERRUPTEUR + relance ELLE VA APPUYER ? | TU APPUIES OU PAS ? | à comparer avec v1 |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags
@@ -68,6 +69,11 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - [ ] Les 2 premières secondes sont en mouvement (pas de fondu, pas de plan fixe).
 - [ ] Deux accroches candidates notées avant le rendu, pour un test A/B (voir « Tests » plus bas).
 - [ ] Chaque ligne d'accroche tient sans rétrécir (≈ 20 caractères max pour la 2ᵉ ligne rose) : sinon, rééquilibrer les deux lignes.
+
+### Relance et boucle
+- [ ] Une relance au milieu (`--rehook`) : une question ou un suspense de 4 mots max (« ELLE VA APPUYER ? », « ATTENDS… LE PIRE ARRIVE »). Jamais une promesse que la vidéo ne tient pas.
+- [ ] Section « Rétention » du rapport tout en ✅ avant d'envoyer à Ilan.
+- [ ] Fin en boucle (par défaut) sauf format romance (`--ending fade`).
 
 ### Rythme
 - [ ] Un changement visuel toutes les 2 s environ (coupe ou zoom).

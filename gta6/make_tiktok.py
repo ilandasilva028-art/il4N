@@ -389,6 +389,35 @@ def seg_out_dur(a, b, f):
     return (b - a) / float((f or {}).get("speed", 1.0))
 
 
+def skip_dark_start(src, a, b, max_skip=1.0, thr=28):
+    """Première image de l'accroche : jamais noire ni en fondu. Renvoie le nouveau début."""
+    r = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{a:.3f}", "-t", f"{min(max_skip, b - a - 0.8):.3f}",
+                        "-i", str(src), "-vf", "fps=10,scale=160:-2,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=-",
+                        "-an", "-f", "null", "-"], capture_output=True, text=True)
+    ys = [float(x) for x in re.findall(r"YAVG=([\d.]+)", r.stdout)]
+    for i, y in enumerate(ys):
+        if y >= thr:
+            return round(a + i / 10, 3)
+    return a
+
+
+def retention_checks(cfg, segs, fx, cut_times, total, hook_t, rehook):
+    """Contrôles de rétention, notés dans le rapport (✅ / ⚠️)."""
+    out = []
+    hook_words = sum(len(x.split()) for x in cfg["hook"] if x) if not cfg.get("meme") else 0
+    out.append(("Texte à l'écran dès 0 s", bool(any(cfg["hook"]) or cfg.get("meme"))))
+    if not cfg.get("meme"):
+        out.append((f"Accroche courte ({hook_words} mots, 7 max)", 0 < hook_words <= 7))
+    events = sorted([0.0] + list(cut_times) + ([rehook[1]] if rehook else []) + [total])
+    gap = max((b - a for a, b in zip(events, events[1:])), default=total)
+    out.append((f"Plus long passage sans coupe : {gap:.1f} s (3,5 s max)", gap <= 3.55))
+    out.append((f"Durée {total:.1f} s (15-35 s)", 15 <= total <= 35))
+    out.append(("Relance au milieu (--rehook)", bool(rehook)))
+    out.append(("Au moins un gros plan plein écran", any(f.get("full") for f in fx)))
+    out.append(("Question finale ou légende-question", bool(any(cfg["cta"]) or cfg.get("caption"))))
+    return out
+
+
 def overlaps(a, b, ranges):
     return any(a < rb and b > ra for ra, rb in ranges)
 
@@ -525,15 +554,17 @@ def choose(units, target, hook_range=None, hook_cands=None):
     return [(round(hook.a, 2), round(hook.b, 2))] + [(round(u.a, 2), round(u.b, 2)) for u in final]
 
 
-def split_on_cuts(segs, cuts, every=3.5):
+def split_on_cuts(segs, cuts, every=3.5, fx=None):
     """Coupe les longs morceaux (sans rien retirer) pour placer un « punch-in »
     au moins toutes les ~3,5 s : de préférence sur un vrai changement de plan."""
     out = []
     for i, (a, b) in enumerate(segs):
+        sp = float(((fx or [{}] * len(segs))[i] or {}).get("speed", 1.0))
+        ev = every * sp  # « every » est en temps de SORTIE (un ralenti dure plus longtemps)
         pieces, t = [], a
-        while b - t > every * 1.6:
-            win = [c for c in cuts if t + every * 0.7 <= c <= t + every * 1.4 and c < b - 1.2]
-            nxt = win[0] if win else t + every
+        while b - t > ev * 1.25:
+            win = [c for c in cuts if t + ev * 0.7 <= c <= t + ev * 1.4 and c < b - 1.2 * sp]
+            nxt = win[0] if win else t + ev
             pieces.append((t, nxt))
             t = nxt
         pieces.append((t, b))
@@ -576,14 +607,16 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
     fxp = max(0, min(info["w"] - fw, int((info["w"] - fw) / 2 * (1 + shift))))
     g = f",{GRADE}" if grade else ""
     lst = work / "list.txt"
-    names, cut_times, t_out = [], [], 0.0
+    names, cut_times, bounds, t_out = [], [], [], 0.0
     for i, p in enumerate(pieces):
         f = p.get("fx") or {}
         sp = float(f.get("speed", 1.0))
         d_src = p["b"] - p["a"]
         d = d_src / sp
-        if i > 0 and p["hard"]:
-            cut_times.append(t_out)
+        if i > 0:
+            bounds.append(t_out)  # toute relance visuelle (coupe ou zoom interne)
+            if p["hard"]:
+                cut_times.append(t_out)
         z0 = punch if p["hard"] else punch * 0.6  # coupe interne au plan : plus doux
         zexpr = f"(1+{z0}*max(0\\,1-t/0.22)+{drift}*t/{max(d, 0.1):.3f})"
         speed = "" if sp == 1.0 else f"setpts=(PTS-STARTPTS)/{sp},"
@@ -614,7 +647,7 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
     lst.write_text("".join(f"file '{n.name}'\n" for n in names))
     joined = work / "joined.mp4"
     run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(joined)])
-    return joined, (cw, ch, cx), cut_times
+    return joined, (cw, ch, cx), cut_times, bounds
 
 
 # --------------------------------------------------------------------------
@@ -655,7 +688,7 @@ def _impact(dur=0.55):
     return np.stack([y, y], 1)
 
 
-def add_sfx(joined: Path, work: Path, total, cut_times):
+def add_sfx(joined: Path, work: Path, total, cut_times, hook_ticks=(), rehook_t=None):
     """Impact sur l'accroche, souffle à chaque coupe franche, mixés sous le son du jeu."""
     import wave
 
@@ -677,6 +710,12 @@ def add_sfx(joined: Path, work: Path, total, cut_times):
             mix[i:j] += clip[: j - i] * gain
 
     put(_impact(), 0.02, peak * 1.1)
+    tick = _impact(0.18)
+    for t in list(hook_ticks)[1:]:
+        put(tick, t, peak * 0.35)  # petit coup sur chaque mot de l'accroche
+    if rehook_t is not None:
+        put(_whoosh(), rehook_t - 0.24, peak * 0.7)
+        put(_impact(), rehook_t, peak * 0.9)
     w = _whoosh()
     for k, c in enumerate(cut_times):
         put(w if k % 2 == 0 else w[:, ::-1], c - 0.24, peak * 0.55)  # sens alterné
@@ -827,7 +866,55 @@ def sub_events(words, total, cta_t, mode):
     return ev
 
 
-def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False, meme=None):
+HOOK_STEP = 0.17  # écart entre deux mots de l'accroche
+
+
+def hook_word_times(hook):
+    """Instant d'apparition de chaque mot de l'accroche (ligne 1 puis ligne 2)."""
+    n = sum(len(x.split()) for x in hook if x)
+    return [round(0.02 + i * HOOK_STEP, 3) for i in range(n)]
+
+
+def hook_events(hook, hook_t):
+    """Accroche révélée mot par mot : chaque mot claque (grossit puis se pose).
+    Les mots pas encore dits sont transparents : la mise en page ne bouge pas."""
+    ev, k = [], 0
+    times = hook_word_times(hook)
+    for (txt, (col, em0, y)) in zip(hook, STYLE["hook"]):
+        if not txt:
+            continue
+        words = txt.split()
+        em = fit_em(txt, ANTON, em0, STYLE["max_text_w"])
+        m = font_metrics(ANTON)
+        size = em / m["k"]
+        ytop = y - m["top_gap"] * em
+        base = (rf"{{\an8\pos(540,{ytop:.0f})\fn{ANTON}\fs{size:.1f}\c{ass_color(STYLE[col])}"
+                rf"\3c&H000000&\bord{STYLE['outline_big']}\shad3\4c&H80000000&}}")
+        for j in range(len(words)):
+            t0 = times[k + j]
+            t1 = times[k + j + 1] if k + j + 1 < len(times) else hook_t
+            if t1 <= t0:
+                continue
+            parts = []
+            for w_i, w in enumerate(words):
+                if w_i < j:
+                    parts.append(ass_escape(w))
+                elif w_i == j:
+                    parts.append(r"{\fscx135\fscy135\t(0,110,\fscx100\fscy100)}" + ass_escape(w) + r"{\fscx100\fscy100}")
+                else:
+                    parts.append(r"{\alpha&HFF&}" + ass_escape(w) + r"{\alpha&H00&}")
+            ev.append(f"Dialogue: 2,{ass_time(t0)},{ass_time(t1)},Default,,0,0,0,,{base}{' '.join(parts)}")
+        # ligne complète jusqu'à la fin de l'accroche
+        last = times[k + len(words) - 1]
+        if last < hook_t and k + len(words) < len(times):
+            ev.append(f"Dialogue: 2,{ass_time(times[k + len(words)])},{ass_time(hook_t)},Default,,0,0,0,,"
+                      f"{base}{ass_escape(txt)}")
+        k += len(words)
+    return ev
+
+
+def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False, meme=None,
+              rehook=None):
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -853,10 +940,15 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             ev.append(ass_line(txt, ARCHIVO, "000000", 66, y, 0, total, 0, pop=False, layer=1,
                                extra=r"\shad0"))
         hook, title = ["", ""], ["", ""]
-    # Accroche : visible dès l'image 0, 2e ligne qui claque juste après
-    for i, (txt, (col, em, y)) in enumerate(zip(hook, STYLE["hook"])):
-        if txt:
-            ev.append(ass_line(txt, ANTON, STYLE[col], em, y, 0 if i == 0 else 0.12, hook_t, STYLE["outline_big"]))
+    # Accroche : premier mot dès l'image 0, puis mot par mot
+    if any(hook):
+        ev += hook_events(hook, hook_t)
+    # Relance au milieu : un texte choc là où les gens décrochent
+    if rehook and rehook[0]:
+        txt, t0 = rehook
+        y = STYLE["panel_y"] + STYLE["panel_h"] // 2 - 55
+        ev.append(ass_line(txt, ANTON, STYLE["yellow"], 112, y, t0, min(total, t0 + 1.7), 8, layer=4,
+                           extra=r"\fscx150\fscy150\t(0,140,\fscx100\fscy100)\fad(0,180)"))
     # Titre fixe ensuite
     for txt, (col, em, y) in zip(title, STYLE["title"]):
         if txt:
@@ -901,7 +993,12 @@ def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path):
     if progress:
         bar = (f",drawbox=x=0:y={py + ph}:w=iw:h=8:color=black@0.55:t=fill,"
                f"drawbox=x=0:y={py + ph}:w='max(2\\,iw*t/{total:.3f})':h=8:color=0x{STYLE['pink']}:t=fill")
-    graph = (f"[0:v]null{bar},ass=filename={ass.name}:fontsdir=fonts{v_end},format=yuv420p[v];"
+    loop = ""
+    if ending == "loop" and total > 3:
+        # boucle invisible : la fin se fond dans la première image, la vidéo repart sans coupure
+        loop = (f"split[m][f0];[f0]trim=end_frame=1,loop=loop=-1:size=1,setpts=N/30/TB,format=yuva420p,"
+                f"fade=t=in:st={total - 0.35:.3f}:d=0.35:alpha=1[ff];[m][ff]overlay=shortest=1,")
+    graph = (f"[0:v]{loop}null{bar},ass=filename={ass.name}:fontsdir=fonts{v_end},format=yuv420p[v];"
              f"[0:a]{ln},aresample=48000,alimiter=limit=0.80:level=false,{a_end}[au]")
     (work / "compose.txt").write_text(graph)
     run(["ffmpeg", "-v", "error", "-y", "-i", joined.name, "-filter_complex_script", "compose.txt",
@@ -1026,6 +1123,8 @@ def main(argv=None):
     ap.add_argument("--panel-h", type=int, help="hauteur de l'image au premier plan (778 défaut, ~860 pour les beaux plans)")
     ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
+    ap.add_argument("--rehook", help="texte de relance au milieu (ex. « ATTENDS LA SUITE… »)")
+    ap.add_argument("--rehook-at", type=float, help="position de la relance (0-1, défaut 0.45)")
     ap.add_argument("--meme", help="format mème : bandeau blanc en haut, texte noir « LIGNE 1|LIGNE 2 »")
     ap.add_argument("--no-sfx", action="store_true", help="sans les sons de transition (souffles, impact)")
     ap.add_argument("--no-grade", action="store_true", help="sans l'étalonnage (contraste, saturation)")
@@ -1080,6 +1179,10 @@ def main(argv=None):
         cfg["cta_top"] = True
     if args.meme:
         cfg["meme"] = args.meme
+    if args.rehook:
+        cfg["rehook"] = args.rehook
+    if args.rehook_at is not None:
+        cfg["rehook_at"] = args.rehook_at
     if args.no_sfx:
         cfg["sfx"] = False
     if args.no_grade:
@@ -1165,6 +1268,10 @@ def main(argv=None):
         seg_fx = [{} for _ in seg_list]
     kept = [((max(0.0, a), min(info["duration"], b)), f) for (a, b), f in zip(seg_list, seg_fx) if b - a > 0.2]
     seg_list, seg_fx = [k[0] for k in kept], [k[1] for k in kept]
+    trimmed = skip_dark_start(src, seg_list[0][0], seg_list[0][1])
+    if trimmed > seg_list[0][0]:
+        log(f"accroche : {trimmed - seg_list[0][0]:.2f} s d'image sombre retirées au début")
+        seg_list[0] = (trimmed, seg_list[0][1])
     total = sum(seg_out_dur(a, b, f) for (a, b), f in zip(seg_list, seg_fx))
     hook_t = float(cfg["hook_dur"]) if cfg.get("hook_dur") else seg_out_dur(*seg_list[0], seg_fx[0])
     log(f"découpe : {len(seg_list)} morceaux, {total:.1f} s (accroche {hook_t:.1f} s)")
@@ -1200,13 +1307,13 @@ def main(argv=None):
     # ---- rendu
     with tempfile.TemporaryDirectory(prefix="tiktok_") as tmp:
         work = Path(tmp)
-        pieces = split_on_cuts(seg_list, cuts)
+        pieces = split_on_cuts(seg_list, cuts, fx=seg_fx)
         for pc in pieces:
             pc["fx"] = seg_fx[pc["seg"]]
         log(f"rendu de {len(pieces)} plans (zoom à chaque coupe"
             f"{', plein écran' if any(f.get('full') for f in seg_fx) else ''}"
             f"{', vitesse' if any(f.get('speed') for f in seg_fx) else ''}) …")
-        joined, crop, cut_times = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
+        joined, crop, cut_times, bounds = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
                                                 float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)),
                                                 int(cfg.get("crop_top", 0)), cfg.get("grade", True))
         total = probe(joined)["duration"]
@@ -1226,19 +1333,27 @@ def main(argv=None):
                  "-i", str(src), "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "afade=t=in:d=0.05",
                  "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2", str(jm)])
             joined = jm
+        rehook = None
+        if cfg.get("rehook"):
+            t_r = total * float(cfg.get("rehook_at", 0.45))
+            near = [c for c in cut_times if abs(c - t_r) <= 1.5 and hook_t + 1 < c < total - float(cfg["cta_dur"]) - 1]
+            t_r = min(near, key=lambda c: abs(c - t_r)) if near else t_r  # sur une coupe si possible
+            rehook = (cfg["rehook"], round(t_r, 2))
+        ticks = [] if cfg.get("meme") else hook_word_times(cfg["hook"])
         if cfg.get("sfx", True) and not cfg.get("mute"):
-            joined = add_sfx(joined, work, total, cut_times)
+            joined = add_sfx(joined, work, total, cut_times, ticks, rehook[1] if rehook else None)
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list, seg_fx)
         ass = work / "overlay.ass"
         if not any(cfg["cta"]):
             cta_t = total  # pas de question finale : les sous-titres vont jusqu'au bout
         build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
-                  bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None)
+                  bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None, rehook)
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")
         compose(joined, ass, out_mp4, total, cfg["ending"], cfg["progress"], work)
+        retention = retention_checks(cfg, seg_list, seg_fx, bounds, total, hook_t, rehook)
 
     contact_sheet(out_mp4, out_dir / f"{name}_planche.jpg", total)
     run(["ffmpeg", "-v", "error", "-y", "-ss", f"{min(hook_t * 0.6, total - 0.1):.2f}", "-i", str(out_mp4),
@@ -1248,6 +1363,7 @@ def main(argv=None):
 
     chk = check_output(out_mp4)
     ok = (chk["w"], chk["h"]) == (1080, 1920) and chk["audio"]
+    report += ["## Rétention", ""] + [f"- {'✅' if ok_ else '⚠️'} {lbl}" for lbl, ok_ in retention] + [""]
     report += ["## Contrôles", "",
                f"- format : {chk['w']}x{chk['h']}, {chk['fps']} i/s, {chk['duration']} s, audio {'oui' if chk['audio'] else 'NON'}",
                f"- son : {chk['lufs']} LUFS (cible -14), crête {chk['true_peak']} dBTP",
