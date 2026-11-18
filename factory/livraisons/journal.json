@@ -70,5 +70,14 @@
     "score": 92.9,
     "max": 96,
     "file": "livraisons/2026-11-18-tempete2/tempete2.mp4"
+  },
+  {
+    "date": "2026-11-18",
+    "vision": "business",
+    "film": "j20261118-business",
+    "version": "v2",
+    "score": 92.3,
+    "max": 96,
+    "file": "livraisons/2026-11-18-business/business.mp4"
   }
 ]
