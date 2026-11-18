@@ -510,9 +510,9 @@ def split_on_cuts(segs, cuts, every=3.5):
 # --------------------------------------------------------------------------
 # Rendu
 # --------------------------------------------------------------------------
-def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift):
+def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shift, crop_bottom=0):
     pw, ph = W, STYLE["panel_h"]
-    ch = info["h"]
+    ch = info["h"] - int(crop_bottom)  # sans le bas : sous-titres incrustés du jeu
     cw = min(info["w"], int(round(ch * STYLE["focus_aspect"] / 2)) * 2)
     cx = int((info["w"] - cw) / 2 * (1 + max(-1.0, min(1.0, crop_shift))))
     cx = max(0, min(info["w"] - cw, cx))
@@ -842,6 +842,7 @@ def main(argv=None):
     ap.add_argument("--punch", type=float, help="zoom à chaque coupe (0.07 = +7 %%, 0 = off)")
     ap.add_argument("--crop-shift", type=float, help="décale le cadrage : -1 gauche ... 1 droite")
     ap.add_argument("--no-progress", action="store_true", help="sans barre de progression")
+    ap.add_argument("--crop-bottom", type=int, help="px retirés en bas de la source (sous-titres incrustés du jeu)")
     ap.add_argument("--out", default=None, help="dossier de sortie (défaut ./sorties)")
     ap.add_argument("--analyse-only", action="store_true", help="propose la découpe sans rendre")
     ap.add_argument("--doctor", action="store_true", help="vérifie l'installation")
@@ -866,7 +867,7 @@ def main(argv=None):
         cfg.update(json.loads(side.read_text(encoding="utf-8")))
         log("réglages lus dans", side.name)
     for k in ("hook", "title", "cta", "caption", "tags", "target", "segments", "hook_at", "exclude", "subs",
-              "subs_mode", "lang", "model", "ending", "cta_dur", "punch", "crop_shift"):
+              "subs_mode", "lang", "model", "ending", "cta_dur", "punch", "crop_shift", "crop_bottom"):
         v = getattr(args, k)
         if v is not None:
             cfg[k] = v
@@ -949,7 +950,7 @@ def main(argv=None):
         pieces = split_on_cuts(seg_list, cuts)
         log(f"rendu de {len(pieces)} plans (punch-in à chaque coupe) …")
         joined, crop = render_pieces(src, info, pieces, work, cfg["fps"], cfg["punch"], cfg["drift"],
-                                     float(cfg["crop_shift"]))
+                                     float(cfg["crop_shift"]), int(cfg.get("crop_bottom", 0)))
         total = probe(joined)["duration"]
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list)

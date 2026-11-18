@@ -1,0 +1,23 @@
+1
+00:01:09,92 --> 00:01:12,30
+Franchement, j'en ai marre. Je traîne plus ailleurs.
+
+2
+00:01:12,56 --> 00:01:14,64
+Yo, je suis là pour un truc entre potes, pas toi ? Attends, je regarde.
+
+3
+00:01:24,22 --> 00:01:26,08
+Un café, s'il vous plaît.
+
+4
+00:01:26,30 --> 00:01:28,48
+Je peux avoir un autre verre d'eau ? Encore un.
+
+5
+00:01:28,82 --> 00:01:30,58
+Un lait chaud, ou un truc du genre ?
+
+6
+00:01:31,46 --> 00:01:32,00
+Juste de l'eau.

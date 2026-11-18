@@ -1,0 +1,9 @@
+Capture : 99 s, 1080p30, voix en anglais (dialogues du jeu). Sous-titres du jeu incrustés en bas : masqués avec --crop-bottom 260.
+Commande (depuis le dossier de la capture) :
+python make_tiktok.py capture.mov --segments "80.5-84,69.8-80.5,84-92.3" --subs sous-titres_fr.srt --crop-bottom 260 \
+  --hook "CE CHAUFFEUR SE FAIT VIRER|PAR SES CLIENTS" --title "GTA 6|RYDE" \
+  --cta "TU LUI AURAIS MIS QUELLE NOTE ?|DIS-LE EN COMMENTAIRE" --cta-dur 4 \
+  --caption "Ils virent un chauffeur à cause de ses avis 💀 Tu lui aurais mis quelle note ? ⭐\n#gta6 #gta #rockstargames #gaming"
+Accroche : l'écran « compte chauffeur suspendu » (80,5-84 s), en ouverture.
+Exclu : génériques Rockstar (0-~60 s).
+Sous-titres : traduction française écrite à la main à partir de la transcription anglaise, à relire.
