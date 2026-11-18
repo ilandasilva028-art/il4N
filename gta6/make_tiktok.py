@@ -31,7 +31,7 @@ import subprocess
 import sys
 import tempfile
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -113,6 +113,10 @@ def doctor(quiet=False):
         import fontTools  # noqa: F401
     except ImportError:
         problems.append("fonttools non installé (pip install -r requirements.txt)")
+    try:
+        import rapidocr_onnxruntime  # noqa: F401
+    except ImportError:
+        problems.append("rapidocr non installé (pip install -r requirements.txt) : génériques incrustés non détectés en mode plans")
     if not quiet:
         if problems:
             for p in problems:

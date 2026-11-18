@@ -12,7 +12,7 @@ cd il4N/gta6
 ```
 Le script installe ffmpeg (Homebrew), Python, Whisper (la transcription) et crée `~/GTA6_TikTok/`.
 Les polices Anton et Archivo Black sont fournies dans `fonts/` : plus besoin de changer les chemins Ubuntu.
-Pour vérifier l'installation : `./.venv/bin/python make_tiktok.py --doctor`
+Pour vérifier l'installation : `./.venv/bin/python make_tiktok.py --doctor`, puis `./tests/test_rapide.sh` (1 min, vidéo de synthèse).
 
 ## 2. Utilisation au quotidien
 
@@ -93,17 +93,28 @@ La transcription est gardée en cache : relancer avec d'autres réglages prend p
 
 ## 4. Ce que fait l'outil pour la rétention
 
-Les nouveautés par rapport à la vidéo 1 sont en **gras**.
+**Accroche**
+1. Le passage le plus fort est joué en premier (cold open), sans image noire au début.
+2. Texte révélé **mot par mot** dès l'image 0, avec un petit coup sonore par mot et un impact au départ.
 
-1. **Accroche en ouverture** : le passage le plus fort (son, mouvement, réplique complète) est joué en premier, avec le texte visible dès la première image.
-2. **Choix automatique des moments** : chaque passage reçoit une note selon le volume, le mouvement à l'écran, les changements de plan et la voix. **Les temps morts (silence + image fixe) sont retirés et une phrase n'est jamais coupée au milieu.**
-3. **Sous-titres karaoké** : grands, le mot prononcé passe en jaune #FFC94A et grossit. Beaucoup de gens regardent sans le son.
-4. **Petit zoom à chaque coupe, et au moins toutes les 3,5 s** dans les longs plans : l'image change souvent, l'œil reste accroché.
-5. **Barre de progression rose** sous l'image : on voit que la vidéo est courte.
-6. **Fin en boucle** au lieu d'un fondu au noir : un écran noir pousse à passer à la vidéo suivante. Une boucle fluide fait souvent revoir le début, et les vues répétées comptent.
-7. **Zones sûres TikTok** : rien d'important au-dessus de 250 px, en dessous de 1490 px ni dans la colonne des boutons à droite. Les textes trop longs rétrécissent automatiquement.
-8. Appel à commenter avec une question facile, sans « abonne-toi ».
-9. Son normalisé à -14 LUFS (deux passes), crête à -1,5 dBTP.
+**Rythme**
+3. Petit zoom à chaque coupe, et au moins toutes les 3,5 s (ralentis compris).
+4. Gros plans en plein écran (`:full`), accéléré (`:x2`…), ralenti (`:slow`), souffle sonore à chaque coupe.
+5. Relance au milieu (`--rehook`), là où les gens décrochent.
+6. Couleurs plus vives (contraste, saturation).
+
+**Lisibilité**
+7. Sous-titres karaoké (le mot prononcé passe en jaune). Beaucoup de gens regardent sans le son.
+8. Zones sûres TikTok : rien d'important au-dessus de 250 px, en dessous de 1490 px ni dans la colonne des boutons. Les textes trop longs rétrécissent tout seuls.
+
+**Fin**
+9. Barre de progression rose : on voit que la vidéo est courte.
+10. Boucle invisible : la fin se fond dans la première image, la vidéo repart sans coupure.
+11. Question facile à commenter, sans « abonne-toi ».
+
+**Son et contrôle**
+12. Son à -14 LUFS (deux passes) + limiteur.
+13. Rapport avec une section « Rétention » (✅/⚠️) pour chaque clip.
 
 ## 5. Conseils pour les prochains clips
 
