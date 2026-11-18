@@ -2,6 +2,40 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
+   "id": "business",
+   "titre": "4 business",
+   "accroche": [
+    "4 business.",
+    "1 seul survit."
+   ],
+   "accrocheB": [
+    "Qui vend",
+    "vraiment ?"
+   ],
+   "metaphore": "Les quatre traits de caractère lancent chacun un business en ligne : l'Ego dépense tout dans l'image, l'Obsession ouvre dix projets sans en finir un, la Chance attend le buzz, Discipline publie une vidéo par jour et répond à chaque client. Décors 3D Blender.",
+   "lecon": "Un seul produit d'abord, publier chaque jour, répondre à chaque client.",
+   "scenes": [
+    "ouverture : l'enseigne de l'Ego s'écrase",
+    "jour 1 : le lancement",
+    "visite des quatre bureaux",
+    "3 h : la première vente",
+    "jour 180 : la courbe monte"
+   ],
+   "chute": [
+    "Le business qui survit ?",
+    "Celui qui revient chaque jour."
+   ],
+   "mot": "CHAQUE JOUR.",
+   "serie": "TOI CONTRE TOI · #7",
+   "hashtags": [
+    "#business",
+    "#entrepreneur",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
    "id": "maisons2",
    "titre": "La tempête : 4 maisons (visite des maisons)",
    "accroche": [

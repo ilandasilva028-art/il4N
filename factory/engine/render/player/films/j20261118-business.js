@@ -45,7 +45,7 @@ function plate(ctx, name, { z = 1, x = 540, y = 960 } = {}) {
   return A[name];
 }
 // échelle des personnages : 1,9 m de haut (proportions « cartoon ») au plan des bureaux
-const scOf = (a) => (1.9 * a.ppm) / 424;
+const scOf = (a) => (1.9 * a.ego.ppm) / 424;
 
 // ------------------------------------------------------------------ poses assises
 const typing = (t, speed = 9, lean = 10) => ({ ...POSES.sit, lean, head: 14, armB: [72 + Math.sin(t * speed) * 7, 62], armF: [80 + Math.cos(t * speed * 1.1) * 7, 56] });
@@ -139,7 +139,7 @@ function card(ctx, who, tag, u) {
   kinetic(ctx, [[c.name, c.labelColor]], 430, 92, u, 0.05, { stagger: 0.08, rise: 40 });
   kinetic(ctx, [[tag, '#f1f1f1']], 525, 52, u, 0.3, { stagger: 0.08 });
 }
-const headTop = (a, who) => [a[who].seat[0], a[who].seat[1] - a.ppm * 0 - scOf(a) * 330];
+const headTop = (a, who) => [a[who].seat[0], a[who].seat[1] - scOf(a) * 330];
 
 // ------------------------------------------------------------------ 1. ouverture : l'enseigne s'écrase
 const HOOK = VARIANT === 'b' ? [[['QUI VEND', '#f1f1f1']], [['VRAIMENT ?', RED]]] : [[['4 BUSINESS.', '#f1f1f1']], [['1 SEUL ', '#f1f1f1'], ['SURVIT.', RED]]];
@@ -279,8 +279,8 @@ function aubeScene(ctx, tl) { aube(ctx, tl); title(ctx, tl, [['JOUR ', '#f1f1f1'
 function chute(ctx, tl) {
   aube(ctx, tl, 8 * B);
   topBand(ctx);
-  kinetic(ctx, [['LE BUSINESS ', '#f1f1f1'], ['QUI SURVIT ?', '#9a9a9c']], 410, 66, tl, 0.1);
-  kinetic(ctx, [['CELUI QUI REVIENT ', '#f1f1f1'], ['CHAQUE JOUR.', RED]], 510, 62, tl, 0.8, { rise: 60 });
+  kinetic(ctx, [['LE BUSINESS ', '#f1f1f1'], ['QUI SURVIT ?', '#9a9a9c']], 410, 60, tl, 0.1);
+  kinetic(ctx, [['CELUI QUI REVIENT ', '#f1f1f1'], ['CHAQUE JOUR.', RED]], 505, 50, tl, 0.8, { rise: 60 });
 }
 
 const end = (ctx, tl) => endCard(ctx, tl, { teaser: 'LA SUITE', handle: HANDLE, series: SERIES, t: tl });
