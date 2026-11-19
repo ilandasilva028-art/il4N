@@ -2,6 +2,12 @@
 
 Préparés le 16/11/2026. **Aucun mail envoyé.** Tu relis, tu valides, puis tu envoies depuis ta boîte pro.
 
+## Brouillons Gmail (19/11/2026)
+
+18 brouillons créés : 8 mails initiaux + 10 relances.
+- Relances Dames de Lune et La Petite Fontaine : en réponse au mail envoyé le 16/11, destinataire déjà rempli. À envoyer le **23/11** s'il n'y a toujours pas de réponse.
+- 8 autres : sans destinataire (pas d'email public). Le nom de l'entreprise et le canal sont entre crochets dans l'objet, **à retirer avant l'envoi**. Relances marquées `[RELANCE J+7 — …]`, à envoyer 7 jours après le premier contact.
+
 ## Avant d'envoyer
 
 - **Adresse vérifiée** = trouvée sur une fiche publique (office de tourisme). Les autres prospects n'affichent
