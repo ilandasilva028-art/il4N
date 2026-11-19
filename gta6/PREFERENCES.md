@@ -42,6 +42,7 @@
 | Trop de portes (mème) | bandeau MOI QUI CHERCHE MON POTE / EN SOIRÉE / À 3H DU MAT | légende : identifie le pote | à recevoir |
 | L'hôtel le plus fou (muet) | L'HÔTEL LE PLUS FOU / DE GTA 6 + relance Y'A UN TIGRE… | TU Y VAS CE SOIR ? | à recevoir |
 | Berceau (peu monté, théorie) | UN BERCEAU CHEZ / JASON ET LUCIA ? | ILS ATTENDENT UN BÉBÉ ? | à recevoir |
+| GTA 6 en 20 secondes (compil plein écran, musique) | GTA 6 / EN 20 SECONDES + relance REGARDE ÇA… | TON PLAN PRÉFÉRÉ ? | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags

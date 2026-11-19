@@ -1,0 +1,159 @@
+{
+ "nom": "gta6_en_20_secondes",
+ "musique": {
+  "src": "../clip2/capture2.mov",
+  "from": 9.07
+ },
+ "plans": [
+  {
+   "src": "../clip7/capture7.mp4",
+   "a": 166.2,
+   "b": 167.9,
+   "b_max": 168.3,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 42.2,
+   "b": 43.35,
+   "b_max": 43.35,
+   "fx": "full"
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 9.1,
+   "b": 10.6,
+   "b_max": 10.6,
+   "fx": "full"
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 11.05,
+   "b": 12.4,
+   "b_max": 12.8,
+   "fx": "full"
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 24.0,
+   "b": 25.4,
+   "b_max": 25.8,
+   "fx": "full",
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 15.7,
+   "b": 16.8,
+   "b_max": 16.8,
+   "fx": "full"
+  },
+  {
+   "src": "../clip7/capture7.mp4",
+   "a": 150.3,
+   "b": 151.8,
+   "b_max": 152.3,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 20.85,
+   "b": 21.85,
+   "b_max": 21.85,
+   "fx": "full"
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 27.0,
+   "b": 28.5,
+   "b_max": 29.0,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip7/capture7.mp4",
+   "a": 55.0,
+   "b": 56.4,
+   "b_max": 56.8,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 222.15,
+   "b": 223.7,
+   "b_max": 224.3,
+   "fx": "full",
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 49.05,
+   "b": 50.6,
+   "b_max": 51.2,
+   "fx": "full"
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 51.4,
+   "b": 52.9,
+   "b_max": 52.9,
+   "fx": "full"
+  },
+  {
+   "src": "../clip3/capture3.mp4",
+   "a": 84.0,
+   "b": 85.5,
+   "b_max": 86.0,
+   "fx": "full",
+   "crop_top": 45,
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 53.15,
+   "b": 54.6,
+   "b_max": 55.4,
+   "fx": "full"
+  },
+  {
+   "src": "../clip7/capture7.mp4",
+   "a": 173.5,
+   "b": 175.5,
+   "b_max": 176.5,
+   "fx": "full",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip2/capture2.mov",
+   "a": 63.9,
+   "b": 66.3,
+   "b_max": 66.8,
+   "fx": "full"
+  }
+ ],
+ "options": [
+  "--punch",
+  "0.04",
+  "--hook",
+  "GTA 6|EN 20 SECONDES",
+  "--hook-dur",
+  "2.2",
+  "--title",
+  "GTA 6|LEONIDA",
+  "--rehook",
+  "REGARDE ÇA…",
+  "--rehook-at",
+  "0.55",
+  "--cta",
+  "TON PLAN PRÉFÉRÉ ?|DIS LE MOMENT EN COMMENTAIRE",
+  "--cta-dur",
+  "3.5",
+  "--caption",
+  "Leonida en 20 secondes 🌴🌊🐅 Ton plan préféré ? Dis le moment 👇\n#gta6 #gtavi #leonida #vicecity #gamingfr"
+ ]
+}

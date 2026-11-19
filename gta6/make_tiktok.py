@@ -1021,7 +1021,7 @@ def measure_loudness(path):
     return json.loads(m.group(0)) if m else None
 
 
-def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path):
+def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path, bar_y=None):
     py, ph = STYLE["panel_y"], STYLE["panel_h"]
     shutil.copytree(FONTS_DIR, work / "fonts", dirs_exist_ok=True)
     meas = measure_loudness(joined)
@@ -1039,8 +1039,9 @@ def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path):
         a_end = f"afade=t=out:st={max(0, total - 0.12):.3f}:d=0.12"
     bar = ""
     if progress:
-        bar = (f",drawbox=x=0:y={py + ph}:w=iw:h=8:color=black@0.55:t=fill,"
-               f"drawbox=x=0:y={py + ph}:w='max(2\\,iw*t/{total:.3f})':h=8:color=0x{STYLE['pink']}:t=fill")
+        by = py + ph if bar_y is None else bar_y
+        bar = (f",drawbox=x=0:y={by}:w=iw:h=8:color=black@0.55:t=fill,"
+               f"drawbox=x=0:y={by}:w='max(2\\,iw*t/{total:.3f})':h=8:color=0x{STYLE['pink']}:t=fill")
     loop = ""
     if ending == "loop" and total > 3:
         # boucle invisible : la fin se fond dans la première image, la vidéo repart sans coupure
@@ -1426,7 +1427,9 @@ def main(argv=None):
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")
-        compose(joined, ass, out_mp4, total, cfg["ending"], cfg["progress"], work)
+        # tout en plein écran : la barre de progression descend tout en bas
+        compose(joined, ass, out_mp4, total, cfg["ending"], cfg["progress"], work,
+                H - 10 if all(f.get("full") for f in seg_fx) else None)
         retention = retention_checks(cfg, seg_list, seg_fx, bounds, total, hook_t, rehook)
 
     fix_loudness(out_mp4)
