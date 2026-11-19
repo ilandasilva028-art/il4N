@@ -3,6 +3,7 @@
 À lire au début de chaque session avant de toucher à un clip. À compléter après chaque retour d'Ilan ou chaque chiffre TikTok.
 
 ## Règles fixes
+- **Contenu sexuel du jeu (scènes de groupe, nudité, répliques très crues) : jamais dans un clip** (règles TikTok, risque de blocage du compte).
 - **Vidéos d'autres créateurs (enregistrement d'écran TikTok, etc.) : jamais remontées ni copiées.** Reprendre l'idée avec les captures et les vrais chiffres d'Ilan, ou Stitch/Duo dans l'appli.
 - **Réponses de Claude : style court, « homme des cavernes »** (mots inutiles enlevés). Légendes, descriptions et textes à publier : normaux.
 - **Sources : uniquement les captures d'Ilan.** Pas de clips de streamers ni de vidéos d'autres personnes (lien Xbox d'un tiers refusé le 18/11).
@@ -37,6 +38,9 @@
 | C'est un jeu (compil beaux plans, musique) | C'EST UN JEU VIDÉO. / SÉRIEUSEMENT. + relance ET ÇA C'EST RIEN… | TON PLAN PRÉFÉRÉ ? | à recevoir |
 | Il lui avait promis (histoire, 2 captures) | IL LUI AVAIT PROMIS / UNE VRAIE MAISON + relance QUELQUES JOURS PLUS TARD… | IL A ASSURÉ ? | à recevoir |
 | 5 trucs à faire (compil, liste numérotée) | 5 TRUCS À FAIRE / DANS GTA 6 + relance ET LE N°1… | TU FAIS QUOI EN PREMIER ? | à recevoir |
+| L'évasion de l'aquarium (action) | ILS SE SONT ÉCHAPPÉS / PAR L'AQUARIUM + relance LA SÉCURITÉ DÉBARQUE… | TU SAUTES OU PAS ? | à recevoir |
+| Trop de portes (mème) | bandeau MOI QUI CHERCHE MON POTE / EN SOIRÉE / À 3H DU MAT | légende : identifie le pote | à recevoir |
+| L'hôtel le plus fou (muet) | L'HÔTEL LE PLUS FOU / DE GTA 6 + relance Y'A UN TIGRE… | TU Y VAS CE SOIR ? | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags

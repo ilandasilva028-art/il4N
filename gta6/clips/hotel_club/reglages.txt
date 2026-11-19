@@ -1,0 +1,23 @@
+Capture gameplay 177 s, 720p30 : Lucia cherche Jason dans un hôtel-club (couloirs, chambres néon), soirée piscine avec tigre blanc, fuite de la sécurité par l'aquarium.
+EXCLU (règles TikTok) : scènes de groupe sexuelles dans les chambres (0-8 s, 24-31 s, 39-48 s, 69-78 s) et la réplique d'ouverture (0-11 s).
+Sous-titres du jeu en bas : --crop-bottom 110. Invite « SE DONNER LA MAIN » vers 169,5-172 s : à éviter.
+
+1. L'évasion de l'aquarium
+python make_tiktok.py capture.mp4 --subs st_aquarium.srt --crop-bottom 110 --cta-top \
+ --segments "166.0-168.4:full:slow,141.8-145.8,150.2-152.9:full,152.9-156.0,157.4-163.4,163.4-166.0,168.4-174.5:full" \
+ --hook "ILS SE SONT ÉCHAPPÉS|PAR L'AQUARIUM" --title "GTA 6|JASON & LUCIA" --rehook "LA SÉCURITÉ DÉBARQUE…" --rehook-at 0.5 \
+ --cta "TU SAUTES OU PAS ?|DIS-LE EN COMMENTAIRE" --cta-dur 4
+Légende : Ils ont fini la soirée dans l'aquarium 🐅🌊 Toi, tu sautes ou pas ? 👇  #gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr
+
+2. Trop de portes (mème)
+python make_tiktok.py capture.mp4 --subs st_portes.srt --subs-mode classic --crop-bottom 110 --cta "" --cta-dur 0 \
+ --segments "12.5-15.5:x1.5,63.0-66.0:x1.5,90.0-93.0:x1.5,109.6-113.0,126.0-129.0:x1.5,138.3-141.6,141.8-143.6:full" \
+ --meme "MOI QUI CHERCHE MON POTE|EN SOIRÉE|À 3H DU MAT"
+Légende : Il y a TOUJOURS trop de portes 😭 Identifie le pote que tu perds à chaque soirée 👇  #gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr
+
+3. L'hôtel le plus fou (muet, son TikTok à ajouter)
+python make_tiktok.py capture.mp4 --no-subs --mute --panel-h 860 --punch 0.05 --crop-bottom 110 \
+ --segments "166.2-168.6:full,13.0-15.5,55.0-57.5,90.5-93.0,143.8-146.0,150.2-152.8:full,163.6-166.0,173.0-177.0:full" \
+ --hook "L'HÔTEL LE PLUS FOU|DE GTA 6" --title "GTA 6|VICE CITY" --rehook "Y'A UN TIGRE…" --rehook-at 0.62 \
+ --cta "TU Y VAS CE SOIR ?|OUI OU NON EN COMMENTAIRE" --cta-dur 4
+Légende : Néons, tigre blanc et aquarium géant… cet hôtel est trop 🐅✨ Tu y vas ce soir ? 👇  #gta6 #gtavi #vicecity #gta6gameplay #gamingfr
