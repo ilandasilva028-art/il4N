@@ -3,7 +3,7 @@
 
 Usage:
   python3 make_clip.py <video> <transcript.json> <start> <end> <out.mp4> [--hook "TEXTE"]
-             [--cam x:y:w:h] [--game-x X]
+             [--layout cam|blur] [--cam x:y:w:h] [--game-x X]
 
 transcript.json: list of {"start","end","text","words":[{"w","s","e"}]} (faster-whisper output).
 """
@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--hook", default="")
     ap.add_argument("--cam", default="1000:84:280:200", help="webcam crop x:y:w:h in source pixels (1280x720)")
     ap.add_argument("--game-x", type=int, default=300, help="left edge of the gameplay crop")
+    ap.add_argument("--layout", choices=["cam", "blur"], default="cam",
+                    help="cam: webcam band on top + gameplay; blur: full 16:9 frame centered on a blurred background")
     a = ap.parse_args()
 
     words = [w for seg in json.load(open(a.transcript)) for w in seg["words"]]
@@ -63,13 +65,23 @@ def main():
     game_h = H - cam_h                           # gameplay band height
     game_w = round(720 * W / game_h / 2) * 2     # source width to keep aspect
 
+    if a.layout == "blur":
+        vid_h = W * 9 // 16                       # 1080x608 sharp video in the middle
+        top = (H - vid_h) // 2
+        sub_y = top + vid_h + 150
+        fc_base = (f"[0:v]split[a][b];[a]scale=-2:{H},crop={W}:{H},boxblur=25:2,eq=brightness=-0.15[bg];"
+                   f"[b]scale={W}:{vid_h}[fg];[bg][fg]overlay=0:{top}")
+    else:
+        sub_y = cam_h + 40
+        fc_base = (f"[0:v]crop={cw}:{ch}:{cx}:{cy},scale={W}:{cam_h}[cam];"
+                   f"[0:v]crop={game_w}:720:{a.game_x}:0,scale={W}:{game_h}[game];"
+                   f"[cam][game]vstack")
+
     with tempfile.NamedTemporaryFile("w", suffix=".ass", delete=False) as f:
-        f.write(build_ass(words, a.start, a.end, a.hook, cam_h + 40))
+        f.write(build_ass(words, a.start, a.end, a.hook, sub_y))
         ass = f.name
 
-    fc = (f"[0:v]crop={cw}:{ch}:{cx}:{cy},scale={W}:{cam_h}[cam];"
-          f"[0:v]crop={game_w}:720:{a.game_x}:0,scale={W}:{game_h}[game];"
-          f"[cam][game]vstack,ass={ass}[v]")
+    fc = f"{fc_base},ass={ass}[v]"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(a.start), "-to", str(a.end), "-i", a.video,
                     "-filter_complex", fc, "-map", "[v]", "-map", "0:a",
                     "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-r", "30",
