@@ -1,0 +1,8 @@
+Capture 56 s, 720p30 : Jason & Lucia montent un berceau avec un nounours (16-37 s). EXCLU : scène intime 0-12 s.
+Format « peu monté » : un seul passage, sans zoom (--punch 0), sans sons ajoutés (--no-sfx), sans relance.
+python make_tiktok.py capture.mp4 --subs st_berceau.srt --subs-mode classic --crop-bottom 110 \
+ --segments "16.0-37.6" --punch 0 --no-sfx --hook-dur 3.0 \
+ --hook "UN BERCEAU CHEZ|JASON ET LUCIA ?" --title "GTA 6|JASON & LUCIA" \
+ --cta "ILS ATTENDENT UN BÉBÉ ?|TON AVIS EN COMMENTAIRE" --cta-dur 4.5
+Légende : Un berceau, un nounours… Jason et Lucia nous cachent quelque chose 🧸 Ils attendent un bébé ou pas ? 👇
+#gta6 #gtavi #jasonetlucia #gta6theorie #gamingfr

@@ -41,6 +41,7 @@
 | L'évasion de l'aquarium (action) | ILS SE SONT ÉCHAPPÉS / PAR L'AQUARIUM + relance LA SÉCURITÉ DÉBARQUE… | TU SAUTES OU PAS ? | à recevoir |
 | Trop de portes (mème) | bandeau MOI QUI CHERCHE MON POTE / EN SOIRÉE / À 3H DU MAT | légende : identifie le pote | à recevoir |
 | L'hôtel le plus fou (muet) | L'HÔTEL LE PLUS FOU / DE GTA 6 + relance Y'A UN TIGRE… | TU Y VAS CE SOIR ? | à recevoir |
+| Berceau (peu monté, théorie) | UN BERCEAU CHEZ / JASON ET LUCIA ? | ILS ATTENDENT UN BÉBÉ ? | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags
@@ -100,6 +101,7 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - **Comédie** : karaoké, ralenti sur le geste, gros plan plein écran sur la réaction, sons de transition.
 - **Romance / cinéma** : plein écran, sous-titres classiques, sans zoom ni sons ajoutés (`--punch 0 --no-sfx`), fondu final (`--ending fade`).
 - **Mème** : `--meme "L1|L2|L3"` (bandeau blanc, texte noir, 3 lignes max), pas de titre, question seulement dans la légende (`--cta ""`).
+- **Peu monté** (moment émotion / théorie) : un seul passage, `--punch 0 --no-sfx`, sous-titres classiques, question qui lance le débat.
 - **Satisfaisant** : accéléré, sans dialogue, son du jeu ou son TikTok.
 - **Beaux plans** : `--mode plans`, musique continue.
 - **Compilations** (plusieurs captures, `assemble.py`) : liste numérotée (top 5, « 5 trucs »), beaux plans en musique, histoire qui relie deux captures.
