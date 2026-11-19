@@ -21,14 +21,14 @@ Préparés le 16/11/2026. **Aucun mail envoyé.** Tu relis, tu valides, puis tu 
 |---|---|---|---|---|
 | 1 | Domaine Dames de Lune | Sarrians | domainedamesdelune@orange.fr ✅ | **Envoyé 16/11 (Gmail) — relance 23/11** |
 | 2 | La Petite Fontaine | Carpentras | lapetitefontaine84@gmail.com ✅ | **Envoyé 16/11 (Gmail) — relance 23/11** |
-| 3 | La Perle d'Asie | Carpentras | Formulaire sur laperledasie-carpentras-56.webself.net | À valider |
-| 4 | Restaurant Le 1700 | Carpentras | Formulaire sur restaurantle1700.eatbu.com | À valider |
-| 5 | Petit Japon | Carpentras | Formulaire sur petit-japon.eatbu.com | À valider |
-| 6 | AGORA Artisans Brasseurs | Carpentras | Formulaire sur agora-biere.com | À valider |
-| 7 | Bistrot La Place | Carpentras | Formulaire sur bistrotlaplace.fr | À valider |
-| 8 | Le Livre Gourmand | Carpentras | Page contact lelivregourmand.com | À valider |
-| 9 | Restaurant Terres Gourmandes | La Bresse (88) | Formulaire du site, sinon tél. 03 29 28 68 68 | À valider |
-| 10 | Fromagerie Origine | Montpellier (34) | Site en construction, demander l'email au 04 67 66 17 32 | À valider |
+| 3 | La Perle d'Asie | Carpentras | laperledasiecarpentras@gmail.com ✅ (site + office de tourisme) | À valider |
+| 4 | Restaurant Le 1700 | Carpentras | Pas d'email public fiable : formulaire eatbu ou Facebook, tél. 04 90 41 93 07 | À valider |
+| 5 | Petit Japon | Carpentras | petitjaponcp@gmail.com ✅ (site + Facebook) | À valider |
+| 6 | AGORA Artisans Brasseurs | Carpentras | theo@agora-biere.com ✅ (site + office de tourisme) | À valider |
+| 7 | Bistrot La Place | Carpentras | contact@bistrotlaplace.com (guides ; non confirmé sur leur site) | À valider |
+| 8 | Le Livre Gourmand | Carpentras | contact@lelivregourmand.com ✅ (site + office de tourisme) | À valider |
+| 9 | Restaurant Terres Gourmandes | La Bresse (88) | **Écarté** : rattaché à l'hôtel Ibis (Accor), signalé peut-être fermé | À valider |
+| 10 | Fromagerie Origine | Montpellier (34) | contact@fromagerie-origine.fr ✅ (site). Leur site est en ligne avec click & collect : le mail a été réécrit sans parler de « site en construction » | À valider |
 
 ✅ = adresse publiée sur la fiche de l'office de tourisme (Provence Guide).
 
