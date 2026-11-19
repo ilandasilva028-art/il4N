@@ -1,6 +1,15 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+// Lien du QR code (/?token=…) : enregistré AVANT le premier rendu, puis retiré de l'adresse.
+if (typeof window !== "undefined") {
+  const t = new URLSearchParams(window.location.search).get("token");
+  if (t) {
+    try { localStorage.setItem("cf_token", t); } catch {}
+    window.history.replaceState(null, "", window.location.pathname);
+  }
+}
+
 /** Jeton du tableau de bord (accès distant). Stocké localement, envoyé à l'API uniquement. */
 export function getToken() {
   try { return localStorage.getItem("cf_token") || ""; } catch { return ""; }

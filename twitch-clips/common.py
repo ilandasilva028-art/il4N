@@ -7,7 +7,15 @@ import yaml
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.environ.get("CLIP_OUT", os.path.join(ROOT, "output"))   # tests use their own folder
 DB_PATH = os.path.join(OUT, "state.db")
-PY_HEAVY = os.environ.get("SUB_PYTHON", "/home/user/tts-env/bin/python")  # env with whisper/transformers
+def _heavy_python():
+    """Python that has faster-whisper: SUB_PYTHON, the cloud env, the local .venv, else this interpreter."""
+    for p in (os.environ.get("SUB_PYTHON"), "/home/user/tts-env/bin/python", os.path.join(ROOT, ".venv", "bin", "python")):
+        if p and os.path.exists(p):
+            return p
+    return sys.executable
+
+
+PY_HEAVY = _heavy_python()
 
 
 def load_config(path=None):

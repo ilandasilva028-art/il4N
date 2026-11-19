@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Start (or resume after a restart) the clip factory in the background. Safe to run twice.
+# Start (or resume after a restart) the clip engine in the background. Safe to run twice.
 D="$(cd "$(dirname "$0")" && pwd)"
-PY="${SUB_PYTHON:-/home/user/tts-env/bin/python}"
+source "$D/pyfind.sh"
 mkdir -p "$D/output/logs"
-setsid nohup "$PY" -u "$D/supervisor.py" >> "$D/output/logs/supervisor.log" 2>&1 < /dev/null &
+detach "$D/output/logs/supervisor.log" "$PY" -u "$D/supervisor.py"
 sleep 3
 "$PY" "$D/healthcheck.py" || true

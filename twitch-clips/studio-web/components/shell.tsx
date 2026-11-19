@@ -56,6 +56,10 @@ export function Shell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [needAuth, setNeedAuth] = useState(false);
   useEffect(() => setOpen(false), [path]);
+  useEffect(() => {                                    // lien du QR code : /?token=… → connexion automatique
+    const t = new URLSearchParams(location.search).get("token");
+    if (t) { setToken(t); history.replaceState(null, "", location.pathname); }
+  }, []);
   useEffect(() => {
     const h = () => setNeedAuth(true);
     window.addEventListener("cf-auth", h);

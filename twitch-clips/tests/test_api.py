@@ -15,10 +15,13 @@ def check(name, ok, info=""):
     R.append(ok); print(f"{'PASS' if ok else 'FAIL'}  {name}  {info}", flush=True)
 
 
+AUTH = {"Authorization": f"Bearer {os.environ['DASHBOARD_TOKEN']}"} if os.environ.get("DASHBOARD_TOKEN") else {}
+
+
 def call(method, path, body=None, raw=False):
-    data, headers = None, {}
+    data, headers = None, dict(AUTH)
     if body is not None:
-        data, headers = json.dumps(body).encode(), {"Content-Type": "application/json"}
+        data = json.dumps(body).encode(); headers["Content-Type"] = "application/json"
     req = urllib.request.Request(BASE + path, data=data, method=method, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
@@ -38,7 +41,7 @@ def upload(path, fields):
                  f"Content-Type: video/mp4\r\n\r\n".encode() + open(path, "rb").read() + b"\r\n")
     parts.append(f"--{bd}--\r\n".encode())
     req = urllib.request.Request(BASE + "/import", data=b"".join(parts), method="POST",
-                                 headers={"Content-Type": f"multipart/form-data; boundary={bd}"})
+                                 headers={**AUTH, "Content-Type": f"multipart/form-data; boundary={bd}"})
     with urllib.request.urlopen(req, timeout=120) as r:
         return r.status, json.loads(r.read())
 
