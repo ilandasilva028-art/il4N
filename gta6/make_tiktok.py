@@ -1190,6 +1190,8 @@ def main(argv=None):
     ap.add_argument("--crop-top", type=int, help="px retirés en haut de la source (boussole / HUD du jeu)")
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
     ap.add_argument("--labels", help="étiquette par plan « BADGE|TEXTE;BADGE|TEXTE;… » (liste numérotée, vide = rien)")
+    ap.add_argument("--voix", help="narration « temps | texte » par ligne : voix off française (Piper)")
+    ap.add_argument("--voix-db", type=float, help="volume de la voix off (dB, défaut 0)")
     ap.add_argument("--rehook", help="texte de relance au milieu (ex. « ATTENDS LA SUITE… »)")
     ap.add_argument("--rehook-at", type=float, help="position de la relance (0-1, défaut 0.45)")
     ap.add_argument("--meme", help="format mème : bandeau blanc en haut, texte noir « LIGNE 1|LIGNE 2 »")
@@ -1248,6 +1250,10 @@ def main(argv=None):
         cfg["meme"] = args.meme
     if args.rehook:
         cfg["rehook"] = args.rehook
+    if args.voix:
+        cfg["voix"] = args.voix
+    if args.voix_db is not None:
+        cfg["voix_db"] = args.voix_db
     if args.labels:
         cfg["labels"] = args.labels
     if args.rehook_at is not None:
@@ -1416,8 +1422,27 @@ def main(argv=None):
         ticks = [] if cfg.get("meme") else hook_word_times(cfg["hook"])
         if cfg.get("sfx", True) and not cfg.get("mute"):
             joined = add_sfx(joined, work, total, cut_times, ticks, rehook[1] if rehook else None)
+        voice_words, voice_win = [], []
+        if cfg.get("voix"):
+            import voix as vx
+            log("voix off (Piper, voix française) …")
+            vwav, voice_words, voice_win = vx.build_track(Path(cfg["voix"]).expanduser().resolve(), work, total,
+                                                          float(cfg.get("voix_db", 0)))
+            jv = work / "joined_voix.mp4"
+            # le son du jeu baisse automatiquement quand la voix parle (ducking)
+            run(["ffmpeg", "-v", "error", "-y", "-i", str(joined), "-i", str(vwav), "-filter_complex",
+                 "[1:a]asplit=2[sc][vo];[0:a][sc]sidechaincompress=threshold=0.015:ratio=12:attack=15:release=400[duck];"
+                 "[duck][vo]amix=inputs=2:normalize=0:duration=first:weights='0.75 1.0'[a]",
+                 "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", str(jv)])
+            joined = jv
+            log(f"voix : {len(voice_win)} répliques, {len(voice_words)} mots")
         cta_t = max(hook_t + 1.0, total - float(cfg["cta_dur"]))
         words_out = [] if cfg.get("no_subs") else map_words(words_src, seg_list, seg_fx)
+        if voice_words:
+            # sous-titres : la voix off prime ; les répliques du jeu restent hors de ses passages
+            keep = [w for w in words_out if not any(a - 0.2 < (w["s"] + w["e"]) / 2 < b + 0.2 for a, b in voice_win)]
+            vw = [dict(w, w=clean_word(w["w"])) for w in voice_words]
+            words_out = sorted(keep + [w for w in vw if w["w"]], key=lambda w: w["s"])
         ass = work / "overlay.ass"
         if not any(cfg["cta"]):
             cta_t = total  # pas de question finale : les sous-titres vont jusqu'au bout

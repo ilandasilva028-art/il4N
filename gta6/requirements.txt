@@ -3,3 +3,4 @@ numpy
 fonttools
 rapidocr-onnxruntime
 pillow
+piper-tts

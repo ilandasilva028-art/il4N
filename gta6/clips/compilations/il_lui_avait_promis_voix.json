@@ -1,0 +1,89 @@
+{
+ "nom": "il_lui_avait_promis_voix",
+ "plans": [
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 97.0,
+   "b": 100.5,
+   "srt": "../clip5/st_maison.srt",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip5/capture5.mp4",
+   "a": 140.6,
+   "b": 146.4,
+   "srt": "../clip5/st_maison.srt",
+   "crop_bottom": 110
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 18.0,
+   "b": 20.0
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 20.2,
+   "b": 22.0,
+   "fx": "full"
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 28.0,
+   "b": 30.5
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 36.0,
+   "b": 40.0,
+   "fx": "x2"
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 58.0,
+   "b": 60.0,
+   "fx": "full"
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 64.6,
+   "b": 66.6
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 70.0,
+   "b": 74.0,
+   "fx": "x2"
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 84.0,
+   "b": 92.0,
+   "fx": "x4"
+  },
+  {
+   "src": "../clip4/capture4.mp4",
+   "a": 96.2,
+   "b": 100.0
+  }
+ ],
+ "options": [
+  "--hook",
+  "IL LUI AVAIT PROMIS|UNE VRAIE MAISON",
+  "--hook-dur",
+  "2.8",
+  "--title",
+  "GTA 6|JASON",
+  "--rehook",
+  "QUELQUES JOURS PLUS TARD…",
+  "--rehook-at",
+  "0.32",
+  "--cta",
+  "IL A ASSURÉ ?|OUI OU NON EN COMMENTAIRE",
+  "--cta-dur",
+  "4",
+  "--caption",
+  "Il avait dit « juste un début » 🎨 Il a assuré ou pas ? 👇\n#gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr",
+  "--voix",
+  "narration_promis.txt"
+ ]
+}
