@@ -109,6 +109,18 @@ def main():
                 data = ws.recv()
             except websocket.WebSocketTimeoutException:
                 data = ""
+            except (websocket.WebSocketConnectionClosedException, OSError):
+                log("chat connection lost, reconnecting")
+                time.sleep(5)
+                try:
+                    ws.close()
+                except Exception:
+                    pass
+                ws = websocket.create_connection("wss://irc-ws.chat.twitch.tv:443", timeout=2)
+                ws.send("PASS SCHMOOPIIE")
+                ws.send("NICK justinfan%d" % (10000 + os.getpid() % 80000))
+                ws.send(f"JOIN #{a.channel.lower()}")
+                data = ""
             for line in data.split("\r\n"):
                 if line.startswith("PING"):
                     ws.send("PONG :tmi.twitch.tv")
