@@ -4,10 +4,39 @@
  "hook": "COMBIEN DE TEMPS POUR|TRAVERSER GTA 6 ?",
  "test": false,
  "trajets": [
-  {"mode": "À PIED",  "minutes": 0, "couleur": "FF4FA3", "clip": "pied.mp4",    "a": 0, "b": 30},
-  {"mode": "BATEAU",  "minutes": 0, "couleur": "4AC9FF", "clip": "bateau.mp4",  "a": 0, "b": 30},
-  {"mode": "VOITURE", "minutes": 0, "couleur": "FFC94A", "clip": "voiture.mp4", "a": 0, "b": 30},
-  {"mode": "AVION",   "minutes": 0, "couleur": "7CFFB2", "clip": "avion.mp4",   "a": 0, "b": 30}
+  {
+   "mode": "À PIED",
+   "minutes": 0,
+   "couleur": "FF4FA3",
+   "clip": "pied.mp4",
+   "a": 0,
+   "b": 30
+  },
+  {
+   "mode": "BATEAU",
+   "minutes": 0,
+   "couleur": "4AC9FF",
+   "clip": "bateau.mp4",
+   "a": 0,
+   "b": 30
+  },
+  {
+   "mode": "VOITURE",
+   "minutes": 0,
+   "couleur": "FFC94A",
+   "clip": "voiture.mp4",
+   "a": 0,
+   "b": 30
+  },
+  {
+   "mode": "AVION",
+   "minutes": 0,
+   "couleur": "7CFFB2",
+   "clip": "avion.mp4",
+   "a": 0,
+   "b": 30
+  }
  ],
- "cta": "T'AURAIS PARIÉ COMBIEN ?|DIS-LE EN COMMENTAIRE"
+ "cta": "T'AURAIS PARIÉ COMBIEN ?|DIS-LE EN COMMENTAIRE",
+ "points": []
 }

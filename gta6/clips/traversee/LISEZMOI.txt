@@ -2,6 +2,7 @@ Vidéo « Combien de temps pour traverser GTA 6 ? » avec les VRAIS temps d'Ilan
 1. Ilan : même départ / même arrivée pour chaque essai, chrono, capture du voyage, capture de la carte avec le trajet.
 2. Remplir plan_a_remplir.json : minutes réelles, fichiers, passages a-b ; retirer les moyens non testés.
    Du plus lent au plus rapide. crop_top / crop_bottom pour masquer l'interface (ex. 45 / 110 en 720p).
+« points » : le trajet sur carte.png en pixels (Claude les relève sur la capture de la carte) → le trajet se dessine à l'écran.
 3. python traversee.py clips/traversee/plan_a_remplir.json --out sorties
 Le script refuse un trajet sans temps (minutes = 0) : jamais de chiffre inventé.
 Son du jeu coupé (accéléré) : bruitages synthétisés ; ajouter un son TikTok à la publication.
