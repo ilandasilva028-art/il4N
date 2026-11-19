@@ -80,6 +80,25 @@ def cut_clip(seg_dir, spike_ts, out_dir, n):
                          stdout=open(out[:-4] + "_fr.log", "w"), stderr=subprocess.STDOUT)
 
 
+def reconnect(old, channel):
+    """Open a fresh anonymous chat connection, retrying until it works."""
+    try:
+        old.close()
+    except Exception:
+        pass
+    while True:
+        try:
+            ws = websocket.create_connection("wss://irc-ws.chat.twitch.tv:443", timeout=2)
+            ws.send("PASS SCHMOOPIIE")
+            ws.send("NICK justinfan%d" % (10000 + os.getpid() % 80000))
+            ws.send(f"JOIN #{channel.lower()}")
+            log("chat back")
+            return ws
+        except Exception as e:
+            log(f"chat reconnect failed ({type(e).__name__}), retry in 15 s")
+            time.sleep(15)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("channel"); ap.add_argument("out_dir")
@@ -99,6 +118,7 @@ def main():
     log(f"watching chat of #{a.channel}")
 
     history = collections.deque(maxlen=30)     # last 5 min of 10 s counts
+    pending = []                               # spikes waiting for their 20 s after
     count, bucket_end, last_clip, n = 0, time.time() + WINDOW, 0.0, 0
     stop = False
     signal.signal(signal.SIGINT, lambda *_: globals().__setitem__("stop", True))
@@ -111,15 +131,7 @@ def main():
                 data = ""
             except (websocket.WebSocketConnectionClosedException, OSError):
                 log("chat connection lost, reconnecting")
-                time.sleep(5)
-                try:
-                    ws.close()
-                except Exception:
-                    pass
-                ws = websocket.create_connection("wss://irc-ws.chat.twitch.tv:443", timeout=2)
-                ws.send("PASS SCHMOOPIIE")
-                ws.send("NICK justinfan%d" % (10000 + os.getpid() % 80000))
-                ws.send(f"JOIN #{a.channel.lower()}")
+                ws = reconnect(ws, a.channel)
                 data = ""
             for line in data.split("\r\n"):
                 if line.startswith("PING"):
@@ -135,12 +147,15 @@ def main():
                 threshold = max(a.min_msgs, a.ratio * max(baseline, 2))
                 if count >= threshold and now - last_clip > 120:
                     n += 1
-                    log(f"HYPE: {count} msgs / 10 s (normal ~{baseline:.0f}) -> cutting clip")
-                    cut_clip(seg_dir, now, a.out_dir, n)
+                    log(f"HYPE: {count} msgs / 10 s (normal ~{baseline:.0f}) -> clip in {POST + 10} s")
+                    pending.append((now + POST + 10, now, n))
                     last_clip = now
                 history.append(count)
                 count, bucket_end = 0, now + WINDOW
                 prune(seg_dir)
+            while pending and time.time() >= pending[0][0]:
+                _, spike, k = pending.pop(0)
+                cut_clip(seg_dir, spike, a.out_dir, k)
             if rec.poll() is not None:
                 log("recorder stopped, restarting")
                 rec = start_recorder(a.channel, seg_dir, a.quality)
