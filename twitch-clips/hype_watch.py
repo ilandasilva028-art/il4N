@@ -19,7 +19,8 @@ import websocket  # websocket-client
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAKE_CLIP = os.path.join(HERE, "make_clip.py")
-LAUGH_RE = re.compile(r"(mdr|ptdr|jpp|ahah|haha|hihi|\blol\b|\bxd\b|kekw|lul|icant|😂|🤣|💀)", re.I)
+LAUGH_RE = re.compile(r"(mdr|ptdr|jpp|ahah|haha|hihi|\blol\b|\bxd\b|kekw|lul|icant|😂|🤣|💀"
+                      r"|wtf|omg|chelou|bizarre|\?\?|😳|😱|🤨|💀|monkas|wait what)", re.I)  # funny or weird
 SEG_RE = re.compile(r"seg_(\d{8}_\d{6})\.ts$")
 WINDOW = 10          # seconds per chat-count bucket
 KEEP = 20 * 60       # seconds of video kept on disk
