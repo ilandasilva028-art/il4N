@@ -61,9 +61,14 @@ def cut_clip(seg_dir, spike_ts, out_dir, n):
         return
     first = seg_time(segs[0])
     joined = os.path.join(out_dir, f"_join_{n}.ts")
-    with open(joined, "wb") as f:              # MPEG-TS segments concatenate cleanly
-        for s in segs:
-            f.write(open(s, "rb").read())
+    # segments restart their timestamps, so join with ffmpeg's concat demuxer (re-stamps them)
+    lst = os.path.join(out_dir, f"_list_{n}.txt")
+    with open(lst, "w") as f:
+        for s_ in segs:
+            f.write("file '%s'\n" % s_.replace("'", "'\\''"))
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst,
+                    "-c", "copy", "-f", "mpegts", joined], check=False)
+    os.remove(lst)
     empty = os.path.join(out_dir, f"_empty_{n}.json")
     json.dump([], open(empty, "w"))
     out = os.path.join(out_dir, f"hype_{datetime.fromtimestamp(spike_ts):%Y%m%d_%H%M%S}.mp4")
