@@ -1,0 +1,71 @@
+# Clip factory configuration. Edit then restart: ./start.sh
+#
+# rights (per source):
+#   discovered  -> we only WATCH the chat and log interesting moments (link + time). No video download.
+#   authorized  -> you have permission from the creator to reuse: full pipeline (record, cut, render).
+#   owned       -> your own content: full pipeline.
+# A credit is NOT a permission. Switch a channel to "authorized" only if you really have it.
+
+channels:
+  - name: squeezie
+    platform: twitch
+    rights: discovered
+    layout: auto          # auto | blur | cam
+    cam_box: null         # [x, y, w, h] of the webcam on the 1280x720 stream, needed for layout cam
+  - name: anyme023
+    platform: twitch
+    rights: discovered
+    layout: auto
+    cam_box: null
+  - name: michou
+    platform: twitch
+    rights: discovered
+    layout: auto
+    cam_box: null
+
+twitch_api:               # official Helix API, needed only for twitch_clips.py
+  client_id_env: TWITCH_CLIENT_ID
+  client_secret_env: TWITCH_CLIENT_SECRET
+
+youtube:
+  api_key_env: YOUTUBE_API_KEY   # YouTube Data API v3, discovery only (no download)
+  channel_ids: []                # e.g. ["UCxxxxxxxx"]
+  max_results: 10
+
+recording:
+  quality: "720p60,720p,best"
+  segment_seconds: 30
+  buffer_minutes: 20
+
+detection:
+  bucket_seconds: 10
+  warmup_buckets: 6        # learn the channel's normal chat speed first (1 min)
+  history_buckets: 30      # baseline = median of the last 5 min
+  min_messages: 5          # minimum laugh/surprise/fail messages in a bucket
+  ratio: 3.0               # and at least ratio x the channel's usual level
+  hype_ratio: 3.0          # whole-chat spike
+  hype_min_messages: 25
+  cooldown_seconds: 90
+  chat_lag_seconds: 6      # viewers react a few seconds after the moment
+  window_before: 45        # seconds of video kept before the chat spike
+  window_after: 20
+  ast_on_candidates: true  # laughter model only on candidate windows (never on whole streams)
+
+scoring:
+  weights: {interest: 25, reaction: 20, chat: 15, surprise: 15, audio: 10, dialogue: 10, technical: 5}
+  priority: 80
+  review: 65               # below this: rejected (kept in the database, not rendered)
+
+cut:
+  min: 15
+  max: 35
+  target: 25
+
+render:
+  fps: 30
+  crf: 21
+  preset: medium
+  max_parallel: 1          # one heavy render at a time
+
+subtitles:
+  whisper_model: small
