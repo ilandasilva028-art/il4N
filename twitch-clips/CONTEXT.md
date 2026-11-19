@@ -1,3 +1,5 @@
+> **Mise à jour : le système actuel est décrit dans README.md (Clip Factory 2.0). Ce fichier décrit l’ancienne version.**
+
 # Twitch → TikTok auto-clipper: full context for the next AI
 
 ## Goal (what the user wants)

@@ -83,11 +83,11 @@ def build(transcript, start, end, hook=None, translate=None):
     segs = [s for s in transcript["segments"] if s["end"] > start and s["start"] < end]
     ev, uncertain = [], []
     if hook:
-        ev.append(f"Dialogue: 1,{ts(0)},{ts(min(3.0, end - start))},Hook,,0,0,0,,{esc(hook)}")
+        ev.append(f"Dialogue: 1,{ts(0)},{ts(min(3.0, end - start))},Hook,,0,0,0,,{wrap_hook(esc(hook))}")
     if lang == "fr" or not translate:
         mode = "word" if lang == "fr" else f"word-{lang}"
         words = _merge_tokens([w for s in segs for w in s["words"] if w["e"] > start and w["s"] < end])
-        uncertain = [w["w"].strip() for w in words if w.get("p", 1) < 0.45]
+        uncertain = [w["w"].strip() for w in words if w.get("p", 1) < 0.45 and any(c.isalpha() for c in w["w"])]
         for b in _blocks(words):
             for i, w in enumerate(b):
                 s0 = w["s"] - start
@@ -104,6 +104,18 @@ def build(transcript, start, end, hook=None, translate=None):
             ev.append(f"Dialogue: 0,{ts(max(s['start'], start) - start)},{ts(min(s['end'], end) - start)},Sub,,0,0,0,,"
                       f"{{\\pos({W // 2},{SUB_Y})}}{_wrap(toks)}")
     return HEADER + "\n".join(ev) + "\n", mode, uncertain
+
+
+def wrap_hook(text, width=24):
+    """Hook banner on 2-3 short lines (WrapStyle 2 disables automatic wrapping)."""
+    lines, line = [], ""
+    for w in text.split():
+        if line and len(line) + 1 + len(w) > width:
+            lines.append(line); line = w
+        else:
+            line = f"{line} {w}".strip()
+    lines.append(line)
+    return "\\N".join(lines[:3])
 
 
 def translate_en_fr(texts):

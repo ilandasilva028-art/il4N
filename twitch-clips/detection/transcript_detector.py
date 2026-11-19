@@ -45,7 +45,7 @@ def features(tr, t0=None, t1=None):
     rep = collections.Counter(x.lower().strip(" !?.,") for x in re.split(r"[.!?]", text) if len(x.strip()) > 3)
     repeated = max(rep.values(), default=0)
     words = [w for s in segs for w in s["words"]]
-    uncertain = [w["w"].strip() for w in words if w.get("p", 1) < 0.45]
+    uncertain = [w["w"].strip() for w in words if w.get("p", 1) < 0.45 and any(c.isalpha() for c in w["w"])]
     quote = best_quote(segs)
     return dict(text=text, n_words=len(words), markers=found, repeated=repeated,
                 exclaim=text.count("!"), questions=text.count("?"), quote=quote,
