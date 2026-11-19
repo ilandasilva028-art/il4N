@@ -11,7 +11,8 @@ Légende : Ils ont fini la soirée dans l'aquarium 🐅🌊 Toi, tu sautes ou pa
 
 2. Trop de portes (mème)
 python make_tiktok.py capture.mp4 --subs st_portes.srt --subs-mode classic --crop-bottom 110 --cta "" --cta-dur 0 \
- --segments "12.5-15.5:x1.5,63.0-66.0:x1.5,90.0-93.0:x1.5,109.6-113.0,126.0-129.0:x1.5,138.3-141.6,141.8-143.6:full" \
+ --segments "12.5-15.0:x1.5,15.0-17.0,24.3-27.9:censor,54.5-57.5,66.5-70.0:censor,109.6-113.0,138.3-141.6,141.8-143.6:full"
+ (v2 : on voit les chambres ; les chambres « chaudes » sont pixelisées avec le tampon CENSURÉ) \
  --meme "MOI QUI CHERCHE MON POTE|EN SOIRÉE|À 3H DU MAT"
 Légende : Il y a TOUJOURS trop de portes 😭 Identifie le pote que tu perds à chaque soirée 👇  #gta6 #gtavi #jasonetlucia #gta6gameplay #gamingfr
 

@@ -61,6 +61,7 @@ Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres
 ```
 - `full` : plein écran vertical, pour les gros plans (visage, objet, rouleau). Alterner avec la bande crée du rythme.
 - `x1.5`, `x2`, `x3`, `x4` : accéléré, pour les passages répétitifs (au lieu de couper).
+- `censor` : image pixelisée + tampon « CENSURÉ » (contenu qu'on ne peut pas montrer sur TikTok).
 - `slow` : ralenti ×0,5, pour le moment clé (souvent l'accroche).
 - `--rehook "ELLE VA APPUYER ?"` : texte choc au milieu (≈ 45 %, calé sur une coupe), avec souffle + impact. `--rehook-at 0.5` pour le déplacer.
 - Automatique : accroche **mot par mot** (un petit coup sonore par mot), **début sans image noire**, **boucle invisible** (la fin se fond dans la première image), section **Rétention** du rapport (✅/⚠️).

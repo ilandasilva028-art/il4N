@@ -380,10 +380,12 @@ def parse_segments(s):
             flag = flag.strip().lower()
             if flag == "full":
                 f["full"] = True
+            elif flag == "censor":
+                f["censor"] = True
             elif flag in SPEEDS:
                 f["speed"] = SPEEDS[flag]
             elif flag:
-                die(f"effet inconnu « {flag} » dans « {it} » (full, x1.5, x2, x3, x4, slow)")
+                die(f"effet inconnu « {flag} » dans « {it} » (full, censor, x1.5, x2, x3, x4, slow)")
         ranges.append((float(a), float(b)))
         fx.append(f)
     return ranges, fx
@@ -403,6 +405,16 @@ def skip_dark_start(src, a, b, max_skip=1.0, thr=28):
         if y >= thr:
             return round(a + i / 10, 3)
     return a
+
+
+def censor_times(segs, fx, total):
+    out, t = [], 0.0
+    for (a, b), f in zip(segs, fx):
+        d = seg_out_dur(a, b, f)
+        if f.get("censor"):
+            out.append((t, min(total, t + d), bool(f.get("full"))))
+        t += d
+    return out
 
 
 def label_times(segs, fx, total):
@@ -637,13 +649,16 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
         z0 = punch if p["hard"] else punch * 0.6  # coupe interne au plan : plus doux
         zexpr = f"(1+{z0}*max(0\\,1-t/0.22)+{drift}*t/{max(d, 0.1):.3f})"
         speed = "" if sp == 1.0 else f"setpts=(PTS-STARTPTS)/{sp},"
+        # censure : image pixelisée (on devine la pièce sans rien montrer)
+        pix = (lambda w_, h_: f",scale=trunc({w_}/40/2)*2:-2:flags=area,scale={w_}:{h_}:flags=neighbor,gblur=sigma=3") \
+            if f.get("censor") else (lambda w_, h_: "")
         rate = f"framerate=fps={fps_out}" if sp < 1.0 else f"fps={fps_out}"
         if f.get("full"):
             graph = (f"[0:v]{speed}{rate},crop={fw}:{ch}:{fxp}:{ct},scale={W}:{H},setsar=1,"
-                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{H}{g},format=yuv420p[v]")
+                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{H}{g}{pix(W, H)},format=yuv420p[v]")
         else:
             graph = (f"[0:v]{speed}{rate},crop={cw}:{ch}:{cx}:{ct},scale={W}:{ph},setsar=1,"
-                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{ph}{g},split[p1][p2];"
+                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{ph}{g}{pix(W, ph)},split[p1][p2];"
                      f"[p1]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,"
                      f"eq=brightness=-0.18:saturation=1.2[bg];[bg][p2]overlay=0:{py},format=yuv420p[v]")
         fo = max(0.0, d - 0.05)
@@ -931,7 +946,7 @@ def hook_events(hook, hook_t):
 
 
 def build_ass(path: Path, total, hook_t, hook, title, cta, cta_t, words, sub_mode, cta_top=False, meme=None,
-              rehook=None, labels=None):
+              rehook=None, labels=None, censors=None):
     head = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -966,6 +981,11 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         y = STYLE["panel_y"] + STYLE["panel_h"] // 2 - 55
         ev.append(ass_line(txt, ANTON, STYLE["yellow"], 112, y, t0, min(total, t0 + 1.7), 8, layer=4,
                            extra=r"\fscx150\fscy150\t(0,140,\fscx100\fscy100)\fad(0,180)"))
+    # Tampon « CENSURÉ » sur les plans pixelisés
+    for t0, t1, full in censors or []:
+        y = (H // 2 if full else STYLE["panel_y"] + STYLE["panel_h"] // 2) - 70
+        ev.append(ass_line("CENSURÉ", ANTON, "FF2D2D", 150, y, t0 + 0.05, t1, 10, layer=5,
+                           extra=r"\frz12\3c&HFFFFFF&\fscx210\fscy210\t(0,130,\fscx100\fscy100)"))
     # Étiquettes par plan (liste numérotée) : elles prennent la place du titre
     if labels:
         title = ["", ""]
@@ -1338,7 +1358,8 @@ def main(argv=None):
               f"{info['duration']:.1f} s)", "", "## Découpe (temps source)", ""]
     for i, (a, b) in enumerate(seg_list):
         txt = " ".join(w["w"] for w in words_src if a <= (w["s"] + w["e"]) / 2 <= b)
-        fxs = " ".join(k if k == "full" else f"x{v:g}" for k, v in seg_fx[i].items() if k in ("full", "speed"))
+        fxs = " ".join(k if k in ("full", "censor") else f"x{v:g}" for k, v in seg_fx[i].items()
+                       if k in ("full", "speed", "censor"))
         report.append(f"{i + 1}. `{a:.2f}-{b:.2f}` ({b - a:.1f} s){' [' + fxs + ']' if fxs else ''}"
                       f"{' **ACCROCHE**' if i == 0 else ''}"
                       f"{' — « ' + txt[:120] + ' »' if txt else ''}")
@@ -1401,7 +1422,7 @@ def main(argv=None):
             cta_t = total  # pas de question finale : les sous-titres vont jusqu'au bout
         build_ass(ass, total, hook_t, cfg["hook"], cfg["title"], cfg["cta"], cta_t, words_out, cfg["subs_mode"],
                   bool(cfg.get("cta_top")), cfg["meme"].split("|") if cfg.get("meme") else None, rehook,
-                  label_times(seg_list, seg_fx, total))
+                  label_times(seg_list, seg_fx, total), censor_times(seg_list, seg_fx, total))
         shutil.copy(ass, out_dir / f"{name}_textes.ass")
         out_mp4 = out_dir / f"{name}_TikTok.mp4"
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")
