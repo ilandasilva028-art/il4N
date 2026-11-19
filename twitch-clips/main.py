@@ -36,9 +36,15 @@ def watch(name):
     while True:
         now = time.time()
         if now - last_check > 60:
+            try:                                  # sensitivity edited in the dashboard applies live
+                ch = chan_cfg(load_config(), name)
+                det.min_messages, det.ratio = {"basse": (8, 4.0), "haute": (3, 2.0)}.get(
+                    ch.get("sensitivity"), (d["min_messages"], d["ratio"]))
+            except Exception as e:
+                db.error(f"watch:{name}", f"config: {e}")
             live, category, title = tl.live_status(name)
             last_check = now
-            db.beat(f"watch:{name}", json.dumps({"live": live, "category": category, "rights": ch["rights"],
+            db.beat(f"watch:{name}", json.dumps({"live": live, "category": category, "title": title, "rights": ch["rights"],
                                                  "recording": bool(rec and rec.poll() is None)}))
             if live and download and (rec is None or rec.poll() is not None):
                 rec = tl.start_recorder(name, seg_dir, r["quality"], r["segment_seconds"])
@@ -127,17 +133,34 @@ def render_clip(db, cfg, row):
     tr, tf, cut, chat, s = a["transcript"], a["features"], a["cut"], a["chat"], a["score"]
     ch = chan_cfg(cfg, row["creator"])
     display = row["creator"].replace("023", "").capitalize()
-    db.set(row["id"], "RENDERING", attempts=(row["attempts"] or 0) + 1)
-    hook, kind = hook_generator.make(display, chat, tf, a["audio"], db.recent_hooks(row["creator"]), seed=str(row["id"]))
+    db.set(row["id"], "RENDERING", attempts=(row["attempts"] or 0) + 1, phase="render", progress=0,
+           started=time.time(), finished=None, cancel_requested=0)
+    ov = json.loads(row["render_params"] or "{}")          # studio overrides (dashboard)
+    st = (cfg.get("subtitles") or {})
+    if ov.get("start") is not None and ov.get("end") is not None:
+        cut = dict(cut, start=float(ov["start"]), end=float(ov["end"]))
+    hook = ov.get("hook") or hook_generator.make(display, chat, tf, a["audio"], db.recent_hooks(row["creator"]),
+                                                 seed=str(row["id"]))[0]
     translate = subtitles.translate_en_fr if tr["language"] != "fr" else None
-    ass, mode, uncertain = subtitles.build(tr, cut["start"], cut["end"], hook=hook, translate=translate)
+    ass, mode, uncertain = subtitles.build(tr, cut["start"], cut["end"], hook=hook, translate=translate,
+                                           sub_y=ov.get("sub_y") or st.get("position_y"),
+                                           font_size=ov.get("font_size") or st.get("font_size", 72),
+                                           color=ov.get("color") or st.get("color", "#FFFFFF"),
+                                           highlight=ov.get("highlight") or st.get("highlight", "#FFE500"))
     lay = layout_detector.choose(ch, (a.get("visual") or {}).get("cam_box"))
+    if ov.get("layout") == "blur":
+        lay = {"mode": "blur", "reason": "studio"}
+    elif ov.get("layout") == "cam" and ov.get("cam_box"):
+        lay = {"mode": "cam", "cam_box": [int(v) for v in ov["cam_box"]], "reason": "studio"}
     stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime(row["trigger_ts"] if row["platform"] == "twitch" else time.time()))
     out_dir = os.path.join(OUT, "ready", f"{row['id']}_{row['creator']}_{stamp}")
     os.makedirs(out_dir, exist_ok=True)
     final = os.path.join(out_dir, "clip_final.mp4")
     rc = cfg["render"]
-    tmp = render(row["src_path"], cut["start"], cut["end"], final, lay, ass, rc["fps"], rc["crf"], rc["preset"])
+    tmp = render(row["src_path"], cut["start"], cut["end"], final, lay, ass, rc["fps"], rc["crf"], rc["preset"],
+                 on_progress=lambda f: db.set(row["id"], progress=round(f, 3)),
+                 should_cancel=lambda: bool((db.get(row["id"]) or {})["cancel_requested"]))
+    db.set(row["id"], phase="validate")
     ok, info = validate(tmp, min_dur=cfg["cut"]["min"] - 3, max_dur=cfg["cut"]["max"] + 15)
     if not ok:
         os.remove(tmp)
@@ -157,7 +180,8 @@ def render_clip(db, cfg, row):
         "score": s["total"], "score_detail": s["sub"], "decision": s["decision"], "evidence": ev_kind,
         "hook": hook, "subtitles": mode, "uncertain_words": uncertain[:10], "layout": lay,
         "validation": info, "delivery": {"state": "READY"}, "published": False})
-    db.set(row["id"], "READY", out_dir=out_dir)
+    db.set(row["id"], "READY", out_dir=out_dir, phase=None, progress=1, finished=time.time())
+    db.event("process", f"clip #{row['id']} ({row['creator']}) prêt")
     log("process", f"#{row['id']} READY -> {out_dir}")
 
 
@@ -169,11 +193,19 @@ def process_forever():
             next((r for r in db.by_state("CANDIDATE") if r["src_path"]), None)
         if not row:
             time.sleep(5); continue
+        cfg = load_config()                       # settings edited in the dashboard apply to the next job
         try:
+            if row["state"] == "CANDIDATE":
+                db.set(row["id"], phase="analyze", started=time.time())
             (render_clip if row["state"] == "ANALYZED" else analyze)(db, cfg, row)
+            if row["state"] == "CANDIDATE":
+                db.set(row["id"], phase=None)
         except Exception as e:
+            if str(e) == "cancelled":
+                db.set(row["id"], "REJECTED", error="annulé depuis le tableau de bord", phase=None, cancel_requested=0)
+                continue
             n = (row["attempts"] or 0) + 1
-            db.set(row["id"], "FAILED" if n >= 3 else row["state"], attempts=n, error=str(e)[:500])
+            db.set(row["id"], "FAILED" if n >= 3 else row["state"], attempts=n, error=str(e)[:500], phase=None)
             db.error("process", f"#{row['id']}: {traceback.format_exc()[-800:]}")
             log("process", f"#{row['id']} error ({n}/3): {e}")
 

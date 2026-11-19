@@ -17,6 +17,17 @@ def esc(s):
     return s.replace("{", "(").replace("}", ")").replace("\n", " ")
 
 
+def ass_color(hex_color, default="&H00FFFFFF"):
+    h = (hex_color or "").lstrip("#")
+    if len(h) != 6:
+        return default
+    return f"&H00{h[4:6]}{h[2:4]}{h[0:2]}".upper()
+
+
+def header(font_size=72, color="#FFFFFF", font="DejaVu Sans"):
+    return HEADER.replace("Style: Sub,DejaVu Sans,72,&H00FFFFFF", f"Style: Sub,{font},{int(font_size)},{ass_color(color)}")
+
+
 HEADER = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {W}
@@ -77,8 +88,11 @@ def _plain(s):
     return re.sub(r"\{[^}]*\}", "", s)
 
 
-def build(transcript, start, end, hook=None, translate=None):
+def build(transcript, start, end, hook=None, translate=None, sub_y=None, font_size=72, color="#FFFFFF",
+          highlight="#FFE500"):
     """transcript: transcript_detector.transcribe() result. Returns (ass_text, mode, uncertain)."""
+    y = int(sub_y or SUB_Y)
+    hl = ass_color(highlight, "&H0000E5FF").replace("&H00", "&H")
     lang = transcript.get("language")
     segs = [s for s in transcript["segments"] if s["end"] > start and s["start"] < end]
     ev, uncertain = [], []
@@ -92,18 +106,18 @@ def build(transcript, start, end, hook=None, translate=None):
             for i, w in enumerate(b):
                 s0 = w["s"] - start
                 s1 = (b[i + 1]["s"] if i + 1 < len(b) else w["e"]) - start
-                toks = [("{\\c&H00E5FF&}" + esc(x["w"].strip().upper()) + "{\\c&HFFFFFF&}") if x is w
+                toks = [("{\\c" + hl + "&}" + esc(x["w"].strip().upper()) + "{\\r}") if x is w
                         else esc(x["w"].strip().upper()) for x in b]
                 ev.append(f"Dialogue: 0,{ts(s0)},{ts(max(s1, s0 + 0.05))},Sub,,0,0,0,,"
-                          f"{{\\pos({W // 2},{SUB_Y})}}{_wrap(toks)}")
+                          f"{{\\pos({W // 2},{y})}}{_wrap(toks)}")
     else:
         mode = f"translated-{lang}-fr"
         fr = translate([s["text"] for s in segs]) if segs else []
         for s, t in zip(segs, fr):
             toks = esc(t.upper()).split()
             ev.append(f"Dialogue: 0,{ts(max(s['start'], start) - start)},{ts(min(s['end'], end) - start)},Sub,,0,0,0,,"
-                      f"{{\\pos({W // 2},{SUB_Y})}}{_wrap(toks)}")
-    return HEADER + "\n".join(ev) + "\n", mode, uncertain
+                      f"{{\\pos({W // 2},{y})}}{_wrap(toks)}")
+    return header(font_size, color) + "\n".join(ev) + "\n", mode, uncertain
 
 
 def wrap_hook(text, width=24):

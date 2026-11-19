@@ -3,3 +3,6 @@ scenedetect
 websocket-client
 pyyaml
 requests
+fastapi
+uvicorn
+python-multipart

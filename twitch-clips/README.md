@@ -17,6 +17,29 @@ Vidéo à toi ou autorisée (ex. YouTube que tu possèdes) :
 ```
 Tests (sans live) : `CLIP_OUT=/tmp/cliptest /home/user/tts-env/bin/python tests/run_tests.py`
 
+## Clip Factory Studio (tableau de bord web)
+Next.js + TypeScript + Tailwind (composants maison au style shadcn/ui, icônes Lucide) → API FastAPI (`api/server.py`,
+docs : http://127.0.0.1:8000/api/docs) → SQLite (`output/state.db`) + moteur Python + FFmpeg.
+
+```bash
+./install.sh          # dépendances Python + npm + build du tableau de bord
+./start_all.sh        # moteur + API (8000) + tableau de bord (3000)
+./stop_all.sh         # tout arrêter (les tâches reprennent au redémarrage)
+```
+- **Local** : http://127.0.0.1:3000 (API et tableau de bord écoutent seulement en local).
+- **iPhone / réseau** : `DASHBOARD_TOKEN=un-long-secret ./start_all.sh` → http://<ip-de-la-machine>:3000, jeton demandé.
+- **Serveur** : moteur + API + tableau de bord sur une machine persistante (`@reboot … start_all.sh`).
+  Un hébergement statique (Netlify…) ne peut pas enregistrer des lives ni lancer FFmpeg : seul le front peut y être
+  hébergé, avec `API_URL` pointant vers un backend persistant protégé par jeton (HTTPS conseillé).
+- Variables : voir `studio-web/.env.example` (secrets uniquement côté serveur, jamais dans le navigateur).
+
+Pages : Vue d'ensemble, Surveillance Twitch, Recherche YouTube, Clips détectés (+ fiche), Studio de montage,
+Production, Vidéos prêtes, Statistiques, Paramètres. Temps réel : SSE `/api/stream` (repli /api/health).
+Règles : export MP4 seulement si droits `authorized`/`owned` **et** clip accepté ; aucune route de publication.
+
+Tests : `python3 tests/test_api.py` (stack démarrée, pilote le vrai moteur) et
+`CLIP_OUT=/tmp/cliptest /home/user/tts-env/bin/python tests/run_tests.py`.
+
 ## Droits (config.yaml)
 | rights | Ce que fait le système |
 |---|---|

@@ -23,11 +23,21 @@ def main():
         print("supervisor already running"); return
     db = DB(DB_PATH)
     recover(db)
-    cfg = load_config()
-    workers = {f"watch:{c['name']}": ["watch", c["name"]] for c in cfg["channels"]}
-    workers["process"] = ["process"]
-    procs, backoff = {}, {}
+    procs, backoff, last_cfg = {}, {}, 0
     while True:
+        if time.time() - last_cfg > 15:              # dashboard can add/enable/disable channels
+            try:
+                cfg = load_config()
+                workers = {f"watch:{c['name']}": ["watch", c["name"]] for c in cfg["channels"]
+                           if c.get("enabled", True)}
+                workers["process"] = ["process"]
+            except Exception as e:
+                db.error("supervisor", f"config: {e}")
+            last_cfg = time.time()
+            for name in [n for n in procs if n not in workers]:
+                p = procs.pop(name)
+                if p.poll() is None:
+                    p.terminate(); log("supervisor", f"{name} stopped (disabled)")
         for name, args in workers.items():
             p = procs.get(name)
             if p is None or p.poll() is not None:

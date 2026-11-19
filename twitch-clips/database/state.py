@@ -33,6 +33,49 @@ class DB:
         self.c.execute("PRAGMA journal_mode=WAL")
         self.c.execute("PRAGMA synchronous=NORMAL")
         self.c.executescript(SCHEMA)
+        self.migrate()
+
+    MIGRATIONS = [
+        # v1: studio / dashboard
+        """ALTER TABLE clips ADD COLUMN approved INTEGER;
+           ALTER TABLE clips ADD COLUMN review_note TEXT;
+           ALTER TABLE clips ADD COLUMN title TEXT;
+           ALTER TABLE clips ADD COLUMN render_params TEXT;
+           ALTER TABLE clips ADD COLUMN phase TEXT;
+           ALTER TABLE clips ADD COLUMN progress REAL;
+           ALTER TABLE clips ADD COLUMN started REAL;
+           ALTER TABLE clips ADD COLUMN finished REAL;
+           ALTER TABLE clips ADD COLUMN cancel_requested INTEGER DEFAULT 0;
+           CREATE TABLE IF NOT EXISTS delivery_history(id INTEGER PRIMARY KEY, clip_id INTEGER, ts REAL,
+             action TEXT, detail TEXT);
+           CREATE TABLE IF NOT EXISTS system_events(id INTEGER PRIMARY KEY, ts REAL, level TEXT,
+             component TEXT, message TEXT);""",
+    ]
+
+    def migrate(self):
+        v = self.c.execute("PRAGMA user_version").fetchone()[0]
+        for i, sql in enumerate(self.MIGRATIONS[v:], start=v + 1):
+            self.c.execute("BEGIN")
+            try:
+                for stmt in [x.strip() for x in sql.split(";") if x.strip()]:
+                    try:
+                        self.c.execute(stmt)
+                    except sqlite3.OperationalError as e:      # column already there (re-run)
+                        if "duplicate column" not in str(e):
+                            raise
+                self.c.execute(f"PRAGMA user_version={i}")
+                self.c.execute("COMMIT")
+            except Exception:
+                self.c.execute("ROLLBACK")
+                raise
+
+    def event(self, component, message, level="info"):
+        self.c.execute("INSERT INTO system_events(ts,level,component,message) VALUES(?,?,?,?)",
+                       (time.time(), level, component, str(message)[:1000]))
+
+    def delivery(self, clip_id, action, detail=""):
+        self.c.execute("INSERT INTO delivery_history(clip_id,ts,action,detail) VALUES(?,?,?,?)",
+                       (clip_id, time.time(), action, str(detail)[:1000]))
 
     # ---------- clips ----------
     def find_overlap(self, platform, creator, source_ref, ts, margin):
@@ -106,6 +149,10 @@ class DB:
     def error(self, component, message):
         self.c.execute("INSERT INTO errors(ts,component,message) VALUES(?,?,?)",
                        (time.time(), component, str(message)[:2000]))
+        try:
+            self.event(component, str(message)[:300], "error")
+        except sqlite3.OperationalError:
+            pass
 
     def last_errors(self, n=10):
         return self.c.execute("SELECT * FROM errors ORDER BY id DESC LIMIT ?", (n,)).fetchall()

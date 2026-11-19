@@ -2,7 +2,7 @@
 
 1080x1920, H.264 (CRF), AAC 160k, 30 fps, faststart. Writes <out>.part.mp4 then os.replace().
 """
-import os, subprocess, tempfile
+import os, subprocess, tempfile, time
 
 W, H = 1080, 1920
 
@@ -26,7 +26,8 @@ def filtergraph(layout, ass_path):
     return f"{g},setsar=1,ass='{esc}'[v]"
 
 
-def render(src, start, end, out, layout, ass_text, fps=30, crf=21, preset="medium", threads=3):
+def render(src, start, end, out, layout, ass_text, fps=30, crf=21, preset="medium", threads=3,
+           on_progress=None, should_cancel=None):
     with tempfile.NamedTemporaryFile("w", suffix=".ass", delete=False, encoding="utf-8") as f:
         f.write(ass_text)
         ass = f.name
@@ -35,11 +36,29 @@ def render(src, start, end, out, layout, ass_text, fps=30, crf=21, preset="mediu
            "-i", src, "-filter_complex", filtergraph(layout, ass), "-map", "[v]", "-map", "0:a:0?",
            "-r", str(fps), "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", "yuv420p",
            "-threads", str(threads), "-c:a", "aac", "-b:a", "160k", "-ar", "48000",
-           "-movflags", "+faststart", "-f", "mp4", tmp]
+           "-movflags", "+faststart", "-progress", "pipe:1", "-nostats", "-f", "mp4", tmp]
+    total = max(0.1, end - start)
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True)
-        if r.returncode != 0:
-            raise RuntimeError(f"ffmpeg failed: {r.stderr[-400:]}")
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        last = 0
+        for line in p.stdout:                       # real progress from ffmpeg (-progress)
+            if line.startswith("out_time_us="):
+                try:
+                    done = int(line.split("=")[1]) / 1e6
+                except ValueError:
+                    continue
+                if on_progress and time.time() - last > 1:
+                    on_progress(min(1.0, done / total)); last = time.time()
+                if should_cancel and should_cancel():
+                    p.kill(); p.wait()
+                    if os.path.exists(tmp):
+                        os.remove(tmp)
+                    raise RuntimeError("cancelled")
+        err = p.stderr.read()
+        if p.wait() != 0:
+            raise RuntimeError(f"ffmpeg failed: {err[-400:]}")
+        if on_progress:
+            on_progress(1.0)
         return tmp                      # caller validates, then os.replace(tmp, out)
     finally:
         os.unlink(ass)

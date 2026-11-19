@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0B0F19;
+  --color-card: #171E2C;
+  --color-card2: #1E2738;
+  --color-line: #263044;
+  --color-brand: #7548E8;
+  --color-brand2: #8E6BF0;
+  --color-ink: #F8FAFC;
+  --color-mute: #9CA3AF;
+  --color-ok: #22C55E;
+  --color-warn: #F59E0B;
+  --color-bad: #EF4444;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html, body { background: var(--color-bg); color: var(--color-ink); }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+::selection { background: color-mix(in oklab, var(--color-brand) 50%, transparent); }
+* { scrollbar-width: thin; scrollbar-color: #2b3550 transparent; }
+
+@keyframes shimmer { 0% { background-position: -400px 0 } 100% { background-position: 400px 0 } }
+.skeleton { background: linear-gradient(90deg, #1b2333 0, #243049 50%, #1b2333 100%); background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear; border-radius: 0.6rem; }
+@keyframes fadein { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+.fade-in { animation: fadein .25s ease-out both; }
+input[type=range] { accent-color: var(--color-brand); }
