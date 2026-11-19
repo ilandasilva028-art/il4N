@@ -1,8 +1,9 @@
 """voix.py : voix off française (femme) pour make_tiktok.py.
 
-Moteur : Piper (github.com/rhasspy/piper, MIT), voix « fr_FR-siwis-medium »
-(jeu de données SIWIS, licence CC-BY 4.0 : créditer « Voix : Piper siwis (CC-BY 4.0) »
-dans la description ou la bio). Gratuit, hors ligne, pas d'abonnement.
+Moteur par défaut : Kokoro (github.com/thewh1teagle/kokoro-onnx, MIT ; modèle Apache-2.0),
+voix « ff_siwis ». Secours : Piper (github.com/rhasspy/piper, MIT), voix « fr_FR-siwis-medium ».
+Les deux voix viennent du jeu de données SIWIS (licence CC-BY 4.0) : créditer
+« Voix : SIWIS (CC-BY 4.0) » dans la description ou la bio. Gratuit, hors ligne.
 
 Fichier de narration (--voix narration.txt), une réplique par ligne, temps de SORTIE :
     0.4 | Il lui avait promis une vraie maison.
@@ -22,6 +23,8 @@ from pathlib import Path
 
 import numpy as np
 
+KOKORO_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/"
+KOKORO_FILES = ("kokoro-v1.0.onnx", "voices-v1.0.bin")
 VOICE = "fr_FR-siwis-medium"
 URL = "https://huggingface.co/rhasspy/piper-voices/resolve/main/fr/fr_FR/siwis/medium/"
 SR = 48000
@@ -64,15 +67,50 @@ def a_afficher(text):
     return PRONONCE.sub(lambda m: m.group(1), text)
 
 
-def synth(text: str, out: Path, speed=1.08):
+_kokoro = None
+
+
+def kokoro():
+    """Kokoro (github.com/thewh1teagle/kokoro-onnx, MIT ; voix ff_siwis) : plus naturelle que Piper."""
+    global _kokoro
+    if _kokoro is None:
+        try:
+            from kokoro_onnx import Kokoro
+        except ImportError:
+            _kokoro = False
+            return _kokoro
+        d = Path.home() / ".cache" / "il4n-voix"
+        d.mkdir(parents=True, exist_ok=True)
+        for f in KOKORO_FILES:
+            if not (d / f).exists():
+                print(f"· téléchargement de la voix {f}…", flush=True)
+                urllib.request.urlretrieve(KOKORO_URL + f, d / f)
+        _kokoro = Kokoro(str(d / KOKORO_FILES[0]), str(d / KOKORO_FILES[1]))
+    return _kokoro
+
+
+MOTEUR = "kokoro"  # kokoro (défaut) ou piper
+
+
+def synth(text: str, out: Path, speed=1.06):
     """Une réplique -> wav 48 kHz stéréo, traitée (présence, compression)."""
     raw = out.with_suffix(".raw.wav")
-    r = subprocess.run([sys.executable, "-m", "piper", "-m", str(model_path()), "-f", str(raw),
-                        "--length-scale", f"{1 / speed:.3f}", "--sentence-silence", "0.15",
-                        "--noise-scale", "0.6", "--noise-w-scale", "0.7"],
-                       input=text, text=True, capture_output=True)
-    if r.returncode != 0:
-        raise SystemExit("voix : échec Piper\n" + r.stderr[-800:])
+    k = kokoro() if MOTEUR == "kokoro" else False
+    if k:
+        import wave
+        a, sr = k.create(text, voice="ff_siwis", speed=speed, lang="fr-fr")
+        with wave.open(str(raw), "wb") as fh:
+            fh.setnchannels(1)
+            fh.setsampwidth(2)
+            fh.setframerate(sr)
+            fh.writeframes((np.clip(a, -1, 1) * 32767).astype("<i2").tobytes())
+    else:
+        r = subprocess.run([sys.executable, "-m", "piper", "-m", str(model_path()), "-f", str(raw),
+                            "--length-scale", f"{1 / speed:.3f}", "--sentence-silence", "0.15",
+                            "--noise-scale", "0.6", "--noise-w-scale", "0.7"],
+                           input=text, text=True, capture_output=True)
+        if r.returncode != 0:
+            raise SystemExit("voix : échec Piper\n" + r.stderr[-800:])
     # voix plus « radio » : coupe le bas, présence à 3 kHz, compression, fin propre
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af",
                     "highpass=f=90,equalizer=f=3000:t=q:w=1.2:g=3,equalizer=f=220:t=q:w=1:g=-2,"

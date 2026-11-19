@@ -19,6 +19,7 @@ python3 -m venv .venv
 ./.venv/bin/pip install -q -r requirements.txt
 
 echo "Téléchargement du modèle Whisper (≈ 500 Mo, une seule fois)…"
+echo "(la voix off Kokoro, ≈ 350 Mo, se télécharge au premier --voix)"
 ./.venv/bin/python -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8')"
 
 mkdir -p ~/GTA6_TikTok/{a_traiter,a_valider,valide,sources,erreurs}

@@ -4,3 +4,7 @@ fonttools
 rapidocr-onnxruntime
 pillow
 piper-tts
+kokoro-onnx
+soundfile
+scenedetect[opencv-headless]
+auto-editor

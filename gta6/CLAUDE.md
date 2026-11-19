@@ -18,12 +18,15 @@ Lire `PREFERENCES.md` avant tout clip (règles, goûts d'Ilan, checklist, format
 6. Archiver commande + .srt dans `clips/<nom>/`, ajouter le clip au tableau de PREFERENCES, commit + push.
 7. Envoyer les MP4 à Ilan avec légendes et hashtags.
 
+## Skills utiles (déjà actifs)
+`social-media-skills:hook-writer`, `tiktok-growth`, `captions-and-clipping`, `short-form-video-script` : pour les accroches, légendes, scripts de voix off.
+
 ## Fichiers
 - `make_tiktok.py` : l'outil (découpe, effets, textes, sons, son -14 LUFS, rapport).
 - `plans.py` : mode `--mode plans` (beaux plans, génériques écartés par OCR).
 - `ab_hooks.py` : deux accroches pour un test A/B.
 - `traversee.py` : vidéo « combien de temps pour traverser la carte » avec les vrais temps d'Ilan (`clips/traversee/`).
-- `voix.py` : voix off française (Piper siwis, CC-BY 4.0 → créditer). Vérifier chaque narration en la relisant avec Whisper dans le mix final.
+- `voix.py` : voix off française (Kokoro ff_siwis par défaut, Piper en secours ; voix SIWIS CC-BY 4.0 → créditer). Vérifier chaque narration en la relisant avec Whisper dans le mix final.
 - `assemble.py` : un clip à partir de plusieurs captures (plan JSON, étiquettes numérotées, musique).
 - `watch.py` : dossier « à traiter » sur le Mac. `lien.sh` : lien de sa vidéo → clips (Mac).
 - `tests/test_rapide.sh` : **à lancer après toute modification du code**.

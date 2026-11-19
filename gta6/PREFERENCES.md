@@ -109,10 +109,10 @@ Mise à jour le 18/11/2026, à partir de la recherche sur la rétention TikTok e
 - **Compilations** (plusieurs captures, `assemble.py`) : liste numérotée (top 5, « 5 trucs »), beaux plans en musique, histoire qui relie deux captures.
 
 ### Voix off (testée le 19/11)
-- Voix de femme française de synthèse (Piper siwis), jamais la voix d'une vraie personne sans accord.
+- Voix de femme française de synthèse (Kokoro ff_siwis, Piper en secours), jamais la voix d'une vraie personne sans accord.
 - Phrases courtes (≤ 12 mots), placées sur les passages SANS dialogue du jeu.
 - Toujours relire le mix final avec Whisper : chaque mot doit être compris. Noms anglais en phonétique : Jason[Djéïssonne].
-- Créditer « Voix : Piper siwis (CC-BY 4.0) ».
+- Créditer « Voix : SIWIS (CC-BY 4.0) ».
 
 ### Fin et rétention
 - [ ] Durée 20 à 30 s pour du gameplay, 22 à 30 s pour les beaux plans.

@@ -1191,6 +1191,7 @@ def main(argv=None):
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
     ap.add_argument("--labels", help="étiquette par plan « BADGE|TEXTE;BADGE|TEXTE;… » (liste numérotée, vide = rien)")
     ap.add_argument("--voix", help="narration « temps | texte » par ligne : voix off française (Piper)")
+    ap.add_argument("--voix-moteur", choices=["kokoro", "piper"], help="moteur de voix (défaut kokoro)")
     ap.add_argument("--voix-db", type=float, help="volume de la voix off (dB, défaut 0)")
     ap.add_argument("--rehook", help="texte de relance au milieu (ex. « ATTENDS LA SUITE… »)")
     ap.add_argument("--rehook-at", type=float, help="position de la relance (0-1, défaut 0.45)")
@@ -1254,6 +1255,8 @@ def main(argv=None):
         cfg["voix"] = args.voix
     if args.voix_db is not None:
         cfg["voix_db"] = args.voix_db
+    if args.voix_moteur:
+        cfg["voix_moteur"] = args.voix_moteur
     if args.labels:
         cfg["labels"] = args.labels
     if args.rehook_at is not None:
@@ -1425,7 +1428,8 @@ def main(argv=None):
         voice_words, voice_win = [], []
         if cfg.get("voix"):
             import voix as vx
-            log("voix off (Piper, voix française) …")
+            vx.MOTEUR = cfg.get("voix_moteur", "kokoro")
+            log(f"voix off ({vx.MOTEUR}, voix française) …")
             vwav, voice_words, voice_win = vx.build_track(Path(cfg["voix"]).expanduser().resolve(), work, total,
                                                           float(cfg.get("voix_db", 0)))
             jv = work / "joined_voix.mp4"
