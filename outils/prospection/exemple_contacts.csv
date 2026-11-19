@@ -1,0 +1,4 @@
+nom;ville;telephone;site;note
+Salon Test A;Dakar;00 00 00 00 00;;Pas de site, fiche Google active
+Plombier Test B;Lyon;00 00 00 00 01;https://exemple.fr;Déjà un site
+Restaurant Test C;Lille;00 00 00 00 02;;Avis 4,6
