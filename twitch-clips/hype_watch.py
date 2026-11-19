@@ -19,6 +19,7 @@ import websocket  # websocket-client
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAKE_CLIP = os.path.join(HERE, "make_clip.py")
+LAUGH_RE = re.compile(r"(mdr|ptdr|jpp|ahah|haha|hihi|\blol\b|\bxd\b|kekw|lul|icant|😂|🤣|💀)", re.I)
 SEG_RE = re.compile(r"seg_(\d{8}_\d{6})\.ts$")
 WINDOW = 10          # seconds per chat-count bucket
 KEEP = 20 * 60       # seconds of video kept on disk
@@ -51,7 +52,7 @@ def prune(seg_dir):
             os.remove(p)
 
 
-def cut_clip(seg_dir, spike_ts, out_dir, n):
+def cut_clip(seg_dir, spike_ts, out_dir, n, channel="", laugh=False):
     start, end = spike_ts - PRE, spike_ts + POST
     segs = sorted((p for p in glob.glob(f"{seg_dir}/seg_*.ts")
                    if seg_time(p) and seg_time(p) <= end and seg_time(p) + 30 >= start),
@@ -71,10 +72,17 @@ def cut_clip(seg_dir, spike_ts, out_dir, n):
     os.remove(lst)
     empty = os.path.join(out_dir, f"_empty_{n}.json")
     json.dump([], open(empty, "w"))
-    out = os.path.join(out_dir, f"hype_{datetime.fromtimestamp(spike_ts):%Y%m%d_%H%M%S}.mp4")
+    name = channel.replace("023", "").capitalize()
+    prefix = "tiktok" if laugh else "hype"
+    out = os.path.join(out_dir, f"{prefix}_{datetime.fromtimestamp(spike_ts):%Y%m%d_%H%M%S}.mp4")
+    extra = ["--hook", f"{name.upper()} EXPLOSE DE RIRE 😂"] if laugh else []
     subprocess.run([sys.executable, "-I", MAKE_CLIP, joined, empty,
                     str(max(start - first, 0)), str(end - first), out,
-                    "--layout", "blur"], check=False)
+                    "--layout", "blur"] + extra, check=False)
+    if laugh:   # ready-to-paste TikTok caption next to the clip
+        open(out[:-4] + ".txt", "w").write(
+            f"{name} est mort de rire 😂 Le chat ne s'en remet pas !\nCrédit : @{channel}\n"
+            f"#{name} #Twitch #Clip #Mdr #Pourtoi\n")
     for p in (joined, empty):
         os.remove(p)
     log(f"CLIP -> {out}")
@@ -110,6 +118,8 @@ def main():
     ap.add_argument("--quality", default="720p60,720p,best")
     ap.add_argument("--min-msgs", type=int, default=15)
     ap.add_argument("--ratio", type=float, default=3.0)
+    ap.add_argument("--laugh", action="store_true",
+                    help="count only laughing chat messages (mdr, ptdr, 😂, KEKW...) and make TikToks")
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
     seg_dir = os.path.join(a.out_dir, "_buffer")
@@ -142,7 +152,9 @@ def main():
                 if line.startswith("PING"):
                     ws.send("PONG :tmi.twitch.tv")
                 elif " PRIVMSG #" in line:
-                    count += 1
+                    msg = line.split(" PRIVMSG #", 1)[1].split(" :", 1)[-1]
+                    if not a.laugh or LAUGH_RE.search(msg):
+                        count += 1
             now = time.time()
             if now >= bucket_end:
                 if len(history) < 6:  # 1 min warm-up to learn the normal chat speed
@@ -152,7 +164,7 @@ def main():
                 threshold = max(a.min_msgs, a.ratio * max(baseline, 2))
                 if count >= threshold and now - last_clip > 120:
                     n += 1
-                    log(f"HYPE: {count} msgs / 10 s (normal ~{baseline:.0f}) -> clip in {POST + 10} s")
+                    log(f"{'LAUGH' if a.laugh else 'HYPE'}: {count} msgs / 10 s (normal ~{baseline:.0f}) -> clip in {POST + 10} s")
                     pending.append((now + POST + 10, now, n))
                     last_clip = now
                 history.append(count)
@@ -160,7 +172,7 @@ def main():
                 prune(seg_dir)
             while pending and time.time() >= pending[0][0]:
                 _, spike, k = pending.pop(0)
-                cut_clip(seg_dir, spike, a.out_dir, k)
+                cut_clip(seg_dir, spike, a.out_dir, k, a.channel, a.laugh)
             if rec.poll() is not None:
                 log("recorder stopped, restarting")
                 rec = start_recorder(a.channel, seg_dir, a.quality)
