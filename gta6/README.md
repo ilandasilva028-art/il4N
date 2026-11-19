@@ -78,7 +78,7 @@ Le téléchargement passe par ta connexion (YouTube bloque les serveurs cloud). 
 **Plusieurs captures dans un même clip** : `assemble.py plan.json` (voir `clips/compilations/`). Chaque passage garde son propre recadrage d'interface et ses sous-titres. Avec `"musique"`, piste continue et coupes sur les temps forts. Avec `"label": "#3|TEXTE"`, liste numérotée (option `--labels` de make_tiktok).
 
 **Voix off française (femme)** : `--voix narration.txt`, une ligne par réplique « temps | texte » (temps dans la vidéo finale). Exemple : `clips/compilations/narration_promis.txt`.
-- Moteur Kokoro (github.com/thewh1teagle/kokoro-onnx, MIT), voix « ff_siwis » ; secours Piper (`--voix-moteur piper`). Gratuit, hors ligne. Voix issue du jeu SIWIS, licence CC-BY 4.0 : **mettre « Voix : SIWIS (CC-BY 4.0) » dans la description ou la bio**.
+- Moteur Kokoro (github.com/thewh1teagle/kokoro-onnx, MIT), voix « ff_siwis » ; **plus expressive** : Chatterbox (github.com/resemble-ai/chatterbox, MIT) avec `--voix-moteur chatterbox` (installer avec `./install.sh --chatterbox`, ≈ 3 Go, ~4× plus lent) ; secours Piper (`--voix-moteur piper`). Gratuit, hors ligne. Voix issue du jeu SIWIS, licence CC-BY 4.0 : **mettre « Voix : SIWIS (CC-BY 4.0) » dans la description ou la bio**.
 - Le son du jeu baisse tout seul quand elle parle. Les sous-titres suivent la voix au mot près.
 - Noms anglais : `Jason[Djéïssonne]` (le sous-titre affiche Jason, la voix dit Djéïssonne). `--voix-db 2` pour la monter.
 

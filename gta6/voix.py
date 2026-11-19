@@ -89,7 +89,83 @@ def kokoro():
     return _kokoro
 
 
-MOTEUR = "kokoro"  # kokoro (défaut) ou piper
+MOTEUR = "kokoro"  # kokoro (défaut), chatterbox (plus expressif, lent), piper (secours)
+HERE = Path(__file__).resolve().parent
+
+# Chatterbox (github.com/resemble-ai/chatterbox, MIT) tourne dans son propre environnement
+# (torch 2.6) : gta6/.venv-chatterbox, créé par install.sh --chatterbox. Le timbre vient d'une
+# référence de SYNTHÈSE (voix Kokoro ff_siwis) : on ne copie jamais la voix d'une vraie personne.
+CHATTERBOX_JOB = r"""
+import json, sys, torch, torchaudio
+from chatterbox.mtl_tts import ChatterboxMultilingualTTS
+job = json.load(open(sys.argv[1]))
+m = ChatterboxMultilingualTTS.from_pretrained(device="cuda" if torch.cuda.is_available() else "cpu")
+for it in job["items"]:
+    w = m.generate(it["text"], language_id="fr", audio_prompt_path=job["ref"],
+                   exaggeration=job["exaggeration"], cfg_weight=job["cfg"])
+    torchaudio.save(it["out"], w, m.sr)
+"""
+
+
+def chatterbox_python():
+    import os
+    p = os.environ.get("CHATTERBOX_PY") or str(HERE / ".venv-chatterbox" / "bin" / "python")
+    return p if Path(p).exists() else None
+
+
+def ref_voice() -> Path:
+    """Référence de timbre pour Chatterbox : 9 s de voix Kokoro (synthèse, pas une vraie personne)."""
+    d = Path.home() / ".cache" / "il4n-voix"
+    ref = d / "ref_siwis.wav"
+    if not ref.exists():
+        k = kokoro()
+        if not k:
+            raise SystemExit("voix : Kokoro nécessaire pour créer la référence de Chatterbox")
+        import wave
+        a, sr = k.create("Bonjour à tous ! Aujourd'hui, je vous emmène à Leonida. Le soleil se couche sur la "
+                         "plage, et la ville s'allume. Franchement, c'est magnifique, vous allez adorer.",
+                         voice="ff_siwis", speed=1.0, lang="fr-fr")
+        with wave.open(str(ref), "wb") as fh:
+            fh.setnchannels(1)
+            fh.setsampwidth(2)
+            fh.setframerate(sr)
+            fh.writeframes((np.clip(a, -1, 1) * 32767).astype("<i2").tobytes())
+    return ref
+
+
+def postprocess(raw: Path, out: Path):
+    # voix plus « radio » : coupe le bas, présence à 3 kHz, compression, fin propre
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af",
+                    "highpass=f=90,equalizer=f=3000:t=q:w=1.2:g=3,equalizer=f=220:t=q:w=1:g=-2,"
+                    "acompressor=threshold=-20dB:ratio=3.5:attack=5:release=80,"
+                    "areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,"  # silence final seulement
+                    f"aresample={SR},pan=stereo|c0=c0|c1=c0", str(out)], check=True)
+    raw.unlink(missing_ok=True)
+
+
+def synth_many(texts, outs, exaggeration=0.8, cfg=0.3):
+    """Toutes les répliques d'un coup (Chatterbox ne charge son modèle qu'une fois)."""
+    py = chatterbox_python() if MOTEUR == "chatterbox" else None
+    if MOTEUR == "chatterbox" and not py:
+        print("⚠️ Chatterbox non installé (install.sh --chatterbox) : voix Kokoro à la place", flush=True)
+    if not py:
+        for t, o in zip(texts, outs):
+            synth(t, o)
+        return
+    import json
+    import tempfile
+    raws = [o.with_suffix(".raw.wav") for o in outs]
+    with tempfile.TemporaryDirectory() as td:
+        job = Path(td) / "job.json"
+        job.write_text(json.dumps({"ref": str(ref_voice()), "exaggeration": exaggeration, "cfg": cfg,
+                                   "items": [{"text": t, "out": str(r)} for t, r in zip(texts, raws)]}))
+        script = Path(td) / "cbx.py"
+        script.write_text(CHATTERBOX_JOB)
+        r = subprocess.run([py, str(script), str(job)], capture_output=True, text=True)
+        if r.returncode != 0:
+            raise SystemExit("voix : échec Chatterbox\n" + r.stderr[-1500:])
+    for raw, o in zip(raws, outs):
+        postprocess(raw, o)
 
 
 def synth(text: str, out: Path, speed=1.06):
@@ -111,13 +187,7 @@ def synth(text: str, out: Path, speed=1.06):
                            input=text, text=True, capture_output=True)
         if r.returncode != 0:
             raise SystemExit("voix : échec Piper\n" + r.stderr[-800:])
-    # voix plus « radio » : coupe le bas, présence à 3 kHz, compression, fin propre
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af",
-                    "highpass=f=90,equalizer=f=3000:t=q:w=1.2:g=3,equalizer=f=220:t=q:w=1:g=-2,"
-                    "acompressor=threshold=-20dB:ratio=3.5:attack=5:release=80,"
-                    "areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,"  # silence final seulement
-                    f"aresample={SR},pan=stereo|c0=c0|c1=c0", str(out)], check=True)
-    raw.unlink(missing_ok=True)
+    postprocess(raw, out)
 
 
 def read_wav(p: Path):
@@ -154,9 +224,10 @@ def build_track(script: Path, work: Path, total: float, gain_db=0.0):
     n = int(SR * (total + 0.5))
     track = np.zeros((n, 2), np.float32)
     words, windows, t_free = [], [], 0.0
+    wavs = [work / f"voix_{i:02d}.wav" for i in range(len(lines))]
+    synth_many([a_dire(t) for _, t in lines], wavs)
     for i, (t, text) in enumerate(lines):
-        w = work / f"voix_{i:02d}.wav"
-        synth(a_dire(text), w)
+        w = wavs[i]
         a = read_wav(w)
         start = max(t, t_free)
         i0 = int(start * SR)

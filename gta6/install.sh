@@ -22,6 +22,13 @@ echo "Téléchargement du modèle Whisper (≈ 500 Mo, une seule fois)…"
 echo "(la voix off Kokoro, ≈ 350 Mo, se télécharge au premier --voix)"
 ./.venv/bin/python -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8')"
 
+if [[ "$1" == "--chatterbox" ]]; then
+  echo "Voix Chatterbox (plus expressive, ≈ 3 Go) dans .venv-chatterbox…"
+  python3 -m venv .venv-chatterbox
+  ./.venv-chatterbox/bin/pip install -q --upgrade pip
+  ./.venv-chatterbox/bin/pip install -q chatterbox-tts
+fi
+
 mkdir -p ~/GTA6_TikTok/{a_traiter,a_valider,valide,sources,erreurs}
 ./.venv/bin/python make_tiktok.py --doctor
 cat <<EOF

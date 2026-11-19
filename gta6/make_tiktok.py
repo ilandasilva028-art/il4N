@@ -1191,7 +1191,8 @@ def main(argv=None):
     ap.add_argument("--cta-top", action="store_true", help="question finale en haut : les sous-titres restent visibles")
     ap.add_argument("--labels", help="étiquette par plan « BADGE|TEXTE;BADGE|TEXTE;… » (liste numérotée, vide = rien)")
     ap.add_argument("--voix", help="narration « temps | texte » par ligne : voix off française (Piper)")
-    ap.add_argument("--voix-moteur", choices=["kokoro", "piper"], help="moteur de voix (défaut kokoro)")
+    ap.add_argument("--voix-moteur", choices=["kokoro", "chatterbox", "piper"],
+                    help="moteur de voix : kokoro (défaut, rapide), chatterbox (plus expressif, lent), piper (secours)")
     ap.add_argument("--voix-db", type=float, help="volume de la voix off (dB, défaut 0)")
     ap.add_argument("--rehook", help="texte de relance au milieu (ex. « ATTENDS LA SUITE… »)")
     ap.add_argument("--rehook-at", type=float, help="position de la relance (0-1, défaut 0.45)")
