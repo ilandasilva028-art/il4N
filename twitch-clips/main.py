@@ -95,6 +95,13 @@ def analyze(db, cfg, row):
     cut = smart_cut.choose(tr["segments"], peaks, trigger, lag, we, **{
         "cmin": cfg["cut"]["min"], "cmax": cfg["cut"]["max"], "target": cfg["cut"]["target"]})
     cut["start"] = max(cut["start"], ws)
+    from detection import visual_detector
+    cuts = visual_detector.scene_cuts(src, max(ws, cut["start"] - 0.5), cut["start"] + 2.5)
+    after = [c for c in cuts if cut["start"] < c <= cut["start"] + 2.5 and cut["end"] - c >= cfg["cut"]["min"]]
+    if after:                                   # don't open on the last second of the previous scene
+        cut["start"], cut["start_reason"] = after[0], "scene cut"
+        cut["duration"] = round(cut["end"] - cut["start"], 2)
+    visual = {"cam_box": visual_detector.cam_box(src, cut["start"], cut["end"]), "scene_cuts": cuts}
     tf = transcript_detector.features(tr, cut["start"], cut["end"])
     from delivery.validate import probe
     info = probe(src) or {}
@@ -104,7 +111,7 @@ def analyze(db, cfg, row):
     os.makedirs(cdir, exist_ok=True)
     atomic_write_json(os.path.join(cdir, "analysis.json"),
                       {"transcript": tr, "cut": cut, "features": tf, "audio": {k: v for k, v in audio.items() if k != "curve"},
-                       "chat": chat, "score": s})
+                       "chat": chat, "score": s, "visual": visual})
     if db.similar_transcript(row["creator"], tf["text"], exclude_id=row["id"]):
         db.set(row["id"], "REJECTED", error="duplicate transcript", score=s["total"], score_detail=json.dumps(s))
         return
@@ -124,7 +131,7 @@ def render_clip(db, cfg, row):
     hook, kind = hook_generator.make(display, chat, tf, a["audio"], db.recent_hooks(row["creator"]), seed=str(row["id"]))
     translate = subtitles.translate_en_fr if tr["language"] != "fr" else None
     ass, mode, uncertain = subtitles.build(tr, cut["start"], cut["end"], hook=hook, translate=translate)
-    lay = layout_detector.choose(ch)
+    lay = layout_detector.choose(ch, (a.get("visual") or {}).get("cam_box"))
     stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime(row["trigger_ts"] if row["platform"] == "twitch" else time.time()))
     out_dir = os.path.join(OUT, "ready", f"{row['id']}_{row['creator']}_{stamp}")
     os.makedirs(out_dir, exist_ok=True)
