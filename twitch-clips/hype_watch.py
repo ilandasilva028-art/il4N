@@ -73,6 +73,11 @@ def cut_clip(seg_dir, spike_ts, out_dir, n):
     for p in (joined, empty):
         os.remove(p)
     log(f"CLIP -> {out}")
+    # French subtitles in the background (python env that has faster-whisper + transformers)
+    py = os.environ.get("SUB_PYTHON", "/home/user/tts-env/bin/python")
+    if os.path.exists(py):
+        subprocess.Popen([py, "-I", os.path.join(HERE, "subtitle_fr.py"), out],
+                         stdout=open(out[:-4] + "_fr.log", "w"), stderr=subprocess.STDOUT)
 
 
 def main():
@@ -111,7 +116,10 @@ def main():
                     count += 1
             now = time.time()
             if now >= bucket_end:
-                baseline = statistics.median(history) if len(history) >= 3 else 2
+                if len(history) < 6:  # 1 min warm-up to learn the normal chat speed
+                    history.append(count); count, bucket_end = 0, now + WINDOW
+                    continue
+                baseline = statistics.median(history)
                 threshold = max(a.min_msgs, a.ratio * max(baseline, 2))
                 if count >= threshold and now - last_clip > 120:
                     n += 1
