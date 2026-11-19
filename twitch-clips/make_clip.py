@@ -34,16 +34,27 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     ev = []
     if hook:
         ev.append(f"Dialogue: 1,{ts(0)},{ts(min(3.5, end - start))},Hook,,0,0,0,,{hook}")
-    ws = [w for w in words if w["e"] > start and w["s"] < end]
+    ws = []
+    for w in words:
+        if w["e"] <= start or w["s"] >= end:
+            continue
+        if ws and not w["w"].startswith(" "):  # glue sub-word tokens ("'envoie") to the previous word
+            ws[-1] = {"w": ws[-1]["w"] + w["w"], "s": ws[-1]["s"], "e": w["e"]}
+        else:
+            ws.append(dict(w))
     # groups of max 3 words, current word highlighted in yellow
     groups = [ws[i:i + 3] for i in range(0, len(ws), 3)]
     for g in groups:
         for i, w in enumerate(g):
             s = w["s"] - start
             e = (g[i + 1]["s"] if i + 1 < len(g) else w["e"]) - start
-            txt = " ".join(
-                ("{\\c&H00E5FF&}" + x["w"].strip().upper() + "{\\c&HFFFFFF&}") if x is w else x["w"].strip().upper()
-                for x in g)
+            # whisper tokens carry their own leading space ("l" + "'envoie" must stay "l'envoie")
+            txt = ""
+            for x in g:
+                raw = x["w"].upper()
+                sp, core = raw[:len(raw) - len(raw.lstrip())], raw.strip()
+                txt += sp + (("{\\c&H00E5FF&}" + core + "{\\c&HFFFFFF&}") if x is w else core)
+            txt = txt.strip()
             ev.append(f"Dialogue: 0,{ts(s)},{ts(e)},Sub,,0,0,0,,{{\\pos({W // 2},{sub_y})}}{txt}")
     return head + "\n".join(ev) + "\n"
 
