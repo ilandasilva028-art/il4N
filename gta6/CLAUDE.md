@@ -21,6 +21,9 @@ Lire `PREFERENCES.md` avant tout clip (règles, goûts d'Ilan, checklist, format
 ## Skills utiles (déjà actifs)
 `social-media-skills:hook-writer`, `tiktok-growth`, `captions-and-clipping`, `short-form-video-script` : pour les accroches, légendes, scripts de voix off.
 
+## Qualité
+Plein écran net seulement avec une source ≥ 1080p. Sources 720p : `:full` = cadre 4:5. Toujours comparer avant/après sur une image zoomée avant de dire que la qualité est bonne.
+
 ## Fichiers
 - `make_tiktok.py` : l'outil (découpe, effets, textes, sons, son -14 LUFS, rapport).
 - `plans.py` : mode `--mode plans` (beaux plans, génériques écartés par OCR).

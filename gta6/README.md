@@ -59,7 +59,7 @@ Lis aussi `PREFERENCES.md` : tes goûts, les textes déjà testés, les chiffres
 ```
 --segments "62.0-63.4:full:slow,2.0-4.0,20.2-22.0:full,36.0-40.0:x2,84.0-92.0:x4"
 ```
-- `full` : plein écran vertical, pour les gros plans (visage, objet, rouleau). Alterner avec la bande crée du rythme.
+- `full` : plein écran vertical, pour les gros plans (visage, objet, rouleau). Alterner avec la bande crée du rythme. **Source < 1080p : cadre 4:5 à la place** (sinon l'image est trop étirée et floue).
 - `x1.5`, `x2`, `x3`, `x4` : accéléré, pour les passages répétitifs (au lieu de couper).
 - `censor` : image pixelisée + tampon « CENSURÉ » (contenu qu'on ne peut pas montrer sur TikTok).
 - `slow` : ralenti ×0,5, pour le moment clé (souvent l'accroche).

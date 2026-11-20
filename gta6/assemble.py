@@ -95,12 +95,12 @@ def main():
         d = p["b"] - p["a"]
         out = work / f"part{i:02d}.mp4"
         cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{p['a']:.3f}", "-i", str(src), "-t", f"{d:.3f}",
-               "-vf", f"crop={cw}:{ch}:{cx}:{ct},scale={W}:{H},setsar=1,fps={FPS},format=yuv420p"]
+               "-vf", f"crop={cw}:{ch}:{cx}:{ct},scale={W}:{H}:flags=lanczos,setsar=1,fps={FPS},format=yuv420p"]
         if info["audio"]:
             cmd += ["-af", "aresample=48000,afade=t=in:d=0.02", "-ac", "2"]
         else:
             cmd += ["-f", "lavfi", "-t", f"{d:.3f}", "-i", "anullsrc=r=48000:cl=stereo", "-map", "0:v", "-map", "1:a"]
-        cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-c:a", "aac", "-b:a", "256k", str(out)]
+        cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "10", "-c:a", "aac", "-b:a", "256k", str(out)]
         mt.run(cmd)
         dd = mt.probe(out)["duration"]
         parts.append(out)

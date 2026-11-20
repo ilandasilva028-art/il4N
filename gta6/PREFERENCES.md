@@ -3,6 +3,7 @@
 À lire au début de chaque session avant de toucher à un clip. À compléter après chaque retour d'Ilan ou chaque chiffre TikTok.
 
 ## Règles fixes
+- **Qualité d'image d'abord** (retour d'Ilan, 20/11 : « ça perd toute la qualité »). Cause : agrandir du 720p en plein écran 9:16 = ×2,7. Depuis : un seul redimensionnement lanczos + netteté + encodage CRF 11/14. `:full` n'est un vrai plein écran que si la source fait 1080p ou plus ; en 720p c'est un cadre 4:5 (×1,9). Le seul vrai remède reste d'enregistrer en 1080p/4K 60 i/s.
 - **Pas de voix off** (décision d'Ilan, 20/11). L'option `--voix` existe mais ne s'utilise pas.
 - **Contenu sexuel du jeu (scènes de groupe, nudité, répliques très crues) : jamais dans un clip** (règles TikTok, risque de blocage du compte).
 - **Vidéos d'autres créateurs (enregistrement d'écran TikTok, etc.) : jamais remontées ni copiées.** Reprendre l'idée avec les captures et les vrais chiffres d'Ilan, ou Stitch/Duo dans l'appli.

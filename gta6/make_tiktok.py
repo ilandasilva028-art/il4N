@@ -606,6 +606,13 @@ def split_on_cuts(segs, cuts, every=3.5, fx=None):
 # Rendu
 # --------------------------------------------------------------------------
 GRADE = "eq=contrast=1.06:saturation=1.16:gamma=0.98"
+SHARP = "unsharp=5:5:0.7:5:5:0.0"      # netteté douce (luminance seulement) après agrandissement
+WIDE_H, WIDE_Y = 1350, 300             # « full » sur source < 1080p : cadre 4:5 (agrandissement ×1,9 au lieu de ×2,7)
+
+
+def true_full(info):
+    """Plein écran 9:16 net seulement si la source est en 1080p ou plus."""
+    return info["h"] >= 1000
 
 
 def atempo_chain(sp):
@@ -634,6 +641,10 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
     cx = max(0, min(info["w"] - cw, int((info["w"] - cw) / 2 * (1 + shift))))
     fw = min(info["w"], int(round(ch * 9 / 16 / 2)) * 2)  # plein écran 9:16
     fxp = max(0, min(info["w"] - fw, int((info["w"] - fw) / 2 * (1 + shift))))
+    # source basse définition : « full » devient un cadre 4:5 plus large (moins d'agrandissement, plus net)
+    ww = min(info["w"], int(round(ch * W / WIDE_H / 2)) * 2)
+    wxp = max(0, min(info["w"] - ww, int((info["w"] - ww) / 2 * (1 + shift))))
+    hq = true_full(info)
     g = f",{GRADE}" if grade else ""
     lst = work / "list.txt"
     names, cut_times, bounds, t_out = [], [], [], 0.0
@@ -653,14 +664,20 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
         pix = (lambda w_, h_: f",scale=trunc({w_}/40/2)*2:-2:flags=area,scale={w_}:{h_}:flags=neighbor,gblur=sigma=3") \
             if f.get("censor") else (lambda w_, h_: "")
         rate = f"framerate=fps={fps_out}" if sp < 1.0 else f"fps={fps_out}"
-        if f.get("full"):
-            graph = (f"[0:v]{speed}{rate},crop={fw}:{ch}:{fxp}:{ct},scale={W}:{H},setsar=1,"
-                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{H}{g}{pix(W, H)},format=yuv420p[v]")
+        # un SEUL redimensionnement (lanczos) du recadrage vers la taille finale zoomée, puis netteté
+        sc = f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame:flags=lanczos"
+        if f.get("full") and hq:
+            graph = (f"[0:v]{speed}{rate},crop={fw}:{ch}:{fxp}:{ct},{sc},crop={W}:{H},setsar=1,{SHARP}{g}"
+                     f"{pix(W, H)},format=yuv420p[v]")
         else:
-            graph = (f"[0:v]{speed}{rate},crop={cw}:{ch}:{cx}:{ct},scale={W}:{ph},setsar=1,"
-                     f"scale=w='trunc({W}*{zexpr}/2)*2':h=-2:eval=frame,crop={W}:{ph}{g}{pix(W, ph)},split[p1][p2];"
+            if f.get("full"):   # 4:5 large sur source basse définition
+                pw_, ph_, py_, cw_, cx_ = W, WIDE_H, WIDE_Y, ww, wxp
+            else:
+                pw_, ph_, py_, cw_, cx_ = W, ph, py, cw, cx
+            graph = (f"[0:v]{speed}{rate},crop={cw_}:{ch}:{cx_}:{ct},{sc},crop={pw_}:{ph_},setsar=1,{SHARP}"
+                     f"{g}{pix(pw_, ph_)},split[p1][p2];"
                      f"[p1]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,"
-                     f"eq=brightness=-0.18:saturation=1.2[bg];[bg][p2]overlay=0:{py},format=yuv420p[v]")
+                     f"eq=brightness=-0.18:saturation=1.2[bg];[bg][p2]overlay=0:{py_},format=yuv420p[v]")
         fo = max(0.0, d - 0.05)
         af = ("" if sp == 1.0 else atempo_chain(sp) + ",") + \
             f"afade=t=in:d=0.03,afade=t=out:st={fo:.3f}:d=0.05,aresample=48000"
@@ -671,7 +688,7 @@ def render_pieces(src, info, pieces, work: Path, fps_out, punch, drift, crop_shi
         else:
             cmd += ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo", "-filter_complex", graph,
                     "-map", "[v]", "-map", "1:a"]
-        cmd += ["-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p",
+        cmd += ["-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "11", "-pix_fmt", "yuv420p",
                 "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2", str(out)]
         run(cmd)
         names.append(out)
@@ -1051,7 +1068,7 @@ def compose(joined, ass: Path, out: Path, total, ending, progress, work: Path, b
              f"[0:a]{ln},aresample=48000,alimiter=limit=0.80:level=false,{a_end}[au]")
     (work / "compose.txt").write_text(graph)
     run(["ffmpeg", "-v", "error", "-y", "-i", joined.name, "-filter_complex_script", "compose.txt",
-         "-map", "[v]", "-map", "[au]", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
+         "-map", "[v]", "-map", "[au]", "-c:v", "libx264", "-preset", "slow", "-crf", "14", "-tune", "film",
          "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
          "-movflags", "+faststart", str(out.resolve())], cwd=str(work))
 
@@ -1459,7 +1476,7 @@ def main(argv=None):
         log("composition finale (fond, textes, sous-titres, son -14 LUFS) …")
         # tout en plein écran : la barre de progression descend tout en bas
         compose(joined, ass, out_mp4, total, cfg["ending"], cfg["progress"], work,
-                H - 10 if all(f.get("full") for f in seg_fx) else None)
+                H - 10 if all(f.get("full") for f in seg_fx) and true_full(info) else None)
         retention = retention_checks(cfg, seg_list, seg_fx, bounds, total, hook_t, rehook)
 
     fix_loudness(out_mp4)
