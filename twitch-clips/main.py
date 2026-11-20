@@ -109,6 +109,12 @@ def analyze(db, cfg, row):
         cut["duration"] = round(cut["end"] - cut["start"], 2)
     visual = {"cam_box": visual_detector.cam_box(src, cut["start"], cut["end"]), "scene_cuts": cuts}
     tf = transcript_detector.features(tr, cut["start"], cut["end"])
+    letters = sum(ch.isalpha() for ch in tf["text"])
+    latin = sum(ch.isascii() or ch in "éèêëàâäîïôöùûüçœÉÈÊÀÂÎÔÙÛÇ" for ch in tf["text"] if ch.isalpha())
+    if tr["language"] not in ("fr", "en") or tf["n_words"] < 8 or (letters and latin / letters < 0.9):
+        db.set(row["id"], "REJECTED", error=f"pas de parole exploitable (langue {tr['language']}, {tf['n_words']} mots)")
+        log("process", f"#{row['id']} rejeté : pas de parole exploitable")
+        return
     from delivery.validate import probe
     info = probe(src) or {}
     tech = {s.get("codec_type") for s in info.get("streams", [])} >= {"audio", "video"}
