@@ -305,6 +305,278 @@
    ]
   },
   {
+   "id": "examen",
+   "titre": "4 élèves, 1 examen",
+   "accroche": [
+    "EXAMEN DANS 30 JOURS.",
+    "4 ÉLÈVES."
+   ],
+   "accrocheB": [
+    "Qui va",
+    "réussir ?"
+   ],
+   "metaphore": "Quatre élèves, un examen dans 30 jours : l'Ego copie ses fiches sur le bras et filme sa révision, l'Obsession révise 20 h d'affilée jusqu'au black-out, la Chance mise sur le hasard, Discipline révise 30 minutes par jour. Compteur J-30 → J-0 en plus du compteur d'élimination.",
+   "lecon": "Révise un peu, tous les jours. Dors la veille. Teste-toi au lieu de relire.",
+   "scenes": [
+    "ouverture : la fiche cachée de l'Ego tombe devant le prof (J-0)",
+    "J-30 : le plan de chacun",
+    "visite des quatre bureaux de révision",
+    "J-1 : nuit blanche de l'Obsession, la Chance panique",
+    "J-0 : la salle d'examen, les copies"
+   ],
+   "chute": [
+    "L'examen se prépare avant.",
+    "Pas la veille."
+   ],
+   "mot": "AVANT.",
+   "serie": "TOI CONTRE TOI · #9",
+   "hashtags": [
+    "#examen",
+    "#revision",
+    "#etudiant",
+    "#discipline",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "tirelire",
+   "titre": "4 tirelires, 10 € par jour",
+   "accroche": [
+    "10 € PAR JOUR.",
+    "4 TIRELIRES."
+   ],
+   "accrocheB": [
+    "Qui va avoir",
+    "1 000 € ?"
+   ],
+   "metaphore": "Quatre tirelires, un objectif : l'Ego dépense pour la photo, l'Obsession cumule trois jobs et craque, la Chance joue au loto, Discipline met 10 € de côté chaque jour. La tirelire de Discipline se remplit sous nos yeux, une pièce par jour.",
+   "lecon": "Mets de côté chaque jour, même peu. Automatise-le. Évite les achats pour l'image.",
+   "scenes": [
+    "ouverture : le ticket de loto perdant de la Chance",
+    "jour 1 : les quatre tirelires vides",
+    "visite : chacun et son rapport à l'argent",
+    "jour 90 : l'Ego est à sec, l'Obsession est épuisée",
+    "jour 180 : la tirelire pleine de Discipline"
+   ],
+   "chute": [
+    "Tout se joue",
+    "pièce par pièce."
+   ],
+   "mot": "PIÈCE.",
+   "serie": "TOI CONTRE TOI · #10",
+   "hashtags": [
+    "#argent",
+    "#epargne",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "reveil4",
+   "titre": "4 réveils, 1 matin",
+   "accroche": [
+    "4 RÉVEILS.",
+    "1 SEUL DEBOUT."
+   ],
+   "accrocheB": [
+    "Qui se lève",
+    "à 5 h ?"
+   ],
+   "metaphore": "5 h du matin, quatre réveils : l'Ego se rendort après un selfie de « routine », l'Obsession ne s'est jamais couchée, la Chance se lève en retard et rate le bus, Discipline éteint son réveil et se lève, comme chaque jour. Décor de chambre en 3D, lumière de l'aube qui monte.",
+   "lecon": "Prépare tes affaires la veille. Un seul réveil. Pas de téléphone au lit.",
+   "scenes": [
+    "ouverture : le réveil de l'Ego explose contre le mur",
+    "5 h : quatre réveils",
+    "visite des quatre chambres",
+    "7 h : qui est déjà en route ?",
+    "jour 90 : le matin est à lui"
+   ],
+   "chute": [
+    "Le matin se gagne",
+    "la veille."
+   ],
+   "mot": "LA VEILLE.",
+   "serie": "TOI CONTRE TOI · #11",
+   "hashtags": [
+    "#routine",
+    "#reveil",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "potager",
+   "titre": "4 graines, 1 récolte",
+   "accroche": [
+    "4 GRAINES.",
+    "1 SEULE RÉCOLTE."
+   ],
+   "accrocheB": [
+    "Qui va voir",
+    "pousser quoi ?"
+   ],
+   "metaphore": "Coupe de terrain 3D (le décor de la mine, version potager) : l'Ego plante des fleurs en plastique, l'Obsession arrose dix fois par jour et noie ses graines, la Chance attend la pluie, Discipline arrose une fois par jour. Sous terre, les racines de Discipline descendent chaque jour un peu plus.",
+   "lecon": "Arrose un peu, tous les jours. Les racines poussent avant les feuilles. Ne déterre pas pour vérifier.",
+   "scenes": [
+    "ouverture : les fleurs en plastique de l'Ego s'envolent",
+    "jour 1 : les quatre graines",
+    "visite des quatre parcelles (vue en coupe)",
+    "jour 60 : rien ne se voit en haut, tout se passe dessous",
+    "jour 180 : la récolte"
+   ],
+   "chute": [
+    "Ce qui pousse sous terre",
+    "finit par se voir."
+   ],
+   "mot": "RACINES.",
+   "serie": "TOI CONTRE TOI · #12",
+   "hashtags": [
+    "#patience",
+    "#croissance",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "concert",
+   "titre": "4 guitaristes, 1 concert",
+   "accroche": [
+    "4 GUITARISTES.",
+    "1 CONCERT."
+   ],
+   "accrocheB": [
+    "Qui monte",
+    "sur scène ?"
+   ],
+   "metaphore": "Un concert dans 90 jours : l'Ego achète une guitare en or et filme des clips sans jouer, l'Obsession répète 12 h puis se blesse, la Chance attend l'inspiration, Discipline joue 20 minutes par jour. Le soir du concert, un seul est prêt. Décor de scène en 3D (rideaux, projecteurs, fumée).",
+   "lecon": "20 minutes par jour. Joue devant quelqu'un avant le soir J. Ménage-toi.",
+   "scenes": [
+    "ouverture : la corde de la guitare en or casse sur scène",
+    "jour 1",
+    "visite des quatre salles de répétition",
+    "jour 60 : la blessure de l'Obsession",
+    "soir J : la scène"
+   ],
+   "chute": [
+    "Le talent monte sur scène.",
+    "Le travail y reste."
+   ],
+   "mot": "TRAVAIL.",
+   "serie": "TOI CONTRE TOI · #13",
+   "hashtags": [
+    "#musique",
+    "#guitare",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "pont4",
+   "titre": "4 ponts, 1 gouffre",
+   "accroche": [
+    "UN GOUFFRE.",
+    "4 PONTS."
+   ],
+   "accrocheB": [
+    "Quel pont",
+    "va tenir ?"
+   ],
+   "metaphore": "Un gouffre à traverser : l'Ego construit un pont en carton doré, l'Obsession en monte un en dix jours avec des planches pourries, la Chance attend que le vent la pousse de l'autre côté, Discipline pose une planche par jour. Le jour du passage, un seul pont tient.",
+   "lecon": "Une planche solide par jour. Teste chaque planche. Ne traverse pas avant d'être prêt.",
+   "scenes": [
+    "ouverture : la planche de l'Ego cède et il tombe",
+    "jour 1",
+    "visite des quatre ponts",
+    "jour 90 : le vent se lève",
+    "jour 180 : la traversée"
+   ],
+   "chute": [
+    "On traverse sur ce",
+    "qu'on a construit."
+   ],
+   "mot": "PLANCHE.",
+   "serie": "TOI CONTRE TOI · #14",
+   "hashtags": [
+    "#perseverance",
+    "#objectif",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "transformation",
+   "titre": "4 corps, 90 jours",
+   "accroche": [
+    "90 JOURS.",
+    "4 CORPS."
+   ],
+   "accrocheB": [
+    "Qui change",
+    "vraiment ?"
+   ],
+   "metaphore": "Quatre personnes, 90 jours de salle : l'Ego fait des selfies au miroir sans s'entraîner, l'Obsession s'entraîne 4 h par jour et se blesse, la Chance attend de maigrir toute seule, Discipline fait 3 séances de 40 minutes par semaine. Compteur de jours et photo avant / après.",
+   "lecon": "Trois séances par semaine, pas plus. Dors et mange. Note tes progrès.",
+   "scenes": [
+    "ouverture : la barre de l'Obsession lâche (blessure)",
+    "jour 1 : avant",
+    "visite des quatre salles",
+    "jour 45 : le plateau",
+    "jour 90 : après"
+   ],
+   "chute": [
+    "Le corps suit",
+    "la régularité."
+   ],
+   "mot": "RÉGULARITÉ.",
+   "serie": "TOI CONTRE TOI · #15",
+   "hashtags": [
+    "#sport",
+    "#transformation",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "livre",
+   "titre": "4 auteurs, 1 livre",
+   "accroche": [
+    "4 AUTEURS.",
+    "1 SEUL LIVRE."
+   ],
+   "accrocheB": [
+    "Qui finit",
+    "son livre ?"
+   ],
+   "metaphore": "Écrire un livre : l'Ego annonce son titre partout sans écrire une ligne, l'Obsession réécrit le chapitre 1 pour la centième fois, la Chance attend l'inspiration, Discipline écrit 300 mots par jour. Réutilise les décors du bureau Blender, donc rapide à produire. Compteur de mots à l'écran.",
+   "lecon": "300 mots par jour. Écris d'abord, corrige après. Finis avant d'améliorer.",
+   "scenes": [
+    "ouverture : la page blanche de l'Ego s'enflamme",
+    "jour 1 : le premier mot",
+    "visite des quatre bureaux",
+    "jour 90 : l'Obsession est bloquée au chapitre 1",
+    "jour 180 : le manuscrit de Discipline"
+   ],
+   "chute": [
+    "Un livre se finit",
+    "mot après mot."
+   ],
+   "mot": "MOT.",
+   "serie": "TOI CONTRE TOI · #16",
+   "hashtags": [
+    "#ecriture",
+    "#livre",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
    "id": "miroir",
    "titre": "Les deux toi",
    "accroche": [
