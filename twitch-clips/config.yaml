@@ -15,6 +15,13 @@ channels:
   rights: authorized
   layout: auto
   cam_box: null
+- name: jltomy
+  platform: twitch
+  rights: authorized
+  enabled: true
+  layout: auto
+  cam_box: null
+  sensitivity: normale
 twitch_api:
   client_id_env: TWITCH_CLIENT_ID
   client_secret_env: TWITCH_CLIENT_SECRET
