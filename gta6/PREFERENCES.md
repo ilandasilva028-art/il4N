@@ -3,6 +3,7 @@
 À lire au début de chaque session avant de toucher à un clip. À compléter après chaque retour d'Ilan ou chaque chiffre TikTok.
 
 ## Règles fixes
+- **Pas de voix off** (décision d'Ilan, 20/11). L'option `--voix` existe mais ne s'utilise pas.
 - **Contenu sexuel du jeu (scènes de groupe, nudité, répliques très crues) : jamais dans un clip** (règles TikTok, risque de blocage du compte).
 - **Vidéos d'autres créateurs (enregistrement d'écran TikTok, etc.) : jamais remontées ni copiées.** Reprendre l'idée avec les captures et les vrais chiffres d'Ilan, ou Stitch/Duo dans l'appli.
 - **Réponses de Claude : style court, « homme des cavernes »** (mots inutiles enlevés). Légendes, descriptions et textes à publier : normaux.
@@ -44,6 +45,9 @@
 | Berceau (peu monté, théorie) | UN BERCEAU CHEZ / JASON ET LUCIA ? | ILS ATTENDENT UN BÉBÉ ? | à recevoir |
 | GTA 6 en 20 secondes (compil plein écran, musique) | GTA 6 / EN 20 SECONDES + relance REGARDE ÇA… | TON PLAN PRÉFÉRÉ ? | à recevoir |
 | Il lui avait promis + voix off | idem + narration « Alors Jason a tenu parole… » | IL A ASSURÉ ? | comparer avec la version sans voix |
+| Arrêtés (comédie) | ILS DEVAIENT JUSTE / LIVRER UN SAC… + C'ÉTAIT UN PIÈGE ? | TU T'ENFUIS OU TU TE RENDS ? | à recevoir |
+| Le flic ripou (suspense) | CE FLIC N'EST PAS / LÀ POUR AIDER + IL VEUT LE SAC… | T'AVAIS VU VENIR ? | à recevoir |
+| Pas pour les arrêter (action) | ILS NE VIENNENT PAS / POUR LES ARRÊTER + JASON EST TOUCHÉ… | ILS S'EN SORTENT ? | à recevoir |
 | Peinture — version dynamique | DANS GTA 6, TU PEUX / REPEINDRE TA MAISON | TU REPEINS EN QUELLE COULEUR ? | à recevoir (plein écran, accéléré, ralenti, sons) |
 
 ## Hashtags

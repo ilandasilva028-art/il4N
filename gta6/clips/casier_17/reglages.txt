@@ -1,0 +1,8 @@
+Capture mission 407 s, 720p30 : casier 17 → arrestation → interrogatoire → flic ripou (Mendez) → fusillade → fuite.
+Interface du jeu : --crop-top 45 (boussole) --crop-bottom 110 (sous-titres). Pas de voix off.
+1. Arrêtés : --segments "94.0-97.5:full,78.6-93.8,98.4-99.8,101.4-103.2" --subs st_arretes.srt
+   --hook "ILS DEVAIENT JUSTE|LIVRER UN SAC…" --rehook "C'ÉTAIT UN PIÈGE ?" --rehook-at 0.6 --cta "TU T'ENFUIS OU TU TE RENDS ?|DIS-LE EN COMMENTAIRE" --cta-dur 3.5 --cta-top
+2. Le flic ripou : --segments "306.6-311.0:full,199.6-202.6,237.5-243.9,257.2-259.8,302.6-306.6,311.0-321.0" --subs st_ripou.srt
+   --hook "CE FLIC N'EST PAS|LÀ POUR AIDER" --title "GTA 6|LE FLIC RIPOU" --rehook "IL VEUT LE SAC…" --rehook-at 0.5 --cta "T'AVAIS VU VENIR ?|OUI OU NON EN COMMENTAIRE" --cta-dur 4 --cta-top
+3. Pas pour les arrêter : --segments "404.4-407.2:full,346.8-352.2,359.5-363.5,377.2-381.0:full,383.8-388.3,398.9-404.4" --subs st_portes.srt
+   --hook "ILS NE VIENNENT PAS|POUR LES ARRÊTER" --rehook "JASON EST TOUCHÉ…" --rehook-at 0.5 --cta "ILS S'EN SORTENT ?|DIS-LE EN COMMENTAIRE" --cta-dur 4 --cta-top
