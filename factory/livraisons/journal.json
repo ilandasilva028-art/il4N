@@ -88,5 +88,14 @@
     "score": 93.9,
     "max": 96,
     "file": "livraisons/2026-11-18-business2/business2.mp4"
+  },
+  {
+    "date": "2026-11-20",
+    "vision": "diamant",
+    "film": "j20261120-diamant",
+    "version": "v2",
+    "score": 91.3,
+    "max": 96,
+    "file": "livraisons/2026-11-20-diamant/diamant.mp4"
   }
 ]
