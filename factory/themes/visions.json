@@ -2,6 +2,41 @@
  "_info": "Banque de concepts ORIGINAUX pour 1 vidéo par jour (style mentality : bonshommes, noir, accent rouge). Une vision = une métaphore visuelle unique + une chute. La routine prend la première vision non utilisée (voir livraisons/journal.json). Quand la banque est épuisée, la routine en invente 10 nouvelles et les ajoute ici.",
  "visions": [
   {
+   "id": "diamant",
+   "titre": "4 mineurs, 1 seul diamant",
+   "accroche": [
+    "4 mineurs.",
+    "1 seul diamant."
+   ],
+   "accrocheB": [
+    "Qui va trouver",
+    "le diamant ?"
+   ],
+   "metaphore": "Coupe de terrain 3D : l'Ego creuse pour la photo et abandonne à 30 cm d'un diamant, l'Obsession creuse dix trous peu profonds, la Chance trouve du verre, Discipline creuse le même trou, un barreau d'échelle par jour, et trouve le diamant.",
+   "lecon": "Creuse un seul trou, un barreau par jour, ne lâche pas au milieu.",
+   "scenes": [
+    "ouverture : le faux diamant éclate",
+    "jour 1",
+    "visite des quatre chantiers",
+    "jour 90 : la roche dure",
+    "l'Ego abandonne à 30 cm",
+    "jour 180 : le diamant"
+   ],
+   "chute": [
+    "Le diamant était proche.",
+    "Il fallait continuer."
+   ],
+   "mot": "CONTINUER.",
+   "serie": "TOI CONTRE TOI · #8",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#perseverance",
+    "#motivation",
+    "#diamant"
+   ]
+  },
+  {
    "id": "business2",
    "titre": "4 business (montage rétention)",
    "accroche": [
