@@ -46,6 +46,7 @@ function view(ctx, { x = 540, y = 960, z = 1 } = {}) {
   CAM = { x, y, z };
   ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-x, -y);
   ctx.drawImage(IMG, 0, 0, W, PH);
+  ctx.fillStyle = 'rgba(2,3,8,0.4)'; ctx.fillRect(0, 0, W, PH); // assombrit le décor : les personnages et les lueurs ressortent
 }
 const keys = (tl, list) => { // [[t, x, y, z], …] → cadrage interpolé (transitions de 0,6 s)
   let [, x, y, z] = list[0];
@@ -182,15 +183,16 @@ function card(ctx, who, tag, u) {
 const HOOK = VARIANT === 'b' ? [[['QUI VA TROUVER', '#f1f1f1']], [['LE ', '#f1f1f1'], ['DIAMANT ?', RED]]] : [[['4 MINEURS.', '#f1f1f1']], [['1 SEUL ', '#f1f1f1'], ['DIAMANT.', RED]]];
 let GLASS = null;
 const glassBake = () => GLASS || (GLASS = shatterBake({ x: COL.chance + 40, y: LY(1.15) - LEG - 90, n: 16, w: 16, h: 12, power: 12, colors: ['#d8f4ff', '#a8e4ff', '#ffffff'], seed: 5, ground: LY(1.15), duration: 4 }));
-function chanceHold(ctx, t, tl, broke) {
+function chanceHold(ctx, t, tl, broke, since = tl) {
   const fy = LY(1.15), y = fy - LEG;
-  const pose = broke ? { ...POSES.stand, lean: -10, head: 8, armF: [130, 40], armB: [110, 50] } : { ...POSES.victory, armF: [-170, -10] };
+  const rk = broke ? ease.out(prog(since, 0, 0.3)) : 0, shake = broke ? Math.sin(since * 16) * 5 * Math.exp(-since * 1.4) : 0;
+  const pose = broke ? { ...POSES.stand, lean: -10 - 24 * rk + shake, head: 8 + 14 * rk, armF: [130 + 22 * Math.sin(since * 10) * Math.exp(-since), 40], armB: [110 - 18 * Math.sin(since * 9) * Math.exp(-since), 50] } : { ...POSES.victory, armF: [-170, -10] };
   drawMember(ctx, 'chance', COL.chance - 20, y, pose, { scale: SC, t, mouth: broke ? 'sad' : 'happy', mood: broke ? 'sad' : null, showLabel: false });
   if (!broke) { gem(ctx, COL.chance + 40, y - 90, 22, { glass: true, shine: 0.7, t }); }
 }
 function ouverture(ctx, tl) {
-  const cam = keys(tl, [[-9, 670, 860, 2.1], [0.6, 640, 900, 1.75], [2.2, 700, 1000, 1.45]]);
-  const quake = tl > 0 && tl < 0.5 ? 16 * Math.exp(-tl * 7) : 0;
+  const cam = keys(tl, [[-9, 670, 860, 2.9], [0, 660, 890, 1.9], [1.4, 700, 1010, 1.4]]);
+  const quake = tl > 0 && tl < 0.7 ? 26 * Math.exp(-tl * 6) : 0;
   ctx.save(); ctx.translate(noise(tl * 70, 3) * quake, noise(tl * 70, 8) * quake);
   view(ctx, cam);
   const t = S.chute; // chantier « avancé » pour l'ouverture : tous les puits sont visibles
@@ -300,7 +302,7 @@ function nuit(ctx, tl) {
   drawMember(ctx, 'obsession', 470, GY - LEG + ko * 60, ko > 0.5 ? POSES.lie : digPose(0.6), { scale: SC, t, spiral: ko > 0.5, mood: 'sad', showLabel: false });
   // la Chance : son diamant… éclate. C'était du verre.
   const br = tl >= 1.4;
-  chanceHold(ctx, t, tl, br);
+  chanceHold(ctx, t, tl, br, tl - 1.4);
   if (br) drawBaked(ctx, glassBake().at(tl - 1.4));
   // l'Ego creuse, lentement
   digger(ctx, 'ego', COL.ego - 10, LY(depthOf.ego(t)), tl, { period: 1.3, kind: 'or', mouth: 'sad', mood: null });
@@ -345,6 +347,7 @@ function diamant(ctx, tl, extra = 0) {
   const T = tl + extra, t = S.diamant + Math.min(T, 4), dd = depthOf.discipline(S.diamant + Math.min(T, 1.6));
   const hit = 1.6, reveal = ease.out(prog(T, hit, hit + 0.8));
   const cam = keys(T, [[-9, 900, LY(dd) - 100, 2.0], [hit + 0.5, 760, LY(9), 1.25]]);
+  const dr = Math.max(0, T - hit - 1.2); cam.z += 0.07 * dr; cam.x += 14 * Math.sin(T * 1.3); cam.y += 16 * dr;
   ctx.save(); view(ctx, cam);
   world(ctx, t);
   const dg = A.diamonds.discipline;
@@ -352,13 +355,13 @@ function diamant(ctx, tl, extra = 0) {
   if (T > hit) { impactRing(ctx, dg[0], dg[1], T, hit, { r: 240, color: '#cff4ff' }); dust(ctx, dg[0], dg[1], T, hit, { n: 14, spread: 260, color: '200,235,255' }); }
   if (T < hit + 0.3) digger(ctx, 'discipline', COL.discipline - 10, LY(dd), T, { period: 0.8 });
   else {
-    const hold = { ...POSES.victory, armF: [-170, -10] };
+    const hold = { ...POSES.victory, lean: Math.sin(T * 3) * 2.5, armF: [-170 + Math.sin(T * 5) * 7, -10], armB: [160 + Math.sin(T * 5 + 1) * 7, 20] };
     drawMember(ctx, 'discipline', COL.discipline - 20, LY(dd) - LEG, hold, { scale: SC, t: T, mouth: 'happy', showLabel: false });
   }
   // les trois autres, à la surface, regardent dans le puits
   [['ego', 790, 'sad'], ['chance', 700, 'sad'], ['obsession', 620, 'sad']].forEach(([who, x, m], i) => {
     const k = ease.out(prog(T, hit + 0.6 + i * 0.15, hit + 1.0 + i * 0.15));
-    if (k > 0) drawMember(ctx, who, x, GY - LEG, { ...POSES.stand, lean: 20, head: 40 }, { scale: SC, t: T, mouth: m, alpha: k, showLabel: false });
+    if (k > 0) drawMember(ctx, who, x, GY - LEG, { ...POSES.stand, lean: 20 + Math.sin(T * 2.4 + i) * 3, head: 40 + Math.sin(T * 3 + i) * 5 }, { scale: SC, t: T, mouth: m, alpha: k, showLabel: false });
   });
   ctx.restore();
 }
