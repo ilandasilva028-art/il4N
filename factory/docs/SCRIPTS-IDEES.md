@@ -25,7 +25,7 @@ Les 4 personnages (Discipline, l'Ego, l'Obsession, la Chance) vivent **la même 
 
 Ordre de production recommandé (le plus fort d'abord, en alternant les décors) : **potager → examen → tirelire → livre → réveil → concert → pont → transformation**.
 
-Les huit sont déjà dans `themes/visions.json`, **avant** les anciennes idées : la routine quotidienne les prendra dans cet ordre de liste (examen, tirelire, réveil4, potager, concert, pont4, transformation, livre). Pour changer l'ordre, déplacer l'entrée dans le fichier.
+Les huit sont déjà dans `themes/visions.json`, **avant** les anciennes idées : la routine quotidienne les prend dans l'ordre de la liste. **Décision d'Ilan (20/11) : demain, le potager** (il est donc en tête), puis examen, tirelire, réveil4, concert, pont4, transformation, livre. Pour changer l'ordre, déplacer l'entrée dans le fichier.
 
 ## Règles d'écriture (rappel)
 - Accroche ≤ 6 mots, tension ou question ; chute qui reprend un mot de l'accroche.

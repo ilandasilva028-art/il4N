@@ -305,6 +305,40 @@
    ]
   },
   {
+   "id": "potager",
+   "titre": "4 graines, 1 récolte",
+   "accroche": [
+    "4 GRAINES.",
+    "1 SEULE RÉCOLTE."
+   ],
+   "accrocheB": [
+    "Qui va voir",
+    "pousser quoi ?"
+   ],
+   "metaphore": "Coupe de terrain 3D (le décor de la mine, version potager) : l'Ego plante des fleurs en plastique, l'Obsession arrose dix fois par jour et noie ses graines, la Chance attend la pluie, Discipline arrose une fois par jour. Sous terre, les racines de Discipline descendent chaque jour un peu plus.",
+   "lecon": "Arrose un peu, tous les jours. Les racines poussent avant les feuilles. Ne déterre pas pour vérifier.",
+   "scenes": [
+    "ouverture : les fleurs en plastique de l'Ego s'envolent",
+    "jour 1 : les quatre graines",
+    "visite des quatre parcelles (vue en coupe)",
+    "jour 60 : rien ne se voit en haut, tout se passe dessous",
+    "jour 180 : la récolte"
+   ],
+   "chute": [
+    "Ce qui pousse sous terre",
+    "finit par se voir."
+   ],
+   "mot": "RACINES.",
+   "serie": "TOI CONTRE TOI · #12",
+   "hashtags": [
+    "#patience",
+    "#croissance",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
    "id": "examen",
    "titre": "4 élèves, 1 examen",
    "accroche": [
@@ -401,40 +435,6 @@
    "hashtags": [
     "#routine",
     "#reveil",
-    "#discipline",
-    "#mentalite",
-    "#motivation"
-   ]
-  },
-  {
-   "id": "potager",
-   "titre": "4 graines, 1 récolte",
-   "accroche": [
-    "4 GRAINES.",
-    "1 SEULE RÉCOLTE."
-   ],
-   "accrocheB": [
-    "Qui va voir",
-    "pousser quoi ?"
-   ],
-   "metaphore": "Coupe de terrain 3D (le décor de la mine, version potager) : l'Ego plante des fleurs en plastique, l'Obsession arrose dix fois par jour et noie ses graines, la Chance attend la pluie, Discipline arrose une fois par jour. Sous terre, les racines de Discipline descendent chaque jour un peu plus.",
-   "lecon": "Arrose un peu, tous les jours. Les racines poussent avant les feuilles. Ne déterre pas pour vérifier.",
-   "scenes": [
-    "ouverture : les fleurs en plastique de l'Ego s'envolent",
-    "jour 1 : les quatre graines",
-    "visite des quatre parcelles (vue en coupe)",
-    "jour 60 : rien ne se voit en haut, tout se passe dessous",
-    "jour 180 : la récolte"
-   ],
-   "chute": [
-    "Ce qui pousse sous terre",
-    "finit par se voir."
-   ],
-   "mot": "RACINES.",
-   "serie": "TOI CONTRE TOI · #12",
-   "hashtags": [
-    "#patience",
-    "#croissance",
     "#discipline",
     "#mentalite",
     "#motivation"
