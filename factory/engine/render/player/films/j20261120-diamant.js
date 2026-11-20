@@ -182,17 +182,17 @@ function card(ctx, who, tag, u) {
 // ------------------------------------------------------------------ 1. ouverture : le « diamant » de la Chance éclate (image 0)
 const HOOK = VARIANT === 'b' ? [[['QUI VA TROUVER', '#f1f1f1']], [['LE ', '#f1f1f1'], ['DIAMANT ?', RED]]] : [[['4 MINEURS.', '#f1f1f1']], [['1 SEUL ', '#f1f1f1'], ['DIAMANT.', RED]]];
 let GLASS = null;
-const glassBake = () => GLASS || (GLASS = shatterBake({ x: COL.chance + 40, y: LY(1.15) - LEG - 90, n: 16, w: 16, h: 12, power: 12, colors: ['#d8f4ff', '#a8e4ff', '#ffffff'], seed: 5, ground: LY(1.15), duration: 4 }));
+const glassBake = () => GLASS || (GLASS = shatterBake({ x: COL.chance + 40, y: LY(1.15) - LEG - 90, n: 34, w: 18, h: 13, power: 19, colors: ['#d8f4ff', '#a8e4ff', '#ffffff'], seed: 5, ground: LY(1.15), duration: 4 }));
 function chanceHold(ctx, t, tl, broke, since = tl) {
   const fy = LY(1.15), y = fy - LEG;
   const rk = broke ? ease.out(prog(since, 0, 0.3)) : 0, shake = broke ? Math.sin(since * 16) * 5 * Math.exp(-since * 1.4) : 0;
-  const pose = broke ? { ...POSES.stand, lean: -10 - 24 * rk + shake, head: 8 + 14 * rk, armF: [130 + 22 * Math.sin(since * 10) * Math.exp(-since), 40], armB: [110 - 18 * Math.sin(since * 9) * Math.exp(-since), 50] } : { ...POSES.victory, armF: [-170, -10] };
+  const pose = broke ? { ...POSES.stand, lean: -10 - 24 * rk + shake + Math.sin(since * 7) * 6 * Math.exp(-since * 0.35), head: 8 + 14 * rk + Math.sin(since * 11) * 5 * Math.exp(-since * 0.35), armF: [130 + 30 * Math.sin(since * 10) * Math.exp(-since * 0.35), 40], armB: [110 - 26 * Math.sin(since * 9) * Math.exp(-since * 0.35), 50] } : { ...POSES.victory, armF: [-170, -10] };
   drawMember(ctx, 'chance', COL.chance - 20, y, pose, { scale: SC, t, mouth: broke ? 'sad' : 'happy', mood: broke ? 'sad' : null, showLabel: false });
   if (!broke) { gem(ctx, COL.chance + 40, y - 90, 22, { glass: true, shine: 0.7, t }); }
 }
 function ouverture(ctx, tl) {
   const cam = keys(tl, [[-9, 670, 860, 2.9], [0, 660, 890, 1.9], [1.4, 700, 1010, 1.4]]);
-  const quake = tl > 0 && tl < 0.7 ? 26 * Math.exp(-tl * 6) : 0;
+  const quake = 26 * Math.exp(-tl * 6) + (tl < 7 * B ? 6 + 3 * Math.sin(tl * 9) : 0); // secousse initiale puis tremblement continu
   ctx.save(); ctx.translate(noise(tl * 70, 3) * quake, noise(tl * 70, 8) * quake);
   view(ctx, cam);
   const t = S.chute; // chantier « avancé » pour l'ouverture : tous les puits sont visibles
@@ -203,6 +203,8 @@ function ouverture(ctx, tl) {
   if (broke) {
     drawBaked(ctx, glassBake().at(tl));
     impactRing(ctx, COL.chance + 40, LY(1.15) - LEG - 90, tl, 0, { r: 160, color: '#cfefff' });
+    impactRing(ctx, COL.chance + 40, LY(1.15) - LEG - 90, tl, 0.35, { r: 260, color: '#ffffff', width: 6 });
+    for (let c = 0; c < 3; c++) dust(ctx, COL.chance + 10 + c * 50, LY(1.15), tl, 0.1 + c * 0.45, { n: 10, spread: 200, color: '170,140,110' });
     if (tl < 0.12) glow(ctx, COL.chance + 40, LY(1.15) - LEG - 90, 260, '220,245,255', 0.9 * (1 - tl / 0.12));
   }
   ctx.restore();
