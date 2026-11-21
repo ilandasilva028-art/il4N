@@ -1,0 +1,14 @@
+{
+ "coupe": {
+  "w": 1080,
+  "h": 2880,
+  "ppm": 100,
+  "surface": 900,
+  "cols": {
+   "ego": 150.0,
+   "obsession": 410.0,
+   "chance": 670.0,
+   "discipline": 930.0
+  }
+ }
+}
