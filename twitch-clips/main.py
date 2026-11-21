@@ -167,7 +167,7 @@ def render_clip(db, cfg, row):
                  on_progress=lambda f: db.set(row["id"], progress=round(f, 3)),
                  should_cancel=lambda: bool((db.get(row["id"]) or {})["cancel_requested"]))
     db.set(row["id"], phase="validate")
-    ok, info = validate(tmp, min_dur=cfg["cut"]["min"] - 3, max_dur=cfg["cut"]["max"] + 15)
+    ok, info = validate(tmp, min_dur=cfg["cut"]["min"] - 3, max_dur=max(cfg["cut"]["max"] + 15, cut["end"] - cut["start"] + 3))
     if not ok:
         os.remove(tmp)
         raise RuntimeError(f"validation failed: {info}")
