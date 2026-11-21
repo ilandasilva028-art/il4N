@@ -26,3 +26,10 @@ Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heur
 - v1 : 85.5 / 96
 
 _Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._
+
+## Test A/B de l'accroche
+
+- **A** : `potager.mp4`
+- **B** : `potager_accroche-B.mp4` — accroche : « QUI VA VOIR / POUSSER QUOI ? »
+
+Publie A, puis B à un autre jour (ou sur un autre créneau). Compare dans les statistiques TikTok le **taux de rétention à 3 s** et le **visionnage complet**, puis dis-moi laquelle gagne : la routine adoptera ce style d'accroche.
