@@ -212,7 +212,7 @@ function card(ctx, who, tag, u) {
 const HOOK = VARIANT === 'b' ? [[['QUI VA VOIR', '#f1f1f1']], [['POUSSER ', '#f1f1f1'], ['QUOI ?', RED]]] : [[['4 GRAINES.', '#f1f1f1']], [['1 SEULE ', '#f1f1f1'], ['RÉCOLTE.', RED]]];
 const BOUCLE = 3 * B;
 function ouverture(ctx, tl) {
-  const cam = keys(tl, [[-9, 330, 820, 2.0], [0, 330, 830, 1.65], [1.4, 430, 880, 1.4]]);
+  const cam = keys(tl, [[-9, 330, 820, 2.3], [0, 330, 830, 1.5], [1.4, 430, 880, 1.35]]);
   const quake = tl > 0 && tl < 0.7 ? 24 * Math.exp(-tl * 6) : 0;
   ctx.save(); ctx.translate(noise(tl * 70, 3) * quake, noise(tl * 70, 8) * quake);
   view(ctx, cam);
@@ -250,19 +250,19 @@ function jour1(ctx, tl) {
   const ep = { ...POSES.stand, lean: 16, head: 12, armF: [40, 50], armB: [20, 30] };
   drawMember(ctx, 'ego', 255, GY - LEG, ep, { scale: SC, t, mouth: 'smirk', face: -1, showLabel: true });
   if (plant && tl < 2.8) { const h = handPos(255, GY - LEG, ep, SC, -1); flowerHead(ctx, h.x, h.y - 6, 14, FCOL[Math.floor(tl / 0.55) % 5], 0.3, 0); }
-  if (tl > 0.3 && tl < 1.25) bubble(ctx, 'REGARDEZ MES FLEURS !', 235, GY - LEG - 150, tl, 0.3, { log, size: 26 });
+  if (tl > 0.3 && tl < 1.0) bubble(ctx, 'REGARDEZ MES FLEURS !', 235, GY - LEG - 150, tl, 0.3, { log, size: 26 });
   // L'OBSESSION arrose, arrose, arrose
   waterer(ctx, 'obsession', COL.obsession + 10, tl, { period: 0.55, mood: 'angry', mouth: 'grit' });
   // LA CHANCE attend, vautrée dans sa chaise
   drawMember(ctx, 'chance', COL.chance - 12, GY - 52, { ...POSES.sit, lean: -34, head: -22, armF: [20, 30], armB: [10, 30] }, { scale: SC, t, mouth: null, showLabel: true });
   cloud(ctx, 560 + tl * 12, 640, 1.0, 0.9);
-  if (tl > 1.1 && tl < 2.1) bubble(ctx, 'J’ATTENDS LA PLUIE.', COL.chance, GY - 170, tl, 1.1, { log, size: 26 });
+  if (tl > 1.15 && tl < 2.1) bubble(ctx, 'J’ATTENDS LA PLUIE.', COL.chance, GY - 170, tl, 1.15, { log, size: 26 });
   // DISCIPLINE : une graine, puis un seul arrosage
   if (tl < 1.3) { const k = Math.sin(Math.min(1, tl / 1.2) * Math.PI); drawMember(ctx, 'discipline', COL.discipline - 40, GY - LEG + 22, { ...POSES.crouch, lean: 26 + 6 * k, armF: [60 + 16 * k, 30], armB: [56, 36] }, { scale: SC, t, mood: 'determined', mouth: 'grit', showLabel: true }); }
   else waterer(ctx, 'discipline', COL.discipline - 40, tl - 1.3, { period: 1.3, mood: 'determined' });
   ctx.restore();
   title(ctx, tl, [['JOUR ', '#f1f1f1'], ['1', RED]]);
-  tip(ctx, 1, 'ARROSE UN PEU, CHAQUE JOUR.', tl, 1.2);
+  tip(ctx, 1, 'ARROSE UN PEU, CHAQUE JOUR.', tl, 1.35);
 }
 
 // ------------------------------------------------------------------ 3. visite des quatre parcelles
