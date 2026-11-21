@@ -43,7 +43,7 @@ function view(ctx, { x = 540, y = 960, z = 1 } = {}) {
   CAM = { x, y, z };
   ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-x, -y);
   ctx.drawImage(IMG, 0, 0, W, PH);
-  ctx.fillStyle = 'rgba(2,3,8,0.26)'; ctx.fillRect(0, 0, W, PH);
+  ctx.fillStyle = 'rgba(2,3,8,0.55)'; ctx.fillRect(0, 0, W, PH);
 }
 const keys = (tl, list) => { let [, x, y, z] = list[0]; for (let i = 1; i < list.length; i++) { const k = ease.inOut(prog(tl, list[i][0], list[i][0] + 0.6)); x = lerp(x, list[i][1], k); y = lerp(y, list[i][2], k); z = lerp(z, list[i][3], k); } return { x, y, z }; };
 const interp = (pts, t) => { if (t <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) if (t <= pts[i][0]) return lerp(pts[i - 1][1], pts[i][1], (t - pts[i - 1][0]) / (pts[i][0] - pts[i - 1][0])); return pts[pts.length - 1][1]; };
@@ -221,7 +221,8 @@ function ouverture(ctx, tl) {
   // L'EGO : fier avant le coup de vent, il bondit pour rattraper ses fleurs
   const rk = ease.out(prog(tl, 0, 0.25));
   const pose = tl < 0 ? { ...POSES.stand, lean: -4, armF: [20, 30], armB: [-20, 30], head: -6 } : { ...POSES.stand, lean: -8 - 26 * rk + Math.sin(tl * 12) * 3, head: -10, armF: [-150 + Math.sin(tl * 10) * 12, -20], armB: [-140 - Math.sin(tl * 10) * 12, -20] };
-  drawMember(ctx, 'ego', 255, GY - LEG, pose, { scale: SC, t: tl, mouth: tl < 0 ? 'smirk' : 'open', mood: tl < 0 ? null : 'sad', showLabel: false });
+  const jump = tl > 0 ? Math.abs(Math.sin(tl * 5.2)) * 46 * Math.exp(-tl * 0.7) : 0;
+  drawMember(ctx, 'ego', 255 + (tl > 0 ? Math.min(60, tl * 90) : 0), GY - LEG - jump, pose, { scale: SC, t: tl, mouth: tl < 0 ? 'smirk' : 'open', mood: tl < 0 ? null : 'sad', showLabel: false });
   // L'OBSESSION arrose frénétiquement derrière
   waterer(ctx, 'obsession', COL.obsession + 10, tl, { period: 0.5, mood: 'angry', mouth: 'grit' });
   // rafales de vent et feuilles
@@ -229,7 +230,7 @@ function ouverture(ctx, tl) {
     const y = GY - 30 - k * 34, x = ((tl * 1700 + k * 190) % 1500) - 300, len = 140 + hash(k) * 110;
     ctx.strokeStyle = `rgba(255,255,255,${(0.3 * clamp(tl + 0.4)).toFixed(2)})`; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + len, y - len * 0.08); ctx.stroke();
   }
-  if (tl > 0) { for (let k = 0; k < 8; k++) { const x = (tl * 900 * (0.6 + hash(k)) + k * 70) % 900, y = GY - 120 - k * 36 + Math.sin(tl * 9 + k) * 30; ctx.fillStyle = k % 2 ? '#58cc44' : '#3fa832'; ctx.save(); ctx.translate(x, y); ctx.rotate(tl * 8 + k); ctx.beginPath(); ctx.ellipse(0, 0, 10, 5, 0, 0, 7); ctx.fill(); ctx.restore(); } dust(ctx, 240, GY, tl, 0.05, { n: 12, spread: 280, color: '170,140,110' }); }
+  if (tl > 0) { for (let k = 0; k < 18; k++) { const x = (tl * 900 * (0.6 + hash(k)) + k * 70) % 900, y = GY - 120 - k * 36 + Math.sin(tl * 9 + k) * 30; ctx.fillStyle = k % 2 ? '#58cc44' : '#3fa832'; ctx.save(); ctx.translate(x, y); ctx.rotate(tl * 8 + k); ctx.beginPath(); ctx.ellipse(0, 0, 10, 5, 0, 0, 7); ctx.fill(); ctx.restore(); } dust(ctx, 240, GY, tl, 0.05, { n: 12, spread: 280, color: '170,140,110' }); }
   ctx.restore();
   const rw = prog(tl, 7 * B - 0.5, 7 * B);
   if (rw > 0) rewind(ctx, tl * 8, rw);
@@ -249,20 +250,19 @@ function jour1(ctx, tl) {
   const ep = { ...POSES.stand, lean: 16, head: 12, armF: [40, 50], armB: [20, 30] };
   drawMember(ctx, 'ego', 255, GY - LEG, ep, { scale: SC, t, mouth: 'smirk', face: -1, showLabel: true });
   if (plant && tl < 2.8) { const h = handPos(255, GY - LEG, ep, SC, -1); flowerHead(ctx, h.x, h.y - 6, 14, FCOL[Math.floor(tl / 0.55) % 5], 0.3, 0); }
-  if (tl > 0.5) bubble(ctx, 'REGARDEZ MES FLEURS !', 235, GY - LEG - 150, tl, 0.5, { log, size: 26 });
+  if (tl > 0.3 && tl < 1.25) bubble(ctx, 'REGARDEZ MES FLEURS !', 235, GY - LEG - 150, tl, 0.3, { log, size: 26 });
   // L'OBSESSION arrose, arrose, arrose
   waterer(ctx, 'obsession', COL.obsession + 10, tl, { period: 0.55, mood: 'angry', mouth: 'grit' });
-  if (tl > 1.0) bubble(ctx, 'ENCORE UN PEU D’EAU !', COL.obsession, GY - LEG - 150, tl, 1.0, { log, size: 26 });
   // LA CHANCE attend, vautrée dans sa chaise
   drawMember(ctx, 'chance', COL.chance - 12, GY - 52, { ...POSES.sit, lean: -34, head: -22, armF: [20, 30], armB: [10, 30] }, { scale: SC, t, mouth: null, showLabel: true });
   cloud(ctx, 560 + tl * 12, 640, 1.0, 0.9);
-  if (tl > 1.3) bubble(ctx, 'J’ATTENDS LA PLUIE.', COL.chance, GY - 170, tl, 1.3, { log, size: 26 });
+  if (tl > 1.1 && tl < 2.1) bubble(ctx, 'J’ATTENDS LA PLUIE.', COL.chance, GY - 170, tl, 1.1, { log, size: 26 });
   // DISCIPLINE : une graine, puis un seul arrosage
   if (tl < 1.3) { const k = Math.sin(Math.min(1, tl / 1.2) * Math.PI); drawMember(ctx, 'discipline', COL.discipline - 40, GY - LEG + 22, { ...POSES.crouch, lean: 26 + 6 * k, armF: [60 + 16 * k, 30], armB: [56, 36] }, { scale: SC, t, mood: 'determined', mouth: 'grit', showLabel: true }); }
   else waterer(ctx, 'discipline', COL.discipline - 40, tl - 1.3, { period: 1.3, mood: 'determined' });
   ctx.restore();
   title(ctx, tl, [['JOUR ', '#f1f1f1'], ['1', RED]]);
-  tip(ctx, 1, 'ARROSE UN PEU, CHAQUE JOUR.', tl, 2.0);
+  tip(ctx, 1, 'ARROSE UN PEU, CHAQUE JOUR.', tl, 1.2);
 }
 
 // ------------------------------------------------------------------ 3. visite des quatre parcelles
@@ -299,7 +299,7 @@ function visite(ctx, tl) {
   }
   ctx.restore();
   card(ctx, sh.who, sh.tag, u);
-  if (k === 3) tip(ctx, 2, 'LES RACINES AVANT LES FEUILLES.', u, 0.25);
+  if (k === 3) tip(ctx, 2, 'LES RACINES AVANT LES FEUILLES.', u, 0.0);
 }
 
 // ------------------------------------------------------------------ 4. jour 60 : l'Obsession déterre ses graines pour vérifier
@@ -336,7 +336,7 @@ function pluie(ctx, tl) {
   const up = ease.out(prog(tl, 0.2, 0.5));
   const run = prog(tl, 0.9, 1.8);
   drawMember(ctx, 'chance', COL.chance - 12 + run * 130, up > 0.5 ? GY - LEG : GY - 52, up > 0.5 ? { ...POSES.victory, armF: [-150, -10], lean: 4 } : { ...POSES.sit, lean: -34, head: -26 }, { scale: SC, t, mouth: tl > 0.9 ? 'sad' : 'happy', mood: tl > 0.9 ? 'sad' : null, showLabel: false });
-  if (tl > 0.25 && tl < 1.2) bubble(ctx, 'ENFIN LA PLUIE !', COL.chance, GY - LEG - 140, tl, 0.25, { log, size: 26 });
+  if (tl > 0.2 && tl < 1.9) bubble(ctx, 'ENFIN LA PLUIE !', COL.chance, GY - LEG - 140, tl, 0.2, { log, size: 26 });
   drawMember(ctx, 'ego', 255, GY - LEG, { ...POSES.stand, lean: 6, head: 30, armF: [20, 30], armB: [10, 30] }, { scale: SC, t, mouth: 'sad', mood: 'sad', face: -1, showLabel: false });
   drawMember(ctx, 'obsession', COL.obsession + 40, GY - 40, POSES.lie, { scale: SC, t, spiral: true, showLabel: false });
   drawMember(ctx, 'discipline', COL.discipline - 40, GY - LEG, { ...POSES.stand, head: -10, armF: [-30, 20], armB: [-20, 20] }, { scale: SC, t, mouth: 'happy', mood: 'determined', showLabel: false });
@@ -449,8 +449,8 @@ export const post = cinema((t) => ({ threshold: 0.8, ...look(t) }));
 function look(t) {
   const sun = toScreen(SUN[0], SUN[1]);
   if (t >= S.pluie && t < S.recolte) return { bloom: 0.8, fog: { density: 0.5, height: 0.5, color: '#232a3c', speed: 2.2 }, warm: 0.6 };
-  if (t >= S.recolte && t < S.boucle) return { bloom: 1.0, threshold: 0.75, rays: { x: sun.x, y: sun.y, strength: 0.9, color: '#ffd9a0', radius: 0.07 }, fog: { density: 0.2, height: 0.4, color: '#d9b98a' }, warm: 1.4 };
-  return { bloom: 0.9, rays: { x: sun.x, y: sun.y, strength: 0.55, color: '#ffd9a0', radius: 0.07 }, fog: { density: 0.2, height: 0.35, color: '#c9b08a' }, warm: 1.2 };
+  if (t >= S.recolte && t < S.boucle) return { bloom: 1.0, threshold: 0.75, rays: { x: sun.x, y: sun.y, strength: 0.9, color: '#ffd9a0', radius: 0.07 }, fog: { density: 0.15, height: 0.4, color: '#4a3a28' }, warm: 1.4 };
+  return { bloom: 0.9, rays: { x: sun.x, y: sun.y, strength: 0.55, color: '#ffd9a0', radius: 0.07 }, fog: { density: 0.15, height: 0.35, color: '#3a3020' }, warm: 1.2 };
 }
 
 // ------------------------------------------------------------------ son
