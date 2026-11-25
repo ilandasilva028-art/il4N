@@ -33,3 +33,8 @@ _Le score est une estimation interne : il ne garantit ni la viralité ni une qua
 - **B** : `potager_accroche-B.mp4` — accroche : « QUI VA VOIR / POUSSER QUOI ? »
 
 Publie A, puis B à un autre jour (ou sur un autre créneau). Compare dans les statistiques TikTok le **taux de rétention à 3 s** et le **visionnage complet**, puis dis-moi laquelle gagne : la routine adoptera ce style d'accroche.
+
+## Montage Remotion
+
+- `potager.mp4` et `potager_accroche-B.mp4` : montage final Remotion (textes animés, compteur, barre de progression, transitions), même image et même son que le moteur.
+- Versions du moteur conservées : `potager_moteur.mp4`, `potager_accroche-B_moteur.mp4`.

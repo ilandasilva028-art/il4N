@@ -273,3 +273,26 @@ Rappeler que rien n'est publié.
   - `heart` : tension ;
   - `buzz` : élimination.
 - Le mixeur limite la crête à −4 dBFS (−1,5 à −2 dBTP après AAC).
+
+## 1 quindecies. Montage final avec Remotion (décision d'Ilan, 25/11/2026)
+**Principe** : le moteur canvas fait l'**image** (mode propre `?v=clean` : sans textes, compteur ni transitions), le **son** et le **contrôle qualité**. Remotion (`factory/remotion/`, licence gratuite pour un particulier) fait le **montage** : textes à ressort, cartes des personnages, conseils en pastille, compteur d'élimination, barre de progression, transitions (balayage, zoom, bug numérique).
+
+**Ce que chaque film doit faire**
+1. Dans le film, un mode propre : `const CLEAN = VARIANT === 'clean'` ; quand `CLEAN`, ne dessiner ni `title`, `card`, `tip`, `kinetic` d'accroche, `tracker`, `seriesTag`, texte de chute, « ABONNE-TOI », et ne pas appeler `transition()`. Les bulles de dialogue restent (elles suivent les personnages). Modèle : `films/j20261121-potager3d.js`.
+2. Exporter la fiche `MONTAGE` en fin de fichier (mêmes temps que le film) : `hook {a, b, line2At, end}`, `bands`, `titles`, `cards`, `tips`, `lines`, `tracker`, `progress`, `cuts`, `subscribe`. Format : `remotion/src/Montage.tsx` (type `MontageSpec`).
+
+**Chaîne de production (dans cet ordre)**
+```
+cd factory && (cd remotion && npm ci)          # une seule fois par session
+npx tsx engine/daily.ts produce <film> <vision>   # image + son + contrôle qualité (version du moteur)
+npx tsx engine/daily.ts deliver <film> <vision> [vN]
+npx tsx engine/daily.ts variant <film> <vision>   # accroche B du moteur
+npx tsx engine/daily.ts montage <film> <vision>   # rendu propre + Remotion : remplace les MP4 A et B
+```
+`montage` garde les versions du moteur à côté (`*_moteur.mp4`), mesure le son (même mix) et ajoute une section au `LISEZMOI.md`. Durée : environ 10 min en plus (rendu propre ≈ 5 min, Remotion ≈ 3 min par version).
+
+**À savoir**
+- Le contrôle qualité mesuré est celui de la version du moteur (même image, même son) ; le montage Remotion ne change que les textes et les transitions.
+- Ne pas mettre la vidéo propre ni `node_modules` dans git (`.gitignore`).
+- Si `montage` échoue, livrer les versions du moteur (elles sont déjà dans la livraison).
+- Recompresser si besoin : `ffmpeg -i f.mp4 -c:v libx264 -crf 20 -preset slow -tune animation -pix_fmt yuv420p -c:a copy`.
