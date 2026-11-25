@@ -6,3 +6,8 @@ voix/full/
 voix/fix/
 node_modules
 __pycache__/
+# Remotion : dépendances et médias générés (reproductibles)
+factory/remotion/node_modules/
+factory/remotion/public/*.mp4
+factory/remotion/public/*.wav
+factory/remotion/out/

@@ -18,6 +18,8 @@ const { B, S } = timeline(BPM, [['ouverture', 7], ['jour1', 7], ['visite', 16], 
 export const DURATION = S.end;
 const RED = COLORS.red, SERIES = 'TOI CONTRE TOI · #12';
 const log = (s) => TEXTLOG.frame.push(s);
+// Mode « propre » (?v=clean) : image seule, sans textes, compteur ni transitions — pour le montage Remotion (factory/remotion/).
+const CLEAN = VARIANT === 'clean';
 
 export const SCRIPT = {
   premiere: 'raté',
@@ -188,6 +190,7 @@ function world(ctx, t, { egoN = 5, egoFly = null, wind = 0, noPot = false, potX 
 
 // ------------------------------------------------------------------ textes
 function tip(ctx, n, text, tl, t0) {
+  if (CLEAN) return;
   const k = pop(tl, t0, 0.3);
   if (k <= 0) return;
   ctx.save(); ctx.globalAlpha = clamp(k); ctx.translate(W / 2, 1480); ctx.scale(0.85 + 0.15 * k, 0.85 + 0.15 * k);
@@ -201,8 +204,9 @@ function tip(ctx, n, text, tl, t0) {
   ctx.restore();
   if (k >= 0.5) log(text);
 }
-function title(ctx, tl, parts, t0 = 0.05, size = 90) { topBand(ctx); kinetic(ctx, parts, 420, size, tl, t0, { stagger: 0.1, rise: 50 }); }
+function title(ctx, tl, parts, t0 = 0.05, size = 90) { if (CLEAN) return; topBand(ctx); kinetic(ctx, parts, 420, size, tl, t0, { stagger: 0.1, rise: 50 }); }
 function card(ctx, who, tag, u) {
+  if (CLEAN) return;
   const c = CAST[who]; topBand(ctx);
   kinetic(ctx, [[c.name, c.labelColor]], 430, 92, u, 0.05, { stagger: 0.08, rise: 40 });
   kinetic(ctx, [[tag, '#f1f1f1']], 525, 50, u, 0.1, { stagger: 0.06 });
@@ -234,6 +238,7 @@ function ouverture(ctx, tl) {
   ctx.restore();
   const rw = prog(tl, 7 * B - 0.5, 7 * B);
   if (rw > 0) rewind(ctx, tl * 8, rw);
+  if (CLEAN) return;
   seriesTag(ctx, SERIES, pop(tl, 1.0));
   topBand(ctx);
   kinetic(ctx, HOOK[0], 400, 92, tl, -0.12, { stagger: 0.1 });
@@ -367,6 +372,7 @@ function recolteScene(ctx, tl) { recolte(ctx, tl); title(ctx, tl, [['JOUR ', '#f
 // ------------------------------------------------------------------ 7. chute
 function chute(ctx, tl) {
   recolte(ctx, tl, 6 * B);
+  if (CLEAN) return;
   topBand(ctx);
   kinetic(ctx, [['CE QUI POUSSE ', '#f1f1f1'], ['SOUS TERRE', '#9a9a9c']], 410, 62, tl, 0.1);
   kinetic(ctx, [['FINIT PAR ', '#f1f1f1'], ['SE VOIR.', RED]], 510, 84, tl, 0.8, { rise: 60 });
@@ -375,6 +381,7 @@ function chute(ctx, tl) {
 // ------------------------------------------------------------------ compteur d'élimination
 const ORDER = ['ego', 'obsession', 'chance', 'discipline'];
 function tracker(ctx, t) {
+  if (CLEAN) return;
   const show = clamp((t - 1.2) / 0.3) * (t < S.boucle ? 1 : 0);
   if (show <= 0) return;
   ctx.save(); ctx.globalAlpha = show; ctx.translate(826, 300); ctx.scale(1.25, 1.25); ctx.translate(-826, -300);
@@ -403,6 +410,7 @@ function tracker(ctx, t) {
 // ------------------------------------------------------------------ 8. boucle : juste avant le coup de vent de l'image 0
 function boucle(ctx, tl) {
   ouverture(ctx, tl - BOUCLE);
+  if (CLEAN) return;
   const k = pop(tl, 0.15, 0.25) * (1 - clamp((tl - (BOUCLE - 0.55)) / 0.3));
   if (k > 0) {
     ctx.save(); ctx.globalAlpha = clamp(k); ctx.translate(W / 2, 1480); ctx.scale(0.9 + 0.1 * k, 0.9 + 0.1 * k);
@@ -439,7 +447,7 @@ function renderAt(ctx, t) {
   tracker(ctx, t);
 }
 export function draw(ctx, t) {
-  if (transition(ctx, t, renderAt, CUTS)) return;
+  if (!CLEAN && transition(ctx, t, renderAt, CUTS)) return;
   renderAt(ctx, t);
 }
 export const samples = (t) => (t < S.jour1 || t >= S.boucle ? 2 : 1);

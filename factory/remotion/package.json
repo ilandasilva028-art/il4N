@@ -1,0 +1,16 @@
+{
+  "name": "factory-remotion",
+  "private": true,
+  "type": "module",
+  "description": "Essai de montage Remotion par-dessus les films du moteur canvas (texte, transitions, compteur).",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.547",
+    "@remotion/cli": "^4.0.547",
+    "@remotion/google-fonts": "^4.0.547",
+    "@remotion/renderer": "^4.0.547",
+    "@remotion/transitions": "^4.0.547",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "remotion": "^4.0.547"
+  }
+}
