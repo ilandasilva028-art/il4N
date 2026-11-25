@@ -1,0 +1,280 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Toi contre toi//Calendrier videos//FR
+CALSCALE:GREGORIAN
+X-WR-CALNAME:Toi contre toi — vidéo du jour
+X-WR-TIMEZONE:Europe/Paris
+BEGIN:VEVENT
+UID:video-tirelire-2026-11-25@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261125T124700Z
+DTEND:20261125T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 tirelires, 10 € par jour
+DESCRIPTION:Accroche A : 10 € PAR JOUR. 4 TIRELIRES.\nAccroche B : Qui va avoir 1 000 € ?\nThème : Argent\n4 personnages — épargne de 10 € par jour\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 tirelires, 10 € par jour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-reveil4-2026-11-26@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261126T124700Z
+DTEND:20261126T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 réveils, 1 matin
+DESCRIPTION:Accroche A : 4 RÉVEILS. 1 SEUL DEBOUT.\nAccroche B : Qui se lève à 5 h ?\nThème : Routine\n4 personnages — le matin se gagne la veille\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 réveils, 1 matin
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-transformation-2026-11-27@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261127T124700Z
+DTEND:20261127T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 corps, 90 jours
+DESCRIPTION:Accroche A : 90 JOURS. 4 CORPS.\nAccroche B : Qui change vraiment ?\nThème : Sport\n4 personnages — 3 séances par semaine\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 corps, 90 jours
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-pont4-2026-11-28@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261128T124700Z
+DTEND:20261128T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 ponts, 1 gouffre
+DESCRIPTION:Accroche A : UN GOUFFRE. 4 PONTS.\nAccroche B : Quel pont va tenir ?\nThème : Mentalité\n4 personnages — une planche solide par jour\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 ponts, 1 gouffre
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-livre-2026-11-29@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261129T124700Z
+DTEND:20261129T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 auteurs, 1 livre
+DESCRIPTION:Accroche A : 4 AUTEURS. 1 SEUL LIVRE.\nAccroche B : Qui finit son livre ?\nThème : Business / création\n4 personnages — 300 mots par jour (décors du bureau déjà rendus)\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 auteurs, 1 livre
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-un-pourcent-2026-11-30@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261130T124700Z
+DTEND:20261130T131700Z
+SUMMARY:🎬 Vidéo du jour : 1 % par jour
+DESCRIPTION:Accroche A : 1 % MIEUX CHAQUE JOUR.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — progresser de 1 % par jour\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 1 % par jour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-sablier-2026-12-01@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261201T124700Z
+DTEND:20261201T131700Z
+SUMMARY:🎬 Vidéo du jour : Le sablier
+DESCRIPTION:Accroche A : LE TEMPS NE T'ATTEND PAS.\nAccroche B : —\nThème : Productivité\nà passer en 4 personnages — le temps passe, qu'en fais-tu ?\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Le sablier
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-miroir-2026-12-02@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261202T124700Z
+DTEND:20261202T131700Z
+SUMMARY:🎬 Vidéo du jour : Les deux toi
+DESCRIPTION:Accroche A : TOI AUJOURD'HUI CONTRE TOI DANS 1 AN.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — toi aujourd'hui contre toi dans 1 an\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Les deux toi
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-batterie-2026-12-03@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261203T124700Z
+DTEND:20261203T131700Z
+SUMMARY:🎬 Vidéo du jour : La batterie
+DESCRIPTION:Accroche A : POURQUOI TU ES TOUJOURS VIDE ?\nAccroche B : —\nThème : Routine / énergie\nà passer en 4 personnages — sommeil, pauses, énergie\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : La batterie
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-boss-2026-12-04@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261204T124700Z
+DTEND:20261204T131700Z
+SUMMARY:🎬 Vidéo du jour : Le boss final
+DESCRIPTION:Accroche A : NIVEAU 1. BOSS : TOI.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — le boss final, c'est toi\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Le boss final
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-concert-2026-12-05@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261205T124700Z
+DTEND:20261205T131700Z
+SUMMARY:🎬 Vidéo du jour : 4 guitaristes, 1 concert
+DESCRIPTION:Accroche A : 4 GUITARISTES. 1 CONCERT.\nAccroche B : Qui monte sur scène ?\nThème : Discipline / passion\n4 personnages — 20 minutes par jour (moins proche de la niche)\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : 4 guitaristes, 1 concert
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-iceberg-2026-12-06@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261206T124700Z
+DTEND:20261206T131700Z
+SUMMARY:🎬 Vidéo du jour : L'iceberg
+DESCRIPTION:Accroche A : ILS VOIENT LA RÉUSSITE.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — la partie cachée de la réussite\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : L'iceberg
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-chaines-2026-12-07@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261207T124700Z
+DTEND:20261207T131700Z
+SUMMARY:🎬 Vidéo du jour : Les chaînes
+DESCRIPTION:Accroche A : TES HABITUDES SONT TES CHAÎNES.\nAccroche B : —\nThème : Habitudes\nà passer en 4 personnages — tes habitudes te tiennent\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Les chaînes
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-sac-2026-12-08@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261208T124700Z
+DTEND:20261208T131700Z
+SUMMARY:🎬 Vidéo du jour : Le sac
+DESCRIPTION:Accroche A : CE QUE TU PORTES TE RALENTIT.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — ce que tu portes te ralentit\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Le sac
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-portes-2026-12-09@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261209T124700Z
+DTEND:20261209T131700Z
+SUMMARY:🎬 Vidéo du jour : Les deux portes
+DESCRIPTION:Accroche A : DEUX PORTES. UNE SEULE TE CHANGE.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — la porte qui te change\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Les deux portes
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-calendrier-2026-12-10@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261210T124700Z
+DTEND:20261210T131700Z
+SUMMARY:🎬 Vidéo du jour : Un jour / Jour un
+DESCRIPTION:Accroche A : « UN JOUR » OU « JOUR UN » ?\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — « un jour » ou « jour un » ?\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Un jour / Jour un
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-seau-2026-12-11@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261211T124700Z
+DTEND:20261211T131700Z
+SUMMARY:🎬 Vidéo du jour : Le seau
+DESCRIPTION:Accroche A : CEUX QUI TE TIRENT VERS LE BAS.\nAccroche B : —\nThème : Entourage\nà passer en 4 personnages — ceux qui te tirent vers le bas\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Le seau
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-ombre-2026-12-12@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261212T124700Z
+DTEND:20261212T131700Z
+SUMMARY:🎬 Vidéo du jour : L'ombre
+DESCRIPTION:Accroche A : TON OMBRE EST PLUS GRANDE QUE TOI.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — ton ombre est plus grande que toi\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : L'ombre
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-cage-2026-12-13@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261213T124700Z
+DTEND:20261213T131700Z
+SUMMARY:🎬 Vidéo du jour : La cage ouverte
+DESCRIPTION:Accroche A : LA PORTE ÉTAIT OUVERTE.\nAccroche B : —\nThème : Mentalité\nà passer en 4 personnages — la porte était ouverte\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : La cage ouverte
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-banc-2026-12-14@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261214T124700Z
+DTEND:20261214T131700Z
+SUMMARY:🎬 Vidéo du jour : Le banc
+DESCRIPTION:Accroche A : TU REGARDES OU TU JOUES ?\nAccroche B : —\nThème : Passage à l'action\nà passer en 4 personnages — regarder ou jouer\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : Le banc
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:video-tempete-2026-12-15@toicontretoi
+DTSTAMP:20261125T210000Z
+DTSTART:20261215T124700Z
+DTEND:20261215T131700Z
+SUMMARY:🎬 Vidéo du jour : La tempête
+DESCRIPTION:Accroche A : ILS PARLERONT QUOI QUE TU FASSES.\nAccroche B : —\nThème : Critiques\nà passer en 4 personnages — ils parleront quoi que tu fasses\nProduction automatique (routine 13 h 47) puis envoi à Ilan. Rien n'est publié.
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Vidéo du jour dans 15 min : La tempête
+END:VALARM
+END:VEVENT
+END:VCALENDAR

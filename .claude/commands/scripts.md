@@ -7,7 +7,7 @@ Tu aides Ilan à trouver et choisir les scripts de sa série « Toi contre toi �
 
 Argument reçu : `$ARGUMENTS`
 
-1. Lis `factory/themes/visions.json`, `factory/livraisons/journal.json` et `factory/docs/SCRIPTS-IDEES.md`.
+1. Lis `factory/themes/visions.json`, `factory/livraisons/journal.json`, `factory/docs/SCRIPTS-IDEES.md` et `factory/docs/CALENDRIER.md` (calendrier jour par jour : montre la date de chaque vision).
 2. Selon l'argument :
    - **vide** : affiche un tableau en trois blocs : **déjà produits** (date, vision, score du journal), **file de la routine** (dans l'ordre, la 1re non utilisée = demain, sa leçon et son accroche A / B), **autres idées** (non utilisées, plus loin dans la liste).
    - **un mot-clé** (ex. `argent`, `examen`, `sport`) : cherche ce mot dans `id`, `titre`, `accroche`, `metaphore`, `lecon` et `hashtags` de chaque vision, et affiche les résultats avec accroche, leçon, scènes clés et statut (produit / dans la file).
