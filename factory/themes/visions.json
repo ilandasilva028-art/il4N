@@ -339,40 +339,6 @@
    ]
   },
   {
-   "id": "examen",
-   "titre": "4 élèves, 1 examen",
-   "accroche": [
-    "EXAMEN DANS 30 JOURS.",
-    "4 ÉLÈVES."
-   ],
-   "accrocheB": [
-    "Qui va",
-    "réussir ?"
-   ],
-   "metaphore": "Quatre élèves, un examen dans 30 jours : l'Ego copie ses fiches sur le bras et filme sa révision, l'Obsession révise 20 h d'affilée jusqu'au black-out, la Chance mise sur le hasard, Discipline révise 30 minutes par jour. Compteur J-30 → J-0 en plus du compteur d'élimination.",
-   "lecon": "Révise un peu, tous les jours. Dors la veille. Teste-toi au lieu de relire.",
-   "scenes": [
-    "ouverture : la fiche cachée de l'Ego tombe devant le prof (J-0)",
-    "J-30 : le plan de chacun",
-    "visite des quatre bureaux de révision",
-    "J-1 : nuit blanche de l'Obsession, la Chance panique",
-    "J-0 : la salle d'examen, les copies"
-   ],
-   "chute": [
-    "L'examen se prépare avant.",
-    "Pas la veille."
-   ],
-   "mot": "AVANT.",
-   "serie": "TOI CONTRE TOI · #9",
-   "hashtags": [
-    "#examen",
-    "#revision",
-    "#etudiant",
-    "#discipline",
-    "#motivation"
-   ]
-  },
-  {
    "id": "tirelire",
    "titre": "4 tirelires, 10 € par jour",
    "accroche": [
@@ -1093,6 +1059,40 @@
     "#mentalite",
     "#discipline",
     "#confiance"
+   ]
+  },
+  {
+   "id": "examen",
+   "titre": "4 élèves, 1 examen",
+   "accroche": [
+    "EXAMEN DANS 30 JOURS.",
+    "4 ÉLÈVES."
+   ],
+   "accrocheB": [
+    "Qui va",
+    "réussir ?"
+   ],
+   "metaphore": "Quatre élèves, un examen dans 30 jours : l'Ego copie ses fiches sur le bras et filme sa révision, l'Obsession révise 20 h d'affilée jusqu'au black-out, la Chance mise sur le hasard, Discipline révise 30 minutes par jour. Compteur J-30 → J-0 en plus du compteur d'élimination.",
+   "lecon": "Révise un peu, tous les jours. Dors la veille. Teste-toi au lieu de relire.",
+   "scenes": [
+    "ouverture : la fiche cachée de l'Ego tombe devant le prof (J-0)",
+    "J-30 : le plan de chacun",
+    "visite des quatre bureaux de révision",
+    "J-1 : nuit blanche de l'Obsession, la Chance panique",
+    "J-0 : la salle d'examen, les copies"
+   ],
+   "chute": [
+    "L'examen se prépare avant.",
+    "Pas la veille."
+   ],
+   "mot": "AVANT.",
+   "serie": "TOI CONTRE TOI · #9",
+   "hashtags": [
+    "#examen",
+    "#revision",
+    "#etudiant",
+    "#discipline",
+    "#motivation"
    ]
   }
  ]
