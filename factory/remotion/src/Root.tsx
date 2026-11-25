@@ -1,18 +1,22 @@
 import React from 'react';
 import { Composition } from 'remotion';
-import { Potager, potagerDuration } from './Potager';
+import { Montage, MontageProps } from './Montage';
 
-// Montage Remotion : l'image vient du moteur canvas (rendu « propre » ?v=clean, sans textes ni transitions),
-// le son vient du mixeur du moteur (timing identique). Remotion ajoute textes animés, compteur, barre de progression
-// et transitions appliquées à l'image.
+// Une seule composition, pilotée par les props : la fiche MONTAGE du film, la variante d'accroche,
+// la vidéo « propre » et le son (fichiers copiés dans public/ par engine/render/montage.ts).
+const defaults: MontageProps = {
+  variant: 'a', video: 'clean.mp4', audio: 'mix.wav',
+  spec: { fps: 60, duration: 1, hook: { a: [], b: [], line2At: 1, end: 1 }, bands: [], titles: [], cards: [], tips: [], lines: [], cuts: [] },
+};
 export const Root: React.FC = () => (
   <Composition
-    id="Potager"
-    component={Potager}
-    durationInFrames={potagerDuration}
-    fps={60}
+    id="Montage"
+    component={Montage}
     width={1080}
     height={1920}
-    defaultProps={{ variant: 'a' as 'a' | 'b' }}
+    fps={60}
+    durationInFrames={60}
+    defaultProps={defaults}
+    calculateMetadata={({ props }) => ({ fps: props.spec.fps, durationInFrames: Math.round(props.spec.duration * props.spec.fps) })}
   />
 );

@@ -491,3 +491,20 @@ export const HITS = [
   { t: S.chute + 0.1, sfx: 'sub', gain: 0.55 }, { t: S.chute + 0.8, sfx: 'sub', gain: 0.5 }, { t: S.chute + 0.8, sfx: 'ding', gain: 0.3 },
   { t: S.boucle + 0.15, sfx: 'pop', gain: 0.3 },
 ];
+
+// ------------------------------------------------------------------ fiche de montage Remotion (factory/remotion/src/Montage.tsx)
+// Mêmes temps que le film : Remotion pose textes, compteur, barre de progression et transitions sur le rendu « propre ».
+const W_ = '#f1f1f1';
+export const MONTAGE = {
+  fps: FPS, duration: S.end, series: SERIES,
+  hook: { a: [[['4 GRAINES.', W_]], [['1 SEULE ', W_], ['RÉCOLTE.', RED]]], b: [[['QUI VA VOIR', W_]], [['POUSSER ', W_], ['QUOI ?', RED]]], line2At: 2 * B, end: S.jour1 },
+  bands: [[0, S.jour1], [S.jour1, S.visite], [S.visite, S.jour60], [S.jour60, S.chute], [S.chute, S.boucle]],
+  titles: [{ pre: 'JOUR ', n: '1', start: S.jour1 + 0.05, end: S.visite }, { pre: 'JOUR ', n: '60', start: S.jour60 + 0.05, end: S.pluie }, { pre: 'JOUR ', n: '90', start: S.pluie + 0.05, end: S.recolte }, { pre: 'JOUR ', n: '180', start: S.recolte + 0.05, end: S.chute }],
+  cards: TOUR.map((s, i) => ({ who: s.who, tag: s.tag, start: S.visite + s.t0 + 0.04, end: i < 3 ? S.visite + TOUR[i + 1].t0 : S.jour60 })),
+  tips: [{ n: 1, text: 'ARROSE UN PEU, CHAQUE JOUR.', start: S.jour1 + 1.35, end: S.visite }, { n: 2, text: 'LES RACINES AVANT LES FEUILLES.', start: S.visite + TOUR[3].t0 + 0.02, end: S.jour60 }, { n: 3, text: 'NE DÉTERRE PAS POUR VÉRIFIER.', start: S.jour60 + 1.3, end: S.pluie }],
+  lines: [{ words: [['CE QUI POUSSE ', W_], ['SOUS TERRE', '#9a9a9c']], start: S.chute + 0.1, end: S.boucle, size: 56, y: 425 }, { words: [['FINIT PAR ', W_], ['SE VOIR.', RED]], start: S.chute + 0.8, end: S.boucle, size: 92, y: 545, stagger: 0.1 }],
+  tracker: { from: 1.2, to: S.boucle, out: OUT, winAt: S.recolte + 1.7 },
+  progress: { from: 1.2, to: S.boucle },
+  cuts: CUTS.map((c) => ({ t: c.t, type: c.type, dir: c.dir })),
+  subscribe: { start: S.boucle + 0.15, end: S.end - 0.55 },
+};

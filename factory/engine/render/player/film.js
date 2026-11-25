@@ -30,6 +30,7 @@ window.FPS = mod.FPS || null;
 window.SCRIPT = mod.SCRIPT || null;
 window.HITS = mod.HITS || [];
 window.MUSIC = mod.MUSIC || null;
+window.MONTAGE = mod.MONTAGE || null; // fiche de montage Remotion (factory/remotion/), si le film en fournit une
 window.seek(0);
 window.filmReady = true;
 

@@ -98,6 +98,22 @@ if (cmd === 'next') {
   const readme = path.join(out, 'LISEZMOI.md');
   fs.appendFileSync(readme, `\n## Test A/B de l'accroche\n\n- **A** : \`${path.basename(entry.file)}\`\n- **B** : \`${path.basename(mp4)}\` — accroche : « ${hookB} »\n\nPublie A, puis B à un autre jour (ou sur un autre créneau). Compare dans les statistiques TikTok le **taux de rétention à 3 s** et le **visionnage complet**, puis dis-moi laquelle gagne : la routine adoptera ce style d'accroche.\n`);
   console.log(JSON.stringify({ variante: path.relative(ROOT, mp4), accrocheB: hookB }));
+} else if (cmd === 'montage') {
+  // Montage final Remotion (après deliver) : remplace les MP4 A et B de la livraison par la version montée avec Remotion
+  // (textes à ressort, compteur, barre de progression, transitions). Les versions du moteur restent à côté (*_moteur.mp4).
+  if (!film || !visionId) throw new Error('Usage : montage <film> <visionId> [--reuse]  (après deliver)');
+  const v = vision(visionId);
+  const entry = journal().filter((e) => e.film === film).pop();
+  if (!entry) throw new Error('Livrer d’abord la version A (deliver).');
+  const vdir = path.join(DIRS.projects, film, entry.version);
+  const out = path.join(ROOT, path.dirname(entry.file));
+  const A = path.join(out, `${v.id}.mp4`), Bv = path.join(out, `${v.id}_accroche-B.mp4`);
+  for (const f of [A, Bv]) if (fs.existsSync(f) && !fs.existsSync(f.replace(/\.mp4$/, '_moteur.mp4'))) fs.renameSync(f, f.replace(/\.mp4$/, '_moteur.mp4'));
+  const { montage } = await import('./render/montage.ts');
+  await montage(film, path.join(vdir, 'mix.wav'), A, Bv, { reuseClean: process.argv.includes('--reuse') });
+  const readme = path.join(out, 'LISEZMOI.md');
+  fs.appendFileSync(readme, `\n## Montage Remotion\n\n- \`${path.basename(A)}\` et \`${path.basename(Bv)}\` : montage final Remotion (textes animés, compteur, barre de progression, transitions), même image et même son que le moteur.\n- Versions du moteur conservées : \`${path.basename(A, '.mp4')}_moteur.mp4\`, \`${path.basename(Bv, '.mp4')}_moteur.mp4\`.\n`);
+  console.log(JSON.stringify({ montage: [path.relative(ROOT, A), path.relative(ROOT, Bv)] }));
 } else {
-  console.log('Commandes : next | produce <film> <visionId> | deliver <film> <visionId> | variant <film> <visionId>');
+  console.log('Commandes : next | produce <film> <visionId> | deliver <film> <visionId> | variant <film> <visionId> | montage <film> <visionId> [--reuse]');
 }
