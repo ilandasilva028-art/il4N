@@ -237,7 +237,7 @@ export const Potager: React.FC<{ variant: 'a' | 'b'; src?: string }> = ({ varian
       <DayTitle n="180" start={S.recolte + 0.05} end={S.chute} />
       {/* chute */}
       <TopBand from={S.chute} to={S.boucle} />
-      <Pop words={[['CE QUI POUSSE ', '#f1f1f1'], ['SOUS TERRE', '#9a9a9c']]} start={S.chute + 0.1} end={S.boucle} size={66} y={430} />
+      <Pop words={[['CE QUI POUSSE ', '#f1f1f1'], ['SOUS TERRE', '#9a9a9c']]} start={S.chute + 0.1} end={S.boucle} size={56} y={425} />
       <Pop words={[['FINIT PAR ', '#f1f1f1'], ['SE VOIR.', RED]]} start={S.chute + 0.8} end={S.boucle} size={92} y={545} stagger={0.1} />
       {/* boucle : abonne-toi bref */}
       {t > S.boucle + 0.15 && subOut > 0 && <div style={{ position: 'absolute', top: 1438, width: '100%', display: 'flex', justifyContent: 'center', opacity: subOut, transform: `scale(${0.6 + 0.4 * sub})` }}>
