@@ -1,5 +1,9 @@
 # Les meilleurs scripts à produire ensuite (classement du 20/11/2026)
 
+## Niche d'Ilan (décision du 25/11/2026)
+**Développement personnel pour adultes, avec la discipline comme fil** : discipline et mentalité, argent et business en ligne, sport et transformation du corps, routine et productivité. **Hors niche : l'école et les examens** (l'idée « examen » est passée en fin de liste, ne la produire que si Ilan le demande). Tout nouveau script doit entrer dans l'un de ces quatre thèmes et parler à un adulte (travail, argent, corps, habitudes, projet).
+
+
 **Honnêteté** : le classement est une **estimation** de Claude (notes de 1 à 5), pas une mesure. Aucune statistique TikTok n'existe encore sur ce compte. Dès 7 jours de publication, Ilan envoie des captures (rétention à 3 s, visionnage complet, revisionnages) et le classement est recalculé avec les vrais chiffres.
 
 ## Critères (venant des demandes d'Ilan)
@@ -25,7 +29,7 @@ Les 4 personnages (Discipline, l'Ego, l'Obsession, la Chance) vivent **la même 
 
 Ordre de production recommandé (le plus fort d'abord, en alternant les décors) : **potager → examen → tirelire → livre → réveil → concert → pont → transformation**.
 
-Les huit sont déjà dans `themes/visions.json`, **avant** les anciennes idées : la routine quotidienne les prend dans l'ordre de la liste. **Décision d'Ilan (20/11) : demain, le potager** (il est donc en tête), puis examen, tirelire, réveil4, concert, pont4, transformation, livre. Pour changer l'ordre, déplacer l'entrée dans le fichier.
+Les huit sont déjà dans `themes/visions.json`, **avant** les anciennes idées : la routine quotidienne les prend dans l'ordre de la liste. **Ordre actuel (25/11)** : tirelire, reveil4, transformation, pont4, livre, concert, puis examen (hors niche). Le potager est déjà produit (21/11). Pour changer l'ordre, déplacer l'entrée dans le fichier.
 
 ## Règles d'écriture (rappel)
 - Accroche ≤ 6 mots, tension ou question ; chute qui reprend un mot de l'accroche.

@@ -339,6 +339,39 @@
    ]
   },
   {
+   "id": "foule",
+   "titre": "Ceux qui rient",
+   "accroche": [
+    "Ils vont rire.",
+    "Laisse-les."
+   ],
+   "metaphore": "Une foule grise rit (HA HA) pendant que le héros s'entraîne seul ; la foule rétrécit à chaque saison, il finit sous un projecteur.",
+   "scenes": [
+    "foule 'crowd laugh' + héros qui s'entraîne",
+    "saisons qui passent (JOUR 30, 90, 200)",
+    "définition 'Persévérance'",
+    "montage d'entraînement",
+    "projecteur, foule silencieuse"
+   ],
+   "chute": [
+    "Laisse-les rire. ",
+    "Continue."
+   ],
+   "mot": "CONTINUE.",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#perseverance",
+    "#motivation"
+   ],
+   "accrocheB": [
+    "Ils rient de toi ?",
+    "Parfait."
+   ],
+   "lecon": "1. N'annonce pas tes plans. 2. Note chaque séance. 3. Compare-toi à toi d'hier.",
+   "serie": "TOI CONTRE TOI · #2"
+  },
+  {
    "id": "tirelire",
    "titre": "4 tirelires, 10 € par jour",
    "accroche": [
@@ -407,34 +440,34 @@
    ]
   },
   {
-   "id": "concert",
-   "titre": "4 guitaristes, 1 concert",
+   "id": "transformation",
+   "titre": "4 corps, 90 jours",
    "accroche": [
-    "4 GUITARISTES.",
-    "1 CONCERT."
+    "90 JOURS.",
+    "4 CORPS."
    ],
    "accrocheB": [
-    "Qui monte",
-    "sur scène ?"
+    "Qui change",
+    "vraiment ?"
    ],
-   "metaphore": "Un concert dans 90 jours : l'Ego achète une guitare en or et filme des clips sans jouer, l'Obsession répète 12 h puis se blesse, la Chance attend l'inspiration, Discipline joue 20 minutes par jour. Le soir du concert, un seul est prêt. Décor de scène en 3D (rideaux, projecteurs, fumée).",
-   "lecon": "20 minutes par jour. Joue devant quelqu'un avant le soir J. Ménage-toi.",
+   "metaphore": "Quatre personnes, 90 jours de salle : l'Ego fait des selfies au miroir sans s'entraîner, l'Obsession s'entraîne 4 h par jour et se blesse, la Chance attend de maigrir toute seule, Discipline fait 3 séances de 40 minutes par semaine. Compteur de jours et photo avant / après.",
+   "lecon": "Trois séances par semaine, pas plus. Dors et mange. Note tes progrès.",
    "scenes": [
-    "ouverture : la corde de la guitare en or casse sur scène",
-    "jour 1",
-    "visite des quatre salles de répétition",
-    "jour 60 : la blessure de l'Obsession",
-    "soir J : la scène"
+    "ouverture : la barre de l'Obsession lâche (blessure)",
+    "jour 1 : avant",
+    "visite des quatre salles",
+    "jour 45 : le plateau",
+    "jour 90 : après"
    ],
    "chute": [
-    "Le talent monte sur scène.",
-    "Le travail y reste."
+    "Le corps suit",
+    "la régularité."
    ],
-   "mot": "TRAVAIL.",
-   "serie": "TOI CONTRE TOI · #13",
+   "mot": "RÉGULARITÉ.",
+   "serie": "TOI CONTRE TOI · #15",
    "hashtags": [
-    "#musique",
-    "#guitare",
+    "#sport",
+    "#transformation",
     "#discipline",
     "#mentalite",
     "#motivation"
@@ -475,40 +508,6 @@
    ]
   },
   {
-   "id": "transformation",
-   "titre": "4 corps, 90 jours",
-   "accroche": [
-    "90 JOURS.",
-    "4 CORPS."
-   ],
-   "accrocheB": [
-    "Qui change",
-    "vraiment ?"
-   ],
-   "metaphore": "Quatre personnes, 90 jours de salle : l'Ego fait des selfies au miroir sans s'entraîner, l'Obsession s'entraîne 4 h par jour et se blesse, la Chance attend de maigrir toute seule, Discipline fait 3 séances de 40 minutes par semaine. Compteur de jours et photo avant / après.",
-   "lecon": "Trois séances par semaine, pas plus. Dors et mange. Note tes progrès.",
-   "scenes": [
-    "ouverture : la barre de l'Obsession lâche (blessure)",
-    "jour 1 : avant",
-    "visite des quatre salles",
-    "jour 45 : le plateau",
-    "jour 90 : après"
-   ],
-   "chute": [
-    "Le corps suit",
-    "la régularité."
-   ],
-   "mot": "RÉGULARITÉ.",
-   "serie": "TOI CONTRE TOI · #15",
-   "hashtags": [
-    "#sport",
-    "#transformation",
-    "#discipline",
-    "#mentalite",
-    "#motivation"
-   ]
-  },
-  {
    "id": "livre",
    "titre": "4 auteurs, 1 livre",
    "accroche": [
@@ -537,6 +536,40 @@
    "hashtags": [
     "#ecriture",
     "#livre",
+    "#discipline",
+    "#mentalite",
+    "#motivation"
+   ]
+  },
+  {
+   "id": "concert",
+   "titre": "4 guitaristes, 1 concert",
+   "accroche": [
+    "4 GUITARISTES.",
+    "1 CONCERT."
+   ],
+   "accrocheB": [
+    "Qui monte",
+    "sur scène ?"
+   ],
+   "metaphore": "Un concert dans 90 jours : l'Ego achète une guitare en or et filme des clips sans jouer, l'Obsession répète 12 h puis se blesse, la Chance attend l'inspiration, Discipline joue 20 minutes par jour. Le soir du concert, un seul est prêt. Décor de scène en 3D (rideaux, projecteurs, fumée).",
+   "lecon": "20 minutes par jour. Joue devant quelqu'un avant le soir J. Ménage-toi.",
+   "scenes": [
+    "ouverture : la corde de la guitare en or casse sur scène",
+    "jour 1",
+    "visite des quatre salles de répétition",
+    "jour 60 : la blessure de l'Obsession",
+    "soir J : la scène"
+   ],
+   "chute": [
+    "Le talent monte sur scène.",
+    "Le travail y reste."
+   ],
+   "mot": "TRAVAIL.",
+   "serie": "TOI CONTRE TOI · #13",
+   "hashtags": [
+    "#musique",
+    "#guitare",
     "#discipline",
     "#mentalite",
     "#motivation"
@@ -595,39 +628,6 @@
     "#procrastination",
     "#temps"
    ]
-  },
-  {
-   "id": "foule",
-   "titre": "Ceux qui rient",
-   "accroche": [
-    "Ils vont rire.",
-    "Laisse-les."
-   ],
-   "metaphore": "Une foule grise rit (HA HA) pendant que le héros s'entraîne seul ; la foule rétrécit à chaque saison, il finit sous un projecteur.",
-   "scenes": [
-    "foule 'crowd laugh' + héros qui s'entraîne",
-    "saisons qui passent (JOUR 30, 90, 200)",
-    "définition 'Persévérance'",
-    "montage d'entraînement",
-    "projecteur, foule silencieuse"
-   ],
-   "chute": [
-    "Laisse-les rire. ",
-    "Continue."
-   ],
-   "mot": "CONTINUE.",
-   "hashtags": [
-    "#discipline",
-    "#mentalite",
-    "#perseverance",
-    "#motivation"
-   ],
-   "accrocheB": [
-    "Ils rient de toi ?",
-    "Parfait."
-   ],
-   "lecon": "1. N'annonce pas tes plans. 2. Note chaque séance. 3. Compare-toi à toi d'hier.",
-   "serie": "TOI CONTRE TOI · #2"
   },
   {
    "id": "sac",
