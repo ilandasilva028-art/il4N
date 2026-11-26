@@ -44,6 +44,7 @@ function plate(ctx, name, { z = 1, x = 540, y = 960 } = {}) {
   x = clamp(x, half, W - half); y = clamp(y, halfH, H - halfH);
   CAM = { x, y, z }; camera(ctx, { zoom: z, x, y });
   ctx.drawImage(IMG[name], 0, 0, W, H);
+  ctx.fillStyle = 'rgba(2,3,8,0.28)'; ctx.fillRect(0, 0, W, H); // assombrit le décor : les personnages et les lueurs ressortent
   return A[name];
 }
 const scOf = (a) => (1.9 * a.ego.ppm) / 424;
@@ -154,7 +155,7 @@ function card(ctx, who, tag, u) {
 const HOOK = VARIANT === 'b' ? [[['QUI VA AVOIR', '#f1f1f1']], [['1 800 € ?', RED]]] : [[['10 € PAR JOUR.', '#f1f1f1']], [['4 ', RED], ['TIRELIRES.', '#f1f1f1']]];
 const BOUCLE = 3 * B;
 function ouverture(ctx, tl) {
-  const push = 1.08 + 0.3 * ease.inOut(prog(tl, 0.25, 3.0)), quake = tl > 0 && tl < 0.7 ? 22 * Math.exp(-tl * 6) : 0;
+  const push = lerp(2.0, 1.2, ease.out(prog(tl, 0, 0.8))) + 0.25 * ease.inOut(prog(tl, 0.8, 3.2)), quake = tl > 0 && tl < 0.7 ? 22 * Math.exp(-tl * 6) : 0;
   ctx.save(); ctx.translate(noise(tl * 70, 3) * quake, noise(tl * 70, 8) * quake);
   const a = plate(ctx, 'chance', { z: push, x: 520 + 50 * Math.sin(tl * 1.4), y: 1010 + 24 * Math.sin(tl * 1.9) });
   screen(ctx, a.chance.monitor, (x, y, w, h) => scrText(ctx, x, y, w, h, 'LOTO : 0 € GAGNÉ', '#e3342c', 0.17, 1, tl));
@@ -168,7 +169,7 @@ function ouverture(ctx, tl) {
   if (tl > 0.1) { const u = tl - 0.1; coin(ctx, pg.x + 40 * pg.s + u * 260, d[1] + 6 + Math.abs(Math.sin(u * 7)) * -22 * Math.exp(-u * 1.5), 12 * pg.s * 1.4, u * 12); }
   const pose = tl < 0 ? { ...POSES.sit, lean: 24, head: 30, armF: [82 + Math.sin(tl * 22) * 14, 52], armB: [60, 60] } : { ...POSES.sit, lean: lerp(24, -30, slam) + Math.sin(tl * 12) * 3, head: lerp(30, -14, slam), armF: [lerp(82, 150, slam), 30], armB: [lerp(60, 130, slam), 20] };
   member(ctx, a, 'chance', pose, { t: tl, mouth: tl < 0 ? 'grit' : 'open', mood: tl < 0 ? null : 'sad' });
-  if (tl > 0.5) { const h = headTop(a, 'chance'); bubble(ctx, 'ENCORE UN TICKET !', h[0] + 30, h[1] - 40, tl, 0.5, { log, size: 28 }); }
+  if (tl > 1.6) { const h = headTop(a, 'chance'); bubble(ctx, 'ENCORE UN TICKET !', h[0] + 30, h[1] - 40, tl, 1.6, { log, size: 28 }); }
   dust(ctx, d[0], d[1], tl, 0.05, { n: 10, spread: 260, color: '230,200,140' });
   ctx.restore();
   const rw = prog(tl, 7 * B - 0.5, 7 * B);
