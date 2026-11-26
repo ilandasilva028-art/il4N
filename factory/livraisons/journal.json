@@ -106,5 +106,14 @@
     "score": 91.2,
     "max": 96,
     "file": "livraisons/2026-11-21-potager/potager.mp4"
+  },
+  {
+    "date": "2026-11-26",
+    "vision": "tirelire",
+    "film": "j20261126-tirelire",
+    "version": "v2",
+    "score": 93,
+    "max": 96,
+    "file": "livraisons/2026-11-26-tirelire/tirelire.mp4"
   }
 ]
