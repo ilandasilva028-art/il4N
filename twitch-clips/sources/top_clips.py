@@ -4,7 +4,7 @@
 Les spectateurs ont déjà choisi ces moments (nombre de vues) ; le moteur trouve ensuite le passage le plus fort
 dans chaque clip (smart_cut.best_window), détecte la webcam, filtre les contenus bloqués et fait le TikTok.
 
-  python sources/top_clips.py [--range 24hr|7d|30d] [--top 6] [--min-views 300] [--channels a,b]
+  python sources/top_clips.py [--range 24hr|7d|30d] [--top 6] [--min-views 300] [--channels a,b] [--topic gta]
 Refuse toute chaîne qui n'est pas en rights authorized/owned. Ne retraite jamais un clip déjà en base.
 """
 import argparse, json, os, re, subprocess, sys
@@ -30,7 +30,7 @@ def known_ids(db):
             for m in [re.search(r"_(\d+)\.mp4$", ref or "")] if m}
 
 
-def run(rng="24hr", top=6, min_views=300, channels=None):
+def run(rng="24hr", top=6, min_views=300, channels=None, topic=None):
     cfg, db = load_config(), DB(DB_PATH)
     d = os.path.join(OUT, "sources", "twitch_clips"); os.makedirs(d, exist_ok=True)
     seen, ids = known_ids(db), []
@@ -59,6 +59,8 @@ def run(rng="24hr", top=6, min_views=300, channels=None):
                 continue
             sig = {"kind": None, "source": "twitch_clip", "views": e.get("view_count"), "title": e.get("title") or "",
                    "clip_id": e["id"]}
+            if topic:
+                sig["topic"] = topic
             cid = db.add_clip("twitch_clip", name, path, e["url"], ch["rights"], 0, sig, "CANDIDATE", margin=0,
                               src_path=path, src_offset=0, win_start=0, win_end=dur)
             if cid:
@@ -73,5 +75,6 @@ if __name__ == "__main__":
     ap.add_argument("--top", type=int, default=6)
     ap.add_argument("--min-views", type=int, default=300)
     ap.add_argument("--channels")
+    ap.add_argument("--topic", choices=["gta"], help="rejeter les clips hors sujet")
     a = ap.parse_args()
-    print(run(a.range, a.top, a.min_views, a.channels.split(",") if a.channels else None))
+    print(run(a.range, a.top, a.min_views, a.channels.split(",") if a.channels else None, a.topic))

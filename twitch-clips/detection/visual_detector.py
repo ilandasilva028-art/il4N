@@ -44,7 +44,7 @@ def cam_box(path, start, end, w=1280, h=720):
         _, faces = det.detect(f)
         for fc in (faces if faces is not None else []):
             x, y, fw, fh = (float(v) for v in fc[:4])
-            if 18 <= fh < 0.25 * h:
+            if 18 <= fh < 0.13 * h:            # overlay faces are small; a big face = full-screen camera
                 hits.append((x + fw / 2, y + fh / 2, fw, fh))
     if not hits:
         return None
@@ -61,6 +61,9 @@ def cam_box(path, start, end, w=1280, h=720):
     vr = slice(int(max(0, T + 0.15 * bh)), int(min(h, B - 0.15 * bh)))
     hc = slice(int(max(0, L + 0.15 * bw)), int(min(w - 1, R - 0.15 * bw)))
 
+    if vr.stop - vr.start < 4 or hc.stop - hc.start < 4:
+        return None
+
     def snap(pos, size, n, prof):
         lo, hi = int(max(0, pos - 0.35 * size)), int(min(n - 1, pos + 0.35 * size))
         best_i, best_s = None, 0.5
@@ -75,7 +78,7 @@ def cam_box(path, start, end, w=1280, h=720):
     L = 0 if L < 40 else L; T = 0 if T < 40 else T
     R = w if R > w - 40 else R; B = h if B > h - 40 else B
     L, T, R, B = max(0, L), max(0, T), min(w, R), min(h, B)
-    if R - L < 120 or B - T < 70:
+    if R - L < 120 or B - T < 70 or R - L > 0.45 * w or B - T > 0.5 * h:
         return None
     return [int(L), int(T), int(R - L) // 2 * 2, int(B - T) // 2 * 2]
 

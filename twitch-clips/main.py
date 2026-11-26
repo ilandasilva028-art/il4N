@@ -6,7 +6,7 @@
   main.py local <file> --creator X --rights owned|authorized [--url U] [--category C] [--max 5]
   main.py once <clip_id>                      process a single clip now (debug)
 """
-import argparse, json, os, sys, time, traceback
+import argparse, json, os, re, sys, time, traceback
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DB_PATH, OUT, atomic_write_json, atomic_write_text, can_download, ensure_dirs, load_config, log
@@ -85,6 +85,10 @@ def watch(name):
 
 
 # --------------------------------------------------------------------------------------- process
+GTA_RX = re.compile(r"\b(gta|lucia|jason|vice|leonida|rockstar|braqu\w*|flics?|police|policiers?|mission|caisse"
+                    r"|voitures?|bagnole|wanted|étoiles|armes?|pistolet|fusil|gang|PNJ|map|carte)\b", re.I)
+
+
 def analyze(db, cfg, row):
     from detection import audio_detector, transcript_detector, viral_scorer
     d, sc = cfg["detection"], cfg["scoring"]
@@ -124,6 +128,10 @@ def analyze(db, cfg, row):
         db.set(row["id"], "REJECTED", error=f"contenu bloqué : {', '.join(flags)}", transcript=tf["text"])
         log("process", f"#{row['id']} rejeté : contenu {flags}")
         return
+    if any(x.get("topic") == "gta" for x in signals) and not GTA_RX.search(
+            tf["text"] + " " + " ".join(x.get("title", "") for x in signals)):
+        db.set(row["id"], "REJECTED", error="hors sujet (pas GTA 6)", transcript=tf["text"])
+        log("process", f"#{row['id']} rejeté : pas GTA"); return
     from delivery.validate import probe
     info = probe(src) or {}
     tech = {s.get("codec_type") for s in info.get("streams", [])} >= {"audio", "video"}
