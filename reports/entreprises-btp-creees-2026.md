@@ -15,7 +15,7 @@ Date de la collecte : 2026-11-26. Fichier : `reports/entreprises-btp-creees-2026
 - **« Créée en 2026 » ne veut pas toujours dire nouvelle activité.** Un nouveau SIREN peut venir d'une reprise ou d'une restructuration.
 - **Pas de téléphone, de site ni de décideur.** Ces données ne sont pas dans la source. Les colonnes `telephone`, `site`, `decideur` sont vides et doivent être complétées à la main, en vérifiant chaque fiche.
 - **Présence en ligne non vérifiée.** Je n'ai pas pu visiter les sites ni les fiches Google.
-- **Une date future a été retirée.** Une entrée portait une date de décembre 2026, après la date du jour.
+- **Deux dates futures retirées.** Deux entrées portaient une date de décembre 2026, après la date du jour. La liste finale compte 781 entreprises.
 
 ## Répartition (783 lignes avant filtre des dates futures)
 
