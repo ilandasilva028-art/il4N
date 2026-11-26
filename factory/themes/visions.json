@@ -1094,6 +1094,38 @@
     "#routine",
     "#mentalite"
    ]
+  },
+  {
+   "id": "accueil",
+   "titre": "Les 4 personnages (vidéo d'accueil à épingler)",
+   "accroche": [
+    "4 personnages.",
+    "Lequel es-tu ?"
+   ],
+   "accrocheB": [
+    "Qui est",
+    "qui ?"
+   ],
+   "metaphore": "Présentation des quatre personnages de la série : l'Ego veut être vu, l'Obsession ne s'arrête jamais, la Chance attend que ça tombe, Discipline revient chaque jour.",
+   "lecon": "Se reconnaître dans un trait pour choisir lequel on veut nourrir.",
+   "scenes": [
+    "l'Ego tombe de sa chaise",
+    "un plan par personnage",
+    "et toi, tu es lequel ?"
+   ],
+   "chute": [
+    "Et toi,",
+    "tu es lequel ?"
+   ],
+   "mot": "LEQUEL ?",
+   "serie": "TOI CONTRE TOI · LES 4",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#personnalite",
+    "#motivation",
+    "#developpementpersonnel"
+   ]
   }
  ]
 }
