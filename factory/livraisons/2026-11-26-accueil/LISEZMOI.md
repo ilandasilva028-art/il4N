@@ -9,15 +9,21 @@
 ## Publication proposée
 
 ```
-4 personnages. Lequel es-tu ? Et toi,tu es lequel ?
+4 personnages. Un seul te ressemble 👀
+L'Ego, l'Obsession, la Chance ou Discipline… tu es lequel ? Dis-le en commentaire 👇
 
 #discipline #mentalite #personnalite #motivation #developpementpersonnel
 ```
 
-Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, épingle un commentaire-question (« Tu es plutôt jour 1 ou un jour ? »).
+Conseil : publie à heure fixe, réponds aux premiers commentaires dans l’heure, **épingle cette vidéo en haut du profil** (c'est la vidéo d'accueil) et épingle le commentaire « Tu es lequel ? Ego / Obsession / Chance / Discipline ».
 
 ## Itérations
 
 - v1 : 93.8 / 96 ← livrée
 
 _Le score est une estimation interne : il ne garantit ni la viralité ni une qualité équivalente aux vidéos de référence._
+
+## Montage Remotion
+
+- `accueil.mp4` et `accueil_accroche-B.mp4` : montage final Remotion (textes animés, compteur, barre de progression, transitions), même image et même son que le moteur.
+- Versions du moteur conservées : `accueil_moteur.mp4`, `accueil_accroche-B_moteur.mp4`.
