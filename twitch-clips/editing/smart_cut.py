@@ -45,3 +45,51 @@ def choose(segments, peaks, trigger, lag, win_len, cmin=15, cmax=35, target=25):
     start = max(0.0, start - 0.2)
     return dict(start=round(start, 2), end=round(end, 2), anchor=round(anchor, 2),
                 duration=round(end - start, 2), anchor_from="audio_peak" if cand else "chat_minus_lag")
+
+
+# --------------------------------------------------------------------------------------------------
+# Without a chat trigger (Twitch clips, imported videos): find the most interesting stretch ourselves.
+def _seg_interest(seg):
+    from detection.transcript_detector import MARKERS
+    t = seg["text"]
+    sc = sum(len(rx.findall(t)) * w for (k, rx), w in zip(MARKERS.items(), (3, 2, 2, 0.5, 2)))
+    sc += t.count("!") * 1.0 + t.count("?") * 0.6
+    words = t.lower().split()
+    if len(words) >= 4 and len(set(words)) <= len(words) / 2:      # "non non non non", "waw waw waw"
+        sc += 2
+    return sc
+
+
+def best_window(segments, peaks, win_len, cmin=15, cmax=35, target=25):
+    """Pick [start, end] (sentence boundaries) maximising reactions + loud peaks + speech density.
+
+    The window must END just after a strong reaction (the punchline), must not open in the middle of
+    a sentence and avoids long silences. Returns the same dict shape as choose()."""
+    segs = sorted([s for s in segments if s["text"].strip()], key=lambda s: s["start"])
+    if not segs:
+        return choose(segments, peaks, win_len, 0, win_len, cmin, cmax, target)
+    interest = [_seg_interest(s) for s in segs]
+    best, bs = None, -1e9
+    for i, a in enumerate(segs):
+        for j in range(i, len(segs)):
+            b = segs[j]
+            st, en = max(0.0, a["start"] - 0.25), min(win_len, b["end"] + 0.5)
+            dur = en - st
+            if dur > cmax:
+                break
+            if dur < cmin:
+                continue
+            inside = range(i, j + 1)
+            react = sum(interest[k] for k in inside)
+            speech = sum(segs[k]["end"] - segs[k]["start"] for k in inside) / dur
+            gaps = max([segs[k + 1]["start"] - segs[k]["end"] for k in range(i, j)] or [0])
+            loud = sum(1 for p in (peaks or []) if st <= p <= en)
+            punch = max(interest[k] for k in range(max(i, j - 1), j + 1))   # strong ending
+            s = react + 1.5 * loud + 4 * speech + 1.2 * punch - 0.6 * max(0, gaps - 3) - 0.08 * abs(dur - target)
+            if s > bs:
+                best, bs = (st, en), s
+    if best is None:            # clip shorter than cmin: take everything
+        best = (0.0, win_len)
+    st, en = best
+    return dict(start=round(st, 2), end=round(en, 2), anchor=round(en, 2), duration=round(en - st, 2),
+                anchor_from="best_window", interest=round(bs, 2))

@@ -11,7 +11,22 @@ MARKERS = {
     "fail": re.compile(r"\b(raté|j'ai raté|c'est raté|nul|catastrophe|non non non|oh non|mince|merde|je suis nul"
                        r"|j'ai tout cassé|fail)\b", re.I),
     "swear": re.compile(r"\b(putain|merde|bordel|wesh|sa mère|ta mère)\b", re.I),
+    "hype": re.compile(r"\b(waw|wow|incroyable|exceptionnel|c'est ouf|de ouf|trop fort|énorme|magnifique|insane"
+                       r"|let's go|allez allez|oh le|c'est fou|dingue)\b", re.I),
 }
+
+# Content we never prepare for posting (TikTok rules + the user's own rules): sexual, slurs, hate.
+BLOCK = {
+    "sexuel": re.compile(r"\b(suce|sucer|branl\w*|bite|chatte|sexe|anal|missionary|blowjob|porn\w*|nude|nue?s?\b"
+                         r"|baise[rz]?|baisé|cul nu|strip\w*|bj)\b", re.I),
+    "haine": re.compile(r"\b(nazis?|nègre|négro|pd|pédé|tarlouze|bougnoule|youpin|n[i1]gg\w*|faggot)\b", re.I),
+    "insulte_forte": re.compile(r"\b(fils de pute|ta mère la pute|nique ta mère|ntm|enculé)\b", re.I),
+}
+
+
+def content_flags(text):
+    """Categories of blocked content found in `text` (empty = OK)."""
+    return sorted(k for k, rx in BLOCK.items() if rx.search(text or ""))
 
 
 def model(name="small"):

@@ -98,8 +98,12 @@ def analyze(db, cfg, row):
         raise RuntimeError("no usable audio in window")
     peaks = [p + ws for p in audio["peaks"]]
     tr = transcript_detector.transcribe(src, ws, we, cfg["subtitles"]["whisper_model"])
-    cut = smart_cut.choose(tr["segments"], peaks, trigger, lag, we, **{
-        "cmin": cfg["cut"]["min"], "cmax": cfg["cut"]["max"], "target": cfg["cut"]["target"]})
+    ck = {"cmin": cfg["cut"]["min"], "cmax": cfg["cut"]["max"], "target": cfg["cut"]["target"]}
+    src_kind = next((x.get("source") for x in signals if x.get("source")), None)
+    if chat is None:      # no chat trigger (Twitch clip, imported video): find the best stretch from speech + audio
+        cut = smart_cut.best_window(tr["segments"], peaks, we, **ck)
+    else:
+        cut = smart_cut.choose(tr["segments"], peaks, trigger, lag, we, **ck)
     cut["start"] = max(cut["start"], ws)
     from detection import visual_detector
     cuts = visual_detector.scene_cuts(src, max(ws, cut["start"] - 0.5), cut["start"] + 2.5)
@@ -115,6 +119,11 @@ def analyze(db, cfg, row):
         db.set(row["id"], "REJECTED", error=f"pas de parole exploitable (langue {tr['language']}, {tf['n_words']} mots)")
         log("process", f"#{row['id']} rejeté : pas de parole exploitable")
         return
+    flags = transcript_detector.content_flags(tf["text"] + " " + " ".join(x.get("title", "") for x in signals))
+    if flags:
+        db.set(row["id"], "REJECTED", error=f"contenu bloqué : {', '.join(flags)}", transcript=tf["text"])
+        log("process", f"#{row['id']} rejeté : contenu {flags}")
+        return
     from delivery.validate import probe
     info = probe(src) or {}
     tech = {s.get("codec_type") for s in info.get("streams", [])} >= {"audio", "video"}
@@ -127,6 +136,10 @@ def analyze(db, cfg, row):
     if db.similar_transcript(row["creator"], tf["text"], exclude_id=row["id"]):
         db.set(row["id"], "REJECTED", error="duplicate transcript", score=s["total"], score_detail=json.dumps(s))
         return
+    views = max([x.get("views") or 0 for x in signals] or [0])
+    if src_kind == "twitch_clip":   # the community already picked it: keep it, rank by views + interest
+        s["views"] = views
+        s["decision"] = "review" if s["decision"] == "ignore" else s["decision"]
     state = "ANALYZED" if s["decision"] != "ignore" else "REJECTED"
     db.set(row["id"], state, score=s["total"], score_detail=json.dumps(s), transcript=tf["text"],
            cut_start=cut["start"], cut_end=cut["end"], out_dir=cdir,
