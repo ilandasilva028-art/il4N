@@ -115,5 +115,14 @@
     "score": 93,
     "max": 96,
     "file": "livraisons/2026-11-26-tirelire/tirelire.mp4"
+  },
+  {
+    "date": "2026-11-26",
+    "vision": "accueil",
+    "film": "j20261126-accueil",
+    "version": "v1",
+    "score": 93.8,
+    "max": 96,
+    "file": "livraisons/2026-11-26-accueil/accueil.mp4"
   }
 ]
