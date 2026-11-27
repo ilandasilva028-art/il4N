@@ -38,7 +38,7 @@ export async function montage(film: string, mixWav: string, outA: string, outB: 
   if (!(reuseClean && fs.existsSync(clean))) await renderFilm(film, clean, { fps: spec.fps, crf: 14, variant: 'clean' });
   fs.copyFileSync(mixWav, path.join(pub, 'mix.wav'));
   const browser = process.env.FACTORY_CHROMIUM ? [`--browser-executable=${process.env.FACTORY_CHROMIUM}`] : [];
-  for (const [variant, out] of [['a', outA], ['b', outB]] as const) {
+  for (const [variant, out] of ([['a', outA], ['b', outB]] as const).filter(([v]) => (process.env.MONTAGE_VARIANTS ?? 'ab').includes(v))) {
     const props = path.join(REMOTION_DIR, 'out', `props-${variant}.json`);
     fs.mkdirSync(path.dirname(props), { recursive: true });
     fs.writeFileSync(props, JSON.stringify({ spec, variant, video: 'clean.mp4', audio: 'mix.wav' }));
