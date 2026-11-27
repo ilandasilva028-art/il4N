@@ -1,11 +1,13 @@
-# Site de commande — Alex Pellegrino (MAQUETTE)
+# Site de commande — Les Gourmandises Pellegrino (MAQUETTE)
 Page unique : accueil, catalogue de gâteaux, panier, formulaire de commande (retrait au marché ou envoi par la poste), marchés.
 
+## Repris de la carte d'Alex (vraies infos)
+Nom « Les Gourmandises Pellegrino », style noir et cuivre, écriture manuscrite, fouet et spatule, téléphone, e-mail, Instagram, les 6 marchés de la semaine, carte de fidélité (9 cases + étoile).
+
 ## Ce qui est un exemple (à remplacer avec Alex)
-- Les 6 gâteaux, leurs prix et leurs descriptions.
-- Les marchés, jours et horaires.
-- L'e-mail de secours `alex@exemple.fr` (dans le script, fonction d'envoi).
-- Téléphone, réseaux sociaux, liste des allergènes.
+- Les 6 gâteaux, leurs prix et leurs descriptions (aucune info donnée par Alex pour l'instant).
+- Les horaires des marchés (non indiqués sur sa carte).
+- La liste des allergènes, à confirmer.
 
 ## Règle d'envoi par la poste
 Un gâteau est « Voyage » (peut être posté) ou « Frais · retrait ». Si la commande contient un gâteau frais, l'envoi par la poste est désactivé et l'adresse n'est pas demandée.
