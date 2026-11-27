@@ -1,0 +1,66 @@
+import sys
+BL = float(sys.argv[1]) if len(sys.argv) > 1 else 0.0   # fond perdu en mm
+out = sys.argv[2] if len(sys.argv) > 2 else 'cartes.html'
+W = 85 + 2 * BL
+H = 55 + 2 * BL
+copper = 'linear-gradient(180deg,#f0bd98 0%,#d89a73 45%,#b9744d 100%)'
+
+whisk = '''<svg viewBox="0 0 60 60" width="100%" height="100%" fill="none" stroke="#e9e9e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<g transform="rotate(-38 30 30)"><path d="M30 6c-9 0-13 10-13 20 0 7 5 12 13 12s13-5 13-12c0-10-4-20-13-20z"/><path d="M30 6c-4 0-6 10-6 20 0 7 2 12 6 12s6-5 6-12c0-10-2-20-6-20z"/><path d="M22 14h16M20 22h20M20 30h20"/><path d="M30 38v18"/><rect x="27.5" y="44" width="5" height="12" rx="2.5" fill="#e9e9e9"/></g></svg>'''
+spat = '''<svg viewBox="0 0 60 60" width="100%" height="100%" fill="none" stroke="#e9e9e9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<g transform="rotate(38 30 30)"><rect x="22" y="4" width="16" height="22" rx="4"/><path d="M26 10v10M30 10v10M34 10v10" stroke-width="1.6"/><path d="M30 26v12"/><rect x="27.5" y="38" width="5" height="18" rx="2.5" fill="#e9e9e9"/></g></svg>'''
+insta = '''<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="url(#g)" stroke-width="2" stroke-linecap="round"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0bd98"/><stop offset="1" stop-color="#b9744d"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="#d89a73" stroke="none"/></svg>'''
+cup = '''<svg viewBox="0 0 40 46" width="100%" height="100%" fill="none" stroke="#e9e9e9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 24h22l-3 19H12z"/><path d="M14 24v19M20 24v19M26 24v19" stroke-width="1"/><path d="M7 24c-3-8 4-11 8-8 0-6 9-6 10 0 4-3 11 1 8 8z" fill="#d89a73" fill-opacity=".9" stroke="#e9e9e9"/><path d="M13 20c3-3 6-3 9-1" stroke="#fff" stroke-opacity=".7"/></svg>'''
+
+css = f'''
+@font-face{{font-family:Script;src:url(GreatVibes.ttf)}}
+@font-face{{font-family:Inter;font-weight:400;src:url(Inter-Regular.ttf)}}
+@font-face{{font-family:Inter;font-weight:600;src:url(Inter-SemiBold.ttf)}}
+@page{{size:{W}mm {H}mm;margin:0}}
+*{{box-sizing:border-box;margin:0;padding:0}}
+html,body{{background:#555}}
+.card{{width:{W}mm;height:{H}mm;position:relative;overflow:hidden;background:#131212;color:#ececec;break-after:page}}
+.in{{position:absolute;inset:{BL}mm}}
+.cu{{background:{copper};-webkit-background-clip:text;background-clip:text;color:transparent}}
+.frame{{position:absolute;left:5mm;right:5mm;top:9mm;bottom:5mm;border:.35mm solid #c98a63;border-bottom:0}}
+.logo{{position:absolute;left:50%;top:1.6mm;transform:translateX(-50%);width:15mm;height:11mm;background:#131212;display:flex}}
+.logo>div{{width:50%;height:100%}}
+.name{{position:absolute;left:0;right:0;top:10.8mm;text-align:center;font-family:Script;font-size:7.6mm;line-height:.95}}
+.band{{position:absolute;left:5mm;right:5mm;top:25.5mm;height:7mm;background:repeating-linear-gradient(135deg,#7a4a30 0 .45mm,#c98a63 .45mm .9mm);display:flex;justify-content:center;align-items:center}}
+.band span{{background:#131212;color:#f2f2f2;font-family:Script;font-size:6.2mm;padding:0 4mm;line-height:1.05;white-space:nowrap}}
+.fid{{position:absolute;left:0;right:0;top:33.4mm;text-align:center;font-family:Script;font-size:5.2mm}}
+.sq{{position:absolute;left:5mm;right:5mm;top:39.6mm;display:grid;grid-template-columns:repeat(10,1fr);gap:.55mm}}
+.sq div{{background:linear-gradient(180deg,#f2c7a6,#dda07a);color:#1a1412;height:6.6mm;display:grid;place-items:center;font:600 3.7mm Inter}}
+.sq div:last-child{{font-size:4.4mm}}
+.mail{{position:absolute;left:0;right:0;bottom:2.6mm;text-align:center;font-family:Script;font-size:4.1mm;color:#f0f0f0}}
+.v .l{{position:absolute;left:7mm;font-family:Script;font-size:4.3mm;line-height:1.1;white-space:nowrap}}
+.v .l b{{font-weight:400;color:#f0f0f0}}
+.v .ig{{position:absolute;left:7mm;bottom:5mm;display:flex;align-items:center;gap:2.2mm;font:600 3.4mm Inter;color:#ececec}}
+.v .ig i{{width:6mm;height:6mm;display:block}}
+.v .cup{{position:absolute;right:7mm;bottom:4mm;width:8mm;height:9mm}}
+.v .nb{{position:absolute;left:7mm;top:5mm;font:600 2.6mm Inter;letter-spacing:.3em;text-transform:uppercase;color:#c98a63}}
+'''
+
+recto = f'''<div class="card"><div class="in"><div class="frame"></div>
+<div class="logo"><div>{whisk}</div><div>{spat}</div></div>
+<div class="name cu">Les Gourmandises<br>Pellegrino</div>
+<div class="band"><span>06 73 61 57 65</span></div>
+<div class="fid cu">Carte de fidélité</div>
+<div class="sq">{''.join(f'<div>{i}</div>' for i in range(1, 10))}<div>★</div></div>
+<div class="mail">lesgourmandisespellegrino@gmail.com</div></div></div>'''
+
+jours = [('Mardi', 'Vaison-la-Romaine', 'Velleron'), ('Mercredi', 'Saint-Rémy-de-Provence', ''), ('Jeudi', 'Nyons', ''),
+         ('Vendredi soir', 'Velleron', ''), ('Samedi', 'Uzès', ''), ('Dimanche', "L'Isle-sur-la-Sorgue", '')]
+ys = [10.2, 15.2, 20.2, 25.2, 30.2, 35.2]
+rows = ''
+for (j, m, soir), y in zip(jours, ys):
+    extra = f' <span class="cu">/ Soir :</span> <b>{soir}</b>' if soir else ''
+    rows += f'<div class="l" style="top:{y}mm"><span class="cu">{j} :</span> <b>{m}</b>{extra}</div>'
+
+verso = f'''<div class="card v"><div class="in">
+<div class="nb">Retrouvez-moi</div>{rows}
+<div class="ig"><i>{insta}</i><span>@lesgourmandisespellegrino</span></div>
+<div class="cup">{cup}</div></div></div>'''
+
+html = f'<!doctype html><html lang="fr"><meta charset="utf-8"><title>Les Gourmandises Pellegrino, carte de fidélité</title><style>{css}</style><body>{recto}{verso}</body></html>'
+open(out, 'w', encoding='utf-8').write(html)
