@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alex Pellegrino · Gâteaux des marchés du Vaucluse</title>
+<meta name="description" content="Gâteaux faits maison sur les marchés du Vaucluse. Commandez en ligne, retrait au marché ou envoi par la poste.">
+<style>
+@font-face{font-family:Inter;font-weight:400;src:url(Inter-Regular.ttf)}
+@font-face{font-family:Inter;font-weight:600;src:url(Inter-SemiBold.ttf)}
+@font-face{font-family:Inter;font-weight:800;src:url(Inter-ExtraBold.ttf)}
+:root{--creme:#f6ecdc;--papier:#fffaf1;--terra:#c4623a;--terra-d:#a44d2a;--olive:#5b6b3a;--soleil:#e8b04a;--brun:#3d3426;--line:#e3d5bd}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--creme);color:var(--brun);line-height:1.55}
+a{color:inherit}
+.wrap{width:min(1100px,100% - 40px);margin:0 auto}
+.ribbon{background:var(--brun);color:#f6ecdc;text-align:center;font-size:13px;padding:8px 14px}
+.ribbon b{color:var(--soleil)}
+header{position:sticky;top:0;z-index:30;background:#f6ecdcf2;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px}
+.logo{font-family:Georgia,serif;font-style:italic;font-size:26px;color:var(--terra);text-decoration:none;line-height:1}
+.logo b{font-family:Inter;font-style:normal;font-weight:800;font-size:15px;letter-spacing:.08em;color:var(--brun);margin-left:6px}
+nav{display:flex;gap:22px;font-weight:600;font-size:14px}
+nav a{text-decoration:none}nav a:hover{color:var(--terra)}
+.cart-btn{border:0;background:var(--terra);color:#fff;font:600 14px Inter;padding:10px 16px;border-radius:50px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.cart-btn span{background:#fff;color:var(--terra);border-radius:50px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px;font-weight:800}
+.awn{height:26px;background:repeating-linear-gradient(90deg,var(--terra) 0 44px,var(--creme) 44px 88px)}
+.scal{height:16px;background:radial-gradient(circle at 22px 0,var(--terra) 21px,transparent 22px) 0 0/88px 16px repeat-x,radial-gradient(circle at 66px 0,var(--creme) 21px,transparent 22px) 0 0/88px 16px repeat-x;margin-bottom:-1px}
+.hero{padding:56px 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--olive)}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(38px,6vw,68px);line-height:1.05;margin:14px 0 18px}
+h1 em{color:var(--terra)}
+.lead{font-size:18px;max-width:34em;color:#5a4d3a}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;background:var(--terra);color:#fff;text-decoration:none;font-weight:800;padding:14px 24px;border-radius:50px;border:0;cursor:pointer;font-family:Inter;font-size:15px}
+.btn:hover{background:var(--terra-d)}
+.btn.ghost{background:transparent;color:var(--brun);border:2px solid var(--brun)}
+.btn.ghost:hover{background:var(--brun);color:#fff}
+.hero-art{position:relative;aspect-ratio:1;max-width:420px;justify-self:center;width:100%}
+.sun{position:absolute;inset:6%;border-radius:50%;background:var(--soleil)}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+.steps{background:var(--papier);border-block:1px solid var(--line)}
+.steps ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:34px 0}
+.steps li{display:flex;gap:14px}
+.steps .n{flex:none;width:38px;height:38px;border-radius:50%;background:var(--olive);color:#fff;font-weight:800;display:grid;place-items:center}
+.steps b{display:block}.steps small{color:#6d6049}
+section{padding:70px 0}
+.sh h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(30px,4.5vw,44px);line-height:1.1}
+.sh p{color:#6d6049;margin-top:8px;max-width:40em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:32px}
+.card{background:var(--papier);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.card .pic{aspect-ratio:4/3;display:grid;place-items:center;background:var(--bg,#f0dcc0)}
+.card .pic svg{width:44%;height:auto;color:var(--fg,#c4623a)}
+.card .bd{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-family:Georgia,serif;font-weight:400;font-size:23px;line-height:1.15}
+.card p{font-size:14px;color:#6d6049;flex:1}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:50px;background:#e9efd9;color:var(--olive)}
+.tag.f{background:#f7dccf;color:var(--terra-d)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.price{font-weight:800;font-size:20px}
+.price small{font-size:12px;font-weight:400;color:#6d6049}
+.add{border:2px solid var(--terra);color:var(--terra);background:transparent;font:800 14px Inter;padding:9px 16px;border-radius:50px;cursor:pointer}
+.add:hover{background:var(--terra);color:#fff}
+.demo{font-size:11px;color:#9a8a6d;font-style:italic}
+.markets{background:var(--olive);color:#f6ecdc}
+.mk{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.mk div{background:#ffffff14;border-radius:18px;padding:18px}
+.mk b{display:block;font-family:Georgia,serif;font-size:21px;font-weight:400}
+.mk small{opacity:.85}
+.order{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+.panel{background:var(--papier);border:1px solid var(--line);border-radius:24px;padding:26px}
+.panel h3{font-family:Georgia,serif;font-weight:400;font-size:26px;margin-bottom:14px}
+#lines{list-style:none;display:flex;flex-direction:column;gap:10px}
+#lines li{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--brun);background:#fff;cursor:pointer;font-weight:800}
+.empty{color:#9a8a6d;font-style:italic}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:20px;margin-top:14px}
+.note{font-size:13px;color:#6d6049;margin-top:10px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+input,select,textarea{width:100%;font:400 15px Inter;padding:11px 13px;border-radius:12px;border:1px solid #cdbb9c;background:#fff;color:var(--brun)}
+textarea{min-height:76px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mode{border:2px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;background:#fff;display:block;margin:0}
+.mode input{width:auto;margin-right:8px}
+.mode.on{border-color:var(--terra);background:#fdf1ea}
+.mode.off{opacity:.45;cursor:not-allowed}
+.mode b{font-size:14px}.mode small{display:block;color:#6d6049;font-size:12px;font-weight:400}
+#post-fields{display:none}
+.warn{background:#fdf1ea;border-left:4px solid var(--terra);padding:10px 12px;border-radius:8px;font-size:13px;margin-top:10px;display:none}
+.ok{display:none;background:#e9efd9;border-radius:14px;padding:18px;margin-top:16px;color:#3f4d26}
+footer{background:var(--brun);color:#d8c9ad;padding:38px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer b{color:#fff}
+@media(max-width:860px){.hero,.order{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.mk{grid-template-columns:1fr 1fr}.steps ol{grid-template-columns:1fr}nav{display:none}.hero-art{max-width:300px}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.two,.modes{grid-template-columns:1fr}.mk{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="ribbon"><b>MAQUETTE</b> · gâteaux, prix, marchés et contact sont des <b>exemples</b> à remplacer par ceux d'Alex.</div>
+<header><div class="wrap hd">
+ <a class="logo" href="#haut">Alex<b>PELLEGRINO</b></a>
+ <nav><a href="#gateaux">Gâteaux</a><a href="#marches">Marchés</a><a href="#commander">Commander</a></nav>
+ <button class="cart-btn" id="open-cart" aria-label="Voir ma commande">Ma commande <span id="count">0</span></button>
+</div></header>
+<div class="awn"></div><div class="scal"></div>
+
+<main id="haut">
+<div class="wrap hero">
+ <div>
+  <p class="eyebrow">Gâteaux faits maison · Marchés du Vaucluse</p>
+  <h1>Des gâteaux <em>comme à la maison</em>, commandés d'avance.</h1>
+  <p class="lead">Choisissez vos gâteaux en ligne. Je les prépare pour le prochain marché et vous les retirez sur mon stand. Certains voyagent aussi par la poste.</p>
+  <div class="cta"><a class="btn" href="#gateaux">Voir les gâteaux</a><a class="btn ghost" href="#marches">Où me trouver</a></div>
+ </div>
+ <div class="hero-art"><div class="sun"></div>
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+<rect x="10" y="70" width="80" height="6" rx="3" fill="#3d3426" opacity=".85"/>
+<g transform="translate(6 18) scale(.34)"><path d="M12 72 50 26 88 72z" fill="#e8c9a8"/><path d="M10 72h80v11H10z" fill="#c4623a"/><circle cx="44" cy="58" r="5" fill="#c4623a"/><circle cx="58" cy="52" r="4" fill="#c4623a"/><circle cx="54" cy="64" r="4" fill="#c4623a"/></g>
+<g transform="translate(33 6) scale(.42)"><rect x="18" y="50" width="64" height="32" rx="6" fill="#5b6b3a"/><rect x="18" y="50" width="64" height="9" rx="4" fill="#fffaf1" opacity=".5"/><rect x="47" y="32" width="6" height="18" rx="2" fill="#fffaf1"/><path d="M50 14c6 7 6 12 0 15-6-3-6-8 0-15z" fill="#c4623a"/></g>
+<g transform="translate(62 20) scale(.32)"><path d="M14 60c0-16 16-24 36-24s36 8 36 24v22H14z" fill="#6b3a22"/><path d="M26 52c10-7 38-7 48 0" stroke="#fffaf1" stroke-opacity=".6" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+</svg>
+ </div>
+</div>
+
+<div class="steps"><div class="wrap"><ol>
+ <li><span class="n">1</span><div><b>Je choisis</b><small>Mes gâteaux, en quelques clics.</small></div></li>
+ <li><span class="n">2</span><div><b>Alex prépare</b><small>Pour le prochain marché choisi.</small></div></li>
+ <li><span class="n">3</span><div><b>Je retire ou je reçois</b><small>Au stand, ou par la poste pour les gâteaux de voyage.</small></div></li>
+</ol></div></div>
+
+<section id="gateaux"><div class="wrap">
+ <div class="sh"><h2>Les gâteaux du moment</h2><p>La carte change avec les saisons. Les gâteaux « voyage » se gardent bien et peuvent être envoyés par la poste.</p></div>
+ <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="marches" class="markets"><div class="wrap">
+ <div class="sh"><h2>Où me retrouver</h2><p style="color:#e9dfc6">Commandez jusqu'à la veille : je prépare pour le marché de votre choix.</p></div>
+ <div class="mk">
+  <div><b>Mardi</b>Marché d'exemple A<br><small>8h – 13h</small></div>
+  <div><b>Mercredi</b>Marché d'exemple B<br><small>8h – 12h30</small></div>
+  <div><b>Vendredi</b>Marché d'exemple C<br><small>7h30 – 13h</small></div>
+  <div><b>Dimanche</b>Marché d'exemple D<br><small>8h – 13h</small></div>
+ </div>
+</div></section>
+
+<section id="commander"><div class="wrap order">
+ <div class="panel"><h3>Ma commande</h3>
+  <ul id="lines"></ul>
+  <div class="tot"><span>Total gâteaux</span><span id="total">0,00 €</span></div>
+  <p class="note" id="shipnote">Retrait au marché : pas de frais. Envoi par la poste : frais d'envoi confirmés par Alex.</p>
+  <p class="note">Paiement au retrait ou par virement, Alex vous confirme votre commande par message.</p>
+ </div>
+ <form class="panel" id="form" name="commande" method="POST" data-netlify="true" netlify-honeypot="bot">
+  <h3>Mes coordonnées</h3>
+  <input type="hidden" name="form-name" value="commande">
+  <p hidden><label>Ne pas remplir <input name="bot"></label></p>
+  <div class="two"><div><label for="nom">Nom et prénom</label><input id="nom" name="nom" required autocomplete="name"></div>
+  <div><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" required autocomplete="tel"></div></div>
+  <label for="mail">E-mail (facultatif)</label><input id="mail" name="email" type="email" autocomplete="email">
+  <label>Comment récupérer ma commande ?</label>
+  <div class="modes">
+   <label class="mode on" id="m-retrait"><input type="radio" name="mode" value="retrait" checked><b>Retrait au marché</b><small>Gratuit, tous les gâteaux</small></label>
+   <label class="mode" id="m-poste"><input type="radio" name="mode" value="poste"><b>Envoi par la poste</b><small>Gâteaux « voyage » uniquement</small></label>
+  </div>
+  <div class="warn" id="warn">L'envoi par la poste n'est possible qu'avec les gâteaux « voyage ». Retirez les gâteaux frais de votre commande ou choisissez le retrait au marché.</div>
+  <div id="retrait-fields"><label for="marche">Marché et jour</label>
+   <select id="marche" name="marche"><option>Mardi · Marché d'exemple A</option><option>Mercredi · Marché d'exemple B</option><option>Vendredi · Marché d'exemple C</option><option>Dimanche · Marché d'exemple D</option></select></div>
+  <div id="post-fields"><label for="adr">Adresse de livraison</label><input id="adr" name="adresse" autocomplete="street-address">
+   <div class="two"><div><label for="cp">Code postal</label><input id="cp" name="code_postal" autocomplete="postal-code"></div><div><label for="ville">Ville</label><input id="ville" name="ville" autocomplete="address-level2"></div></div></div>
+  <label for="msg">Allergies, message ou dédicace</label><textarea id="msg" name="message"></textarea>
+  <input type="hidden" name="panier" id="panier-field">
+  <button class="btn" type="submit" style="width:100%;margin-top:18px">Envoyer ma commande</button>
+  <div class="ok" id="ok"><b>Merci !</b> Votre commande est bien envoyée. Alex vous répond rapidement pour la confirmer.</div>
+ </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+ <div><b>Alex Pellegrino</b><br>Gâteaux faits maison · Marchés du Vaucluse<br>Téléphone et réseaux : à compléter</div>
+ <div>Allergènes : gluten, œufs, lait, fruits à coque (à confirmer par Alex).<br>Site créé par <a href="https://il4nstudio.netlify.app">il4n Studio</a>.</div>
+</div></footer>
+
+<script>
+const ICONS={
+ tarte:'<svg viewBox="0 0 100 100" fill="currentColor"><path d="M12 72 50 26 88 72z" fill-opacity=".35"/><path d="M10 72h80v11H10z"/><circle cx="44" cy="58" r="5"/><circle cx="58" cy="52" r="4"/><circle cx="54" cy="64" r="4"/></svg>',
+ gateau:'<svg viewBox="0 0 100 100" fill="currentColor"><rect x="18" y="50" width="64" height="32" rx="6"/><rect x="47" y="32" width="6" height="18" rx="2"/><path d="M50 18c5 6 5 10 0 13-5-3-5-7 0-13z"/></svg>',
+ cake:'<svg viewBox="0 0 100 100" fill="currentColor"><path d="M14 60c0-16 16-24 36-24s36 8 36 24v22H14z"/><path d="M26 52c10-7 38-7 48 0" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/></svg>',
+ cup:'<svg viewBox="0 0 100 100" fill="currentColor"><path d="M30 56h40l-6 30H36z"/><path d="M27 57c-4-15 11-19 15-14 2-11 18-11 20 0 6-5 17 1 11 14z" fill-opacity=".5"/><circle cx="50" cy="29" r="5"/></svg>',
+ choux:'<svg viewBox="0 0 100 100" fill="currentColor"><ellipse cx="50" cy="64" rx="33" ry="19"/><path d="M20 60c8-11 52-11 60 0-9 7-51 7-60 0z" fill-opacity=".4"/><circle cx="50" cy="38" r="10" fill-opacity=".65"/></svg>',
+ sable:'<svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="54" r="32" fill-opacity=".85"/><circle cx="40" cy="44" r="4" fill="#000" fill-opacity=".3"/><circle cx="60" cy="50" r="4" fill="#000" fill-opacity=".3"/><circle cx="46" cy="64" r="4" fill="#000" fill-opacity=".3"/></svg>'};
+const PRODUITS=[
+ {id:'tarte',nom:'Tarte aux fruits de saison',desc:'Pâte sablée, fruits frais du marché.',prix:18,unite:'la tarte',voyage:false,ic:'tarte',bg:'#f3dcc3',fg:'#c4623a'},
+ {id:'choco',nom:'Gâteau au chocolat',desc:'Fondant, au chocolat noir.',prix:16,unite:'le gâteau',voyage:false,ic:'gateau',bg:'#e7d3c1',fg:'#6b3a22'},
+ {id:'citron',nom:'Cake au citron',desc:'Moelleux, glaçage citron. Se garde bien.',prix:12,unite:'le cake',voyage:true,ic:'cake',bg:'#f6e8b8',fg:'#a9811a'},
+ {id:'cupcakes',nom:'Boîte de 6 cupcakes',desc:'Parfums au choix, à préciser dans le message.',prix:15,unite:'la boîte',voyage:false,ic:'cup',bg:'#f5d9d4',fg:'#b24a56'},
+ {id:'choux',nom:'Choux à la crème (x8)',desc:'Crème pâtissière, à retirer au marché.',prix:14,unite:'la boîte',voyage:false,ic:'choux',bg:'#efe2c8',fg:'#9a6b2a'},
+ {id:'sables',nom:'Sablés maison (sachet)',desc:'Beurre et amande. Idéal pour offrir et envoyer.',prix:8,unite:'le sachet',voyage:true,ic:'sable',bg:'#e9efd9',fg:'#5b6b3a'}];
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+let panier={};
+try{panier=JSON.parse(localStorage.getItem('panier-alex')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('panier-alex',JSON.stringify(panier))}catch(e){}};
+document.getElementById('grid').innerHTML=PRODUITS.map(p=>`<article class="card"><div class="pic" style="--bg:${p.bg};--fg:${p.fg}">${ICONS[p.ic]}</div><div class="bd"><div class="tags"><span class="tag ${p.voyage?'':'f'}">${p.voyage?'Voyage':'Frais · retrait'}</span></div><h3>${p.nom}</h3><p>${p.desc}</p><div class="row"><span class="price">${eur(p.prix)} <small>${p.unite}</small></span><button class="add" data-id="${p.id}">Ajouter</button></div><span class="demo">exemple, prix à définir</span></div></article>`).join('');
+function lignes(){return PRODUITS.filter(p=>panier[p.id]>0).map(p=>({...p,q:panier[p.id]}))}
+function maj(){
+ const L=lignes(),tot=L.reduce((s,l)=>s+l.q*l.prix,0),n=L.reduce((s,l)=>s+l.q,0);
+ document.getElementById('count').textContent=n;
+ document.getElementById('total').textContent=eur(tot);
+ document.getElementById('lines').innerHTML=L.length?L.map(l=>`<li><span>${l.nom}<br><small>${eur(l.prix)} ${l.unite}</small></span><span class="qty"><button data-m="${l.id}" aria-label="Moins">−</button><b>${l.q}</b><button data-p="${l.id}" aria-label="Plus">+</button></span><b>${eur(l.q*l.prix)}</b></li>`).join(''):'<li class="empty">Votre commande est vide. Ajoutez des gâteaux ci-dessus.</li>';
+ const frais=L.some(l=>!l.voyage), poste=document.getElementById('m-poste'), radioPoste=poste.querySelector('input');
+ poste.classList.toggle('off',frais||!L.length); 
+ if((frais)&&radioPoste.checked){document.querySelector('#m-retrait input').checked=true}
+ document.getElementById('warn').style.display=(frais&&L.length)?'block':'none';
+ modeUI();
+ document.getElementById('panier-field').value=L.map(l=>`${l.q} x ${l.nom} (${eur(l.prix)})`).join(' | ')+' | TOTAL '+eur(tot);
+ save();
+}
+function modeUI(){
+ const m=document.querySelector('input[name=mode]:checked').value;
+ document.getElementById('m-retrait').classList.toggle('on',m==='retrait');
+ document.getElementById('m-poste').classList.toggle('on',m==='poste');
+ document.getElementById('retrait-fields').style.display=m==='retrait'?'block':'none';
+ document.getElementById('post-fields').style.display=m==='poste'?'block':'none';
+ ['adr','cp','ville'].forEach(i=>document.getElementById(i).required=(m==='poste'));
+}
+document.addEventListener('click',e=>{
+ const a=e.target.closest('[data-id]'),p=e.target.closest('[data-p]'),m=e.target.closest('[data-m]');
+ if(a){panier[a.dataset.id]=(panier[a.dataset.id]||0)+1;maj();a.textContent='Ajouté ✓';setTimeout(()=>a.textContent='Ajouter',900)}
+ if(p){panier[p.dataset.p]++;maj()}
+ if(m){panier[m.dataset.m]=Math.max(0,panier[m.dataset.m]-1);maj()}
+});
+document.getElementById('open-cart').onclick=()=>document.getElementById('commander').scrollIntoView({behavior:'smooth'});
+document.querySelectorAll('input[name=mode]').forEach(r=>r.addEventListener('change',e=>{
+ if(e.target.value==='poste'&&lignes().some(l=>!l.voyage)){document.querySelector('#m-retrait input').checked=true}
+ modeUI()}));
+document.getElementById('form').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!lignes().length){alert('Ajoutez au moins un gâteau à votre commande.');return}
+ const f=e.target,data=new URLSearchParams(new FormData(f));
+ try{
+  const r=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:data.toString()});
+  if(!r.ok)throw new Error('envoi');
+  document.getElementById('ok').style.display='block';panier={};maj();f.reset();modeUI();
+ }catch(err){
+  const corps=encodeURIComponent('Commande de '+f.nom.value+'\nTéléphone : '+f.telephone.value+'\nMode : '+f.mode.value+'\n'+document.getElementById('panier-field').value+'\n'+f.message.value);
+  location.href='mailto:alex@exemple.fr?subject='+encodeURIComponent('Commande gâteaux')+'&body='+corps;
+ }
+});
+maj();
+</script>
+</body>
+</html>
