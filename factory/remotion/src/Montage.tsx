@@ -2,6 +2,7 @@
 // (engine/render/player/films/*.js). L'image vient du rendu « propre » du film (?v=clean : ni textes, ni compteur,
 // ni transitions), le son vient du mixeur du moteur : le timing est identique, donc tout reste synchrone.
 import React from 'react';
+import { MotionFX } from './Motion';
 import { AbsoluteFill, Audio, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, Easing } from 'remotion';
 
 export type Words = [string, string][];
@@ -179,6 +180,7 @@ export const Montage: React.FC<MontageProps> = ({ spec, variant, video, audio })
     <AbsoluteFill style={{ background: '#000' }}>
       <style>{FONT}</style>
       <Picture src={video} cuts={spec.cuts} />
+      <MotionFX spec={spec} />
       {spec.bands.map(([a, b], i) => <TopBand key={i} from={a} to={b} />)}
       {hook[0] && <Pop words={hook[0]} start={0} end={spec.hook.end} size={96} y={430} />}
       {hook[1] && <Pop words={hook[1]} start={spec.hook.line2At} end={spec.hook.end} size={104} y={545} />}

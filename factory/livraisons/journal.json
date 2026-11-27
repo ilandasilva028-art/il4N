@@ -124,5 +124,14 @@
     "score": 93.8,
     "max": 96,
     "file": "livraisons/2026-11-26-accueil/accueil.mp4"
+  },
+  {
+    "date": "2026-11-27",
+    "vision": "gta6",
+    "film": "j20261127-gta6",
+    "version": "v2",
+    "score": 91.7,
+    "max": 96,
+    "file": "livraisons/2026-11-27-gta6/gta6.mp4"
   }
 ]
