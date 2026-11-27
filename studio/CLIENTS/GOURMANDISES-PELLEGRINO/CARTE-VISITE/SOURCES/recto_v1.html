@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<!-- Les Gourmandises Pellegrino — carte de visite v1 (maquette) — recto 85×55 mm.
+     Icônes et police du nom reprises à l'identique du fichier client (fouet/spatule, cupcake : tracés vectoriels extraits ; Great Vibes).
+     Faits utilisés : nom, téléphone, 6 jours de marché sur 7 (planning fourni). -->
+<link rel="stylesheet" href="print-base.css">
+<style>
+  @font-face { font-family: Script; src: url(fonts/GreatVibes-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-900.ttf); font-weight: 900; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-800.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(fonts/Inter-700.ttf); font-weight: 700; }
+  :root { --w: 85mm; --h: 55mm; --bleed: 3mm; --safe: 4mm; --bg: #1a1412; }
+  .bleed { background: #1a1412; }
+  /* bandeau cuivre à fines rayures diagonales (rappel du bandeau de la carte actuelle), jusqu'au fond perdu */
+  .bande { position: absolute; top: 0; bottom: 0; right: 0; width: calc(var(--bleed) + 24.5mm); }
+  .trim { font-family: Inter, sans-serif; color: #f4ece2; }
+  .icones { position: absolute; left: 4.6mm; top: 5mm; width: 11.5mm; }
+  .icones img { display: block; width: 100%; }
+  .nom1 { position: absolute; left: 4.4mm; top: 11.6mm; font-family: Script, cursive; font-size: 17pt; line-height: 1; color: #f4ece2; }
+  .nom2 { position: absolute; left: 7mm; top: 17.4mm; font-family: Script, cursive; font-size: 31pt; line-height: 1; color: #d89a73; }
+  .filet { position: absolute; left: 4.6mm; top: 34.6mm; width: 18mm; height: .35mm; background: #c98a63; }
+  .accroche { position: absolute; left: 4.6mm; top: 36.6mm; font-size: 6.8pt; font-weight: 800; letter-spacing: .12em; color: #d89a73; line-height: 1.35; }
+  .tel { position: absolute; left: 4.6mm; bottom: 4.4mm; font-size: 12.5pt; font-weight: 800; letter-spacing: .02em; color: #f4ece2; }
+  /* médaillon dans le bandeau */
+  .medaille { position: absolute; right: 4.6mm; top: 8.4mm; width: 17mm; height: 17mm; border-radius: 50%; background: #1a1412;
+              border: .45mm solid #f4ece2; display: flex; align-items: center; justify-content: center; }
+  .medaille img { width: 8.6mm; display: block; }
+  .jours { position: absolute; right: 4.6mm; width: 17mm; top: 28.4mm; text-align: center; color: #1a1412; line-height: 1; }
+  .jours b { display: block; font-size: 21pt; font-weight: 900; letter-spacing: -.04em; }
+  .jours span { display: block; font-size: 6.8pt; font-weight: 800; letter-spacing: .04em; margin-top: .9mm; line-height: 1.25; }
+</style></head>
+<body><div class="page">
+  <div class="bleed">
+    <svg class="bande" id="bande" preserveAspectRatio="none"></svg>
+  </div>
+  <div class="trim" style="outline:none">
+    <div class="icones"><img src="icone_fouet_spatule.svg" alt=""></div>
+    <div class="nom1">Les Gourmandises</div>
+    <div class="nom2">Pellegrino</div>
+    <div class="filet"></div>
+    <div class="accroche">PLANNING DES MARCHÉS<br>AU DOS DE LA CARTE</div>
+    <div class="tel">06 73 61 57 65</div>
+    <div class="medaille"><img src="icone_cupcake.svg" alt=""></div>
+    <div class="jours"><b>6/7</b><span>JOURS DE<br>MARCHÉ</span></div>
+  </div>
+</div>
+<script>
+  // bandeau : aplat cuivre + rayures diagonales fines (vectoriel, couleurs pleines)
+  const svg = document.getElementById('bande'), w = 27.5, h = 61;
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  let s = `<rect width="${w}" height="${h}" fill="#c98a63"/>`;
+  for (let x = -h; x < w; x += 1.6) s += `<line x1="${x}" y1="${h}" x2="${x + h}" y2="0" stroke="#bd7d57" stroke-width=".5"/>`;
+  svg.innerHTML = s;
+</script>
+</body></html>
