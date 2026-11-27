@@ -1126,6 +1126,38 @@
     "#motivation",
     "#developpementpersonnel"
    ]
+  },
+  {
+   "id": "gta6",
+   "titre": "GTA 6 : tu attends, ou tu construis ?",
+   "accroche": [
+    "GTA 6 arrive.",
+    "Et toi, tu attends ?"
+   ],
+   "accrocheB": [
+    "Qui attend",
+    "qui ?"
+   ],
+   "metaphore": "Quatre façons d'attendre une sortie très attendue : précommander, rafraîchir la page, espérer une promo, ou construire en attendant.",
+   "lecon": "Attendre sans rien construire, c'est perdre son temps.",
+   "scenes": [
+    "l'Ego tombe de sa chaise",
+    "un plan par personnage",
+    "et toi, tu es lequel ?"
+   ],
+   "chute": [
+    "Et toi,",
+    "tu es lequel ?"
+   ],
+   "mot": "TU ATTENDS QUOI ?",
+   "serie": "TOI CONTRE TOI · GTA 6",
+   "hashtags": [
+    "#discipline",
+    "#mentalite",
+    "#personnalite",
+    "#motivation",
+    "#developpementpersonnel"
+   ]
   }
  ]
 }
